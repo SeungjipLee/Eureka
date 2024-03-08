@@ -9,12 +9,12 @@
 | Gradle        | 8.5       |             |
 |               |           |             |
 |               |           |             |
-| React         | 18.2      |             |
+| React Native  |           |             |
 | Node.js       | 20.11.0   |             |
 |               |           |             |
 |               |           |             |
 | MySQL         | 8.0.35    |             |
-|               |           |             |
+| Redis         | latest    |             |
 |               |           |             |
 
 <br />
@@ -31,7 +31,7 @@
 
 - `develop` : 개발 완료한 기능(feature)을 통합하는 브랜치
 
-- `feature/~~` : 기능 단위로 개발을 진행하는 브랜치
+- `feature/fe/~` : 기능 단위로 개발을 진행하는 브랜치
 
 - `document` : 개발 외적인 것에 대한 브랜치
 
