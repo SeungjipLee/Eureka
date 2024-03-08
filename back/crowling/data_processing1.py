@@ -11,7 +11,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 # 카드 신청 링크, 발급 가능 여부 추가
 
 # JSON 파일 경로
-json_file_path = "credit_crowling.json"
+json_file_path = "check_crowling.json"
 
 # JSON 파일 읽기
 with open(json_file_path, "r", encoding="utf-8") as json_file:
@@ -63,5 +63,5 @@ with open(json_file_path, "r", encoding="utf-8") as json_file:
     driver.quit()
 
     # 카드 정보 리스트가 업데이트된 상태로 저장됩니다.
-    with open("credit_processing1.json", "w", encoding="utf-8") as file:
+    with open("check_processing1.json", "w", encoding="utf-8") as file:
         json.dump(data, file, ensure_ascii=False)

@@ -22,7 +22,7 @@ driver = webdriver.Chrome(service=webdriver_service, options=options)
 wait = WebDriverWait(driver, 20)
 
 try:
-    driver.get("https://www.card-gorilla.com/search/card?cate=CRD")
+    driver.get("https://www.card-gorilla.com/search/card?cate=CHK")
     # 팝업창 제거
     # exit_popup_button_locator = (By.XPATH, "/html/body/div[4]/div[2]/div/button")
     # e_btn = wait.until(EC.element_to_be_clickable(exit_popup_button_locator))
@@ -173,5 +173,5 @@ try:
         print(len(data_list), card_data["카드이름"])
 finally:
     print(len(data_list))
-    with open("credit_crowling.json", "w", encoding="utf-8") as file:
+    with open("check_crowling.json", "w", encoding="utf-8") as file:
         json.dump({"data": data_list}, file, ensure_ascii=False)

@@ -44,7 +44,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2310/card_img/23676/2310card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/2310"
+      "register_path": "https://events.payco.com/app/share.nhn?evntPageNm=u1cXSrD",
+      "state": "발급가능"
     },
     {
       "index": 1,
@@ -120,7 +121,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2422/card_img/27141/2422card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/2422"
+      "register_path": "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?mainCC=a&cooperationcode=07964&solicitorcode=7030084002",
+      "state": "발급가능"
     },
     {
       "index": 2,
@@ -171,7 +173,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/281/card_img/20503/281card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/281"
+      "register_path": "https://www.shinhancard.com/pconts/html/card/apply/check/1188313_2206.html?EntryLoc2=2873&empSeq=5&btnApp=K0L1K3",
+      "state": "발급가능"
     },
     {
       "index": 3,
@@ -197,7 +200,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2432/card_img/27295/2432card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 4,
@@ -223,7 +227,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/283/card_img/20505/283card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/283"
+      "register_path": "https://www.shinhancard.com/pconts/html/card/apply/check/1187966_2206.html?EntryLoc2=2833&empSeq=1&btnApp=ab0",
+      "state": "발급가능"
     },
     {
       "index": 5,
@@ -299,7 +304,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2423/card_img/27142/2423card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/2423"
+      "register_path": "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?mainCC=a&cooperationcode=07972&solicitorcode=7030084002",
+      "state": "발급가능"
     },
     {
       "index": 6,
@@ -375,7 +381,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2570/card_img/29938/762card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 7,
@@ -431,7 +438,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/348/card_img/20581/348card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/348"
+      "register_path": "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01664&solicitorcode=7030084000",
+      "state": "발급가능"
     },
     {
       "index": 8,
@@ -462,7 +470,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2269/card_img/20697/2269card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 9,
@@ -498,7 +507,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2626/card_img/31677/2625card_1.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 10,
@@ -559,7 +569,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/618/card_img/21385/618card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/618"
+      "register_path": "https://www.shinhancard.com/pconts/html/card/apply/check/1196867_2206.html?EntryLoc2=2998&empSeq=514&btnApp=dp1",
+      "state": "발급가능"
     },
     {
       "index": 11,
@@ -630,7 +641,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/350/card_img/20594/350card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/350"
+      "register_path": "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01690&solicitorcode=7030084000",
+      "state": "발급가능"
     },
     {
       "index": 12,
@@ -666,7 +678,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2601/card_img/31113/2601card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 13,
@@ -697,7 +710,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/435/card_img/20935/435card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 14,
@@ -738,7 +752,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/362/card_img/20603/362card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 15,
@@ -769,7 +784,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/360/card_img/25852/360card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 16,
@@ -815,7 +831,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2667/card_img/32473/2660card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 17,
@@ -851,7 +868,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/584/card_img/31096/584card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 18,
@@ -902,7 +920,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/286/card_img/20508/286card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/286"
+      "register_path": "https://www.shinhancard.com/pconts/html/card/apply/check/1187963_2206.html?EntryLoc2=2940&empSeq=3",
+      "state": "발급가능"
     },
     {
       "index": 19,
@@ -948,7 +967,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/335/card_img/20579/335card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/335"
+      "register_path": "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01988&solicitorcode=7030084000",
+      "state": "발급가능"
     },
     {
       "index": 20,
@@ -984,7 +1004,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2492/card_img/28476/2492card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/2492"
+      "register_path": "https://www.shinhancard.com/pconts/html/card/apply/check/1220330_2206.html?empSeq=502",
+      "state": "발급가능"
     },
     {
       "index": 21,
@@ -1020,7 +1041,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1809/card_img/22300/1809card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/1809"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 22,
@@ -1052,7 +1074,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2552/card_img/29589/2552card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 23,
@@ -1103,7 +1126,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/739/card_img/22213/739card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 24,
@@ -1129,7 +1153,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2620/card_img/31489/2620card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 25,
@@ -1165,7 +1190,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2394/card_img/25975/2394card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 26,
@@ -1186,7 +1212,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2268/card_img/20698/2268card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 27,
@@ -1232,7 +1259,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/646/card_img/21410/646card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/646"
+      "register_path": "https://www.shinhancard.com/pconts/html/card/apply/check/1187959_2206.html?EntryLoc=2927&empSeq=558&btnApp=dp1",
+      "state": "발급가능"
     },
     {
       "index": 28,
@@ -1293,7 +1321,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/743/card_img/28952/743card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 29,
@@ -1364,7 +1393,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/528/card_img/21216/528card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 30,
@@ -1396,7 +1426,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2425/card_img/27182/2425card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 31,
@@ -1452,7 +1483,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/346/card_img/20591/346card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/346"
+      "register_path": "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01560&solicitorcode=7030084000",
+      "state": "발급가능"
     },
     {
       "index": 32,
@@ -1488,7 +1520,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2519/card_img/28824/2519card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 33,
@@ -1524,7 +1557,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2379/card_img/25379/2379card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/2379"
+      "register_path": "https://www.shinhancard.com/pconts/html/card/apply/check/1216927_2206.html?EntryLoc2=3209&empSeq=507&btnApp=dp1",
+      "state": "발급가능"
     },
     {
       "index": 34,
@@ -1560,7 +1594,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1765/card_img/22348/1765card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 35,
@@ -1621,7 +1656,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/614/card_img/21381/614card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/614"
+      "register_path": "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01918&solicitorcode=7030084000",
+      "state": "발급가능"
     },
     {
       "index": 36,
@@ -1642,7 +1678,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/407/card_img/28394/407card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 37,
@@ -1693,7 +1730,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2001/card_img/21997/2001card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 38,
@@ -1754,7 +1792,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/559/card_img/21264/559card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/559"
+      "register_path": "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01900&solicitorcode=7030084000",
+      "state": "발급가능"
     },
     {
       "index": 39,
@@ -1785,7 +1824,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/676/card_img/21441/676card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 40,
@@ -1836,7 +1876,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/454/card_img/20970/454card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/454"
+      "register_path": "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01998&solicitorcode=7030084000",
+      "state": "발급가능"
     },
     {
       "index": 41,
@@ -1867,7 +1908,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/746/card_img/27830/746card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 42,
@@ -1908,7 +1950,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/312/card_img/20557/312card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/312"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 43,
@@ -1959,7 +2002,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2094/card_img/21906/2094card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 44,
@@ -2035,7 +2079,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2588/card_img/30834/2588card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 45,
@@ -2101,7 +2146,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/343/card_img/20588/343card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/343"
+      "register_path": "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01556&solicitorcode=7030084000",
+      "state": "발급가능"
     },
     {
       "index": 46,
@@ -2142,7 +2188,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/337/card_img/20582/337card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/337"
+      "register_path": "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01946&solicitorcode=7030084000",
+      "state": "발급가능"
     },
     {
       "index": 47,
@@ -2163,7 +2210,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/460/card_img/20981/460card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/460"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 48,
@@ -2219,7 +2267,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/325/card_img/20570/325card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 49,
@@ -2260,7 +2309,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2528/card_img/28966/2528card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 50,
@@ -2286,7 +2336,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/382/card_img/20882/382card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 51,
@@ -2327,7 +2378,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/571/card_img/21304/571card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 52,
@@ -2358,7 +2410,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2556/card_img/29633/2556card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 53,
@@ -2384,7 +2437,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/334/card_img/20578/334card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/334"
+      "register_path": "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01974&solicitorcode=7030084000",
+      "state": "발급가능"
     },
     {
       "index": 54,
@@ -2410,7 +2464,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2225/card_img/21356/2225card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 55,
@@ -2451,7 +2506,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/486/card_img/21176/486card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 56,
@@ -2497,7 +2553,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2227/card_img/21354/2227card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 57,
@@ -2523,7 +2580,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2561/card_img/29919/2561card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 58,
@@ -2559,7 +2617,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/341/card_img/20586/341card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/341"
+      "register_path": "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01930&solicitorcode=7030084000",
+      "state": "발급가능"
     },
     {
       "index": 59,
@@ -2630,7 +2689,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/342/card_img/20587/342card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/342"
+      "register_path": "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01670&solicitorcode=7030084000",
+      "state": "발급가능"
     },
     {
       "index": 60,
@@ -2661,7 +2721,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/368/card_img/20609/368card.jpg",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 61,
@@ -2697,7 +2758,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2303/card_img/23334/2303card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 62,
@@ -2738,7 +2800,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2563/card_img/29688/2563card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 63,
@@ -2779,7 +2842,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/586/card_img/21342/586card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 64,
@@ -2810,7 +2874,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/669/card_img/21434/669card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 65,
@@ -2851,7 +2916,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/585/card_img/21340/585card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 66,
@@ -2912,7 +2978,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/762/card_img/26507/762card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/762"
+      "register_path": "https://www.card-gorilla.com/",
+      "state": "발급가능"
     },
     {
       "index": 67,
@@ -2973,7 +3040,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2604/card_img/31223/2604card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 68,
@@ -3019,7 +3087,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2426/card_img/27197/2426card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/2426"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 69,
@@ -3050,7 +3119,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/284/card_img/20506/284card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 70,
@@ -3091,7 +3161,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2643/card_img/32063/2643card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 71,
@@ -3117,7 +3188,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/690/card_img/22163/690card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 72,
@@ -3188,7 +3260,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/446/card_img/20952/446card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 73,
@@ -3219,7 +3292,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2639/card_img/31958/2639card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 74,
@@ -3250,7 +3324,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/686/card_img/21451/686card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 75,
@@ -3296,7 +3371,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2454/card_img/27870/2454card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 76,
@@ -3322,7 +3398,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/415/card_img/28397/415card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 77,
@@ -3348,7 +3425,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/378/card_img/20878/378card.jpg",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 78,
@@ -3379,7 +3457,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/394/card_img/28057/394card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 79,
@@ -3410,7 +3489,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/749/card_img/22223/749card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 80,
@@ -3456,7 +3536,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2582/card_img/30129/2582card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 81,
@@ -3482,7 +3563,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2421/card_img/27093/2421card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 82,
@@ -3508,7 +3590,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/414/card_img/28396/414card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 83,
@@ -3539,7 +3622,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/670/card_img/21435/670card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/670"
+      "register_path": "https://www.shinhancard.com/pconts/html/card/apply/check/1198442_2206.html?EntryLoc2=3010&empSeq=1",
+      "state": "발급가능"
     },
     {
       "index": 84,
@@ -3590,7 +3674,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2332/card_img/24588/2332card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/2332"
+      "register_path": "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?mainCC=a&cooperationcode=09652&solicitorcode=7030084002",
+      "state": "발급가능"
     },
     {
       "index": 85,
@@ -3621,7 +3706,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2320/card_img/23848/2320card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 86,
@@ -3667,7 +3753,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/278/card_img/20500/278card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 87,
@@ -3743,7 +3830,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2550/card_img/29586/2550card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 88,
@@ -3769,7 +3857,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/748/card_img/22222/748card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 89,
@@ -3845,7 +3934,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2628/card_img/31739/2628card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 90,
@@ -3886,7 +3976,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/647/card_img/21411/647card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/647"
+      "register_path": "https://www.shinhancard.com/pconts/html/card/apply/check/1187961_2206.html?EntryLoc2=2947&empSeq=3",
+      "state": "발급가능"
     },
     {
       "index": 91,
@@ -3927,7 +4018,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/367/card_img/20608/367card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 92,
@@ -3958,7 +4050,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/642/card_img/21406/642card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 93,
@@ -3994,7 +4087,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/752/card_img/22226/752card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 94,
@@ -4030,7 +4124,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2438/card_img/27467/2438card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 95,
@@ -4081,7 +4176,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2562/card_img/29687/2562card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 96,
@@ -4112,7 +4208,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2216/card_img/21769/2216card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 97,
@@ -4138,7 +4235,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/545/card_img/21251/545card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 98,
@@ -4169,7 +4267,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/299/card_img/20522/299card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 99,
@@ -4200,7 +4299,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/404/card_img/20902/404card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 100,
@@ -4261,7 +4361,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1258/card_img/21049/1258card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 101,
@@ -4302,7 +4403,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2527/card_img/28967/2527card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 102,
@@ -4333,7 +4435,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/375/card_img/20874/375card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 103,
@@ -4364,7 +4467,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/402/card_img/20900/402card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 104,
@@ -4410,7 +4514,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/713/card_img/22187/713card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 105,
@@ -4456,7 +4561,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2509/card_img/28715/2509card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 106,
@@ -4502,7 +4608,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2219/card_img/21765/2219card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 107,
@@ -4528,7 +4635,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/316/card_img/20562/316card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 108,
@@ -4564,7 +4672,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/532/card_img/21229/532card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 109,
@@ -4600,7 +4709,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/315/card_img/20560/315card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 110,
@@ -4626,7 +4736,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/403/card_img/20901/403card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 111,
@@ -4687,7 +4798,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/331/card_img/20575/331card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/331"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 112,
@@ -4708,7 +4820,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/370/card_img/20867/370card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 113,
@@ -4769,7 +4882,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/823/card_img/21719/823card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 114,
@@ -4800,7 +4914,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/437/card_img/20940/437card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/437"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 115,
@@ -4851,7 +4966,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/674/card_img/21439/674card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 116,
@@ -4892,7 +5008,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2510/card_img/28716/2510card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 117,
@@ -4958,7 +5075,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/351/card_img/20595/351card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/351"
+      "register_path": "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01552&solicitorcode=7030084000",
+      "state": "발급가능"
     },
     {
       "index": 118,
@@ -4984,7 +5102,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2189/card_img/21803/2189card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 119,
@@ -5005,7 +5124,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/391/card_img/20890/391card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 120,
@@ -5041,7 +5161,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/497/card_img/21186/497card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 121,
@@ -5082,7 +5203,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/572/card_img/21305/572card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 122,
@@ -5123,7 +5245,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2170/card_img/21817/2170card.gif",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 123,
@@ -5154,7 +5277,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2437/card_img/27465/2437card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 124,
@@ -5185,7 +5309,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/354/card_img/20597/354card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 125,
@@ -5246,7 +5371,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2568/card_img/29903/2568card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 126,
@@ -5282,7 +5408,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/722/card_img/22196/722card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 127,
@@ -5308,7 +5435,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/517/card_img/21202/517card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 128,
@@ -5349,7 +5477,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/332/card_img/20576/332card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 129,
@@ -5420,7 +5549,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/347/card_img/20592/347card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/347"
+      "register_path": "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01680&solicitorcode=7030084000",
+      "state": "발급가능"
     },
     {
       "index": 130,
@@ -5456,7 +5586,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2197/card_img/21811/2197card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 131,
@@ -5517,7 +5648,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/574/card_img/21307/574card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 132,
@@ -5553,7 +5685,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/313/card_img/20558/313card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/313"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 133,
@@ -5589,7 +5722,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/638/card_img/32199/638card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 134,
@@ -5620,7 +5754,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2338/card_img/24301/2338card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/2338"
+      "register_path": "https://www.shinhancard.com/pconts/html/card/apply/check/1214928_2206.html?EntryLoc=3141&empSeq=521&btnApp=dp1",
+      "state": "발급가능"
     },
     {
       "index": 135,
@@ -5636,7 +5771,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1523/card_img/20209/1523card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 136,
@@ -5672,7 +5808,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/457/card_img/20978/457card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/457"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 137,
@@ -5703,7 +5840,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/819/card_img/21723/819card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 138,
@@ -5739,7 +5877,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2220/card_img/21764/2220card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 139,
@@ -5780,7 +5919,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/677/card_img/21442/677card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 140,
@@ -5811,7 +5951,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1526/card_img/32519/1526card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 141,
@@ -5832,7 +5973,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2317/card_img/23742/2317card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 142,
@@ -5888,7 +6030,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/575/card_img/21312/575card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 143,
@@ -5909,7 +6052,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2665/card_img/32418/2665card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 144,
@@ -5940,7 +6084,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/393/card_img/28056/393card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 145,
@@ -5966,7 +6111,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1907/card_img/24418/1907card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 146,
@@ -6002,7 +6148,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2471/card_img/28241/2471card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 147,
@@ -6028,7 +6175,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/388/card_img/20887/388card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 148,
@@ -6054,7 +6202,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2321/card_img/23849/2321card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 149,
@@ -6120,7 +6269,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/298/card_img/20521/298card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/298"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 150,
@@ -6151,7 +6301,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/436/card_img/20937/436card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 151,
@@ -6172,7 +6323,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2314/card_img/31660/2314card_2.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 152,
@@ -6188,7 +6340,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2217/card_img/21768/2217card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 153,
@@ -6224,7 +6377,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/302/card_img/20525/302card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 154,
@@ -6280,7 +6434,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/392/card_img/28055/392card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 155,
@@ -6306,7 +6461,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2400/card_img/26209/2400card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 156,
@@ -6347,7 +6503,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/680/card_img/21445/680card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 157,
@@ -6373,7 +6530,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2456/card_img/28028/2456card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 158,
@@ -6404,7 +6562,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2430/card_img/27293/2430card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 159,
@@ -6460,7 +6619,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/668/card_img/32465/668card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 160,
@@ -6506,7 +6666,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/812/card_img/21730/812card.gif",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 161,
@@ -6547,7 +6708,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2625/card_img/31642/2625card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 162,
@@ -6588,7 +6750,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/442/card_img/22257/442card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 163,
@@ -6649,7 +6812,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/441/card_img/20947/441card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 164,
@@ -6680,7 +6844,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/303/card_img/20526/303card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 165,
@@ -6741,7 +6906,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1616/card_img/22580/1616card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 166,
@@ -6782,7 +6948,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/338/card_img/20583/338card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/338"
+      "register_path": "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=09166&solicitorcode=7030084000",
+      "state": "발급가능"
     },
     {
       "index": 167,
@@ -6803,7 +6970,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/408/card_img/28395/408card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 168,
@@ -6839,7 +7007,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2475/card_img/28411/2475card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 169,
@@ -6860,7 +7029,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2222/card_img/21762/2222card.jpg",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 170,
@@ -6881,7 +7051,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/498/card_img/21187/498card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 171,
@@ -6912,7 +7083,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1623/card_img/22573/1623card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 172,
@@ -6943,7 +7115,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/643/card_img/21407/643card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 173,
@@ -6989,7 +7162,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/294/card_img/20517/294card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 174,
@@ -7020,7 +7194,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2372/card_img/25330/2372card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/2372"
+      "register_path": "https://www.shinhancard.com/pconts/html/card/apply/check/1216831_2206.html?EntryLoc2=3207&empSeq=501&btnApp=DP1A",
+      "state": "발급가능"
     },
     {
       "index": 175,
@@ -7056,7 +7231,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/336/card_img/20580/336card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/336"
+      "register_path": "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=09156&solicitorcode=7030084000",
+      "state": "발급가능"
     },
     {
       "index": 176,
@@ -7092,7 +7268,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2439/card_img/27484/2439card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 177,
@@ -7123,7 +7300,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2362/card_img/28646/2362card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 178,
@@ -7164,7 +7342,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1259/card_img/21048/1259card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 179,
@@ -7185,7 +7364,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/756/card_img/22230/756card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 180,
@@ -7216,7 +7396,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/754/card_img/28067/754card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 181,
@@ -7257,7 +7438,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2637/card_img/31886/2637card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 182,
@@ -7333,7 +7515,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1964/card_img/22034/1964card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 183,
@@ -7369,7 +7552,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2399/card_img/26192/2399card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 184,
@@ -7395,7 +7579,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2512/card_img/28737/2512card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 185,
@@ -7436,7 +7621,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2508/card_img/28714/2508card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 186,
@@ -7482,7 +7668,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/689/card_img/22162/689card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/689"
+      "register_path": "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?mainCC=a&cooperationcode=01582&solicitorcode=7030084002",
+      "state": "발급가능"
     },
     {
       "index": 187,
@@ -7518,7 +7705,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/523/card_img/21208/523card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 188,
@@ -7549,7 +7737,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2431/card_img/27294/2431card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 189,
@@ -7585,7 +7774,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/573/card_img/21306/573card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 190,
@@ -7646,7 +7836,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1463/card_img/20611/1463card.jpg",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 191,
@@ -7702,7 +7893,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/340/card_img/20585/340card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/340"
+      "register_path": "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01666&solicitorcode=7030084000",
+      "state": "발급가능"
     },
     {
       "index": 192,
@@ -7748,7 +7940,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2478/card_img/28333/2478card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 193,
@@ -7779,7 +7972,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/361/card_img/20602/361card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 194,
@@ -7840,7 +8034,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/767/card_img/32466/767card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 195,
@@ -7891,7 +8086,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1490/card_img/20409/1490card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 196,
@@ -7922,7 +8118,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/296/card_img/20519/296card.gif",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 197,
@@ -7963,7 +8160,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/499/card_img/21188/499card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 198,
@@ -7999,7 +8197,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/364/card_img/20605/364card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 199,
@@ -8035,7 +8234,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2092/card_img/21908/2092card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 200,
@@ -8061,7 +8261,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/400/card_img/20899/400card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 201,
@@ -8087,7 +8288,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/380/card_img/20880/380card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 202,
@@ -8118,7 +8320,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/775/card_img/22249/775card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 203,
@@ -8149,7 +8352,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2224/card_img/21357/2224card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 204,
@@ -8195,7 +8399,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/279/card_img/20501/279card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 205,
@@ -8221,7 +8426,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2589/card_img/30838/2589card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 206,
@@ -8257,7 +8463,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2343/card_img/24358/2343card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/2343"
+      "register_path": "https://www.shinhancard.com/pconts/html/card/apply/check/1214936_2206.html?EntryLoc=3142&empSeq=521&btnApp=dp1",
+      "state": "발급가능"
     },
     {
       "index": 207,
@@ -8283,7 +8490,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2223/card_img/21358/2223card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 208,
@@ -8324,7 +8532,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2600/card_img/31093/2560card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 209,
@@ -8350,7 +8559,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2443/card_img/27651/2443card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 210,
@@ -8391,7 +8601,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2599/card_img/31095/2599card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 211,
@@ -8422,7 +8633,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2417/card_img/26967/2417card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 212,
@@ -8443,7 +8655,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/371/card_img/20868/371card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 213,
@@ -8464,7 +8677,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/444/card_img/20950/444card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 214,
@@ -8500,7 +8714,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1039/card_img/21496/1039card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 215,
@@ -8566,7 +8781,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1932/card_img/22066/1932card.jpg",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 216,
@@ -8597,7 +8813,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2614/card_img/31369/2614card%5B1%5D.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 217,
@@ -8633,7 +8850,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/329/card_img/20573/329card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/329"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 218,
@@ -8674,7 +8892,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/679/card_img/21444/679card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 219,
@@ -8700,7 +8919,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2597/card_img/31066/2597card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 220,
@@ -8736,7 +8956,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1572/card_img/22656/1572card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/1572"
+      "register_path": "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?mainCC=a&cooperationcode=01588&solicitorcode=7030084002",
+      "state": "발급가능"
     },
     {
       "index": 221,
@@ -8797,7 +9018,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/561/card_img/21266/561card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/561"
+      "register_path": "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01904&solicitorcode=7030084000",
+      "state": "발급가능"
     },
     {
       "index": 222,
@@ -8853,7 +9075,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/810/card_img/21733/810card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 223,
@@ -8889,7 +9112,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2507/card_img/28654/2507card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 224,
@@ -8910,7 +9134,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2191/card_img/21805/2191card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 225,
@@ -8951,7 +9176,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/345/card_img/20590/345card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/345"
+      "register_path": "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01928&solicitorcode=7030084000",
+      "state": "발급가능"
     },
     {
       "index": 226,
@@ -9012,7 +9238,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1988/card_img/22010/1988card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 227,
@@ -9053,7 +9280,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2285/card_img/20681/2285card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/2285"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 228,
@@ -9094,7 +9322,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/725/card_img/22199/725card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/725"
+      "register_path": "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?cooperationcode=01774&mainCC=a&solicitorcode=7020084000",
+      "state": "발급가능"
     },
     {
       "index": 229,
@@ -9120,7 +9349,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2323/card_img/23852/2323card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 230,
@@ -9166,7 +9396,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2506/card_img/28653/2506card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 231,
@@ -9212,7 +9443,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2073/card_img/21926/2073card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 232,
@@ -9238,7 +9470,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1323/card_img/20858/1323card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 233,
@@ -9269,7 +9502,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/683/card_img/21448/683card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 234,
@@ -9300,7 +9534,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/301/card_img/20524/301card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 235,
@@ -9336,7 +9571,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2215/card_img/21770/2215card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 236,
@@ -9372,7 +9608,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/300/card_img/20523/300card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 237,
@@ -9438,7 +9675,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/576/card_img/21313/576card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/576"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 238,
@@ -9489,7 +9727,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1324/card_img/20857/1324card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 239,
@@ -9530,7 +9769,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2173/card_img/21787/2173card.gif",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 240,
@@ -9556,7 +9796,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2390/card_img/25822/2390card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 241,
@@ -9592,7 +9833,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2060/card_img/21939/2060card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 242,
@@ -9628,7 +9870,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/282/card_img/20504/282card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 243,
@@ -9674,7 +9917,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/330/card_img/20574/330card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/330"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 244,
@@ -9700,7 +9944,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/750/card_img/22224/750card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 245,
@@ -9721,7 +9966,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1963/card_img/22035/1963card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 246,
@@ -9757,7 +10003,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/770/card_img/22244/770card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/770"
+      "register_path": "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?mainCC=a&cooperationcode=09613&solicitorcode=7030084002",
+      "state": "발급가능"
     },
     {
       "index": 247,
@@ -9813,7 +10060,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1903/card_img/22093/1903card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/1903"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 248,
@@ -9854,7 +10102,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1451/card_img/20623/1451card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 249,
@@ -9895,7 +10144,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2147/card_img/21829/2147card.jpg",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 250,
@@ -9951,7 +10201,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2058/card_img/21941/2058card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 251,
@@ -9977,7 +10228,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/675/card_img/21440/675card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 252,
@@ -10013,7 +10265,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2375/card_img/25324/2375card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/2375"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 253,
@@ -10059,7 +10312,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1392/card_img/20750/1392card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 254,
@@ -10080,7 +10334,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1202/card_img/21106/1202card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 255,
@@ -10116,7 +10371,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2072/card_img/21927/2072card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 256,
@@ -10172,7 +10428,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/295/card_img/20518/295card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/295"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 257,
@@ -10203,7 +10460,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/290/card_img/20513/290card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/290"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 258,
@@ -10259,7 +10517,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/292/card_img/20515/292card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/292"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 259,
@@ -10305,7 +10564,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1260/card_img/21047/1260card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 260,
@@ -10346,7 +10606,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/794/card_img/21748/794card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 261,
@@ -10372,7 +10633,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/317/card_img/20563/317card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/317"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 262,
@@ -10393,7 +10655,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2668/card_img/32476/2668card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 263,
@@ -10419,7 +10682,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/383/card_img/20883/383card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 264,
@@ -10465,7 +10729,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/373/card_img/20871/373card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 265,
@@ -10486,7 +10751,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/366/card_img/20607/366card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 266,
@@ -10517,7 +10783,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1285/card_img/21021/1285card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 267,
@@ -10553,7 +10820,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2547/card_img/29536/2547card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 268,
@@ -10599,7 +10867,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/807/card_img/21736/807card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 269,
@@ -10630,7 +10899,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2026/card_img/21972/2026card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 270,
@@ -10671,7 +10941,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2172/card_img/21786/2172card.gif",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 271,
@@ -10742,7 +11013,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/349/card_img/20593/349card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/349"
+      "register_path": "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01672&solicitorcode=7030084000",
+      "state": "발급가능"
     },
     {
       "index": 272,
@@ -10768,7 +11040,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2190/card_img/21804/2190card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 273,
@@ -10794,7 +11067,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/757/card_img/22231/757card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 274,
@@ -10825,7 +11099,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2334/card_img/24279/2334card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 275,
@@ -10846,7 +11121,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2272/card_img/20694/2272card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 276,
@@ -10882,7 +11158,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2621/card_img/31491/2621card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 277,
@@ -10928,7 +11205,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1298/card_img/20986/1298card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 278,
@@ -10969,7 +11247,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2530/card_img/29047/2530card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 279,
@@ -11035,7 +11314,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1573/card_img/22652/1573card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 280,
@@ -11091,7 +11371,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/814/card_img/21728/814card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 281,
@@ -11142,7 +11423,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/333/card_img/20577/333card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/333"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 282,
@@ -11178,7 +11460,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/755/card_img/22229/755card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 283,
@@ -11204,7 +11487,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2319/card_img/23847/2319card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 284,
@@ -11225,7 +11509,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/328/card_img/20572/328card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 285,
@@ -11252,7 +11537,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/389/card_img/20888/389card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 286,
@@ -11283,7 +11569,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/344/card_img/20589/344card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/344"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 287,
@@ -11319,7 +11606,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2218/card_img/21767/2218card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 288,
@@ -11365,7 +11653,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1900/card_img/22096/1900card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/1900"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 289,
@@ -11391,7 +11680,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2192/card_img/21806/2192card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 290,
@@ -11432,7 +11722,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/641/card_img/21405/641card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 291,
@@ -11468,7 +11759,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2546/card_img/29535/2546card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 292,
@@ -11504,7 +11796,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2244/card_img/20993/2244card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 293,
@@ -11535,7 +11828,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/339/card_img/20584/339card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/339"
+      "register_path": "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01932&solicitorcode=7030084000",
+      "state": "발급가능"
     },
     {
       "index": 294,
@@ -11561,7 +11855,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/685/card_img/21450/685card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 295,
@@ -11607,7 +11902,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1699/card_img/23920/1699card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 296,
@@ -11643,7 +11939,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/372/card_img/20869/372card.jpg",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 297,
@@ -11674,7 +11971,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2012/card_img/21986/2012card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 298,
@@ -11730,7 +12028,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2370/card_img/25307/2370card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/2370"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 299,
@@ -11791,7 +12090,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1985/card_img/22013/1985card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 300,
@@ -11827,7 +12127,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/759/card_img/22233/759card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 301,
@@ -11858,7 +12159,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2311/card_img/23717/2311card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 302,
@@ -11924,7 +12226,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2140/card_img/21874/2140card.jpg",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 303,
@@ -11970,7 +12273,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/322/card_img/20567/322card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/322"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 304,
@@ -12006,7 +12310,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2247/card_img/20997/2247card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 305,
@@ -12037,7 +12342,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1302/card_img/28075/1302card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 306,
@@ -12058,7 +12364,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1256/card_img/21051/1256card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 307,
@@ -12089,7 +12396,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/326/card_img/20571/326card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/326"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 308,
@@ -12130,7 +12438,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/357/card_img/20599/357card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 309,
@@ -12156,7 +12465,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2221/card_img/21763/2221card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 310,
@@ -12192,7 +12502,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/355/card_img/20598/355card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/355"
+      "register_path": "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=04906&solicitorcode=7030084000",
+      "state": "발급가능"
     },
     {
       "index": 311,
@@ -12213,7 +12524,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/479/card_img/21169/479card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 312,
@@ -12259,7 +12571,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/311/card_img/20556/311card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 313,
@@ -12295,7 +12608,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2584/card_img/30744/2584card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 314,
@@ -12341,7 +12655,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2165/card_img/21822/2165card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 315,
@@ -12387,7 +12702,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2212/card_img/21773/2212card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 316,
@@ -12423,7 +12739,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/599/card_img/21366/599card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 317,
@@ -12449,7 +12766,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2027/card_img/21971/2027card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 318,
@@ -12505,7 +12823,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2082/card_img/21917/2082card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/2082"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 319,
@@ -12536,7 +12855,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1979/card_img/22019/1979card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 320,
@@ -12567,7 +12887,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2313/card_img/23842/2313card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 321,
@@ -12598,7 +12919,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2333/card_img/24278/2333card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 322,
@@ -12629,7 +12951,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/684/card_img/21449/684card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 323,
@@ -12655,7 +12978,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/390/card_img/20889/390card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 324,
@@ -12706,7 +13030,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2391/card_img/25864/2391card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/2391"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 325,
@@ -12737,7 +13062,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2373/card_img/25322/2374card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/2373"
+      "register_path": "https://www.shinhancard.com/pconts/html/card/apply/check/1216884_2206.html?EntryLoc=3200&empSeq=504&btnApp=dp1",
+      "state": "발급가능"
     },
     {
       "index": 326,
@@ -12768,7 +13094,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2673/card_img/32635/2666card_%40.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 327,
@@ -12799,7 +13126,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2374/card_img/25323/2373card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/2374"
+      "register_path": "https://www.shinhancard.com/pconts/html/card/apply/check/1216885_2206.html?EntryLoc=3201&empSeq=504&btnApp=dp1",
+      "state": "발급가능"
     },
     {
       "index": 328,
@@ -12840,7 +13168,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1493/card_img/20392/1493card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 329,
@@ -12881,7 +13210,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2174/card_img/21788/2174card.gif",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 330,
@@ -12917,7 +13247,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/656/card_img/21419/656card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/656"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 331,
@@ -12948,7 +13279,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/438/card_img/20941/438card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/438"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 332,
@@ -12984,7 +13316,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2322/card_img/23851/2322card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/2322"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 333,
@@ -13005,7 +13338,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2329/card_img/23898/2329card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 334,
@@ -13031,7 +13365,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2335/card_img/24225/2235card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/2335"
+      "register_path": "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?mainCC=a&cooperationcode=09636&solicitorcode=7030084002",
+      "state": "발급가능"
     },
     {
       "index": 335,
@@ -13057,7 +13392,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/491/card_img/21181/491card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 336,
@@ -13083,7 +13419,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1311/card_img/20958/1311card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 337,
@@ -13144,7 +13481,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1610/card_img/22594/1610card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 338,
@@ -13205,7 +13543,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1615/card_img/22581/1615card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 339,
@@ -13236,7 +13575,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/645/card_img/21409/645card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 340,
@@ -13297,7 +13637,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2075/card_img/21924/2075card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/2075"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 341,
@@ -13328,7 +13669,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1290/card_img/21016/1290card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 342,
@@ -13359,7 +13701,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2312/card_img/23718/2312card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 343,
@@ -13410,7 +13753,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2356/card_img/24769/2356card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 344,
@@ -13446,7 +13790,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2650/card_img/32178/2650card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 345,
@@ -13467,7 +13812,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/698/card_img/22172/698card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 346,
@@ -13503,7 +13849,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2245/card_img/20994/2245card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 347,
@@ -13524,7 +13871,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2193/card_img/21807/2193card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 348,
@@ -13555,7 +13903,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2586/card_img/30748/2586card_2.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 349,
@@ -13581,7 +13930,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/353/card_img/20596/353card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/353"
+      "register_path": "https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01754&solicitorcode=7030084000",
+      "state": "발급가능"
     },
     {
       "index": 350,
@@ -13632,7 +13982,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/639/card_img/21404/639card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/639"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 351,
@@ -13693,7 +14044,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1619/card_img/22577/1619card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 352,
@@ -13714,7 +14066,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2337/card_img/24299/2337card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/2337"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 353,
@@ -13760,7 +14113,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1977/card_img/22021/1977card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 354,
@@ -13811,7 +14165,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/760/card_img/22234/760card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/760"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 355,
@@ -13837,7 +14192,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/307/card_img/20552/307card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 356,
@@ -13888,7 +14244,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/320/card_img/20566/320card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 357,
@@ -13914,7 +14271,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/406/card_img/20904/406card.jpg",
-      "register_path": "https://www.card-gorilla.com/card/detail/406"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 358,
@@ -13980,7 +14338,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1714/card_img/22410/1714card.jpg",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 359,
@@ -14001,7 +14360,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2213/card_img/21772/2213card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 360,
@@ -14042,7 +14402,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/323/card_img/20568/323card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/323"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 361,
@@ -14063,7 +14424,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2194/card_img/21808/2194card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 362,
@@ -14099,7 +14461,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1438/card_img/20636/1438card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 363,
@@ -14165,7 +14528,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1839/card_img/22132/1839card.jpg",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 364,
@@ -14206,7 +14570,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2083/card_img/21916/2083card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/2083"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 365,
@@ -14252,7 +14617,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/644/card_img/21408/644card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 366,
@@ -14313,7 +14679,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1617/card_img/22579/1617card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 367,
@@ -14374,7 +14741,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1618/card_img/22578/1618card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 368,
@@ -14400,7 +14768,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1807/card_img/22304/1807card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 369,
@@ -14431,7 +14800,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2074/card_img/21925/2074card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/2074"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 370,
@@ -14492,7 +14862,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2076/card_img/21923/2076card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/2076"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 371,
@@ -14563,7 +14934,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1169/card_img/21139/1169card.jpg",
-      "register_path": "https://www.card-gorilla.com/card/detail/1169"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 372,
@@ -14594,7 +14966,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/306/card_img/20551/306card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 373,
@@ -14620,7 +14993,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/906/card_img/21638/906card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 374,
@@ -14651,7 +15025,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2585/card_img/30745/2585card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 375,
@@ -14687,7 +15062,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2341/card_img/24316/2341card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 376,
@@ -14723,7 +15099,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/359/card_img/20600/359card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 377,
@@ -14764,7 +15141,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/369/card_img/20610/369card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/369"
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 378,
@@ -14800,7 +15178,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2246/card_img/20996/2246card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 379,
@@ -14831,7 +15210,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/439/card_img/20945/439card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/439"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 380,
@@ -14867,7 +15247,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2342/card_img/24328/2342card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 381,
@@ -14893,7 +15274,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2318/card_img/23895/2318card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 382,
@@ -14924,7 +15306,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1394/card_img/20748/1394card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 383,
@@ -14945,7 +15328,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/309/card_img/20554/309card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 384,
@@ -14976,7 +15360,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2307/card_img/23707/2307card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/2307"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 385,
@@ -15007,7 +15392,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2086/card_img/21913/2086card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/2086"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 386,
@@ -15038,7 +15424,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2077/card_img/21922/2077card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/2077"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 387,
@@ -15059,7 +15446,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2214/card_img/21771/2214card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 388,
@@ -15090,7 +15478,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1360/card_img/20796/1360card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/1360"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 389,
@@ -15146,7 +15535,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/550/card_img/21255/550card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/550"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 390,
@@ -15167,7 +15557,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1912/card_img/22084/1912card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 391,
@@ -15203,7 +15594,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1170/card_img/21138/1170card.png",
-      "register_path": ""
+      "register_path": "",
+      "state": "알수없음"
     },
     {
       "index": 392,
@@ -15224,7 +15616,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1186/card_img/21122/1186card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/1186"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 393,
@@ -15260,7 +15653,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2315/card_img/23844/2315card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/2315"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 394,
@@ -15301,7 +15695,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2096/card_img/21904/2096card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/2096"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 395,
@@ -15342,7 +15737,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2095/card_img/21905/2095card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/2095"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 396,
@@ -15398,7 +15794,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2084/card_img/21915/2084card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/2084"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 397,
@@ -15429,7 +15826,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2085/card_img/21914/2085card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/2085"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 398,
@@ -15480,7 +15878,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2081/card_img/21918/2081card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/2081"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 399,
@@ -15511,7 +15910,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2078/card_img/21921/2078card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/2078"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 400,
@@ -15562,7 +15962,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2080/card_img/21919/2080card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/2080"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 401,
@@ -15588,7 +15989,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/1960/card_img/22038/1960card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/1960"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 402,
@@ -15624,7 +16026,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/2079/card_img/21920/2079card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/2079"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 403,
@@ -15680,7 +16083,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/405/card_img/20903/405card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/405"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 404,
@@ -15716,7 +16120,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/308/card_img/20553/308card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/308"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 405,
@@ -15747,7 +16152,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/324/card_img/20569/324card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/324"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 406,
@@ -15773,7 +16179,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/318/card_img/20564/318card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/318"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 407,
@@ -15799,7 +16206,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/628/card_img/21394/628card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/628"
+      "register_path": "",
+      "state": "발급중단"
     },
     {
       "index": 408,
@@ -15825,7 +16233,8 @@
         }
       ],
       "img_path": "https://api.card-gorilla.com:8080/storage/card/688/card_img/22161/688card.png",
-      "register_path": "https://www.card-gorilla.com/card/detail/688"
+      "register_path": "",
+      "state": "발급중단"
     }
   ]
 }

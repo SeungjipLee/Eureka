@@ -18,7 +18,7 @@ driver = webdriver.Chrome(service=webdriver_service, options=options)
 wait = WebDriverWait(driver, 10)
 
 # JSON 파일 경로
-json_file_path = "credit_processing1.json"
+json_file_path = "check_processing1.json"
 
 # JSON 파일 읽기
 with open(json_file_path, "r", encoding="utf-8") as json_file:
@@ -39,5 +39,5 @@ with open(json_file_path, "r", encoding="utf-8") as json_file:
         except Exception as e:
             card_info["img_path"] = ""
             card_info["img_attr"] = ""
-    with open("credit_processing2.json", "w", encoding="utf-8") as file:
+    with open("check_processing2.json", "w", encoding="utf-8") as file:
         json.dump({"data": card_info_list}, file, ensure_ascii=False)
