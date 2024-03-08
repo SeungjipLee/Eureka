@@ -2,7 +2,7 @@ import json
 
 
 # JSON 파일 경로
-json_file_path = "check_processing1_modi.json"
+json_file_path = "credit_crowling.json"
 
 # JSON 파일 읽기
 with open(json_file_path, "r", encoding="utf-8") as json_file:
@@ -19,5 +19,5 @@ with open(json_file_path, "r", encoding="utf-8") as json_file:
 
     category_data = {"category_list": category_list, "cnt": cnt}
 
-    with open("category_list.json", "w", encoding="utf-8") as file:
+    with open("category_list_crd.json", "w", encoding="utf-8") as file:
         json.dump({"category": category_data}, file, ensure_ascii=False)
