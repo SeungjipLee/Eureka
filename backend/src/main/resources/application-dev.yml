@@ -1,0 +1,51 @@
+spring:
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://j10e101.p.ssafy.io:0000/ploud_db?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true&useSSL=false&allowPublicKeyRetrieval=true
+#    username: root
+#    password: 1234
+
+#  redis:
+#    host: j10e101.p.ssafy.io
+#    port: 0000
+#    password: 1234
+#    timeout: 3000
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        naming:
+          physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+#        show-sql: true
+        format_sql: true
+
+jwt:
+  secret: eWFrY2hhY2hhLXNzYWZ5ODAz
+  accessTokenExpiration: 86400000
+  refreshTokenExpiration: 604800000
+
+logging:
+  level:
+    root: info
+#    org.springframework:
+#      web: debug
+#      boot: debug
+#      security: debug
+    org.hibernate:
+      sql: debug
+      type.type.descriptor.sql: trace
+    com.ssafy.eureka:
+      domain: debug
+      common: debug
+
+springdoc:
+  packages-to-scan:
+    - com.ssafy.eureka.common
+    - com.ssafy.eureka.domain.*.controller
+  default-consumes-media-type: application/json;charset=UTF-8
+  default-produces-media-type: application/json;charset=UTF-8
+  swagger-ui:
+    path: /index.html
+    display-request-duration: true
