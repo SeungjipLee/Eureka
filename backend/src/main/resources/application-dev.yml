@@ -1,9 +1,9 @@
 spring:
-#  datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://j10e101.p.ssafy.io:0000/ploud_db?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true&useSSL=false&allowPublicKeyRetrieval=true
-#    username: root
-#    password: 1234
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/eureka_db?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 1234
 
 #  redis:
 #    host: j10e101.p.ssafy.io
@@ -13,7 +13,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     properties:
       hibernate:
         naming:
@@ -22,7 +22,7 @@ spring:
         format_sql: true
 
 jwt:
-  secret: eWFrY2hhY2hhLXNzYWZ5ODAz
+  secret: tmdwlqdlgudwjsxntlrfidwhsaktdlfodygkgkwhsaktxodrnfl
   accessTokenExpiration: 86400000
   refreshTokenExpiration: 604800000
 
