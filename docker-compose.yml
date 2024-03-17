@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./frontend-web
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - ./frontend-web/dist:/usr/share/nginx/html
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+
+#  card-service:
+#    build:
+#      context: ./card
+#      dockerfile: Dockerfile
+#    ports:
+#      - "8001:8000"
+#    volumes:
+#      - ./card:/app
