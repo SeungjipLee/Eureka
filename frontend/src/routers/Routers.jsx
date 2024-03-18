@@ -4,7 +4,10 @@ import QRScanPage from '../pages/QRScanPage';
 import ProductPage from '../pages/ProductPage/ProductPage';
 import StatisticsPage from '../pages/StatisticsPage/StatisticsPage';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { createStackNavigator } from '@react-navigation/stack'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import Compare from '../pages/HomePage/Compare';
+import OnlyPay from '../pages/HomePage/OnlyPay';
 
 
 function Routers() {
@@ -71,4 +74,16 @@ function Routers() {
   );
 }
 
-export default Routers
+function HomeStacks() {
+  const HomeStack = createStackNavigator();
+
+  return (
+    <HomeStack.Navigator>
+      <HomeStack.Screen name="Statistics" component={StatisticsPage} />
+      <HomeStack.Screen name="Compare" component={Compare} />
+      <HomeStack.Screen name="OnlyPay" component={OnlyPay} />
+    </HomeStack.Navigator>
+  );
+}
+
+export { Routers, HomeStacks }

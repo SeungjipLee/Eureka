@@ -1,15 +1,19 @@
-import { StyleSheet, View, Text } from "react-native"
+import { StyleSheet, View, Text, Image } from "react-native"
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+
 
 function HomeOnlyPay () {
   return (
     <View>
-      <View style={styles.midcontainer}>
-        <View>
-          <Text>이번달 유레카 페이 결제 금액</Text>
-          <Text>530,000원</Text>
-        </View>
-        <View>
-          <Text>새 내역 3건</Text>
+      <View style={styles.container}>
+        <View style={styles.midcontainer}>
+          <Image style={styles.image} source={require('../../../../assets/favicon.png')}/>
+          <View>
+            <Text style={styles.font}>이번달 페이 결제 금액</Text>
+            <Text style={styles.price}>530,000원</Text>
+          </View>
+          <MaterialCommunityIcons 
+            name="chevron-right" size={26} style={styles.nextBtn}/>
         </View>
       </View>
     </View>
@@ -19,7 +23,37 @@ function HomeOnlyPay () {
 export default HomeOnlyPay
 
 const styles = StyleSheet.create({
+  container: {
+    marginHorizontal: 20,
+    height: 100,
+    borderWidth: 2,
+    borderColor: '#D7D7D7',
+    borderRadius: 10,
+    paddingHorizontal: 12,
+    shadowColor: '#D7D7D7',
+  },
   midcontainer: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    height: 80,
+    alignItems: 'center',
+    padding: 12,
+    marginTop: 12,
+  },
+  image: {
+    width: 40,
+    height: 40,
+    marginEnd: 12,
+  },
+  font : {
+    fontSize: 16,
+  },
+  price: {
+    fontWeight: 'bold',
+    fontSize: 24,
+    color: '#6797ff'
+  },
+  nextBtn: {
+    start: 'end',
   }
 })

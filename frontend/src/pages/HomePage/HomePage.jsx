@@ -30,18 +30,15 @@ const styles = StyleSheet.create({
   },
   paycard: {
     marginBottom:10,
-    height: 150,
   },
   monthly: {
     marginBottom:10,
-    height: 200,
   },
   onlypay: {
     marginBottom:10,
     height:100,
   },
   foryou: {
-    marginBottom:10,
-    height: 150,
+    minHeight: 140,
   },
 })

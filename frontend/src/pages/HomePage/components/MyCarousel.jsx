@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react"
 import { getPayCard } from "../../../apis/MyCard"
 import { useSelector, useDispatch } from "react-redux"
-import { FlatList } from "react-native-reanimated/lib/typescript/Animated"
 
 
 function MyCarousel () {
@@ -19,7 +18,7 @@ function MyCarousel () {
 
   
 
-  return   // <FlatList />
+  return 
 }
 
 export default MyCarousel

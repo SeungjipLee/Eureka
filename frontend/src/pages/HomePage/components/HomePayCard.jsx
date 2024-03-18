@@ -12,7 +12,7 @@ function HomePayCard () {
             name="cog-outline" size={26}/>
         </View>
       </View>
-      <View>
+      <View style={styles.carousel}>
 {/*         <MyCarousel /> */}
       </View>
     </View>
@@ -24,13 +24,21 @@ export default HomePayCard
 const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    marginBottom: 12,
   },
   easyPay: {
     fontSize: 24,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    marginLeft: 12,
   },
   settingIcon: {
     alignSelf: 'center',
+    marginRight: 12,
+  },
+  carousel: {
+    height: 250,
+    backgroundColor: 'blue',
+    marginBottom: 12,
   }
 })
