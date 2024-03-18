@@ -1,19 +1,39 @@
-import { StyleSheet, Text, View } from "react-native"
+import { StyleSheet, ScrollView, View, StatusBar, Platform, Dimensions } from "react-native";
+import MainNotice from "./components/MainNotice";
+import CurrentBenefit from "./components/CurrentBenefit";
+import IfUseRecommendCard from "./components/IfUseRecommendCard";
+
+const screenHeight = Dimensions.get('window').height;
 
 function ProductPage() {
   return (
-    <View style={styles.container}>
-      <Text>카드 상품 페이지</Text>
-    </View>
-  )
+    <ScrollView contentContainerStyle={styles.container}>
+      <View style={styles.mainnotice}><MainNotice /></View>
+      <View style={styles.currentbenefit}><CurrentBenefit /></View>
+      <View style={styles.ifuserecommend}><IfUseRecommendCard /></View>
+    </ScrollView>
+  );
 }
 
-export default ProductPage
+export default ProductPage;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+    backgroundColor: "#F7F7F7",
+  },
+  mainnotice: {
+    flex: 2,
+  },
+  currentbenefit: {
+    flex: 0.5,
+    minHeight: 20,
+  },
+  ifuserecommend: {
+    flex: 2,
+    minHeight: 300,
   }
-})
+});
