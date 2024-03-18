@@ -1,14 +1,19 @@
 import { StyleSheet, View, Text } from "react-native"
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+// import MyCarousel from "./MyCarousel";
 
 function HomePayCard () {
   return (
     <View>
       <View style={styles.header}>
         <Text style={styles.easyPay}>간편 결제</Text>
-        <Text style={styles.settingIcon}>설정 아이콘</Text>
+        <View style={styles.settingIcon}>
+          <MaterialCommunityIcons 
+            name="cog-outline" size={26}/>
+        </View>
       </View>
       <View>
-        <Text>Carousel</Text>
+{/*         <MyCarousel /> */}
       </View>
     </View>
   )
@@ -22,9 +27,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   easyPay: {
-    backgroundColor: '#e3341b',
+    fontSize: 24,
+    fontWeight: 'bold'
   },
   settingIcon: {
-    backgroundColor: '#f2232a',
+    alignSelf: 'center',
   }
 })
