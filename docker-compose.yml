@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./frontend-web
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+
+# card-service:
+#   build:
+#     context: ./card
+#     dockerfile: Dockerfile
+#   ports:
+#     - "8001:8000"
