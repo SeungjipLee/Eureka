@@ -1,8 +1,7 @@
 package com.ssafy.eureka.domain.user.dto;
 
+import com.ssafy.eureka.domain.user.dto.request.SignUpRequest;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -10,6 +9,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -43,17 +43,17 @@ public class UserEntity {
     private String password;
 
     @NotNull
-    @ColumnDefault("0")
-    private Boolean isUnregistered;
+    private Boolean isUnregistered = false;
 
     private LocalDateTime unRegisteredAt;
 
-    public UserEntity createNewUser(String userName, LocalDate userBirth, String phoneNumber, String password) {
+    public static UserEntity signUpUser(String userName, String birth, String password, String phoneNumber) {
         UserEntity user = new UserEntity();
         user.userName = userName;
-        user.userBirth = userBirth;
-        user.phoneNumber = phoneNumber;
+        user.userBirth = LocalDate.parse(birth,
+            DateTimeFormatter.ofPattern("yyyyMMdd"));
         user.password = password;
+        user.phoneNumber = phoneNumber;
         return user;
     }
 

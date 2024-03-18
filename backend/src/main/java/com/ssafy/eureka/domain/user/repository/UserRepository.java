@@ -5,6 +5,6 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<UserEntity, String> {
+    Optional<UserEntity> findByUserId(int userId);
     Optional<UserEntity> findByPhoneNumber(String phoneNumber);
-    Optional<UserEntity> findById(int userId);
 }
