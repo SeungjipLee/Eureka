@@ -15,9 +15,9 @@ services:
     ports:
       - "8000:8000"
 
-card-service:
-   build:
-     context: ./card
-     dockerfile: Dockerfile
-   ports:
-     - "8001:8000"
+# card-service:
+#   build:
+#     context: ./card
+#     dockerfile: Dockerfile
+#   ports:
+#     - "8001:8000"
