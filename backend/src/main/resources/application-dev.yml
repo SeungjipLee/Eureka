@@ -7,13 +7,13 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: create-drop
+#    show-sql: true
     properties:
       hibernate:
+#        format_sql: true
         naming:
           physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-#        show-sql: true
-        format_sql: true
 
   data:
     redis:
@@ -22,11 +22,10 @@ spring:
       password: 1234
       timeout: 3000
 
-
 jwt:
-  secretKey: tmdwlqdlgudwjsxntlrfidwhsaktdlfodygkgkwhsaktxodrnfl
+  secretKey: VYKlQrH0M4Gx7uUq7sXc7saINlUsZD9Vb6FZr5R4zoE
   accessTokenExpiration: 86400000
-  refreshTokenExpiration: 604800000
+  refreshTokenExpiration: 31536000000
 
 logging:
   level:
@@ -44,10 +43,10 @@ logging:
 
 springdoc:
   packages-to-scan:
-    - com.ssafy.eureka.common
-    - com.ssafy.eureka.domain.*.controller
+    - com.ssafy.eureka.domain
   default-consumes-media-type: application/json;charset=UTF-8
   default-produces-media-type: application/json;charset=UTF-8
+#  api-docs:
+#    path: /
   swagger-ui:
-    path: /index.html
     display-request-duration: true

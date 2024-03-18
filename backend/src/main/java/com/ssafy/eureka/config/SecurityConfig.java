@@ -2,7 +2,8 @@ package com.ssafy.eureka.config;
 
 import com.ssafy.eureka.domain.auth.jwt.CustomAccessDeniedHandler;
 import com.ssafy.eureka.domain.auth.jwt.CustomAuthenticationEntryPoint;
-import com.ssafy.eureka.domain.auth.jwt.CustomJwtAuthFilter;
+import com.ssafy.eureka.domain.auth.jwt.CustomJwtAuthenticationFilter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,7 +19,10 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
+
+    private final CustomJwtAuthenticationFilter authenticationFilter;
 
     private static final String[] AUTH_WHITELIST = {
         "/swagger-ui/**", "/api/user/**"
@@ -47,7 +51,7 @@ public class SecurityConfig {
             .formLogin(AbstractHttpConfigurer::disable)
             .httpBasic(AbstractHttpConfigurer::disable)
 
-            .addFilterBefore(new CustomJwtAuthFilter(), UsernamePasswordAuthenticationFilter.class)
+            .addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class)
 
             .exceptionHandling((ExceptionHandling) -> ExceptionHandling
                 .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
@@ -55,8 +59,8 @@ public class SecurityConfig {
 
             .authorizeHttpRequests(authoize -> authoize
                 .requestMatchers(AUTH_WHITELIST).permitAll()
-//                .anyRequest().permitAll()
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()
+//                .anyRequest().authenticated()
             );
 
         return http.build();
