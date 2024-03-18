@@ -1,8 +1,8 @@
-import HomePage from '../pages/HomePage';
-import CardPage from '../pages/CardPage';
+import HomePage from '../pages/HomePage/HomePage';
+import CardPage from '../pages/CardPage/CardPage';
 import QRScanPage from '../pages/QRScanPage';
-import ProductPage from '../pages/ProductPage';
-import StatisticsPage from '../pages/StatisticsPage';
+import ProductPage from '../pages/ProductPage/ProductPage';
+import StatisticsPage from '../pages/StatisticsPage/StatisticsPage';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
