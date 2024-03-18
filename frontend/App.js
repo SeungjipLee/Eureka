@@ -19,3 +19,22 @@ export default function App() {
 const styles = StyleSheet.create({
   
 });
+
+
+// import React from 'react';
+// import { StyleSheet, View } from 'react-native';
+// import AuthPage from './src/pages/AuthPage/AuthPage';  
+
+// export default function App() {
+//   return (
+//     <View style={styles.container}>
+//       <AuthPage></AuthPage>
+//     </View>
+//   );
+// }
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//   },
+// });
