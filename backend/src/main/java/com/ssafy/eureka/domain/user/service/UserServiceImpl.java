@@ -52,6 +52,14 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public void resignUser(UserDetails userDetails) {
+        UserEntity user = userRepository.findByUserId(Integer.parseInt(userDetails.getUsername()))
+            .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
+
+        user.unRegistUser();
+    }
+
+    @Override
     public CheckUserRespnose checkUser(CheckUserRequest checkUserRequest) {
 
         // 인증번호 체크
@@ -63,6 +71,10 @@ public class UserServiceImpl implements UserService{
 
         UserEntity user = userRepository.findByPhoneNumber(encodePhoneNumber)
             .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
+
+        if(user.getIsUnregistered()){
+            throw new CustomException(ResponseCode.USER_NOT_FOUND);
+        }
 
         return new CheckUserRespnose(user.getUserId(), user.getUserName());
     }
@@ -76,7 +88,6 @@ public class UserServiceImpl implements UserService{
             userUtil.formatBirthDate(signUpRequest.getUserBirth(), signUpRequest.getUserGender()),
             bCryptPasswordEncoder.encode(signUpRequest.getPassword()),
             encodePhoneNumber);
-
 
         if(userRepository.findByPhoneNumber(encodePhoneNumber).isPresent()){
             throw new CustomException(ResponseCode.USER_ALREADY_EXSIST);
@@ -98,6 +109,10 @@ public class UserServiceImpl implements UserService{
         UserEntity user = userRepository.findByUserId(loginRequest.getUserId())
             .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
 
+        if(user.getIsUnregistered()){
+            throw new CustomException(ResponseCode.USER_NOT_FOUND);
+        }
+
         String encodePassword = bCryptPasswordEncoder.encode(loginRequest.getPassword());
 
         if(!user.getPassword().equals(encodePassword)){
@@ -116,35 +131,23 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public JwtTokenResponse checkPassword(CheckUserRequest checkUserRequest) {
-        String encodePhoneNumber = aesUtil.encrypt(checkUserRequest.getPhoneNumber());
+    public boolean checkPassword(UserDetails userDetails, String password) {
+        UserEntity user = userRepository.findByUserId(Integer.parseInt(userDetails.getUsername()))
+            .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
 
-        UserEntity user = userRepository.findByPhoneNumber(encodePhoneNumber)
-            .orElseThrow(() -> new CustomException(ResponseCode.USER_PASSWORD_ERROR));
-
-        String encodePassword = bCryptPasswordEncoder.encode(checkUserRequest.getPassword());
+        String encodePassword = bCryptPasswordEncoder.encode(password);
 
         if(user.getPassword().equals(encodePassword)){
             throw new CustomException(ResponseCode.USER_PASSWORD_ERROR);
         }
 
-        String userId = String.valueOf(user.getUserId());
-
-        JwtTokenResponse jwtTokenResponse = jwtTokenProvider.createToken(userId);
-
-        if(refreshTokenRepository.existsByUserId(userId)){
-            refreshTokenRepository.deleteByUserId(userId);
-        }
-
-        refreshTokenRepository.save(new RefreshToken(userId, jwtTokenResponse.getRefreshToken()));
-
-        return jwtTokenResponse;
+        return true;
     }
 
     @Override
     public void updatePassword(UserDetails userDetails, String password) {
         UserEntity user = userRepository.findByUserId(Integer.parseInt(userDetails.getUsername()))
-            .orElseThrow(() -> new CustomException(ResponseCode.USER_PASSWORD_ERROR));
+            .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
 
         String encodePassword = bCryptPasswordEncoder.encode(password);
 

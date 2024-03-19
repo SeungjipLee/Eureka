@@ -18,9 +18,11 @@ public interface UserService {
 
     void updatePassword(UserDetails userDetails, String password);
 
-    JwtTokenResponse checkPassword(CheckUserRequest checkUserRequest);
+    boolean checkPassword(UserDetails userDetails, String password);
 
     void sendMessage(CheckUserRequest checkUserRequest);
 
     JwtTokenResponse reissueToken(HttpServletRequest request);
+
+    void resignUser(UserDetails userDetails);
 }

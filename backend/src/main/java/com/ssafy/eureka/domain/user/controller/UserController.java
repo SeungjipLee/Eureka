@@ -53,11 +53,4 @@ public class UserController {
         log.debug("로그인, userId : " + loginRequest.getUserId());
         return ApiResponse.ok("로그인 성공", userService.login(loginRequest));
     }
-
-    @Operation(summary = "비밀번호 확인", description = "비밀번호 확인하기")
-    @GetMapping("/check")
-    public ApiResponse<?> checkPassword(@RequestBody CheckUserRequest checkUserRequest) {
-        log.debug("비밀번호 확인, userName : " + checkUserRequest.getUserName());
-        return ApiResponse.ok("비밀번호 확인 성공", userService.checkPassword(checkUserRequest));
-    }
 }
