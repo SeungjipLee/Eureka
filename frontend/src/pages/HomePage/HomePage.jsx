@@ -7,13 +7,13 @@ import HomeForYou from "./components/HomeForYou"
 
 function HomePage() {
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.icon}><HomeIcon /></View>
-      <View style={styles.paycard}><HomePayCard /></View>
-      <View style={styles.monthly}><HomeMonthly /></View>
-      <View style={styles.onlypay}><HomeOnlyPay /></View>
-      <View style={styles.foryou}><HomeForYou /></View>
-    </ScrollView>
+      <ScrollView style={styles.container}>
+        <View style={styles.icon}><HomeIcon /></View>
+        <View style={styles.paycard}><HomePayCard /></View>
+        <View style={styles.monthly}><HomeMonthly /></View>
+        <View style={styles.onlypay}><HomeOnlyPay /></View>
+        <View style={styles.foryou}><HomeForYou /></View>
+      </ScrollView>
   )
 }
 

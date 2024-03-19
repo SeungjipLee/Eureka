@@ -1,8 +1,12 @@
-import { StyleSheet, View, Text, Image } from "react-native"
+import { StyleSheet, View, Text, Image, Pressable } from "react-native"
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+
 
 
 function HomeOnlyPay () {
+  const navigation = useNavigation()
+
   return (
     <View>
       <View style={styles.container}>
@@ -12,8 +16,10 @@ function HomeOnlyPay () {
             <Text style={styles.font}>이번달 페이 결제 금액</Text>
             <Text style={styles.price}>530,000원</Text>
           </View>
-          <MaterialCommunityIcons 
-            name="chevron-right" size={26} style={styles.nextBtn}/>
+          <Pressable onPress={() => navigation.navigate('OnlyPay')}>
+            <MaterialCommunityIcons 
+              name="chevron-right" size={26} style={styles.nextBtn}/>
+          </Pressable>
         </View>
       </View>
     </View>

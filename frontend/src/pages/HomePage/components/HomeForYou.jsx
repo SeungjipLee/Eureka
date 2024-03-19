@@ -1,7 +1,10 @@
-import { StyleSheet, View, Text, Image, Button } from "react-native"
+import { StyleSheet, View, Text, Image, Pressable } from "react-native"
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+
 
 function HomeForYou () {
+  const navigation = useNavigation()
   return (
     <View style={styles.container}>
       <View>
@@ -13,16 +16,20 @@ function HomeForYou () {
           <View>
             <Text style={styles.font}>또래들과 소비 비교해보기</Text>
           </View>
-          <MaterialCommunityIcons 
-            name="chevron-right" size={26} style={styles.nextBtn}/>
+          <Pressable onPress={() => navigation.navigate('Compare')}>
+            <MaterialCommunityIcons 
+              name="chevron-right" size={26} style={styles.nextBtn}/>
+          </Pressable>
         </View>
         <View style={styles.midcontainer}>
           <Image style={styles.image} source={require('../../../../assets/favicon.png')}/>
           <View>
             <Text style={styles.font}>내 소비에 딱 맞는 카드 추천 받기</Text>
           </View>
-          <MaterialCommunityIcons 
-            name="chevron-right" size={26} style={styles.nextBtn}/>
+          <Pressable onPress={() => navigation.navigate('ProductPage')}>
+            <MaterialCommunityIcons 
+              name="chevron-right" size={26} style={styles.nextBtn}/>  
+          </Pressable>
         </View>
     </View>
   )

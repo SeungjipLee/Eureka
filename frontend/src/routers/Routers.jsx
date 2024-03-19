@@ -1,13 +1,10 @@
-import HomePage from '../pages/HomePage/HomePage';
 import CardPage from '../pages/CardPage/CardPage';
 import QRScanPage from '../pages/QRScanPage';
 import ProductPage from '../pages/ProductPage/ProductPage';
 import StatisticsPage from '../pages/StatisticsPage/StatisticsPage';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { createStackNavigator } from '@react-navigation/stack'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import Compare from '../pages/HomePage/Compare';
-import OnlyPay from '../pages/HomePage/OnlyPay';
+import HomeRouters from './HomeRouters';
 
 
 function Routers() {
@@ -22,7 +19,7 @@ function Routers() {
       >
       <Tab.Screen 
         name="HomePage" 
-        component={HomePage} 
+        component={HomeRouters} 
         options={{
           tabBarLabel: "홈",
           tabBarIcon: ({color}) => (
@@ -74,16 +71,5 @@ function Routers() {
   );
 }
 
-function HomeStacks() {
-  const HomeStack = createStackNavigator();
 
-  return (
-    <HomeStack.Navigator>
-      <HomeStack.Screen name="Statistics" component={StatisticsPage} />
-      <HomeStack.Screen name="Compare" component={Compare} />
-      <HomeStack.Screen name="OnlyPay" component={OnlyPay} />
-    </HomeStack.Navigator>
-  );
-}
-
-export { Routers, HomeStacks }
+export default Routers
