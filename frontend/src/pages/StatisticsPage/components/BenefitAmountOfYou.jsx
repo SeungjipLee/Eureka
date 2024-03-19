@@ -1,24 +1,20 @@
-import {
-  StyleSheet,
-  View,
-  Text,
-  Dimensions,
-  StatusBar,
-  Platform,
-} from "react-native";
+import { StyleSheet, View, Text, Dimensions, Platform } from "react-native";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 const benefitAmount = 1930000;
 
 function BenefitAmountOfYou() {
+  const formatBenefitAmount = benefitAmount.toLocaleString();
+
   return (
     <View>
       <View style={styles.container}>
         <Text style={styles.benefitText}>이번달 혜택 금액은</Text>
-        <Text>
-          {benefitAmount} <Text>원</Text>
-        </Text>
-        <Text style={styles.amountText}>이에요!</Text>
+        <View style={styles.amountContainer}>
+          <Text style={styles.amountText}>{formatBenefitAmount}</Text>
+          <Text style={styles.won}>원</Text>
+        </View>
+        <Text style={styles.benefitText}>이에요!</Text>
       </View>
     </View>
   );
@@ -47,13 +43,24 @@ const styles = StyleSheet.create({
     }),
   },
   benefitText: {
-    fontSize: 30,
-    fontWeight: "200",
+    fontSize: 25,
+    fontWeight: "100",
     color: "white",
   },
+  amountContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
   amountText: {
-    fontSize: 30,
+    fontSize: 40,
+    fontWeight: "400",
+    color: "white",
+  },
+  won: {
+    fontSize: 20,
     fontWeight: "200",
     color: "white",
+    marginTop: 10,
+    marginLeft: 10,
   },
 });
