@@ -1,6 +1,5 @@
-import { GestureHandlerRootView} from 'react-native-gesture-handler'
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import Routers from './src/routers/Routers';
 import { store } from './src/stores/store';

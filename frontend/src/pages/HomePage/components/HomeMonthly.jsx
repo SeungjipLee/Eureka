@@ -43,10 +43,11 @@ const styles = StyleSheet.create({
     height: 280,
     borderWidth: 2,
     borderColor: '#D7D7D7',
-    borderRadius: 10,
+    borderRadius: 20,
     padding: 12,
     paddingTop:20,
     shadowColor: '#D7D7D7',
+    backgroundColor: '#ffffff'
   },
   subtitle: {
     fontWeight: 'bold',

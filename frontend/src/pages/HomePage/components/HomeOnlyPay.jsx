@@ -34,9 +34,10 @@ const styles = StyleSheet.create({
     height: 100,
     borderWidth: 2,
     borderColor: '#D7D7D7',
-    borderRadius: 10,
+    borderRadius: 20,
     paddingHorizontal: 12,
     shadowColor: '#D7D7D7',
+    backgroundColor: '#ffffff'
   },
   midcontainer: {
     flexDirection: 'row',
