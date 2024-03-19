@@ -38,11 +38,13 @@ public class UserEntity {
     private String phoneNumber;
 
     @NotNull
+    @Builder.Default
     private LocalDateTime registeredAt = LocalDateTime.now();
 
     private String password;
 
     @NotNull
+    @Builder.Default
     private Boolean isUnregistered = false;
 
     private LocalDateTime unRegisteredAt;
