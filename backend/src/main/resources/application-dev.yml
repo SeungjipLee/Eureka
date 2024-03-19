@@ -1,30 +1,31 @@
 spring:
-#  datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://j10e101.p.ssafy.io:0000/ploud_db?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true&useSSL=false&allowPublicKeyRetrieval=true
-#    username: root
-#    password: 1234
-
-#  redis:
-#    host: j10e101.p.ssafy.io
-#    port: 0000
-#    password: 1234
-#    timeout: 3000
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/eureka_db?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true&useSSL=false&allowPublicKeyRetrieval=true
+    username: root
+    password: 1234
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
+#    show-sql: true
     properties:
       hibernate:
+#        format_sql: true
         naming:
           physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-#        show-sql: true
-        format_sql: true
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password: 1234
+      timeout: 3000
 
 jwt:
-  secret: eWFrY2hhY2hhLXNzYWZ5ODAz
+  secretKey: VYKlQrH0M4Gx7uUq7sXc7saINlUsZD9Vb6FZr5R4zoE
   accessTokenExpiration: 86400000
-  refreshTokenExpiration: 604800000
+  refreshTokenExpiration: 31536000000
 
 logging:
   level:
@@ -42,10 +43,10 @@ logging:
 
 springdoc:
   packages-to-scan:
-    - com.ssafy.eureka.common
-    - com.ssafy.eureka.domain.*.controller
+    - com.ssafy.eureka.domain
   default-consumes-media-type: application/json;charset=UTF-8
   default-produces-media-type: application/json;charset=UTF-8
+#  api-docs:
+#    path: /
   swagger-ui:
-    path: /index.html
     display-request-duration: true
