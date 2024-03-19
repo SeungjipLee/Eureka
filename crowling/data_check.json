@@ -1,5 +1,9 @@
 {
-  "data": [
+  "company_name" : "카드사 이름",
+  "org_code" : "",
+  "card_barnd" : "",
+  "image_path" : "",
+    "card": [
     {
       "index": 0,
       "카드이름": "PAYCO 포인트 카드",
