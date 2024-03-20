@@ -1,14 +1,14 @@
 import { StyleSheet, Text, View } from "react-native"
 
-function CardPage() {
+function PayCardEnrollPage() {
   return (
     <View style={styles.container}>
-      <Text>카드 페이지</Text>
+      <Text>결제 카드 추가 페이지</Text>
     </View>
   )
 }
 
-export default CardPage
+export default PayCardEnrollPage
 
 const styles = StyleSheet.create({
   container: {

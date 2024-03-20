@@ -1,10 +1,10 @@
-import CardPage from '../pages/CardPage/CardPage';
 import QRScanPage from '../pages/QRScanPage';
 import ProductPage from '../pages/ProductPage/ProductPage';
 import StatisticsPage from '../pages/StatisticsPage/StatisticsPage';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import HomeRouters from './HomeRouters';
+import CardRouters from './CardRouters';
 
 
 function Routers() {
@@ -29,7 +29,7 @@ function Routers() {
         />
         <Tab.Screen 
         name="CardPage" 
-        component={CardPage} 
+        component={CardRouters} 
         options={{
           tabBarLabel: "카드",
           tabBarIcon: ({color}) => (

@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, Pressable } from "react-native"
+import { StyleSheet, View, Text, Pressable, FlatList, Image, ScrollView } from "react-native"
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { BarChart } from "react-native-chart-kit";
@@ -41,8 +41,38 @@ function Compare () {
     // 막대 상단의 숫자 표시에 대한 설정은 여기에 추가할 수 없음
   }
 
+  const compareData = {
+    data: [
+      {
+        title: "주거/통신",
+        category: 1,
+        myPay : 85000,
+        comparePay: 85000
+      },
+      {
+        title: "카페/간식",
+        category: 2,
+        myPay : 31000,
+        comparePay: 31000
+      },
+      {
+        title: "쇼핑",
+        category: 3,
+        myPay : 190000,
+        comparePay: 160000
+      },
+      {
+        title: "교통/자동차",
+        category: 4,
+        myPay : 110000,
+        comparePay: 160000
+      },
+
+    ]
+  }
+
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <View style={styles.backcontainer}>
         <Pressable onPress={() => navigation.navigate('Home')}>
             <MaterialCommunityIcons 
@@ -73,11 +103,50 @@ function Compare () {
         />
       </View>
 
-      <View>
-        <Text>또래 평균 대비</Text>
-        <Text>쇼핑</Text>
+      <View style={styles.box}>
+        <Text style={{ marginStart: 12, marginBottom: 5 }}>또래 평균 대비</Text>
+        <Text style={{ marginStart: 12, marginBottom: 5, fontSize: 16, fontWeight: 'bold'}}>
+          <Text style={{ color: '#0050FF', fontSize: 20 }}>쇼핑</Text>에 지출이 많은 편이에요.
+        </Text>
+
+        <FlatList
+          data={compareData.data}
+          keyExtractor={item => item.category.toString()}
+          renderItem={({ item }) => {
+            // myPay와 comparePay의 차이 계산
+            const diff = item.myPay - item.comparePay;
+            let textColor, textContent;
+            if (diff > 5000) {
+              textColor = 'blue';
+              textContent = `${diff.toLocaleString()}원`;
+            } else if (diff < -5000) {
+              textColor = 'red';
+              textContent = `${diff.toLocaleString()}원`;
+            } else {
+              textColor = 'black';
+              textContent = "평균과 유사합니다";
+            }
+          
+            return (
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems:'center', marginHorizontal: 20,        marginVertical: 10 }}>
+                <Image
+                  source={require('../../../assets/favicon.png')}
+                  style={{ width: 50, height: 50 }} // 이미지 크기 조정을 위한 스타일
+                />
+                <Text style={{ fontWeight: 'bold', flex: 1, marginHorizontal: 20 }}>{item.title}</Text>
+                <View style={{ alignItems: 'flex-end' }}>
+                  <Text style={{ fontSize: 16, textAlign:'center'}}>{`${item.myPay.toLocaleString()}원`}</Text>
+                  <Text style={{ textAlign:'center', fontSize: 12, color: textColor }}>
+                    {textContent}
+                  </Text>
+                </View>
+              </View>
+            );
+          }}
+        />
+
       </View>
-    </View>
+    </ScrollView>
   )
 }
 
@@ -114,6 +183,21 @@ const styles = StyleSheet.create({
     marginStart: 30,
   },
   chart: {
-    alignSelf: 'center'
+    alignSelf: 'center',
+    borderRadius: 20,
+    padding: 20,
+    backgroundColor:'#ffffff',
+    elevation: 5
+  },
+  box: {
+    marginHorizontal: 20,
+    marginBottom: 30,
+    borderWidth: 2,
+    borderColor: '#D7D7D7',
+    borderRadius: 20,
+    padding: 12,
+    paddingTop:20,
+    shadowColor: '#D7D7D7',
+    backgroundColor: '#ffffff'
   }
 })
