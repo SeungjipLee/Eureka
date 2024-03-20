@@ -7,7 +7,7 @@ import {
   StatusBar,
   Platform,
 } from "react-native";
-import ConsumptionCategoryList from "./ConsumptionOfYouComponents/consumptionCategoryList";
+import ConsumptionCategoryList from "./ConsumptionOfYouComponents/ConsumptionCategoryList";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 const consumptionAmount = 1300000;
