@@ -1,5 +1,6 @@
 package com.ssafy.eureka.domain.user.dto;
 
+import com.ssafy.eureka.domain.card.dto.UserCardEntity;
 import com.ssafy.eureka.domain.user.dto.request.SignUpRequest;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,6 +11,7 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -19,7 +21,6 @@ import org.hibernate.annotations.ColumnDefault;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Table(name = "user")
 @Entity
 public class UserEntity {

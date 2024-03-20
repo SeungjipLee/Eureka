@@ -131,7 +131,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public boolean checkPassword(UserDetails userDetails, String password) {
+    public void checkPassword(UserDetails userDetails, String password) {
         UserEntity user = userRepository.findByUserId(Integer.parseInt(userDetails.getUsername()))
             .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
 
@@ -140,8 +140,6 @@ public class UserServiceImpl implements UserService{
         if(user.getPassword().equals(encodePassword)){
             throw new CustomException(ResponseCode.USER_PASSWORD_ERROR);
         }
-
-        return true;
     }
 
     @Override
