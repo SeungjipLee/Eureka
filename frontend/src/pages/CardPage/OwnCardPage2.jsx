@@ -1,8 +1,7 @@
 import { FlatList, StyleSheet, Text, View, Image, TouchableOpacity, Pressable } from "react-native"
 import { useNavigation } from '@react-navigation/native';
 
-
-function PayCardPage() {
+function OwnCardPage2 () {
   const navigation = useNavigation()
   const data = [
     {
@@ -63,37 +62,38 @@ function PayCardPage() {
 
   return (
     <View style={{backgroundColor:'#ffffff'}}>
-      <FlatList
-        data={data}
-        keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => (
-          <View style={styles.cardContainer}>
-            <Image
-              source={item.imgSrc}
-              style={styles.cardImage}
-            />
-            <View style={{flex: 1}}>
-              <Text style={styles.cardTitle}>{item.title}</Text>
-              <View style={styles.benefitsContainer}>
-                {Object.entries(item.benefit).map(([key, value], index) => (
-                  <View key={index}>
-                    <Text style={styles.benefitKey}>{key}</Text>
-                    <Text style={styles.benefitValue}>{value}</Text>
+        <FlatList
+          data={data}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item }) => (
+            <View style={styles.cardContainer}>
+              <Image
+                source={item.imgSrc}
+                style={styles.cardImage}
+              />
+              <View style={{flex: 1}}>
+                <Text style={styles.cardTitle}>{item.title}</Text>
+                <View style={styles.benefitsContainer}>
+                  {Object.entries(item.benefit).map(([key, value], index) => (
+                    <View key={index}>
+                      <Text style={styles.benefitKey}>{key}</Text>
+                      <Text style={styles.benefitValue}>{value}</Text>
+                  </View>
+                  ))}
                 </View>
-                ))}
               </View>
+              <TouchableOpacity style={styles.detailButton}>
+                <Text style={styles.detailButtonText}>자세히 보기</Text>
+              </TouchableOpacity>
             </View>
-            <TouchableOpacity style={styles.detailButton}>
-              <Text style={styles.detailButtonText}>자세히 보기</Text>
-            </TouchableOpacity>
-          </View>
-        )}
-      />
-    </View>
+          )}
+        />
+
+      </View>
   )
 }
 
-export default PayCardPage
+export default OwnCardPage2
 
 const styles = StyleSheet.create({
   cardContainer: {
@@ -131,19 +131,4 @@ const styles = StyleSheet.create({
     color: '#007bff',
     fontSize: 14,
   },
-  btn: {
-    marginTop: 20,
-    width:"60%",
-    height: 40,
-    alignSelf: 'center',
-    backgroundColor: '#5087FF',
-    borderRadius: 10,
-    padding: 10,
-  },
-  btnTxt: {
-    color: '#ffffff',
-    fontSize: 16,
-    fontWeight: 'bold',
-    alignSelf:'center'
-  }
 })
