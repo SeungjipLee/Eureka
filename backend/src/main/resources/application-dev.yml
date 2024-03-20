@@ -31,7 +31,7 @@ cloud:
     region:
       static:
     s3:
-      bucket: eurekabucket
+      bucket: eureka_bucket
 
 jwt:
   secretKey: VYKlQrH0M4Gx7uUq7sXc7saINlUsZD9Vb6FZr5R4zoE

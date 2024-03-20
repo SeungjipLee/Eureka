@@ -25,9 +25,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@AllArgsConstructor
 public class CardDataUtil {
     private final static String directoryPath = "../crowling/data";
 
@@ -71,7 +73,7 @@ public class CardDataUtil {
                         JsonElement jsonElement = gson.fromJson(content, JsonElement.class);
                         JsonArray jsonArray = jsonElement.getAsJsonObject().getAsJsonArray("data");
 
-                        String cardType = file.getName().substring(5);
+                        String cardType = file.getName().substring(0, 5);
                         if(cardType.equals("check")){
                             cardType = "0";
                         }else if(cardType.equals("credi")){
@@ -93,28 +95,36 @@ public class CardDataUtil {
                             cardRepository.save(card);
 
                             // 2. 카드 혜택 정보 저장
-                            for(Benefit benefit : cardProduct.getBenefits()){
-                                CardBenefitEntity cardBenefit = CardBenefitEntity.regist(card.getCardId(), benefit);
-                                cardBenefitRepository.save(cardBenefit);
+                            if(cardProduct.getBenefits() != null){
+                                for(int i = 0; i < cardProduct.getBenefits().size(); ++i){
+                                    Benefit benefit = cardProduct.getBenefits().get(i);
 
-                                // 3. 카드 혜택 상세 정보 저장
-                                for(BenefitDetail detail : benefit.getDetails()){
-                                    Optional<SmallCategoryEntity> entity = smallCategoryRepository.findByCategoryName(detail.getSubCategory());
-                                    int smallCategoryId = 0;
-                                    if(entity.isPresent()){
-                                        smallCategoryId = entity.get().getSmallCategoryId();
-                                    }else{
-                                        SmallCategoryEntity smallCategory = SmallCategoryEntity.regist(largeCategory.get(detail.getMainCategory()), detail.getSubCategory());
-                                        smallCategoryRepository.save(smallCategory);
-                                        smallCategoryId = smallCategory.getSmallCategoryId();
+                                    if(benefit.getTitle().equals("유의사항")) continue;
+
+                                    CardBenefitEntity cardBenefit = CardBenefitEntity.regist(card.getCardId(), benefit);
+                                    cardBenefitRepository.save(cardBenefit);
+
+                                    // 3. 카드 혜택 상세 정보 저장
+                                    if(benefit.getDetails() != null){
+                                        for(BenefitDetail detail : benefit.getDetails()){
+                                            Optional<SmallCategoryEntity> entity = smallCategoryRepository.findByCategoryName(detail.getSubCategory());
+                                            int smallCategoryId = 0;
+                                            if(entity.isPresent()){
+                                                smallCategoryId = entity.get().getSmallCategoryId();
+                                            }else{
+                                                SmallCategoryEntity smallCategory = SmallCategoryEntity.regist(largeCategory.get(detail.getMainCategory()), detail.getSubCategory());
+                                                smallCategoryRepository.save(smallCategory);
+                                                smallCategoryId = smallCategory.getSmallCategoryId();
+                                            }
+
+                                            CardBenefitDetailEntity cardBenefitDetail = CardBenefitDetailEntity.regist(
+                                                cardBenefit.getCardBenefitId(),
+                                                largeCategory.get(detail.getMainCategory()),
+                                                smallCategoryId,
+                                                detail);
+                                            cardBenefitDetailRepository.save(cardBenefitDetail);
+                                        }
                                     }
-
-                                    CardBenefitDetailEntity cardBenefitDetail = CardBenefitDetailEntity.regist(
-                                        cardBenefit.getCardBenefitId(),
-                                        largeCategory.get(detail.getMainCategory()),
-                                        smallCategoryId,
-                                        detail);
-                                    cardBenefitDetailRepository.save(cardBenefitDetail);
                                 }
                             }
                         }
