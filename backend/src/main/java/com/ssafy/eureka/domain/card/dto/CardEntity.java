@@ -1,7 +1,10 @@
 package com.ssafy.eureka.domain.card.dto;
 
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
@@ -15,6 +18,7 @@ import lombok.Setter;
 public class CardEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int cardId;
 
     @NotNull
@@ -32,6 +36,7 @@ public class CardEntity {
     @NotNull
     private int priviousPerformance;
 
+    @Column(columnDefinition = "TEXT")
     private String caution;
 
     private String registerPage;

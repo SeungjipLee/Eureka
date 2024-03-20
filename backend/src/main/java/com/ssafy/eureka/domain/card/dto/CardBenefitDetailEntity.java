@@ -2,6 +2,8 @@ package com.ssafy.eureka.domain.card.dto;
 
 import com.ssafy.eureka.domain.card.dto.CardProductDto.Benefit.BenefitDetail;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
@@ -11,10 +13,11 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "benefit_detail")
+@Table(name = "card_benefit_detail")
 public class CardBenefitDetailEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int cardBenefitDetailId;
 
     @NotNull
