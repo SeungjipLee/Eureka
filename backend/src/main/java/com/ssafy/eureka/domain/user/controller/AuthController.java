@@ -15,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,16 +38,17 @@ public class AuthController {
 
     @SecurityRequirement(name = "JWT Auth")
     @Operation(summary = "비밀번호 확인", description = "비밀번호 확인하기")
-    @PostMapping("/check")
+    @PostMapping("/user")
     public ApiResponse<?> checkPassword(@AuthenticationPrincipal UserDetails userDetails,
         @RequestBody String password) {
         log.debug("비밀번호 확인, userName : " + userDetails.getUsername());
-        return ApiResponse.ok("비밀번호 확인 성공", userService.checkPassword(userDetails, password));
+        userService.checkPassword(userDetails, password);
+        return ApiResponse.ok("비밀번호 확인 성공");
     }
 
     @SecurityRequirement(name = "JWT Auth")
     @Operation(summary = "비밀번호 변경", description = "비밀번호 변경하기")
-    @PostMapping("/change")
+    @PutMapping("/user")
     public ApiResponse<?> updatePassword(@AuthenticationPrincipal UserDetails userDetails,
         @RequestBody String password) {
         log.debug("비밀번호 변경, userId : " + userDetails.getUsername());
@@ -56,7 +58,7 @@ public class AuthController {
 
     @SecurityRequirement(name = "JWT Auth")
     @Operation(summary = "회원 탈퇴", description = "회원 탈퇴하기")
-    @DeleteMapping("/resign")
+    @DeleteMapping("/user")
     public ApiResponse<?> resignUser(@AuthenticationPrincipal UserDetails userDetails) {
         log.debug("회원 탈퇴, userId : " + userDetails.getUsername());
         userService.resignUser(userDetails);

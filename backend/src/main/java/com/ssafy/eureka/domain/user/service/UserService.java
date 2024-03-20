@@ -18,7 +18,7 @@ public interface UserService {
 
     void updatePassword(UserDetails userDetails, String password);
 
-    boolean checkPassword(UserDetails userDetails, String password);
+    void checkPassword(UserDetails userDetails, String password);
 
     void sendMessage(CheckUserRequest checkUserRequest);
 
