@@ -4,14 +4,16 @@ import {
   View,
   Text,
   Dimensions,
-  StatusBar,
   Platform,
   Image,
-  TouchableOpacity,
+  Pressable,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
-function AkaOfYou({ navigation }) {
+function AkaOfYou() {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <View style={styles.noticeContainer}>
@@ -36,11 +38,11 @@ function AkaOfYou({ navigation }) {
       </View>
 
       <View style={styles.seeMoreAka}>
-        <TouchableOpacity onPress={() => navigation.navigate("OtherPage")}>
+        <Pressable onPress={() => navigation.navigate("MyAkaList")}>
           <Text style={{ color: "#0050FF", textDecorationLine: "underline" }}>
             칭호 더보기
           </Text>
-        </TouchableOpacity>
+        </Pressable>
       </View>
     </View>
   );

@@ -23,9 +23,22 @@ function CardRakingList() {
           ></Image>
           <Text>삼성 taptap 카드</Text>
         </View>
+
         <View style={styles.topCardText}>
-          <Text>약 89,000원의</Text>
-          <Text>혜택을 받았어요</Text>
+          <Text style={{ fontSize: 15, fontWeight: "medium" }}>
+            약{" "}
+            <Text
+              style={{
+                color: "#5574ff",
+                fontSize: 18,
+                fontWeight: "semibold",
+              }}
+            >
+              89,000원
+            </Text>
+            의
+          </Text>
+          <Text>혜택을 받았어요!</Text>
         </View>
       </View>
 
