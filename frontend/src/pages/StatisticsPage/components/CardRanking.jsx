@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   },
   cardList: {
     flex: 2,
-    marginTop: 30,
+    marginTop: 50,
     maxHeight: 450,
     minWidth: 300,
   },
