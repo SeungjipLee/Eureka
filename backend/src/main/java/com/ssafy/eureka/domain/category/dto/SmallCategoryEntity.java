@@ -21,4 +21,12 @@ public class SmallCategoryEntity {
 
     @NotNull
     private int largeCategoryId;
+
+
+    public static SmallCategoryEntity regist(Integer largeCategoryId, String subCategory) {
+        SmallCategoryEntity smallCategory = new SmallCategoryEntity();
+        smallCategory.largeCategoryId = largeCategoryId;
+        smallCategory.categoryName = subCategory;
+        return smallCategory;
+    }
 }
