@@ -21,9 +21,8 @@ public class CardHistoryEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int cardHistoryId;
 
-    @ManyToOne
-    @JoinColumn(name = "user_card_id", nullable = false)
-    UserCardEntity userCardId;
+    @Column(nullable = false)
+    int userCardId; // 유저 카드 PK
 
     @Column(length = 21)
     String approvedNum;

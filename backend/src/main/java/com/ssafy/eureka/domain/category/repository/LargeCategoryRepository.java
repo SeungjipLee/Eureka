@@ -8,4 +8,6 @@ public interface LargeCategoryRepository extends JpaRepository<LargeCategoryEnti
 
     @Override
     List<LargeCategoryEntity> findAll();
+
+    LargeCategoryEntity findByLargeCategoryId(int largeCategoryId);
 }
