@@ -1,10 +1,11 @@
-import QRScanPage from '../pages/QRScanPage';
-import ProductPage from '../pages/ProductPage/ProductPage';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import HomeRouters from './HomeRouters';
-import CardRouters from './CardRouters';
+import QRScanPage from "../pages/QRScanPage";
+import ProductPage from "../pages/ProductPage/ProductPage";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
+import HomeRouters from "./HomeRouters";
+import CardRouters from "./CardRouters";
 import StatisticsRouters from "./StatisticsRouters";
+import ProductRouters from "./ProductRouters";
 
 function Routers() {
   const Tab = createMaterialBottomTabNavigator();
@@ -25,10 +26,10 @@ function Routers() {
             <MaterialCommunityIcons name="home" color={color} size={26} />
           ),
         }}
-        />
-        <Tab.Screen 
-        name="CardPage" 
-        component={CardRouters} 
+      />
+      <Tab.Screen
+        name="CardPage"
+        component={CardRouters}
         options={{
           tabBarLabel: "카드",
           tabBarIcon: ({ color }) => (
@@ -62,7 +63,7 @@ function Routers() {
       />
       <Tab.Screen
         name="ProductPage"
-        component={ProductPage}
+        component={ProductRouters}
         options={{
           tabBarLabel: "카드상품",
           tabBarIcon: ({ color }) => (
