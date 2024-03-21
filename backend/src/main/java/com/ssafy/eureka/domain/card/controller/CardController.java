@@ -19,9 +19,17 @@ public class CardController {
 
     private final CardService cardService;
 
+    @Operation(summary = "카드사 조회")
+    @GetMapping("/comp/list")
+    public ApiResponse<?> listLargeCategory() {
+        log.debug("카드사 조회");
+        return ApiResponse.ok(cardService.listCardCompany());
+    }
+
     @Operation(summary = "절대 임의로 하지 말기!!!")
     @GetMapping("/admin/regist")
     public ApiResponse registAllCardProduct (){
+        log.debug("카드 상품 등록");
         cardService.registAllCardProduct();
         return ApiResponse.ok("등록 성공");
     }

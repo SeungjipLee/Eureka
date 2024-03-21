@@ -41,3 +41,7 @@ out/
 ### Gerrit ###
 push_to_gerrit.sh
 >>>>>>> ebe04d3 (Docs: gitignore 수정)
+
+
+### yml ###
+src/main/resources/application-prod.yml

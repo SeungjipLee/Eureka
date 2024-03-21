@@ -7,6 +7,7 @@ import com.ssafy.eureka.domain.user.dto.RefreshToken;
 import com.ssafy.eureka.domain.user.dto.UserEntity;
 import com.ssafy.eureka.domain.user.dto.request.CheckUserRequest;
 import com.ssafy.eureka.domain.user.dto.request.LoginRequest;
+import com.ssafy.eureka.domain.user.dto.request.SendMessageRequest;
 import com.ssafy.eureka.domain.user.dto.request.SignUpRequest;
 import com.ssafy.eureka.domain.user.dto.response.CheckUserRespnose;
 import com.ssafy.eureka.domain.user.dto.response.JwtTokenResponse;
@@ -32,7 +33,7 @@ public class UserServiceImpl implements UserService{
     private UserUtil userUtil;
 
     @Override
-    public void sendMessage(CheckUserRequest checkUserRequest) {
+    public void sendMessage(SendMessageRequest sendMessageRequest) {
         // 문자 전송
     }
 
