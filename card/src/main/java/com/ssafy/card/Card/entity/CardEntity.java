@@ -16,9 +16,8 @@ public class CardEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int cardId;
 
-    @ManyToOne
-    @JoinColumn(name = "card_company_id", nullable = false)
-    CardCompanyEntity cardCompanyId;
+    @Column(nullable = false)
+    int cardCompanyId; // 카드사 PK
 
     @Column(length = 30, nullable = false)
     String cardName;

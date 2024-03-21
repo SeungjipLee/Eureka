@@ -42,9 +42,7 @@ public class TestController {
     @PostMapping("/test2")
     public String test2(){
 
-        String access = jwtUtil.createJwt("access", "Darius", null, 2400000L);
-        String refresh = jwtUtil.createJwt("refresh", "Darius", null,86400000L);
 
-        return access+" / "+ refresh;
+        return "안녕 나는 테스트야2";
     }
 }
