@@ -1,19 +1,23 @@
-import { StyleSheet, View, Text } from "react-native"
+import { StyleSheet, View, Text, Pressable } from "react-native"
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-// import MyCarousel from "./MyCarousel";
+import MyCarousel from "./MyCarousel";
+import { useNavigation } from '@react-navigation/native';
 
 function HomePayCard () {
+  const navigation = useNavigation()
   return (
     <View>
       <View style={styles.header}>
         <Text style={styles.easyPay}>간편 결제</Text>
-        <View style={styles.settingIcon}>
-          <MaterialCommunityIcons 
-            name="cog-outline" size={26}/>
-        </View>
+        <Pressable onPress={() => navigation.navigate('Setting')}>
+          <View style={styles.settingIcon}>
+            <MaterialCommunityIcons 
+              name="cog-outline" size={26}/>
+          </View>
+        </Pressable>
       </View>
       <View style={styles.carousel}>
-{/*         <MyCarousel /> */}
+        <MyCarousel />
       </View>
     </View>
   )
@@ -37,8 +41,6 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
   carousel: {
-    height: 250,
-    backgroundColor: 'blue',
     marginBottom: 12,
   }
 })

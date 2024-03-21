@@ -1,8 +1,35 @@
 server:
   port: 8080
   servlet:
-    context-path: /
+    context-path: /card
+
 
 spring:
   profiles:
     active: dev
+
+  # config
+  config:
+    import:
+      optional:classpath:/application-dev.yml
+  # JPA
+  jpa:
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        format_sql: true
+        show_sql: true
+        highlight_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+      defer-datasource-initialization: true
+
+  # MySQL
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/card?tinyInt1isBit=false&serverTimezone=UTC&characterEncoding=UTF-8
+    username: ssafy
+    password: ssafy
+
+jwt:
+  secret: f35FS462GS54GADBNK32aXVH335YRGSF67JGH042FWD;

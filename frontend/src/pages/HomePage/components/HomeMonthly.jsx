@@ -16,7 +16,7 @@ function HomeMonthly () {
             <Text style={styles.font}>총 할인 예상 금액</Text>
             <Text style={styles.price}>192,393원</Text>
           </View>
-          <Pressable>
+          <Pressable onPress={() => navigation.navigate('StatisticsPage')}>
             <MaterialCommunityIcons 
               name="chevron-right" size={26} style={styles.nextBtn}/>
           </Pressable>
@@ -27,7 +27,7 @@ function HomeMonthly () {
             <Text style={styles.font}>총 결제 금액</Text>
             <Text style={styles.price}>1,192,393원</Text>
           </View>
-          <Pressable onPress={() => navigation.navigate('Statistics')}>
+          <Pressable onPress={() => navigation.navigate('StatisticsPage')}>
             <MaterialCommunityIcons name="chevron-right" size={26} style={styles.nextBtn}/>
           </Pressable>
         </View>
@@ -43,10 +43,11 @@ const styles = StyleSheet.create({
     height: 280,
     borderWidth: 2,
     borderColor: '#D7D7D7',
-    borderRadius: 10,
+    borderRadius: 20,
     padding: 12,
     paddingTop:20,
     shadowColor: '#D7D7D7',
+    backgroundColor: '#ffffff'
   },
   subtitle: {
     fontWeight: 'bold',

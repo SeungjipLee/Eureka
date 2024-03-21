@@ -6,16 +6,17 @@ import {
   StatusBar,
   Platform,
 } from "react-native";
+import CardRakingList from "./CardRankingComponents/CardRakingList";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
 function CardRanking() {
   return (
-    <View>
-      <View style={styles.container}>
-        <Text style={styles.RankingText}>
-          이번달에 혜택을 제일 많이 받은 카드에요!{" "}
-        </Text>
+    <View style={styles.container}>
+      <Text style={styles.rankingText}>이번달에 혜택을 가장</Text>
+      <Text style={styles.rankingText}>많이 받은 카드에요! </Text>
+      <View style={styles.cardList}>
+        <CardRakingList />
       </View>
     </View>
   );
@@ -43,14 +44,15 @@ const styles = StyleSheet.create({
       },
     }),
   },
-  consumptionText: {
-    fontSize: 30,
-    fontWeight: "200",
+  rankingText: {
+    fontSize: 20,
+    fontWeight: "400",
     color: "black",
   },
-  RankingText: {
-    fontSize: 30,
-    fontWeight: "200",
-    color: "black",
+  cardList: {
+    flex: 2,
+    marginTop: 50,
+    maxHeight: 450,
+    minWidth: 300,
   },
 });
