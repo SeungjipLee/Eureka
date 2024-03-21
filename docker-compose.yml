@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   frontend:
+    image: eureka/react
     build:
       context: ./frontend-web
       dockerfile: Dockerfile
@@ -9,6 +10,7 @@ services:
       - "3000:80"
 
   backend:
+    image: eureka/spring
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -16,6 +18,7 @@ services:
       - "8000:8000"
 
 # card-service:
+#   image: card/spring
 #   build:
 #     context: ./card
 #     dockerfile: Dockerfile
