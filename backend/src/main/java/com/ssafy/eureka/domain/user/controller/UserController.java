@@ -3,6 +3,7 @@ package com.ssafy.eureka.domain.user.controller;
 import com.ssafy.eureka.common.response.ApiResponse;
 import com.ssafy.eureka.domain.user.dto.request.CheckUserRequest;
 import com.ssafy.eureka.domain.user.dto.request.LoginRequest;
+import com.ssafy.eureka.domain.user.dto.request.SendMessageRequest;
 import com.ssafy.eureka.domain.user.dto.request.SignUpRequest;
 import com.ssafy.eureka.domain.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,9 +28,9 @@ public class UserController {
 
     @Operation(summary = "인증 문자 전송")
     @PostMapping("/send")
-    public ApiResponse<?> sendMessage(@RequestBody CheckUserRequest checkUserRequest) {
-        log.debug("인증 문자 전송, userName : " + checkUserRequest.getUserName());
-        userService.sendMessage(checkUserRequest);
+    public ApiResponse<?> sendMessage(@RequestBody SendMessageRequest sendMessageRequest) {
+        log.debug("인증 문자 전송, userName : " + sendMessageRequest.getUserName());
+        userService.sendMessage(sendMessageRequest);
         return ApiResponse.ok("문자 전송 성공");
     }
 
