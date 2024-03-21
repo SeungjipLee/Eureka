@@ -3,6 +3,7 @@ import { StyleSheet, ScrollView, View, Text, Pressable } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import ChooseOne from "./ByCardComponent/ChooseOne";
+import CardList from "./ByCardComponent/CardList";
 
 function ByCard() {
   const navigation = useNavigation();
@@ -11,7 +12,7 @@ function ByCard() {
       <View style={styles.chooseOne}>
         <ChooseOne />
       </View>
-      <View style={styles.cardList}></View>
+      <View style={styles.cardList}><CardList/></View>
     </View>
   );
 }
