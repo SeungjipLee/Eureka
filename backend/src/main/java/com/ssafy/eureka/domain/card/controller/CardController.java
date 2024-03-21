@@ -2,6 +2,7 @@ package com.ssafy.eureka.domain.card.controller;
 
 import com.ssafy.eureka.common.response.ApiResponse;
 import com.ssafy.eureka.domain.card.service.CardService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class CardController {
 
     private final CardService cardService;
+
+    @Operation(summary = "절대 임의로 하지 말기!!!")
     @GetMapping("/admin/regist")
     public ApiResponse registAllCardProduct (){
         cardService.registAllCardProduct();

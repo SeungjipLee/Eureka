@@ -107,6 +107,10 @@ public class CardDataUtil {
                                     // 3. 카드 혜택 상세 정보 저장
                                     if(benefit.getDetails() != null){
                                         for(BenefitDetail detail : benefit.getDetails()){
+                                            if(largeCategory.get(detail.getMainCategory()) == null){
+                                                int ll = 1;
+                                            }
+
                                             Optional<SmallCategoryEntity> entity = smallCategoryRepository.findByCategoryName(detail.getSubCategory());
                                             int smallCategoryId = 0;
                                             if(entity.isPresent()){
