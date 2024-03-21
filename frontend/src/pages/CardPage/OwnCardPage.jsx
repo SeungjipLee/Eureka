@@ -7,9 +7,6 @@ function OwnCardPage() {
   return (
     <View style={styles.container}>
       <CardHome />
-      <View style={styles.btn}>
-        <Text style={styles.btnTxt}>보유 카드 불러오기</Text>
-      </View>
     </View>
   )
 }
@@ -29,19 +26,4 @@ const styles = StyleSheet.create({
     shadowColor: '#D7D7D7',
     backgroundColor: '#ffffff'
   },
-  btn: {
-    marginTop: 20,
-    width:"60%",
-    height: 40,
-    alignSelf: 'center',
-    backgroundColor: '#5087FF',
-    borderRadius: 10,
-    padding: 10,
-  },
-  btnTxt: {
-    color: '#ffffff',
-    fontSize: 16,
-    fontWeight: 'bold',
-    alignSelf:'center'
-  }
 })

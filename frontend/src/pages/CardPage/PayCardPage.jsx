@@ -6,89 +6,73 @@ function PayCardPage() {
   const navigation = useNavigation()
   const data = [
     {
-      imgSrc: require("../../../assets/card2.png"),
+      imgSrc: require("../../../assets/card.png"),
       title: "KB 국민 My WE:SH 카드",
-      benefit: {
-        "KB Pay": "10% 할인",
-        "음식점": "10% 할인",
-        "마트": "10% 할인"
-      }
+      now: 321000,
+      target: 400000
     },
     {
-      imgSrc: require("../../../assets/card2.png"),
+      imgSrc: require("../../../assets/card.png"),
       title: "다담카드",
-      benefit: {
-        "KB Pay": "10% 할인",
-        "음식점": "10% 할인",
-        "마트": "10% 할인"
-      }
+      now: 111000,
+      target: 300000
     },
     {
-      imgSrc: require("../../../assets/card2.png"),
+      imgSrc: require("../../../assets/card.png"),
       title: "BeV V카드(스카이패스형)",
-      benefit: {
-        "KB Pay": "10% 할인",
-        "음식점": "10% 할인",
-        "마트": "10% 할인"
-      }
+      now: 0,
+      target: 200000
     },
     {
-      imgSrc: require("../../../assets/card2.png"),
+      imgSrc: require("../../../assets/card.png"),
       title: "신한카드 Mr.Life",
-      benefit: {
-        "관리비": "10% 할인",
-        "주유": "리터당 60원 할인",
-        "통신": "10% 할인"
-      }
+      now: 511000,
+      target: 400000
     },
     {
-      imgSrc: require("../../../assets/card2.png"),
+      imgSrc: require("../../../assets/card.png"),
       title: "KB 국민 My WE:SH 카드",
-      benefit: {
-        "KB Pay": "10% 할인",
-        "음식점": "10% 할인",
-        "마트": "10% 할인"
-      }
+      now : 0,
+      target: 300000
     },
     {
-      imgSrc: require("../../../assets/card2.png"),
+      imgSrc: require("../../../assets/card.png"),
       title: "KB 국민 My WE:SH 카드",
-      benefit: {
-        "KB Pay": "10% 할인",
-        "음식점": "10% 할인",
-        "마트": "10% 할인"
-      }
+      now: 10000,
+      target: 0
     },
   ]
 
   return (
     <View style={{backgroundColor:'#ffffff'}}>
       <FlatList
+        style={styles.listStyle}
         data={data}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
           <View style={styles.cardContainer}>
-            <Image
-              source={item.imgSrc}
-              style={styles.cardImage}
-            />
-            <View style={{flex: 1}}>
+            <Image source={item.imgSrc} style={styles.cardImage} />
+            <View style={{ flex: 1 }}>
               <Text style={styles.cardTitle}>{item.title}</Text>
-              <View style={styles.benefitsContainer}>
-                {Object.entries(item.benefit).map(([key, value], index) => (
-                  <View key={index}>
-                    <Text style={styles.benefitKey}>{key}</Text>
-                    <Text style={styles.benefitValue}>{value}</Text>
-                </View>
-                ))}
-              </View>
+              {item.target - item.now > 0 ? (
+                <Text>
+                  이용 실적이 
+                  <Text style={styles.highlightText}> {item.target - item.now}원 </Text>
+                  남았어요
+                </Text>
+              ) : (
+                <Text style={styles.achievementText}>카드 실적을 달성하였어요!</Text>
+              )}
             </View>
-            <TouchableOpacity style={styles.detailButton}>
-              <Text style={styles.detailButtonText}>자세히 보기</Text>
-            </TouchableOpacity>
           </View>
         )}
       />
+      <Pressable onPress={()=>navigation.navigate('PayCardEnroll')}>
+        <View style={styles.btnContainer}>
+          <Image source={require('../../../assets/favicon.png')} style={styles. img}/>
+          <Text style={{ fontSize: 20, color: '#0050FF' }}>결제 카드 등록하기</ Text>
+        </View>
+      </Pressable>
     </View>
   )
 }
@@ -103,47 +87,43 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingBottom: 20,
   },
+  listStyle: {
+    height: 450,
+  },
   cardTitle: {
     fontSize: 16,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    marginBottom: 5,
   },
   cardImage: {
-    width: 52,
-    height: 80,
+    width: 102,
+    height: 64,
     marginRight: 10,
     borderRadius: 8,
   },
-  benefitsContainer: {
+  highlightText: {
+    color: '#007bff', // 파란색으로 하이라이트
+  },
+  remainingText: {
+    color: '#007bff', // 파란색
+  },
+  achievementText: {
+    color: 'green', // 달성시 색상, 예시로 녹색을 사용했습니다. 원하는 색상으로 변경 가능
+  },
+  btnContainer: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    alignItems:'center',
+    height: 150,
+    width: 300,
+    margin:20,
+    backgroundColor: '#F3F3F3',
+    marginBottom: 100,
+    borderRadius: 20,
+    justifyContent: 'center'
   },
-  benefitText: {
-    width: '33%',
-    marginVertical: 2,
-  },
-  detailButton: {
-    position: 'absolute',
-    right: 20,
-    bottom: 7,
-  },
-  detailButtonText: {
-    color: '#007bff',
-    fontSize: 14,
-  },
-  btn: {
-    marginTop: 20,
-    width:"60%",
-    height: 40,
-    alignSelf: 'center',
-    backgroundColor: '#5087FF',
-    borderRadius: 10,
-    padding: 10,
-  },
-  btnTxt: {
-    color: '#ffffff',
-    fontSize: 16,
-    fontWeight: 'bold',
-    alignSelf:'center'
+  img: {
+    height: 30,
+    width: 30,
+    marginEnd: 10,
   }
 })
