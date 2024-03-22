@@ -5,7 +5,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 public class WebConfig implements WebMvcConfigurer {
 
-    public static final String[] ALLOWED_ORIGIN = {"http://localhost:3000", "https://j10e101.p.ssafy.io"};
+    public static final String[] ALLOWED_ORIGIN = {"http://localhost:8000", "https://j10e101.p.ssafy.io"};
     public static final String[] ALLOWED_METHOD = {"GET", "POST", "PUT", "DELETE"};
 
     @Override
