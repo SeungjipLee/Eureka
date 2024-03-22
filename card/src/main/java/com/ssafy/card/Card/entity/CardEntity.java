@@ -16,9 +16,8 @@ public class CardEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int cardId;
 
-    @ManyToOne
-    @JoinColumn(name = "card_company_id", nullable = false)
-    CardCompanyEntity cardCompanyId;
+    @NotNull
+    int cardCompanyId;
 
     @Column(length = 30, nullable = false)
     String cardName;
