@@ -1,2 +1,66 @@
-package com.ssafy.card.User.service;public class UserCardServiceImpl {
+package com.ssafy.card.User.service;
+
+import com.ssafy.card.Card.entity.CardHistoryEntity;
+import com.ssafy.card.Card.entity.repository.CardHistoryRepository;
+import com.ssafy.card.User.dto.response.CardPayHistoryResponse;
+import com.ssafy.card.User.dto.response.UserCardListResponse;
+import com.ssafy.card.User.dto.response.UserCardResponse;
+import com.ssafy.card.User.entity.UserCardEntity;
+import com.ssafy.card.User.entity.UserEntity;
+import com.ssafy.card.User.repository.UserCardRepository;
+import com.ssafy.card.User.repository.UserRepository;
+import com.ssafy.card.common.CustomException;
+import com.ssafy.card.common.ErrorCode;
+import java.util.ArrayList;
+import java.util.List;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+@Service
+@RequiredArgsConstructor
+public class UserCardServiceImpl implements UserCardService {
+
+    private final UserRepository userRepository;
+    private final UserCardRepository userCardRepository;
+    private final CardHistoryRepository cardHistoryRepository;
+
+    @Override
+    public UserCardListResponse listUserCard(String phoneNumber, int cardCompanyId) {
+
+        UserEntity user = userRepository.findByPhoneNumber(phoneNumber);
+        if (user == null) {
+            throw new CustomException(ErrorCode.USER_NOT_FOUND);
+        }
+
+        List<UserCardEntity> userCardList = userCardRepository.findAllByUserId(user.getUserId());
+
+        List<UserCardResponse> list = new ArrayList<>();
+        for (UserCardEntity userCard : userCardList) {
+            list.add(new UserCardResponse(userCard.getCardId(), userCard.getCardIdentifier(),
+                userCard.getCardNumber().substring(0, 4),
+                userCard.getCardNumber().substring(12, 16)));
+        }
+
+        return new UserCardListResponse(list);
+    }
+
+    @Override
+    public CardPayHistoryResponse listCardHistory(String phoneNumber, String cardIdentifier,
+        String yyyymm) {
+
+        UserEntity user = userRepository.findByPhoneNumber(phoneNumber);
+        if (user == null) {
+            throw new CustomException(ErrorCode.USER_NOT_FOUND);
+        }
+
+        UserCardEntity userCard = userCardRepository.findByCardIdentifier(cardIdentifier);
+        if (userCard == null) {
+            throw new CustomException(ErrorCode.USER_CARD_NOT_FOUND);
+        }
+
+        List<CardHistoryEntity> list = cardHistoryRepository.findByUserCardIdAndMonthAndYear(
+            userCard.getCardId(), yyyymm.substring(0, 4), yyyymm.substring(4, 6));
+
+        return new CardPayHistoryResponse(list);
+    }
 }
