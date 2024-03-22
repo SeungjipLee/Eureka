@@ -22,6 +22,4 @@ public class MyDataRequestDto {
     @NotBlank
     @Length(max=15)
     String name;
-
-
 }
