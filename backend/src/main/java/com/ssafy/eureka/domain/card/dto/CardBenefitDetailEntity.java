@@ -48,6 +48,8 @@ public class CardBenefitDetailEntity {
 
     private int payMin;
 
+
+
     public static CardBenefitDetailEntity regist(int cardBenefitId, int largeCategoryId,
         int smallCategoryId, BenefitDetail detail) {
         CardBenefitDetailEntity cardBenefitDetail = new CardBenefitDetailEntity();

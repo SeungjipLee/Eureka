@@ -68,7 +68,6 @@ public class CardHistoryEntity {
         this.modifiedAmt = entity.getModifiedAmt();
         this.totalInstallCnt = entity.getTotalInstallCnt();
         this.categoryName = entity.getCategoryName();
-
     }
 
 }

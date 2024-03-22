@@ -32,7 +32,7 @@ public class CustomJwtAuthenticationFilter extends OncePerRequestFilter {
 
         String token = jwtTokenProvider.getTokenFromRequest(request);
 
-        if(token == null || !token.startsWith("Bearer ")){
+        if(token == null){
             filterChain.doFilter(request, response);
             return;
         }

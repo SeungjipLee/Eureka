@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/api/user")
 public class UserController {
+
     private final UserService userService;
 
     @Operation(summary = "인증 문자 전송")

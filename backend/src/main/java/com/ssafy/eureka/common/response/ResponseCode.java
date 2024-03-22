@@ -16,15 +16,20 @@ public enum ResponseCode {
     USER_PASSWORD_ERROR(HttpServletResponse.SC_UNAUTHORIZED, "비밀번호 오류"),
     USER_BIRTH_ERROR(HttpServletResponse.SC_NOT_FOUND, "주민등록번호 오류"),
 
+    USER_CARD_NOT_FOUND(HttpServletResponse.SC_NOT_FOUND, "카드를 찾을 수 없음"),
+
     // 인증 문자 에러
     PASSWORD_ERROR(HttpServletResponse.SC_UNAUTHORIZED, "인증번호 오류"),
 
     //
     AES_ERROR(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "비밀번호 암호화 오류"),
 
-    REFRESHTOKEN_ERROR(HttpServletResponse.SC_NOT_FOUND, "리프레시 토큰 오류"),
-    USER_ALREADY_EXSIST(HttpServletResponse.SC_CONFLICT, "이미 가입된 회원")
-    ;
+    REFRESH_TOKEN_ERROR(HttpServletResponse.SC_UNAUTHORIZED, "리프레시 토큰 오류"),
+    ACCESS_TOKEN_EXPIRED(HttpServletResponse.SC_UNAUTHORIZED, "액세스 토큰 만료"),
+    USER_ALREADY_EXSIST(HttpServletResponse.SC_CONFLICT, "이미 가입된 회원"),
+
+
+    MYDATA_TOKEN_ERROR(HttpServletResponse.SC_UNAUTHORIZED, "마이데이터 토큰 에러");
 
     private final int code;
     private final String message;

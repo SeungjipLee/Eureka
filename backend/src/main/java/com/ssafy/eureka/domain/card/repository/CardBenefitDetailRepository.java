@@ -9,4 +9,5 @@ import java.util.List;
 public interface CardBenefitDetailRepository extends JpaRepository<CardBenefitDetailEntity, String> {
 
     List<CardBenefitDetailEntity> findByCardBenefitId(int cardBenefitId);
+    List<CardBenefitDetailEntity> findByLargeCategoryId(int categoryId);
 }

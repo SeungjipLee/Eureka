@@ -28,33 +28,32 @@ public class CardController {
     }
 
     // 카드사별, 카테고리 분류별
+    @Operation(summary = "카드 상품 카드사별 조회")
     @GetMapping("/prod/comp/list/{companyId}")
     public ApiResponse<?> getCardProdCompanyList(@PathVariable int companyId){
 
         log.debug("카드 상품 카드사별 조회");
         cardService.cardProdCompanyList(companyId);
-        return ApiResponse.ok("성공", cardService.cardProdCompanyList(companyId));
+        return ApiResponse.ok(cardService.cardProdCompanyList(companyId));
     }
 
-    @GetMapping("/list{category}")
-    public ApiResponse<?> getCardProdCategoryList(@PathVariable String category){
+    @Operation(summary = "카드 상품 카테고리별 조회")
+    @GetMapping("/prod/category/list/{categoryId}")
+    public ApiResponse<?> getCardProdCategoryList(@PathVariable int categoryId){
 
-        return ApiResponse.ok("등록 성공");
+        log.debug("카드 상품 카테고리별 조회");
+        cardService.cardProdCategoryList(categoryId);
+        return ApiResponse.ok(cardService.cardProdCategoryList(categoryId));
     }
 
-    // 카드 상품 상세 조회
-//    @GetMapping("/${cardId}")
-//    public ApiResponse getCardProdDetail(){
-//
-//        return ApiResponse.ok("카드 상품 상세 조회 성공");
-//    }
+    @Operation(summary = "카드 상품 상세 정보 조회")
+    @GetMapping("/prod/detail/{cardId}")
+    public ApiResponse<?> getCardProdDetail(@PathVariable int cardId){
 
-    // 카드 상품 추천
-//    @GetMapping("/recommend/${type}")
-//    public ApiResponse getCardProdRecommend(){
-//
-//        return ApiResponse.ok("카드 상품 추천 성공");
-//    }
+        log.debug("카드 상품 상세 정보 조회");
+        cardService.cardProdDetail(cardId);
+        return ApiResponse.ok(cardService.cardProdDetail(cardId));
+    }
 
     @Operation(summary = "절대 임의로 하지 말기!!!")
     @GetMapping("/admin/regist")

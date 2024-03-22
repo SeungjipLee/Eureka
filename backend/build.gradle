@@ -60,13 +60,14 @@ dependencies {
 	// S3
 	implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 
-
 	// hex
 	implementation 'commons-codec:commons-codec:1.16.1'
 
 	// gson
 	implementation 'com.google.code.gson:gson:2.10.1'
 
+	// feign
+	implementation 'org.springframework.cloud:spring-cloud-starter-openfeign:4.1.0'
 }
 
 tasks.named('test') {

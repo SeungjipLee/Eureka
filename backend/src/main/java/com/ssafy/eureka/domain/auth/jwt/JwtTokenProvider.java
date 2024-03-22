@@ -40,7 +40,12 @@ public class JwtTokenProvider {
 
     public boolean validateToken(String token, UserDetails userDetails) {
         String userId = extractUserId(token);
-        return (userId.equals(userDetails.getUsername()) && !expiredToken(token));
+
+        if(expiredToken(token)){
+            throw new CustomException(ResponseCode.ACCESS_TOKEN_EXPIRED);
+        }
+
+        return (userId.equals(userDetails.getUsername()));
     }
 
     private boolean expiredToken (String token) {
@@ -86,6 +91,8 @@ public class JwtTokenProvider {
     public String getTokenFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
 
+        System.out.println("Token 추출 : " + bearerToken);
+
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
             return bearerToken.substring(7);
         }
@@ -97,7 +104,7 @@ public class JwtTokenProvider {
         String token = getTokenFromRequest(request);
 
         if(token == null){
-            throw new CustomException(ResponseCode.REFRESHTOKEN_ERROR);
+            throw new CustomException(ResponseCode.REFRESH_TOKEN_ERROR);
         }
 
         String userId = extractUserId(token);
@@ -107,12 +114,12 @@ public class JwtTokenProvider {
         }
 
         RefreshToken refreshToken = refreshTokenRepository.findById(userId)
-            .orElseThrow(() -> new CustomException(ResponseCode.REFRESHTOKEN_ERROR));
+            .orElseThrow(() -> new CustomException(ResponseCode.REFRESH_TOKEN_ERROR));
 
         String userId2 = extractUserId(refreshToken.getRefreshToken());
 
         if(!userId.equals(userId2)){
-            throw new CustomException(ResponseCode.REFRESHTOKEN_ERROR);
+            throw new CustomException(ResponseCode.REFRESH_TOKEN_ERROR);
         }
 
         return createToken(userId);
