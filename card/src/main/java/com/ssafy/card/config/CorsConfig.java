@@ -13,8 +13,8 @@ public class CorsConfig implements WebMvcConfigurer {
 
        // 모든 controller에서 port 3000에 대한 cors 처리 
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:8000")
-//                .allowedOrigins("https://j10e101.p.ssafy.io:8000")
+//                .allowedOrigins("http://localhost:8000")
+                .allowedOrigins("https://j10e101.p.ssafy.io")
                 ;
     }
 }
