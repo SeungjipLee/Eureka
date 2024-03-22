@@ -1,2 +1,9 @@
-package com.ssafy.eureka.domain.card.dto.request;public class SearchUserCardRequest {
+package com.ssafy.eureka.domain.card.dto.request;
+
+import java.util.List;
+import lombok.Getter;
+
+@Getter
+public class SearchUserCardRequest {
+    private List<Integer> cardCompayList;
 }
