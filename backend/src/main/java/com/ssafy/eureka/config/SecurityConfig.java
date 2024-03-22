@@ -25,7 +25,16 @@ public class SecurityConfig {
     private final CustomJwtAuthenticationFilter authenticationFilter;
 
     private static final String[] AUTH_WHITELIST = {
-        "/swagger-ui/**", "/api/user/**"
+        "/api/user/**",
+        
+        "/swagger-ui/**",
+        "/swagger-ui.html",
+        "/configuration/ui",
+        "/configuration/security",
+        "/v3/api-docs/**",
+        "swagger-resources",
+        "/swagger-resources/**",
+        "/webjars/**"
     };
 
     @Bean
@@ -57,10 +66,10 @@ public class SecurityConfig {
                 .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                 .accessDeniedHandler(new CustomAccessDeniedHandler()))
 
-            .authorizeHttpRequests(authoize -> authoize
+            .authorizeHttpRequests(auth -> auth
                 .requestMatchers(AUTH_WHITELIST).permitAll()
-                .anyRequest().permitAll()
-//                .anyRequest().authenticated()
+//                .anyRequest().permitAll()
+                .anyRequest().authenticated()
             );
 
         return http.build();

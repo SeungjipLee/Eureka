@@ -35,12 +35,9 @@ out/
 
 ### VS Code ###
 .vscode/
-<<<<<<< HEAD
-=======
 
 ### Gerrit ###
 push_to_gerrit.sh
->>>>>>> ebe04d3 (Docs: gitignore 수정)
 
 
 ### yml ###

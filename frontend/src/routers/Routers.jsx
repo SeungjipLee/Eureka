@@ -1,11 +1,12 @@
 import QRScanPage from "../pages/QRScanPage";
-import ProductPage from "../pages/ProductPage/ProductPage";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import HomeRouters from "./HomeRouters";
 import CardRouters from "./CardRouters";
 import StatisticsRouters from "./StatisticsRouters";
 import ProductRouters from "./ProductRouters";
+import AuthRouters from './AuthRouters'
+
 
 function Routers() {
   const Tab = createMaterialBottomTabNavigator();
@@ -43,7 +44,7 @@ function Routers() {
       />
       <Tab.Screen
         name="QRScanPage"
-        component={QRScanPage}
+        component={AuthRouters}
         options={{
           tabBarLabel: "QR결제",
           tabBarIcon: ({ color }) => (

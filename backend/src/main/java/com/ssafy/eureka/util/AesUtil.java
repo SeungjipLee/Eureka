@@ -35,7 +35,7 @@ public class AesUtil {
             IvParameterSpec IV = new IvParameterSpec(privateKey_256.substring(0, 16).getBytes());
 
             Cipher c = Cipher.getInstance("AES/CBC/PKCS5Padding");
-            c.init(Cipher.ENCRYPT_MODE, secretKey, IV);
+            c.init(Cipher.DECRYPT_MODE, secretKey, IV);
 
             byte[] decodeByte = Hex.decodeHex(encodeText.toCharArray());
 

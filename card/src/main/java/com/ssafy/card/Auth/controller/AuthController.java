@@ -19,19 +19,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/auth")
 public class AuthController {
 
-    private final JwtUtil jwtUtil;
     private final AuthService authService;
 
     @PostMapping("/mydata")
-    public JwtTokenResponseDto issueMyDataToken(@RequestBody MyDataRequestDto dto){
-
-        log.debug("마이데이터 토큰 발급 : " + dto.getName());
-        return authService.issueMyDataToken(dto);
+    public JwtTokenResponseDto issueMyDataToken(@RequestBody MyDataRequestDto myDataRequestDto){
+        log.debug("마이데이터 토큰 발급 : " + myDataRequestDto.getName());
+        return authService.issueMyDataToken(myDataRequestDto);
     }
 
     @PostMapping("/pay")
     public JwtTokenResponseDto issuePayToken(@RequestBody PayRequestDto dto){
-
         log.debug("결제 토큰 발급 : " + dto.getCardNumber());
         return authService.issuePayToken(dto);
     }

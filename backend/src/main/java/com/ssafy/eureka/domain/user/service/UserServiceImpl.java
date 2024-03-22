@@ -3,6 +3,11 @@ package com.ssafy.eureka.domain.user.service;
 import com.ssafy.eureka.common.exception.CustomException;
 import com.ssafy.eureka.common.response.ResponseCode;
 import com.ssafy.eureka.domain.auth.jwt.JwtTokenProvider;
+import com.ssafy.eureka.domain.card.repository.MydataTokenRepository;
+import com.ssafy.eureka.domain.mydata.dto.MyDataToken;
+import com.ssafy.eureka.domain.mydata.dto.request.MyDataTokenRequest;
+import com.ssafy.eureka.domain.mydata.dto.response.MyDataTokenResponse;
+import com.ssafy.eureka.domain.mydata.feign.MyDataFeign;
 import com.ssafy.eureka.domain.user.dto.RefreshToken;
 import com.ssafy.eureka.domain.user.dto.UserEntity;
 import com.ssafy.eureka.domain.user.dto.request.CheckUserRequest;
@@ -16,21 +21,26 @@ import com.ssafy.eureka.domain.user.repository.UserRepository;
 import com.ssafy.eureka.util.AesUtil;
 import com.ssafy.eureka.util.UserUtil;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.AllArgsConstructor;
+import jakarta.transaction.Transactional;
+import java.time.format.DateTimeFormatter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService{
 
-    private UserRepository userRepository;
-    private RefreshTokenRepository refreshTokenRepository;
-    private JwtTokenProvider jwtTokenProvider;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-    private AesUtil aesUtil;
-    private UserUtil userUtil;
+    private final UserRepository userRepository;
+    private final RefreshTokenRepository refreshTokenRepository;
+    private final JwtTokenProvider jwtTokenProvider;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final AesUtil aesUtil;
+    private final UserUtil userUtil;
+
+    private final MyDataFeign myDataFeign;
+    private final MydataTokenRepository mydataTokenRepository;
 
     @Override
     public void sendMessage(SendMessageRequest sendMessageRequest) {
@@ -81,6 +91,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    @Transactional
     public JwtTokenResponse signUp(SignUpRequest signUpRequest) {
         String encodePhoneNumber = aesUtil.encrypt(signUpRequest.getPhoneNumber());
 
@@ -95,12 +106,19 @@ public class UserServiceImpl implements UserService{
         }
 
         userRepository.save(user);
-
         String userId = String.valueOf(user.getUserId());
 
         JwtTokenResponse jwtTokenResponse = jwtTokenProvider.createToken(userId);
-
         refreshTokenRepository.save(new RefreshToken(userId, jwtTokenResponse.getRefreshToken()));
+
+        MyDataTokenResponse myDataTokenResponse = myDataFeign.requestToken(new MyDataTokenRequest(signUpRequest.getPhoneNumber(), signUpRequest.getUserBirth(), signUpRequest.getUserName()));
+        MyDataToken myDataToken = new MyDataToken(userId, myDataTokenResponse.getAccessToken(), myDataTokenResponse.getRefreshToken());
+
+        if(myDataToken.getAccessToken() == null){
+            throw new CustomException(ResponseCode.MYDATA_TOKEN_ERROR);
+        }
+
+        mydataTokenRepository.save(myDataToken);
 
         return jwtTokenResponse;
     }
@@ -114,9 +132,7 @@ public class UserServiceImpl implements UserService{
             throw new CustomException(ResponseCode.USER_NOT_FOUND);
         }
 
-        String encodePassword = bCryptPasswordEncoder.encode(loginRequest.getPassword());
-
-        if(!user.getPassword().equals(encodePassword)){
+        if(!bCryptPasswordEncoder.matches(loginRequest.getPassword(), user.getPassword())){
             throw new CustomException(ResponseCode.USER_PASSWORD_ERROR);
         }
 
@@ -128,6 +144,13 @@ public class UserServiceImpl implements UserService{
 
         refreshTokenRepository.save(new RefreshToken(String.valueOf(user.getUserId()), jwtTokenResponse.getRefreshToken()));
 
+        String phoneNumber = aesUtil.decrypt(user.getPhoneNumber());
+        String userBirth = user.getUserBirth().format(DateTimeFormatter.ofPattern("yyMMdd"));
+
+        MyDataTokenResponse myDataTokenResponse = myDataFeign.requestToken(new MyDataTokenRequest(phoneNumber, userBirth, user.getUserName()));
+        MyDataToken myDataToken = new MyDataToken(String.valueOf(user.getUserId()), myDataTokenResponse.getAccessToken(), myDataTokenResponse.getRefreshToken());
+        mydataTokenRepository.save(myDataToken);
+
         return jwtTokenResponse;
     }
 
@@ -136,9 +159,7 @@ public class UserServiceImpl implements UserService{
         UserEntity user = userRepository.findByUserId(Integer.parseInt(userDetails.getUsername()))
             .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
 
-        String encodePassword = bCryptPasswordEncoder.encode(password);
-
-        if(user.getPassword().equals(encodePassword)){
+        if(!bCryptPasswordEncoder.matches(password, user.getPassword())){
             throw new CustomException(ResponseCode.USER_PASSWORD_ERROR);
         }
     }
@@ -149,7 +170,6 @@ public class UserServiceImpl implements UserService{
             .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
 
         String encodePassword = bCryptPasswordEncoder.encode(password);
-
         user.updatePassword(encodePassword);
     }
 }

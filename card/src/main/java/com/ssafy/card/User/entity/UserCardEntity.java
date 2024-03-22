@@ -34,6 +34,10 @@ public class UserCardEntity {
     @Column(length = 16, nullable = false)
     String cardNumber;
 
+    String expired_year;
+
+    String expired_month;
+
     @Column(length = 3, nullable = false)
     String cardCvc;
 
@@ -49,6 +53,8 @@ public class UserCardEntity {
         this.cardIdentifier = entity.getCardIdentifier();
         this.cardMember = entity.getCardMember();
         this.cardNumber = entity.getCardNumber();
+        this.expired_year = entity.getExpired_year();
+        this.expired_month = entity.getExpired_month();
         this.cardCvc = entity.getCardCvc();
     }
 

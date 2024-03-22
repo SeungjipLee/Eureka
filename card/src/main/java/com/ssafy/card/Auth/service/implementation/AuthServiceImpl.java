@@ -31,20 +31,22 @@ public class AuthServiceImpl implements AuthService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public JwtTokenResponseDto issueMyDataToken(MyDataRequestDto dto) {
+    public JwtTokenResponseDto issueMyDataToken(MyDataRequestDto myDataRequestDto) {
+        UserEntity userEntity = userRepository.findByPhoneNumber(myDataRequestDto.getPhoneNumber());
 
-//        String phoneNumber = bCryptPasswordEncoder.encode(dto.getPhoneNumber());
-        String phoneNumber = dto.getPhoneNumber();
-        String birth = dto.getBirth();
-        String name = dto.getName();
-        UserEntity userEntity = userRepository.findByPhoneNumber(phoneNumber);
+        if(userEntity == null) {
+            throw new CustomException(ErrorCode.USER_NOT_FOUND);
+        }
+        if(!userEntity.getBirth().equals(myDataRequestDto.getBirth())) {
+            throw new CustomException(ErrorCode.INVALID_USER_BIRTH);
+        }
+        if(!userEntity.getName().equals(myDataRequestDto.getName())) {
+            throw new CustomException(ErrorCode.INVALID_USER_NAME);
+        }
 
-        if(userEntity == null) throw new CustomException(ErrorCode.USER_NOT_FOUND);
-        if(!userEntity.getBirth().equals(birth)) throw new CustomException(ErrorCode.INVALID_USER_BIRTH);
-        if(!userEntity.getName().equals(name)) throw new CustomException(ErrorCode.INVALID_USER_NAME);
 
-        String access = jwtUtil.createJwt("access", name, null, 2400000L);
-        String refresh = jwtUtil.createJwt("refresh", name, null,86400000L);
+        String access = jwtUtil.createJwt("access", userEntity.getPhoneNumber(), null, 2400000L);
+        String refresh = jwtUtil.createJwt("refresh", userEntity.getPhoneNumber(), null,86400000L);
 
         return new JwtTokenResponseDto("Bearer ", access, refresh);
 
@@ -55,17 +57,22 @@ public class AuthServiceImpl implements AuthService {
 
         String cardNumber = dto.getCardNumber();
         String cvc = dto.getCvc();
+        String yy = dto.getExpired_year();
+        String mm = dto.getExpired_month();
         String password = dto.getPassword();
 
         Optional<UserCardEntity> userCardEntity = userCardRepository.findByCardNumber(cardNumber);
 
-        if(!userCardEntity.isPresent()) throw  new CustomException(ErrorCode.NOT_FOUND_CARD);
+        if(userCardEntity.isEmpty()) throw  new CustomException(ErrorCode.NOT_FOUND_CARD);
         if(!userCardEntity.get().getCardCvc().equals(cvc)) throw new CustomException(ErrorCode.NOT_FOUND_CARD);
+        if(!userCardEntity.get().getExpired_year().equals(yy)) throw new CustomException(ErrorCode.NOT_FOUND_CARD);
+        if(!userCardEntity.get().getExpired_month().equals(mm)) throw new CustomException(ErrorCode.NOT_FOUND_CARD);
+
 
         String twoPass = userCardEntity.get().getCardPassword().substring(0, 2);
         if(!twoPass.equals(password)) throw new CustomException(ErrorCode.NOT_FOUND_CARD);
 
-        String access = jwtUtil.createJwt("access", cardNumber, null, 2400000L);
+        String access = jwtUtil.createJwt("access", cardNumber, null, 31536000L);
 
         userCardEntity.get().setToken(access);
         userCardRepository.save(userCardEntity.get());

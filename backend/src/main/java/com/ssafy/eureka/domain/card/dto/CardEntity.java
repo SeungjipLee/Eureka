@@ -34,7 +34,7 @@ public class CardEntity {
     private int annualFee;
 
     @NotNull
-    private int priviousPerformance;
+    private int previousPerformance;
 
     @Column(columnDefinition = "TEXT")
     private String caution;
@@ -59,7 +59,7 @@ public class CardEntity {
         card.cardName = cardProduct.getCardName();
         card.imagePath = cardProduct.getImagePath();
         card.annualFee = cardProduct.getAnnualFee();
-        card.priviousPerformance = cardProduct.getPreviousPerformance();
+        card.previousPerformance = cardProduct.getPreviousPerformance();
         card.caution = cardProduct.getBenefits().get(cardProduct.getBenefits().size() - 1).getDetailedDescription();
         card.registerPage = cardProduct.getRegisterPath();
         card.isExpired = false;

@@ -17,7 +17,7 @@ public class CardEntity {
     int cardId;
 
     @Column(nullable = false)
-    int cardCompanyId; // 카드사 PK
+    int cardCompanyId;
 
     @Column(length = 30, nullable = false)
     String cardName;
