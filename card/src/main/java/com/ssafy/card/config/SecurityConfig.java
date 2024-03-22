@@ -4,6 +4,7 @@ import com.ssafy.card.JWT.JwtFilter;
 import com.ssafy.card.JWT.JwtUtil;
 import com.ssafy.card.JWT.LoginFilter;
 import jakarta.servlet.http.HttpServletRequest;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +25,10 @@ import java.util.Collections;
 @EnableWebSecurity // 해당 클래스가 Security 내에서 관리받음
 public class SecurityConfig {
 
+    private final static String[] ALLOWED_ORIGINS = {
+        "https://j10e101.p.ssafy.io",
+        "http://localhost:8000",
+        "https://j10e101.p.ssafy.io:8000"};
 
     private final AuthenticationConfiguration authenticationConfiguration;
     private final JwtUtil jwtUtil;
@@ -57,9 +62,7 @@ public class SecurityConfig {
                             public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
 
                                 CorsConfiguration configuration = new CorsConfiguration();
-
-                                configuration.setAllowedOrigins(Collections.singletonList("https://j10e101.p.ssafy.io"));
-//                                configuration.setAllowedOrigins(Collections.singletonList("http://localhost:8000"));
+                                configuration.setAllowedOrigins(List.of(ALLOWED_ORIGINS));
                                 configuration.setAllowedMethods(Collections.singletonList("*"));
                                 configuration.setAllowCredentials(true);
                                 configuration.setAllowedHeaders(Collections.singletonList("*"));
