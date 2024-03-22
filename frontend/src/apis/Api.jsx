@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const DOMAIN = "https://j10e101.p.ssafy.io:8000"
+const DOMAIN = "https://j10e101.p.ssafy.io"
 
 function API (token) {
   const instance = axios.create({
