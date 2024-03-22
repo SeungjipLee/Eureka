@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8001
   servlet:
     context-path: /card
 
@@ -15,21 +15,21 @@ spring:
   # JPA
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
-        show_sql: true
-        highlight_sql: true
+#        show_sql: true
+#        highlight_sql: true
         dialect: org.hibernate.dialect.MySQLDialect
-      defer-datasource-initialization: true
+      defer-datasource-initializati on: true
 
   # MySQL
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/card?tinyInt1isBit=false&serverTimezone=UTC&characterEncoding=UTF-8
-    username: ssafy
-    password: ssafy
+    url: jdbc:mysql://localhost:3306/card_db?tinyInt1isBit=false&serverTimezone=UTC&characterEncoding=UTF-8
+    username: root
+    password: 1234
 
 jwt:
   secret: f35FS462GS54GADBNK32aXVH335YRGSF67JGH042FWD;
