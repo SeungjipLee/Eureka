@@ -9,7 +9,7 @@ function StatisticsRouters() {
   return (
     <StatisticsStack.Navigator screenOptions={{ headerShown: false }}>
       <StatisticsStack.Screen
-        name="StatisticsPage"
+        name="StatisticsPage1"
         component={StatisticsPage}
       />
       <StatisticsStack.Screen name="AkaOfYou" component={AkaOfYou} />
