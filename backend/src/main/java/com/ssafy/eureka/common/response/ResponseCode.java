@@ -24,7 +24,8 @@ public enum ResponseCode {
     //
     AES_ERROR(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "비밀번호 암호화 오류"),
 
-    REFRESHTOKEN_ERROR(HttpServletResponse.SC_NOT_FOUND, "리프레시 토큰 오류"),
+    REFRESH_TOKEN_ERROR(HttpServletResponse.SC_UNAUTHORIZED, "리프레시 토큰 오류"),
+    ACCESS_TOKEN_EXPIRED(HttpServletResponse.SC_UNAUTHORIZED, "액세스 토큰 만료"),
     USER_ALREADY_EXSIST(HttpServletResponse.SC_CONFLICT, "이미 가입된 회원"),
 
 
