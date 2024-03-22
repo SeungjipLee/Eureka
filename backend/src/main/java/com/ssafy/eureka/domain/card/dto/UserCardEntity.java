@@ -1,5 +1,7 @@
 package com.ssafy.eureka.domain.card.dto;
 
+import com.ssafy.eureka.domain.card.dto.request.RegistPayCardRequest;
+import com.ssafy.eureka.domain.card.dto.request.RegistUserCardRequest.RegistUserCard;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -34,12 +36,34 @@ public class UserCardEntity {
 
     private String lastCardNumber;
 
+    private String expired_year;
+
+    private String expired_month;
+
     @Column(columnDefinition = "BIGINT")
     private BigInteger currentMonthAmount;
 
-    private boolean isPaymentEnabled = false;
+    private boolean isPaymentEnabled;
 
     private String token;
 
     private LocalDate paymentDate;
+
+    public static UserCardEntity registUserCard(String userId, RegistUserCard registUserCard) {
+        UserCardEntity userCard = new UserCardEntity();
+        userCard.userId = Integer.parseInt(userId);
+        userCard.cardId = registUserCard.getCardId();
+        userCard.cardIdentifier = registUserCard.getCardIdentifier();
+        userCard.firstCardNumber = registUserCard.getFirstCardNumber();
+        userCard.lastCardNumber = registUserCard.getLastCardNumber();
+        userCard.currentMonthAmount = new BigInteger("0");
+        userCard.isPaymentEnabled = false;
+        return userCard;
+    }
+
+    public void registPayCard(RegistPayCardRequest registPayCardRequest, String accessToken) {
+        expired_year = registPayCardRequest.getExpired_year();
+        expired_month = registPayCardRequest.getExpired_month();
+        token = accessToken;
+    }
 }

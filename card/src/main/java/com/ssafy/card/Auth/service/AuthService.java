@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface AuthService {
-
-//    public ApiResponse<?> issueMyDataToken(MyDataRequestDto dto);
-    public JwtTokenResponseDto issueMyDataToken(MyDataRequestDto dto);
+    public JwtTokenResponseDto issueMyDataToken(MyDataRequestDto myDataRequestDto);
     public JwtTokenResponseDto issuePayToken(PayRequestDto dto);
 }

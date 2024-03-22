@@ -22,7 +22,9 @@ public enum ErrorCode {
     NOT_EXPIRED_TOKEN_YET(500, "Not expired token yet."),
     FAIL_TOKEN_GENERATION(500, "Failed to generate Token."),
 
-    CONFLICT_RESOURCE(409, "중복된 값이 있습니다. 다시 입력해주세요");
+    CONFLICT_RESOURCE(409, "중복된 값이 있습니다. 다시 입력해주세요"),
+
+    USER_CARD_NOT_FOUND(404, "유저 카드를 찾을 수 없음.");
 
 
     private int status;
