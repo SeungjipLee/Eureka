@@ -21,8 +21,8 @@ public class CardHistoryEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int cardHistoryId;
 
-    @NotNull
-    int userCardId;
+    @Column(nullable = false)
+    int userCardId; // 유저 카드 PK
 
     @Column(length = 21)
     String approvedNum;
@@ -68,7 +68,6 @@ public class CardHistoryEntity {
         this.modifiedAmt = entity.getModifiedAmt();
         this.totalInstallCnt = entity.getTotalInstallCnt();
         this.categoryName = entity.getCategoryName();
-
     }
 
 }

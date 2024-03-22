@@ -1,8 +1,10 @@
-import { FlatList, StyleSheet, Text, View, Image, TouchableOpacity, Pressable } from "react-native"
-import { useNavigation } from '@react-navigation/native';
+import { FlatList, StyleSheet, Text, View, Image, TouchableOpacity } from "react-native"
+import { useState } from "react";
+import BankListModal from "./BankListModal";
+
 
 function OwnCardPage2 () {
-  const navigation = useNavigation()
+  const [modalVisible, setModalVisible] = useState(false);
   const data = [
     {
       imgSrc: require("../../../assets/card2.png"),
@@ -60,9 +62,16 @@ function OwnCardPage2 () {
     },
   ]
 
+
+  const handleSelectBank = (bank) => {
+    console.log('Selected Bank:', bank);
+    setModalVisible(false); // 은행 선택 후 모달 닫기
+  };
+
   return (
     <View style={{backgroundColor:'#ffffff'}}>
         <FlatList
+          style={styles.listStyle}
           data={data}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
@@ -88,8 +97,18 @@ function OwnCardPage2 () {
             </View>
           )}
         />
-
-      </View>
+      <TouchableOpacity onPress={() => setModalVisible(true)}>
+        <View style={styles.btn}>
+          <Text style={styles.btnTxt}>보유 카드 불러오기</Text>
+        </View>
+      </TouchableOpacity>
+      <BankListModal
+        visible={modalVisible}
+        onClose={() => setModalVisible(false)}
+        onSelect={handleSelectBank}
+      />
+    </View>
+      
   )
 }
 
@@ -103,8 +122,12 @@ const styles = StyleSheet.create({
     padding: 10,
     paddingBottom: 20,
   },
+  listStyle: {
+    height: 550,
+    marginBottom: 10,
+  },
   cardTitle: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold'
   },
   cardImage: {
@@ -118,9 +141,12 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'space-between',
   },
-  benefitText: {
-    width: '33%',
-    marginVertical: 2,
+  benefitKey: {
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  benefitValue: {
+    fontSize: 12,
   },
   detailButton: {
     position: 'absolute',
@@ -130,5 +156,20 @@ const styles = StyleSheet.create({
   detailButtonText: {
     color: '#007bff',
     fontSize: 14,
+  },
+  btn: {
+    marginVertical: 20,
+    width:"60%",
+    height: 40,
+    alignSelf: 'center',
+    backgroundColor: '#5087FF',
+    borderRadius: 10,
+    padding: 10,
+  },
+  btnTxt: {
+    color: '#ffffff',
+    fontSize: 16,
+    fontWeight: 'bold',
+    alignSelf:'center'
   },
 })

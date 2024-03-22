@@ -33,8 +33,6 @@ public class UserEntity  {
     @Column(length = 15, nullable = false)
     String name;
 
-//    String role;
-
     public UserEntity(UserEntity entity){
 //        this.phoneNumber = entity.phoneNumber;
 //        this.birth = entity.getBirth();

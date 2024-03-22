@@ -2,8 +2,11 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/eureka_db?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true&useSSL=false&allowPublicKeyRetrieval=true
-    username: root
-    password: 1234
+    username: ssafy
+    password: ssafy
+#    username: root
+#    password: 1234
+#  j10e101.p.ssafy.io:8989
 
   jpa:
     hibernate:

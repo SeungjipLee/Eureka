@@ -16,7 +16,7 @@ public class CardEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int cardId;
 
-    @NotNull
+    @Column(nullable = false)
     int cardCompanyId;
 
     @Column(length = 30, nullable = false)
