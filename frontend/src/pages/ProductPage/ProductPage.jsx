@@ -10,6 +10,7 @@ import MainNotice from "./components/MainNotice";
 import CurrentBenefit from "./components/CurrentBenefit";
 import IfUseRecommendCard from "./components/IfUseRecommendCard";
 import CategoryRecommend from "./components/CategoryRecommend";
+import TwoCategory from "./components/TwoCategory";
 
 const screenHeight = Dimensions.get("window").height;
 
@@ -24,6 +25,9 @@ function ProductPage() {
       </View>
       <View style={styles.ifuserecommend}>
         <IfUseRecommendCard />
+      </View>
+      <View style={styles.twocategory}>
+        <TwoCategory />
       </View>
       <View style={styles.categoryrecommend}>
         <CategoryRecommend />
@@ -44,14 +48,18 @@ const styles = StyleSheet.create({
   },
   mainnotice: {
     flex: 2,
+    marginTop: 20,
   },
   currentbenefit: {
     flex: 0.5,
-    minHeight: 20,
+    marginTop: 20,
+    maxHeight: 50,
   },
   ifuserecommend: {
     flex: 2,
     minHeight: 300,
+    marginTop: 30,
   },
   categoryrecommend: {},
+  twocategory: {},
 });
