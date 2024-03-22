@@ -63,6 +63,7 @@ public class CardServiceImpl implements CardService{
 
                 if(cardBenefitEntityList.get(j) == null) continue;
                 int cardBenefitId = cardBenefitEntityList.get(j).getCardBenefitId(); // 카드 혜택 id;
+                String info = cardBenefitEntityList.get(j).getInfo();
 
                 List<CardBenefitDetailEntity> cardBenefitDetailEntityList = cardBenefitDetailRepository.findByCardBenefitId(cardBenefitId);
                 if (cardBenefitDetailEntityList == null ) continue;
@@ -91,7 +92,7 @@ public class CardServiceImpl implements CardService{
                 if(cardDetailBenefitList.size() == 2) {
                     cardProdCompanyList.add(new CardProdListResponse(
                             cardId, companyName, cardName, cardImagePath,
-                            cardDetailBenefitList
+                            info, cardDetailBenefitList
                     ));
                     break;
                 }
@@ -137,6 +138,7 @@ public class CardServiceImpl implements CardService{
             }
 
                     int cardId = cardBenefitEntity.getCardId();
+                    String info = cardBenefitEntity.getInfo();
 
                     CardEntity cardEntity = cardRepository.findByCard(cardId);
 
@@ -149,7 +151,7 @@ public class CardServiceImpl implements CardService{
 
                         cardProdCategoryList.add(new CardProdListResponse(
                                 cardId, companyName, cardName, cardImagePath,
-                                cardDetailBenefitList
+                                info, cardDetailBenefitList
                         ));
                 }
         return cardProdCategoryList;

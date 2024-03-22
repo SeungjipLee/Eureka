@@ -3,7 +3,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://j10e101.p.ssafy.io:3306/eureka_db?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true&useSSL=false&allowPublicKeyRetrieval=true
     username: root
-    password: ehfehs101
+    password: e101!ehfehswkq
 
   jpa:
     hibernate:
