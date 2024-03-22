@@ -9,8 +9,10 @@ public class CorsConfig implements WebMvcConfigurer {
 
     // Controller 단에서 cors 처리
     private final static String[] ALLOWED_ORIGINS = {
+        "http://j10e101.p.ssafy.io",
         "https://j10e101.p.ssafy.io",
         "http://localhost:8000",
+        "https://j10e101.p.ssafy.io:8000",
         "https://j10e101.p.ssafy.io:8000"};
 
     @Override
