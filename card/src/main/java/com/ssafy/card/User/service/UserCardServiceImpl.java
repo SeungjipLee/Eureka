@@ -10,7 +10,7 @@ import com.ssafy.card.User.entity.UserEntity;
 import com.ssafy.card.User.repository.UserCardRepository;
 import com.ssafy.card.User.repository.UserRepository;
 import com.ssafy.card.common.CustomException;
-import com.ssafy.card.common.ErrorCode;
+import com.ssafy.card.common.ResponseCode;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -27,10 +27,8 @@ public class UserCardServiceImpl implements UserCardService {
     @Override
     public UserCardListResponse listUserCard(String phoneNumber, int cardCompanyId) {
 
-        UserEntity user = userRepository.findByPhoneNumber(phoneNumber);
-        if (user == null) {
-            throw new CustomException(ErrorCode.USER_NOT_FOUND);
-        }
+        UserEntity user = userRepository.findByPhoneNumber(phoneNumber)
+                .orElseThrow(() -> new CustomException(ResponseCode.NOT_FOUND_CARD));
 
         List<UserCardEntity> userCardList = userCardRepository.findAllByUserId(user.getUserId());
 
@@ -48,15 +46,11 @@ public class UserCardServiceImpl implements UserCardService {
     public CardPayHistoryResponse listCardHistory(String phoneNumber, String cardIdentifier,
         String yyyymm) {
 
-        UserEntity user = userRepository.findByPhoneNumber(phoneNumber);
-        if (user == null) {
-            throw new CustomException(ErrorCode.USER_NOT_FOUND);
-        }
+        UserEntity user = userRepository.findByPhoneNumber(phoneNumber)
+                .orElseThrow(() -> new CustomException(ResponseCode.NOT_FOUND_CARD));
 
-        UserCardEntity userCard = userCardRepository.findByCardIdentifier(cardIdentifier);
-        if (userCard == null) {
-            throw new CustomException(ErrorCode.USER_CARD_NOT_FOUND);
-        }
+        UserCardEntity userCard = userCardRepository.findByCardIdentifier(cardIdentifier)
+                .orElseThrow(() -> new CustomException(ResponseCode.USER_CARD_NOT_FOUND));
 
         List<CardHistoryEntity> list = cardHistoryRepository.findByUserCardIdAndMonthAndYear(
             userCard.getCardId(), yyyymm.substring(0, 4), yyyymm.substring(4, 6));

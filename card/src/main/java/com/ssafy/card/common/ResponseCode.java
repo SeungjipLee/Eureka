@@ -2,11 +2,12 @@ package com.ssafy.card.common;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 
 @Getter
 @AllArgsConstructor
-public enum ErrorCode {
-
+public enum ResponseCode {
+    SUCCESS(HttpStatus.OK.value(), "Success"),
     INTERNAL_SERVER_ERROR(500, "서버에 문제가 생겼습니다."),
 
     // 유저 / 토큰
@@ -25,7 +26,6 @@ public enum ErrorCode {
     CONFLICT_RESOURCE(409, "중복된 값이 있습니다. 다시 입력해주세요"),
 
     USER_CARD_NOT_FOUND(404, "유저 카드를 찾을 수 없음.");
-
 
     private int status;
     private String message;

@@ -27,8 +27,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/card_db?tinyInt1isBit=false&serverTimezone=UTC&characterEncoding=UTF-8
-    username: root
-    password: 1234
+    username: ssafy
+    password: ssafy
 
   data:
     redis:

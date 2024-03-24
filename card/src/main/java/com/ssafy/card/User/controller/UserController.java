@@ -3,6 +3,8 @@ package com.ssafy.card.User.controller;
 import com.ssafy.card.User.dto.response.CardPayHistoryResponse;
 import com.ssafy.card.User.dto.response.UserCardListResponse;
 import com.ssafy.card.User.service.UserCardService;
+import com.ssafy.card.common.ApiResponse;
+import com.ssafy.card.common.ResponseCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -21,17 +23,21 @@ public class UserController {
     private final UserCardService userCardService;
 
     @PostMapping("/list")
-    public UserCardListResponse listUserCard(@AuthenticationPrincipal UserDetails userDetails,
-        @RequestParam int cardCompanyId){
+    public ApiResponse listUserCard(@AuthenticationPrincipal UserDetails userDetails,
+                                    @RequestParam int cardCompanyId){
         log.debug("유저 카드 조회, phoneNumber : " + userDetails.getUsername());
-        return userCardService.listUserCard(userDetails.getUsername(), cardCompanyId);
+        UserCardListResponse result = userCardService.listUserCard(userDetails.getUsername(), cardCompanyId);
+
+        return new ApiResponse(ResponseCode.SUCCESS.getMessage(), ResponseCode.SUCCESS.getStatus(), result);
     }
 
     @PostMapping("/history")
-    public CardPayHistoryResponse listCardHistory(@AuthenticationPrincipal UserDetails userDetails,
-        @RequestParam String cardIdentifier, @RequestParam String yyyymm){
+    public ApiResponse listCardHistory(@AuthenticationPrincipal UserDetails userDetails,
+                                       @RequestParam String cardIdentifier, @RequestParam String yyyymm){
         log.debug("카드 결제 내역 조회, phoneNumber : " + userDetails.getUsername());
-        return userCardService.listCardHistory(userDetails.getUsername(), cardIdentifier, yyyymm);
+        CardPayHistoryResponse result = userCardService.listCardHistory(userDetails.getUsername(), cardIdentifier, yyyymm);
+
+        return new ApiResponse(ResponseCode.SUCCESS.getMessage(), ResponseCode.SUCCESS.getStatus(), result);
     }
 
     // 결제 요청 처리

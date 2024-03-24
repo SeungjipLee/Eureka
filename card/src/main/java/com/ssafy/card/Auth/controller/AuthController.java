@@ -6,6 +6,8 @@ import com.ssafy.card.Auth.dto.request.PayRequestDto;
 import com.ssafy.card.Auth.dto.response.JwtTokenResponseDto;
 import com.ssafy.card.Auth.service.AuthService;
 import com.ssafy.card.JWT.JwtUtil;
+import com.ssafy.card.common.ApiResponse;
+import com.ssafy.card.common.ResponseCode;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -22,15 +24,18 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/mydata")
-    public JwtTokenResponseDto issueMyDataToken(@RequestBody MyDataRequestDto myDataRequestDto){
+    public ApiResponse issueMyDataToken(@RequestBody MyDataRequestDto myDataRequestDto){
         log.debug("마이데이터 토큰 발급 : " + myDataRequestDto.getName());
-        return authService.issueMyDataToken(myDataRequestDto);
+         JwtTokenResponseDto result =  authService.issueMyDataToken(myDataRequestDto);
+
+        return new ApiResponse(ResponseCode.SUCCESS.getMessage(), ResponseCode.SUCCESS.getStatus(), result);
     }
 
     @PostMapping("/pay")
-    public JwtTokenResponseDto issuePayToken(@RequestBody PayRequestDto dto){
+    public ApiResponse issuePayToken(@RequestBody PayRequestDto dto){
         log.debug("결제 토큰 발급 : " + dto.getCardNumber());
-        return authService.issuePayToken(dto);
+        JwtTokenResponseDto result =  authService.issuePayToken(dto);
+        return new ApiResponse(ResponseCode.SUCCESS.getMessage(), ResponseCode.SUCCESS.getStatus(), result);
     }
 
     // redis에 refresh 저장해놓고 재발급 때 마다 불러와서 access 새로 발급해주기
@@ -41,6 +46,5 @@ public class AuthController {
         String refresh = null;
 
         return null;
-
     }
 }

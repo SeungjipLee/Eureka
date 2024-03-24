@@ -11,5 +11,5 @@ import java.util.Optional;
 public interface UserCardRepository extends JpaRepository<UserCardEntity, Integer> {
     Optional<UserCardEntity> findByCardNumber(String cardNumber);
     List<UserCardEntity> findAllByUserId(int userId);
-    UserCardEntity findByCardIdentifier(String cardIdentifier);
+    Optional<UserCardEntity> findByCardIdentifier(String cardIdentifier);
 }

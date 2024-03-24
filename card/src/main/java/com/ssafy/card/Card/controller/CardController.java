@@ -18,7 +18,7 @@ public class CardController {
     private final CardService cardService;
 
     @PostMapping("list")
-    public ResponseEntity<ApiResponse> getCardList(){
+    public ApiResponse getCardList(){
 
 //        ApiResponse<?> result =
 
