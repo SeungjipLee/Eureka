@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FlatList, StyleSheet, Text, View, Image, TouchableOpacity, Modal, TouchableWithoutFeedback } from "react-native"
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { getMyCardList } from '../../apis/CardAPi';
 
 
 function BankListModal ({ visible, onClose, onSelect }) {
@@ -27,9 +28,26 @@ function BankListModal ({ visible, onClose, onSelect }) {
       setSelectedBanks(selectedBanks.filter(selectedBank => selectedBank.id !== bank.id));
     } else {
       setSelectedBanks([...selectedBanks, bank]);
+      console.log(selectedBanks)
     }
   };
 
+  const handleSubmit = async () => {
+    const bankIds = selectedBanks.map(bank => bank.id)
+    const inputData = {
+      "cardCompayList": bankIds
+    }
+    console.log(inputData)
+
+    const response = getMyCardList(
+      token,
+      inputData,
+      (res) => {
+        navigation.navigate('OwnCardEnroll', { res })
+      },
+      (err) => console.log(err)
+    )
+  }
 
   return (
     <Modal
@@ -68,7 +86,7 @@ function BankListModal ({ visible, onClose, onSelect }) {
                 <View style={styles.box1}>
                   <Text style={styles.txt1}>닫기</Text>
                 </View>
-                <TouchableOpacity onPress={() => navigation.navigate('OwnCardEnroll', { selectedBanks })}>
+                <TouchableOpacity onPress={handleSubmit}>
                   <View style={styles.box2}>
                     <Text style={styles.txt2}>계속하기</Text>
                   </View>

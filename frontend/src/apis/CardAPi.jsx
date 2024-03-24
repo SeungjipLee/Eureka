@@ -9,6 +9,15 @@ async function getOwnCard(token, success, fail) {
   }
 }
 
+async function getMyCardList(token, data, success, fail) {
+  try {
+    const response = await API(token).post('/ucard/list/mydata', data)
+    success(response);
+  } catch (error) {
+    fail(error);
+  }
+}
+
 async function getPayCard(token, success, fail) {
   try {
     const response = await API(token).get('/card/list/pay')
@@ -46,4 +55,4 @@ async function deleteOwnCard(token, cardId, success, fail) {
 }
 
 
-export { getOwnCard, getPayCard, addPayCard, deleteOwnCard, deletePayCard }
+export { getOwnCard, getMyCardList, getPayCard, addPayCard, deleteOwnCard, deletePayCard }

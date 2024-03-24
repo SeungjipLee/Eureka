@@ -17,8 +17,25 @@ function CardDetailPage() {
     consumes: [
       {
         idx: 1,
-        
-      }
+        place: '스타벅스',
+        date: '2024.01.01',
+        time: '09:30',
+        price: 30000
+      },
+      {
+        idx: 2,
+        place: '풋살장',
+        date: '2024.01.01',
+        time: '09:30',
+        price: 41000
+      },
+      {
+        idx: 3,
+        place: '욜로 PC방',
+        date: '2024.01.01',
+        time: '09:30',
+        price: 51200
+      },
     ]
   }
 
@@ -75,9 +92,51 @@ function CardDetailPage() {
           </Pressable>
           <Text style={{fontSize: 24}}>3월📅</Text>
           <Pressable onPress={() => navigation.navigate('CardHome')} style={{ marginRight: 20 }}>
-        <MaterialCommunityIcons name="chevron-right" size={50} color="#B8B8B8"/>
-      </Pressable>
+            <MaterialCommunityIcons name="chevron-right" size={50} color="#B8B8B8"/>
+          </Pressable>
         </View>
+        <View style={{flexDirection: 'row', alignItems:'center', justifyContent:'space-around', marginTop: 10}}>
+          <Text style={{fontSize: 16, marginVertical: 10}}>이용 내역</Text>
+          <Text>
+            <Text style={{fontSize: 20, fontWeight:'bold'}}>{data.now}</Text>  원
+          </Text>
+        </View>
+        <View style={{flexDirection: 'row', alignItems:'center', justifyContent:'space-around'}}>
+          <Text style={{fontSize: 16, marginVertical: 10}}>받은 혜택</Text>
+          <Text>
+            <Text style={{fontSize: 20, fontWeight:'bold', color: '#447FFF'}}>{data.benefits}</Text>  원
+          </Text>
+        </View>
+        <Text style={{fontSize: 16, marginTop: 20, margin: 10, fontWeight:'bold', color: '#B4B4B4'}}>최근 결제</Text>
+        <View style={{width: '100%', backgroundColor: '#B4B4B4', height: 3, alignSelf:'center'}}></View>
+        <ScrollView style={{ maxHeight: 300 }}>
+          {data.consumes.map((item) => (
+            <View key={item.idx}>
+            <View 
+              style={{ 
+                flexDirection: 'row', 
+                justifyContent: 'space-between',
+                alignItems:'center',
+                padding: 10,
+                marginHorizontal: 10,
+                }}>
+              <View>
+                <Text style={{ fontWeight: 'bold' }}>{item.place}</Text>
+                <Text style={{ textAlign: 'right', color: '#B4B4B4' }}>{item.date} {item.time}</Text>  
+              </View>
+              <View>
+                <Text style={{ textAlign: 'right', fontWeight: 'bold', color: '#333', fontSize: 16,}}>{item.price.toLocaleString()}원</Text>
+              </View>
+            </View>
+              <View style={{width: '100%', backgroundColor: '#B4B4B4', height: 1, alignSelf:'center'}}></View>
+            </View>
+          ))}
+        </ScrollView>
+        <Pressable onPress={() => navigation.navigate('CardDetailPay')}>
+          <View style={{width:'80%', backgroundColor: '#447FFF', borderRadius: 10, height: 40, alignSelf: 'center', marginBottom: 20}}>
+            <Text style={{color:'#ffffff', fontSize: 16, fontWeight:'bold', textAlign:'center', marginTop: 8}}>전체 내역 보기</Text>
+          </View>
+        </Pressable>
       </View>
     </View>
   </ScrollView>
