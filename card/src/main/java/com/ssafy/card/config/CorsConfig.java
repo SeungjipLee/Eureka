@@ -8,13 +8,19 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class CorsConfig implements WebMvcConfigurer {
 
     // Controller 단에서 cors 처리
+    private final static String[] ALLOWED_ORIGINS = {
+        "http://j10e101.p.ssafy.io",
+        "https://j10e101.p.ssafy.io",
+        "http://localhost:8000",
+        "https://j10e101.p.ssafy.io:8000",
+        "https://j10e101.p.ssafy.io:8000"};
+
     @Override
     public void addCorsMappings(CorsRegistry registry) {
 
        // 모든 controller에서 port 3000에 대한 cors 처리 
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:8000")
-//                .allowedOrigins("https://j10e101.p.ssafy.io:8000")
+                .allowedOrigins(ALLOWED_ORIGINS)
                 ;
     }
 }

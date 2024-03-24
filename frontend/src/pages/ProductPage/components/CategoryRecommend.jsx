@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   noticeTextContainer: {},
   noticeText: {
     fontSize: 20,
-    fontWeight: "600", // 'semibold' 대신 '600' 사용
+    fontWeight: "600",
   },
   byCard: {
     flexDirection: "row",
@@ -66,6 +66,6 @@ const styles = StyleSheet.create({
     fontWeight: "semibold",
   },
   nextBtn: {
-    marginStart: "auto", // 'start: "end"' 대신 'marginStart: "auto"' 사용
+    marginStart: "auto",
   },
 });

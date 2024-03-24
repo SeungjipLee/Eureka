@@ -1,10 +1,23 @@
-import { FlatList, StyleSheet, Text, View, Image, TouchableOpacity } from "react-native"
+import React from "react";
+import { FlatList, StyleSheet, Text, View, Image, TouchableOpacity, Pressable } from "react-native"
 import { useState } from "react";
 import BankListModal from "./BankListModal";
+import { useFocusEffect } from "@react-navigation/native";
+import { useNavigation } from '@react-navigation/native';
 
 
 function OwnCardPage2 () {
+  const navigation = useNavigation()
   const [modalVisible, setModalVisible] = useState(false);
+  useFocusEffect(
+    React.useCallback(() => {
+      setModalVisible(false);
+
+      return () => {
+      };
+    }, [])
+  );
+
   const data = [
     {
       imgSrc: require("../../../assets/card2.png"),
@@ -91,17 +104,17 @@ function OwnCardPage2 () {
                   ))}
                 </View>
               </View>
-              <TouchableOpacity style={styles.detailButton}>
+              <TouchableOpacity style={styles.detailButton} onPress={()=> navigation.navigate('CardDetail')}>
                 <Text style={styles.detailButtonText}>자세히 보기</Text>
               </TouchableOpacity>
             </View>
           )}
         />
-      <TouchableOpacity onPress={() => setModalVisible(true)}>
+      <Pressable onPress={() => setModalVisible(true)}>
         <View style={styles.btn}>
           <Text style={styles.btnTxt}>보유 카드 불러오기</Text>
         </View>
-      </TouchableOpacity>
+      </Pressable>
       <BankListModal
         visible={modalVisible}
         onClose={() => setModalVisible(false)}

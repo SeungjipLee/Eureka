@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.util.Enumeration;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,6 +19,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 
 //@Component
+@Slf4j
 @RequiredArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
 
@@ -30,9 +32,10 @@ public class JwtFilter extends OncePerRequestFilter {
         // request에서 Authorization 헤더를 찾음
         String authorization = request.getHeader("Authorization");
 
+        log.debug("토큰 체크 : " + authorization);
+
         // Authorization 헤더 검증
         if(authorization == null){
-            System.out.println("token null");
             filterChain.doFilter(request, response);
             // 조건이 해당되면 메소드 종료 (필수)
             return;
@@ -59,6 +62,9 @@ public class JwtFilter extends OncePerRequestFilter {
         Authentication authToken = new UsernamePasswordAuthenticationToken(customUserDetails, null, customUserDetails.getAuthorities());
 
         SecurityContextHolder.getContext().setAuthentication(authToken);
+
+        log.debug(" 인증 성공 ");
+
 
         filterChain.doFilter(request, response);
     }

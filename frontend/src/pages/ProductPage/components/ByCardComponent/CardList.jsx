@@ -6,6 +6,7 @@ function CardList() {
   // 상태를 배열이 아닌 객체로 초기화하면서, 내부에 data 배열을 포함시킴
   const [cards, setCards] = useState({ data: [] });
 
+  // 다사용하고 apis 폴더로 옮기기
   const fetchPosts = async () => {
     try {
       const response = await axios.get(
@@ -20,7 +21,7 @@ function CardList() {
   };
 
   useEffect(() => {
-    fetchPosts();
+    // fetchPosts();
   }, []);
 
   // cards.data 배열을 순회하여 렌더링
