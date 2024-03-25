@@ -4,6 +4,7 @@ import com.ssafy.card.Auth.dto.request.MyDataRequestDto;
 //import com.ssafy.card.Auth.service.AuthService;
 import com.ssafy.card.Auth.dto.request.PayRequestDto;
 import com.ssafy.card.Auth.dto.response.JwtTokenResponseDto;
+import com.ssafy.card.Auth.dto.response.PayTokenResponse;
 import com.ssafy.card.Auth.service.AuthService;
 import com.ssafy.card.JWT.JwtUtil;
 import com.ssafy.card.common.ApiResponse;
@@ -34,7 +35,7 @@ public class AuthController {
     @PostMapping("/pay")
     public ApiResponse<?> issuePayToken(@RequestBody PayRequestDto dto){
         log.debug("결제 토큰 발급 : " + dto.getCardNumber());
-        JwtTokenResponseDto result =  authService.issuePayToken(dto);
+        PayTokenResponse result =  authService.issuePayToken(dto);
         
         return new ApiResponse(ResponseCode.SUCCESS.getMessage(), ResponseCode.SUCCESS.getStatus(), result);
     }

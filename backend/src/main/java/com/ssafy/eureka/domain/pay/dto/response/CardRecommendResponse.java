@@ -1,5 +1,10 @@
 package com.ssafy.eureka.domain.pay.dto.response;
 
+import com.ssafy.eureka.domain.card.dto.CardBenefitDetailEntity;
+import com.ssafy.eureka.domain.card.dto.CardEntity;
+import com.ssafy.eureka.domain.card.dto.UserCardEntity;
+import jakarta.persistence.Column;
+import java.math.BigInteger;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,6 +19,7 @@ public class CardRecommendResponse {
     List<RecommendCard> cardList;
 
     @Getter
+    @Setter
     @NoArgsConstructor
     @AllArgsConstructor
     public static class RecommendCard{
@@ -35,12 +41,34 @@ public class CardRecommendResponse {
 
         private String discountCostType;
 
-        private String discountType;
+        private int discountType;
 
         private int discountAmount;
 
-        private int currentMonthAmount;
+        @Column(columnDefinition = "BIGINT")
+        private BigInteger currentMonthAmount;
 
         private int previousPerformance;
+
+        public RecommendCard(CardEntity cardProd, UserCardEntity userCard, CardBenefitDetailEntity cardBenefit) {
+            userCardId = userCard.getUserCardId();
+            firstCardNumber = userCard.getFirstCardNumber();
+            lastCardNumber = userCard.getLastCardNumber();
+            currentMonthAmount = userCard.getCurrentMonthAmount();
+
+            cardId = userCard.getCardId();
+            cardName = cardProd.getCardName();
+            imagePath = cardProd.getImagePath();
+            imgAttr = cardProd.getImgAttr();
+            previousPerformance = cardProd.getPreviousPerformance();
+
+            if(cardBenefit != null){
+                discountCost = cardBenefit.getDiscountCost();
+                discountCostType = cardBenefit.getDiscountCostType();
+                discountType = cardBenefit.getDiscountType();
+            }
+
+            discountAmount = 0;
+        }
     }
 }

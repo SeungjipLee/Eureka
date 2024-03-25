@@ -147,8 +147,8 @@ public class UserCardServiceImpl implements UserCardService {
     //
     @Override
     public void registUserCard(String userId, RegistUserCardRequest registUserCardRequest) {
-        for (RegistUserCard usercard : registUserCardRequest.getRegisterUserCard()) {
-            UserCardEntity card = UserCardEntity.registUserCard(userId, usercard);
+        for (RegistUserCard userCard : registUserCardRequest.getRegisterUserCard()) {
+            UserCardEntity card = UserCardEntity.registUserCard(userId, userCard);
             userCardRepository.save(card);
         }
     }
@@ -167,10 +167,6 @@ public class UserCardServiceImpl implements UserCardService {
     @Transactional
     @Override
     public void registPayCard(String userId, RegistPayCardRequest registPayCardRequest) {
-        UserCardEntity userCard = userCardRepository.findByUserCardId(
-                registPayCardRequest.getUserCardId())
-            .orElseThrow(() -> new CustomException(ResponseCode.USER_CARD_NOT_FOUND));
-
         MyDataToken myDataToken = mydataTokenRepository.findById(userId)
             .orElseThrow(() -> new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR));
 
@@ -185,6 +181,14 @@ public class UserCardServiceImpl implements UserCardService {
 
         PayTokenResponse payTokenResponse = (PayTokenResponse) response.getData();
 
-        userCard.registPayCard(registPayCardRequest, payTokenResponse.getAccessToken());
+        UserCardEntity userCard = userCardRepository.findByCardIdentifier(payTokenResponse.getCardIdentifier())
+            .orElse(null);
+
+        if(userCard != null){
+            userCard.registPayCard(registPayCardRequest, payTokenResponse);
+        }else{
+            UserCardEntity card = new UserCardEntity(Integer.parseInt(userId), registPayCardRequest, payTokenResponse);
+            userCardRepository.save(card);
+        }
     }
 }
