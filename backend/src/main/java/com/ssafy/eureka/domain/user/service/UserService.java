@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public interface UserService {
 
-    CheckUserRespnose checkUser(CheckUserRequest checkUserRequest);
+    JwtTokenResponse checkUser(CheckUserRequest checkUserRequest);
 
     JwtTokenResponse signUp(SignUpRequest signUpRequest);
 

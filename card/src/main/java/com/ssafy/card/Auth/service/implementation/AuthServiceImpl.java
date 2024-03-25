@@ -4,6 +4,7 @@ import com.ssafy.card.Auth.dto.RefreshToken;
 import com.ssafy.card.Auth.dto.request.MyDataRequestDto;
 import com.ssafy.card.Auth.dto.request.PayRequestDto;
 import com.ssafy.card.Auth.dto.response.JwtTokenResponseDto;
+import com.ssafy.card.Auth.dto.response.PayTokenResponse;
 import com.ssafy.card.Auth.service.AuthService;
 import com.ssafy.card.JWT.JwtUtil;
 import com.ssafy.card.User.entity.UserCardEntity;
@@ -67,7 +68,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public JwtTokenResponseDto issuePayToken(PayRequestDto dto) {
+    public PayTokenResponse issuePayToken(PayRequestDto dto) {
 
         String cardNumber = dto.getCardNumber();
         String cvc = dto.getCvc();
@@ -91,7 +92,7 @@ public class AuthServiceImpl implements AuthService {
         userCardEntity.get().setToken(access);
         userCardRepository.save(userCardEntity.get());
 
-        return new JwtTokenResponseDto("Bearer ", access, null);
+        return new PayTokenResponse(userCardEntity.get().getCardId(), userCardEntity.get().getCardIdentifier(), "Bearer", access, null);
     }
 
 

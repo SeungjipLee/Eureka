@@ -4,8 +4,10 @@ import com.ssafy.eureka.common.exception.CustomException;
 import com.ssafy.eureka.common.response.MyDataApiResponse;
 import com.ssafy.eureka.common.response.ResponseCode;
 import com.ssafy.eureka.domain.card.dto.CardBenefitDetailEntity;
+import com.ssafy.eureka.domain.card.dto.CardEntity;
 import com.ssafy.eureka.domain.card.dto.UserCardEntity;
 import com.ssafy.eureka.domain.card.repository.CardBenefitDetailRepository;
+import com.ssafy.eureka.domain.card.repository.CardRepository;
 import com.ssafy.eureka.domain.card.repository.UserCardRepository;
 import com.ssafy.eureka.domain.category.dto.SmallCategoryEntity;
 import com.ssafy.eureka.domain.category.repository.SmallCategoryRepository;
@@ -14,14 +16,15 @@ import com.ssafy.eureka.domain.pay.dto.request.AprrovePayRequest;
 import com.ssafy.eureka.domain.pay.dto.request.RequestPayRequest;
 import com.ssafy.eureka.domain.pay.dto.response.AprrovePayResponse;
 import com.ssafy.eureka.domain.pay.dto.response.CardRecommendResponse;
+import com.ssafy.eureka.domain.pay.dto.response.CardRecommendResponse.RecommendCard;
 import com.ssafy.eureka.domain.pay.repository.PartnershipStoreRepository;
 import com.ssafy.eureka.domain.pay.repository.PayHistoryRepository;
 import com.ssafy.eureka.domain.pay.repository.PayInfoRepository;
 import com.ssafy.eureka.domain.payment.dto.request.PayRequest;
 import com.ssafy.eureka.domain.payment.feign.PaymentFeign;
-import java.math.BigInteger;
-import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +41,7 @@ public class PayServiceImpl implements PayService{
     private final CardBenefitDetailRepository cardBenefitDetailRepository;
     private final PartnershipStoreRepository partnershipStoreRepository;
     private final SmallCategoryRepository smallCategoryRepository;
+    private final CardRepository cardRepository;
 
 
     @Override
@@ -53,42 +57,25 @@ public class PayServiceImpl implements PayService{
 
         List<UserCardEntity> userCardList = userCardRepository.findAllByUserIdAndIsPaymentEnabledTrue(Integer.parseInt(userId));
 
-        CardRecommendResponse cardRecommandResponse = new CardRecommendResponse();
+        List<RecommendCard> list = new ArrayList<>();
 
         for(UserCardEntity userCard : userCardList){
+            CardEntity cardProd = cardRepository.findByCardId(userCard.getCardId());
+
             CardBenefitDetailEntity cardBenefit = cardBenefitDetailRepository.findCardBenefitDetailsByCardIdAndCategory(userCard.getCardId(), largeCategory, smallCategory)
                 .orElse(null);
 
-            // 카드 정보
+            RecommendCard card = new RecommendCard(cardProd, userCard, cardBenefit);
 
-//            private int userCardId;
-//            private int cardId;
+            // 00원 할인된다만 정해서 넣어주면 됨.
+            card.setDiscountAmount(new Random().nextInt(21) * 100);
 
-//            private String firstCardNumber;
-//            private String lastCardNumber;
-
-//            private BigInteger currentMonthAmount;
-//            private LocalDate paymentDate;
-
-            // 혜택 정보
-
-//            private int cardBenefitDetailId;
-//            private int discountType;
-//            private String discountCostType;
-//            private float discountCost;
-
-//            private int discountMax;
-//            private int dailyLimitCount;
-//            private int monthlyLimitCount;
-//            private int discountLimit;
-//            private int payMin;
+            list.add(card);
         }
-
 
         // 우선 순위 정하기
 
-
-        return cardRecommandResponse;
+        return new CardRecommendResponse(list);
     }
 
     @Override

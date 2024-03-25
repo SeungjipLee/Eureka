@@ -2,6 +2,7 @@ package com.ssafy.eureka.domain.card.dto;
 
 import com.ssafy.eureka.domain.card.dto.request.RegistPayCardRequest;
 import com.ssafy.eureka.domain.card.dto.request.RegistUserCardRequest.RegistUserCard;
+import com.ssafy.eureka.domain.payment.dto.response.PayTokenResponse;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,12 +12,16 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigInteger;
 import java.time.LocalDate;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "user_card")
 public class UserCardEntity {
     @Id
@@ -49,6 +54,19 @@ public class UserCardEntity {
 
     private LocalDate paymentDate;
 
+    public UserCardEntity(int userId, RegistPayCardRequest registPayCardRequest, PayTokenResponse payTokenResponse) {
+        this.userId = userId;
+        this.cardId = payTokenResponse.getCardId();
+        this.cardIdentifier = payTokenResponse.getCardIdentifier();
+        this.firstCardNumber = registPayCardRequest.getCardNumber().substring(0, 4);
+        this.lastCardNumber = registPayCardRequest.getCardNumber().substring(12, 16);
+        this.expired_year = registPayCardRequest.getExpired_year();
+        this.expired_month = registPayCardRequest.getExpired_month();
+        this.currentMonthAmount = new BigInteger("0");
+        this.isPaymentEnabled = true;
+        this.token = payTokenResponse.getAccessToken();
+    }
+
     public static UserCardEntity registUserCard(String userId, RegistUserCard registUserCard) {
         UserCardEntity userCard = new UserCardEntity();
         userCard.userId = Integer.parseInt(userId);
@@ -59,10 +77,13 @@ public class UserCardEntity {
         return userCard;
     }
 
-    public void registPayCard(RegistPayCardRequest registPayCardRequest, String accessToken) {
+    public void registPayCard(RegistPayCardRequest registPayCardRequest,
+        PayTokenResponse payTokenResponse) {
         isPaymentEnabled = true;
         expired_year = registPayCardRequest.getExpired_year();
         expired_month = registPayCardRequest.getExpired_month();
-        token = accessToken;
+        firstCardNumber = registPayCardRequest.getCardNumber().substring(0, 4);
+        lastCardNumber = registPayCardRequest.getCardNumber().substring(12, 16);
+        token = payTokenResponse.getAccessToken();
     }
 }
