@@ -19,6 +19,7 @@ public class MyDataCardListResponse implements Serializable {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class MyDataCard {
+        private int cardCompanyId;
         private String companyName;
         private List<Card> list;
 
