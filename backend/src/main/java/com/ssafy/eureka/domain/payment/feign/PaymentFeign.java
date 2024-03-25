@@ -1,5 +1,6 @@
 package com.ssafy.eureka.domain.payment.feign;
 
+import com.ssafy.eureka.common.response.MyDataApiResponse;
 import com.ssafy.eureka.domain.payment.dto.request.PayRequest;
 import com.ssafy.eureka.domain.payment.dto.request.PayTokenRequest;
 import com.ssafy.eureka.domain.payment.dto.response.PayResponse;
@@ -13,12 +14,12 @@ import org.springframework.web.bind.annotation.RequestHeader;
 //@FeignClient(name="paymentFeign", url="http://localhost:8001/card")
 public interface PaymentFeign {
     @PostMapping(path = "/auth/pay")
-    public PayTokenResponse requestPayToken(
+    public MyDataApiResponse<PayTokenResponse> requestPayToken(
         @RequestHeader("Authorization") String accessToken,
         @RequestBody PayTokenRequest payTokenRequest);
 
     @PostMapping(path = "/user/pay")
-    public PayResponse requestPay(
+    public MyDataApiResponse<PayResponse> requestPay(
         @RequestHeader("Authorization") String accessToken,
         @RequestBody PayRequest payRequest);
 }

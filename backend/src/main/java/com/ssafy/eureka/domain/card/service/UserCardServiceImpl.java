@@ -1,6 +1,7 @@
 package com.ssafy.eureka.domain.card.service;
 
 import com.ssafy.eureka.common.exception.CustomException;
+import com.ssafy.eureka.common.response.MyDataApiResponse;
 import com.ssafy.eureka.common.response.ResponseCode;
 import com.ssafy.eureka.domain.card.dto.CardEntity;
 import com.ssafy.eureka.domain.card.dto.UserCardEntity;
@@ -17,6 +18,7 @@ import com.ssafy.eureka.domain.card.dto.request.SearchUserCardRequest;
 import com.ssafy.eureka.domain.card.dto.response.UserCardListResponse;
 import com.ssafy.eureka.domain.mydata.dto.request.MyDataCardHistoryRequest;
 import com.ssafy.eureka.domain.mydata.dto.response.MyDataCardHistoryResponse;
+import com.ssafy.eureka.domain.mydata.dto.response.MyDataUserCardResponse;
 import com.ssafy.eureka.domain.mydata.dto.response.MyDataUserCardResponse.MyDataUserCard;
 import com.ssafy.eureka.domain.mydata.feign.MyDataFeign;
 import com.ssafy.eureka.domain.card.repository.MydataTokenRepository;
@@ -53,10 +55,15 @@ public class UserCardServiceImpl implements UserCardService {
         List<MyDataCard> list = new ArrayList<>();
 
         for (Integer comp : searchUserCardRequest.getCardCompayList()) {
-            List<MyDataUserCard> myDataUserCardList = myDataFeign.searchUserCard(accessToken, comp)
-                .getUserCardList();
+            MyDataApiResponse<?> response =myDataFeign.searchUserCard(accessToken, comp);
 
-            for (MyDataUserCard myDataUserCard : myDataUserCardList) {
+            if(response.getStatus() != 200){
+                throw new CustomException(ResponseCode.MYDATA_TOKEN_ERROR);
+            }
+
+            MyDataUserCardResponse myDataUserCardResponse = (MyDataUserCardResponse) response.getData();
+
+            for (MyDataUserCard myDataUserCard : myDataUserCardResponse.getUserCardList()) {
                 CardEntity card = cardRepository.findByCardId(myDataUserCard.getCardId());
                 if (card != null) {
                     list.add(new MyDataCard(card, myDataUserCard));
@@ -89,8 +96,14 @@ public class UserCardServiceImpl implements UserCardService {
         UserCardEntity userCard = userCardRepository.findByUserCardId(userCardId)
             .orElseThrow(() -> new CustomException(ResponseCode.USER_CARD_NOT_FOUND));
 
-        MyDataCardHistoryResponse myDataCardPayList = myDataFeign.searchCardPayList(accessToken,
+        MyDataApiResponse response = myDataFeign.searchCardPayList(accessToken,
             new MyDataCardHistoryRequest(userCard.getCardIdentifier(), yyyymm));
+
+        if(response.getStatus() != 200){
+            throw new CustomException(ResponseCode.MYDATA_TOKEN_ERROR);
+        }
+
+        MyDataCardHistoryResponse myDataCardPayList = (MyDataCardHistoryResponse) response.getData();
 
         CardHistoryListResponse cardHistoryListResponse = new CardHistoryListResponse();
 
@@ -131,7 +144,13 @@ public class UserCardServiceImpl implements UserCardService {
 
         String accessToken = myDataToken.getAccessToken();
 
-        PayTokenResponse payTokenResponse = paymentFeign.requestPayToken(accessToken, new PayTokenRequest(registPayCardRequest));
+        MyDataApiResponse<?> response = paymentFeign.requestPayToken(accessToken, new PayTokenRequest(registPayCardRequest));
+
+        if(response.getStatus() != 200){
+            throw new CustomException(ResponseCode.PAY_TOKEN_ERROR);
+        }
+
+        PayTokenResponse payTokenResponse = (PayTokenResponse) response.getData();
 
         userCard.registPayCard(registPayCardRequest, payTokenResponse.getAccessToken());
     }

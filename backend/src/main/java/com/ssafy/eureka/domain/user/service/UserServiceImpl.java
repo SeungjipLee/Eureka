@@ -1,6 +1,7 @@
 package com.ssafy.eureka.domain.user.service;
 
 import com.ssafy.eureka.common.exception.CustomException;
+import com.ssafy.eureka.common.response.MyDataApiResponse;
 import com.ssafy.eureka.common.response.ResponseCode;
 import com.ssafy.eureka.domain.auth.jwt.JwtTokenProvider;
 import com.ssafy.eureka.domain.card.repository.MydataTokenRepository;
@@ -111,7 +112,13 @@ public class UserServiceImpl implements UserService{
         JwtTokenResponse jwtTokenResponse = jwtTokenProvider.createToken(userId);
         refreshTokenRepository.save(new RefreshToken(userId, jwtTokenResponse.getRefreshToken()));
 
-        MyDataTokenResponse myDataTokenResponse = myDataFeign.requestToken(new MyDataTokenRequest(signUpRequest.getPhoneNumber(), signUpRequest.getUserBirth(), signUpRequest.getUserName()));
+        MyDataApiResponse<?> response = myDataFeign.requestToken(new MyDataTokenRequest(signUpRequest.getPhoneNumber(), signUpRequest.getUserBirth(), signUpRequest.getUserName()));
+
+        if(response.getStatus() != 200){
+            throw new CustomException(ResponseCode.MYDATA_TOKEN_ERROR);
+        }
+
+        MyDataTokenResponse myDataTokenResponse = (MyDataTokenResponse) response.getData();
         MyDataToken myDataToken = new MyDataToken(userId, myDataTokenResponse.getAccessToken(), myDataTokenResponse.getRefreshToken());
 
         if(myDataToken.getAccessToken() == null){
@@ -147,8 +154,15 @@ public class UserServiceImpl implements UserService{
         String phoneNumber = aesUtil.decrypt(user.getPhoneNumber());
         String userBirth = user.getUserBirth().format(DateTimeFormatter.ofPattern("yyMMdd"));
 
-        MyDataTokenResponse myDataTokenResponse = myDataFeign.requestToken(new MyDataTokenRequest(phoneNumber, userBirth, user.getUserName()));
+        MyDataApiResponse<?> response = myDataFeign.requestToken(new MyDataTokenRequest(phoneNumber, userBirth, user.getUserName()));
+
+        if(response.getStatus() != 200){
+            throw new CustomException(ResponseCode.MYDATA_TOKEN_ERROR);
+        }
+
+        MyDataTokenResponse myDataTokenResponse = (MyDataTokenResponse) response.getData();
         MyDataToken myDataToken = new MyDataToken(String.valueOf(user.getUserId()), myDataTokenResponse.getAccessToken(), myDataTokenResponse.getRefreshToken());
+
         mydataTokenRepository.save(myDataToken);
 
         return jwtTokenResponse;

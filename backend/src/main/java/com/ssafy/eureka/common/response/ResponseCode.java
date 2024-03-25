@@ -29,7 +29,9 @@ public enum ResponseCode {
     USER_ALREADY_EXSIST(HttpServletResponse.SC_CONFLICT, "이미 가입된 회원"),
 
 
-    MYDATA_TOKEN_ERROR(HttpServletResponse.SC_UNAUTHORIZED, "마이데이터 토큰 에러");
+    MYDATA_TOKEN_ERROR(HttpServletResponse.SC_UNAUTHORIZED, "마이데이터 토큰 에러"),
+    PAY_TOKEN_ERROR(404,"카드사 토큰 발급 에러")
+    ;
 
     private final int code;
     private final String message;
