@@ -1,20 +1,11 @@
 import { StyleSheet, View, Text, Pressable, FlatList, Image, ScrollView } from "react-native"
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { BarChart } from "react-native-chart-kit";
-import { Dimensions } from "react-native";
 
 function Compare () {
   const navigation = useNavigation()
   
-  const chartData = {
-    labels: ["또래 평균", "나의 소비", ""],
-    datasets: [
-      {
-        data: [104, 43, 0]
-      }
-    ]
-  }
+  
 
   const chartConfig = {
     backgroundColor: "#fff",
@@ -92,15 +83,7 @@ function Compare () {
       </View>
 
       <View style={{marginVertical:20}}>
-        <BarChart
-          style={styles.chart}
-          data={chartData}
-          width={(Dimensions.get("window").width)*0.8}
-          height={(Dimensions.get("window").width)*0.5}
-          yAxisLabel=""
-          chartConfig={chartConfig}
-          verticalLabelRotation={0}
-        />
+        <Text>차트</Text>
       </View>
 
       <View style={styles.box}>
