@@ -54,14 +54,13 @@ public class UserCardEntity {
         userCard.userId = Integer.parseInt(userId);
         userCard.cardId = registUserCard.getCardId();
         userCard.cardIdentifier = registUserCard.getCardIdentifier();
-        userCard.firstCardNumber = registUserCard.getFirstCardNumber();
-        userCard.lastCardNumber = registUserCard.getLastCardNumber();
         userCard.currentMonthAmount = new BigInteger("0");
         userCard.isPaymentEnabled = false;
         return userCard;
     }
 
     public void registPayCard(RegistPayCardRequest registPayCardRequest, String accessToken) {
+        isPaymentEnabled = true;
         expired_year = registPayCardRequest.getExpired_year();
         expired_month = registPayCardRequest.getExpired_month();
         token = accessToken;
