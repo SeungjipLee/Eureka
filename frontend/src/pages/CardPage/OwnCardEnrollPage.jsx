@@ -1,12 +1,25 @@
-import React from 'react';
-import { StyleSheet, View, Text, FlatList, Image, Pressable } from "react-native";
+import React, { useState } from 'react';
+import { StyleSheet, View, Text, FlatList, Image, Pressable, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
 
-function OwnCardEnrollPage() {
+
+function OwnCardEnrollPage({ route }) {
   const navigation = useNavigation()
-  // 직접 만든 뱅크 데이터를 사용합니다.
+  const { responseData } = route.params || {}
+  const [selectedCards, setSelectedCards] = useState([]);
+  // console.log(responseData)
+
+  const toggleCardSelection = (bankId, idx) => {
+    const cardId = `${bankId}.${idx}`; 
+    if (selectedCards.includes(cardId)) {
+      setSelectedCards(selectedCards.filter(id => id !== cardId));
+    } else {
+      setSelectedCards([...selectedCards, cardId]);
+    }
+  };
+
   const selectedBankIds = [
     {
       bankId: '1',
@@ -88,15 +101,21 @@ function OwnCardEnrollPage() {
     },
   ];
 
-  const renderCardItem = ({ item }) => {
+  const renderCardItem = ({ item, index, bankId }) => {
+    const cardId = `${bankId}.${item.idx}`;
+    const isSelected = selectedCards.includes(cardId);
     return (
-      <View style={styles.cardItem}>
+      <TouchableOpacity style={styles.cardItem} onPress={() => toggleCardSelection(bankId, item.idx)}>
         <Image source={item.img} style={styles.cardImage} />
         <Text style={styles.cardName}>{item.name}</Text>
-        <View  style={{ flex: 1, alignItems:'flex-end', marginEnd: 10 }}>
-          <MaterialCommunityIcons name="check" size={24} color={'#C5C5C5'} />
+        <View style={{ flex: 1, alignItems:'flex-end', marginEnd: 10 }}>
+          <MaterialCommunityIcons
+            name="check"
+            size={24}
+            color={isSelected ? '#6396FE' : '#C5C5C5'}
+          />
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
 
@@ -110,12 +129,16 @@ function OwnCardEnrollPage() {
         <View style={{ height: 1, backgroundColor:'#C5C5C5', marginVertical: 5 }}></View>
         <FlatList
           data={item.cards}
-          renderItem={renderCardItem}
-          keyExtractor={(item, index) => index.toString()}
+          renderItem={(cardItem) => renderCardItem({ ...cardItem, bankId: item.bankId })}
+          keyExtractor={(cardItem, index) => `${item.bankId}-${cardItem.idx}-${index}`}
         />
       </View>
     );
   };
+
+  const handleSubmit = () => {
+    console.log(selectedCards)
+  }
 
   return (
     <View style={styles.container}>
@@ -133,10 +156,12 @@ function OwnCardEnrollPage() {
         renderItem={renderBankItem}
         keyExtractor={(item) => item.bankId}
       />
-      <Text style={{textAlign:'center', fontSize: 16, fontWeight:'bold', marginBottom: 10}}><Text style={{color: 'blue', fontSize: 24}}>3</Text>개 선택됨</Text>
-      <View style={styles.btn}>
-        <Text style={{color: 'white', textAlign:'center', fontSize: 20}}>선택 완료</Text>
-      </View>
+      <Text style={{textAlign:'center', fontSize: 16, fontWeight:'bold', marginBottom: 10}}><Text style={{color: 'blue', fontSize: 24}}>{selectedCards.length}</Text>개 선택됨</Text>
+      <Pressable onPress={() => handleSubmit()}>
+        <View style={styles.btn}>
+          <Text style={{color: 'white', textAlign:'center', fontSize: 20}}>선택 완료</Text>
+        </View>
+      </Pressable>
     </View>
   );
 }

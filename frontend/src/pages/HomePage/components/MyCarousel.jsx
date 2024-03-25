@@ -16,20 +16,8 @@ function MyCarousel() {
     // 추가 카드 데이터...
   ];
 
-  const renderItem = ({item, index}) => {
-    const isActive = index === activeIndex;
-    return (
-      <View style={[styles.itemContainer, styles.case, {height: isActive ? ITEM_HEIGHT * 1.2 : ITEM_HEIGHT}]}>
-        
-        <Text style={styles.name}>{item.title}</Text>
-      </View>
-    );
-  };
-
   return (
-    <View>
-      
-    </View>
+    <View></View>
   );
 }
 

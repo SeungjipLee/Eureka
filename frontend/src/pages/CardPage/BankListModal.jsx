@@ -7,17 +7,18 @@ import { getMyCardList } from '../../apis/CardAPi';
 
 function BankListModal ({ visible, onClose, onSelect }) {
   const navigation = useNavigation()
+  const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1NCIsImlhdCI6MTcxMTMzMzQwNSwiZXhwIjoxNzQyODY5NDA1fQ.nOLRDaJMIEfkGI_YnCs-C7UDGmS6Rg93OxI2zScYJ7U'
 
   const banks = [
-    { id: '1', name: 'KB국민카드', imgUrl: require('../../../assets/favicon.png')},
-    { id: '2', name: '삼성카드', imgUrl: require('../../../assets/favicon.png') },
-    { id: '3', name: 'NH농협카드', imgUrl: require('../../../assets/favicon.png') },
-    { id: '4', name: '신한카드', imgUrl: require('../../../assets/favicon.png') },
-    { id: '5', name: '현대카드', imgUrl: require('../../../assets/favicon.png') },
-    { id: '6', name: '하나카드', imgUrl: require('../../../assets/favicon.png') },
-    { id: '7', name: '우리카드', imgUrl: require('../../../assets/favicon.png') },
-    { id: '8', name: 'IBK기업은행카드', imgUrl: require('../../../assets/favicon.png') },
-    { id: '9', name: '롯데카드', imgUrl: require('../../../assets/favicon.png') },
+    { id: 1, name: 'KB국민카드', imgUrl: require('../../../assets/favicon.png')},
+    { id: 2, name: '삼성카드', imgUrl: require('../../../assets/favicon.png') },
+    { id: 3, name: 'NH농협카드', imgUrl: require('../../../assets/favicon.png') },
+    { id: 4, name: '신한카드', imgUrl: require('../../../assets/favicon.png') },
+    { id: 5, name: '현대카드', imgUrl: require('../../../assets/favicon.png') },
+    { id: 6, name: '하나카드', imgUrl: require('../../../assets/favicon.png') },
+    { id: 7, name: '우리카드', imgUrl: require('../../../assets/favicon.png') },
+    { id: 8, name: 'IBK기업은행카드', imgUrl: require('../../../assets/favicon.png') },
+    { id: 9, name: '롯데카드', imgUrl: require('../../../assets/favicon.png') },
   ];
 
   const [selectedBanks, setSelectedBanks] = useState([]);
@@ -39,11 +40,12 @@ function BankListModal ({ visible, onClose, onSelect }) {
     }
     console.log(inputData)
 
-    const response = getMyCardList(
+    getMyCardList(
       token,
       inputData,
       (res) => {
-        navigation.navigate('OwnCardEnroll', { res })
+        navigation.navigate('OwnCardEnroll', { responseData: JSON.stringify(res.data.data.cardList) })
+        // console.log(res.data.data.cardList)
       },
       (err) => console.log(err)
     )
