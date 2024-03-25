@@ -10,7 +10,7 @@ const QRCodeComponent = () => {
     const getPayInfo = () => JSON.stringify({
         storeCode: "AAAAAA",
         storeId: "111111",
-        orderid: "qwertyuiopasdfghjklzxcvbnmqwerty",
+        orderId: "qwertyuiopasdfghjklzxcvbnmqwerty",
         orderName: orderName,
         totalAmount: totalAmount,
         requestedAt: new Date(),
