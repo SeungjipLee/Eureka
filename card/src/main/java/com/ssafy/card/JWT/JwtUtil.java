@@ -1,12 +1,21 @@
 package com.ssafy.card.JWT;
 
+import com.ssafy.card.Auth.dto.response.JwtTokenResponseDto;
+import com.ssafy.card.common.CustomException;
+import com.ssafy.card.common.ResponseCode;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
+import java.security.Key;
 import java.util.Date;
 
 @Component
@@ -45,6 +54,16 @@ public class JwtUtil {
         return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().getExpiration().before(new Date());
     }
 
+    public String getTokenFromRequest(HttpServletRequest request) {
+        String bearerToken = request.getHeader("Authorization");
+//        System.out.println("bearerToken : "+ bearerToken);
+//        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
+//            return bearerToken.substring(7);
+//        }
+        if (bearerToken != null) return bearerToken;
+        return null;
+    }
+
     public String createJwt(String category, String username, String role, Long expiredMs){
 
         return Jwts.builder()
@@ -56,5 +75,24 @@ public class JwtUtil {
                 .compact();
     }
 
+    public JwtTokenResponseDto reIssueToken(HttpServletRequest request){
+        String token = getTokenFromRequest(request);
 
+        System.out.println("token : "+ token);
+        if (token == null){
+            throw new CustomException(ResponseCode.INVALID_REFRESH_TOKEN);
+        }
+
+        String username = getUsername(token);
+        System.out.println("username : "+ username);
+
+        if(username == null){
+            throw new CustomException(ResponseCode.INVALID_USER_NAME);
+        }
+
+        String access = createJwt("access", username, null, 2400000L);
+        String refresh = createJwt("refresh", username, null, 86400000L);
+
+        return new JwtTokenResponseDto("Bearer ", access, refresh);
+    }
 }

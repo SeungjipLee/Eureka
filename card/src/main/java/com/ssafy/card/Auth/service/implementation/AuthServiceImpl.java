@@ -1,5 +1,6 @@
 package com.ssafy.card.Auth.service.implementation;
 
+import com.ssafy.card.Auth.dto.RefreshToken;
 import com.ssafy.card.Auth.dto.request.MyDataRequestDto;
 import com.ssafy.card.Auth.dto.request.PayRequestDto;
 import com.ssafy.card.Auth.dto.response.JwtTokenResponseDto;
@@ -11,6 +12,7 @@ import com.ssafy.card.User.repository.UserCardRepository;
 import com.ssafy.card.User.repository.UserRepository;
 import com.ssafy.card.common.CustomException;
 import com.ssafy.card.common.ResponseCode;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -29,15 +31,36 @@ public class AuthServiceImpl implements AuthService {
     private final JwtUtil jwtUtil;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+//    private final RefreshTokenRepository refreshTokenRepository;
 
+    @Override
+    public JwtTokenResponseDto reIssueToken(HttpServletRequest dto) {
+        JwtTokenResponseDto jwtTokenResponseDto = jwtUtil.reIssueToken(dto);
+
+//        System.out.println(jwtTokenResponseDto.getAccessToken());
+        // username값을 phoneNumber로 대체
+        String username = jwtUtil.getUsername(jwtTokenResponseDto.getRefreshToken());
+        System.out.println(username);
+
+//        if(refreshTokenRepository.existsByUserName(username)){
+//            refreshTokenRepository.deleteByUserName(username);
+//        }
+
+//        refreshTokenRepository.save(new RefreshToken(username, jwtTokenResponseDto.getRefreshToken()));
+
+        return new JwtTokenResponseDto("Bearer ", jwtTokenResponseDto.getAccessToken(), jwtTokenResponseDto.getRefreshToken());
+
+    }
     @Override
     public JwtTokenResponseDto issueMyDataToken(MyDataRequestDto myDataRequestDto) {
 
         UserEntity userEntity = userRepository.findByPhoneNumber(myDataRequestDto.getPhoneNumber())
-                .orElseThrow(() -> new CustomException(ResponseCode.NOT_FOUND_CARD));
+                .orElseThrow(() -> new CustomException(ResponseCode.INVALID_USER_NAME));
 
         String access = jwtUtil.createJwt("access", userEntity.getPhoneNumber(), null, 2400000L);
         String refresh = jwtUtil.createJwt("refresh", userEntity.getPhoneNumber(), null,86400000L);
+
+//        refreshTokenRepository.save(new RefreshToken(userEntity.getPhoneNumber(), refresh));
 
         return new JwtTokenResponseDto("Bearer ", access, refresh);
 
@@ -70,4 +93,6 @@ public class AuthServiceImpl implements AuthService {
 
         return new JwtTokenResponseDto("Bearer ", access, null);
     }
+
+
 }

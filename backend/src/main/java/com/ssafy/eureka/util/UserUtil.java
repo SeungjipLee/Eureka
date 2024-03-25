@@ -26,5 +26,4 @@ public class UserUtil {
         // yyyyMMdd 형식의 문자열로 반환
         return fullYear + monthDay;
     }
-
 }

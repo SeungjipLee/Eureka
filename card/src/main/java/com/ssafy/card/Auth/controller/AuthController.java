@@ -24,7 +24,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/mydata")
-    public ApiResponse issueMyDataToken(@RequestBody MyDataRequestDto myDataRequestDto){
+    public ApiResponse<?> issueMyDataToken(@RequestBody MyDataRequestDto myDataRequestDto){
         log.debug("마이데이터 토큰 발급 : " + myDataRequestDto.getName());
          JwtTokenResponseDto result =  authService.issueMyDataToken(myDataRequestDto);
 
@@ -32,19 +32,20 @@ public class AuthController {
     }
 
     @PostMapping("/pay")
-    public ApiResponse issuePayToken(@RequestBody PayRequestDto dto){
+    public ApiResponse<?> issuePayToken(@RequestBody PayRequestDto dto){
         log.debug("결제 토큰 발급 : " + dto.getCardNumber());
         JwtTokenResponseDto result =  authService.issuePayToken(dto);
+        
         return new ApiResponse(ResponseCode.SUCCESS.getMessage(), ResponseCode.SUCCESS.getStatus(), result);
     }
 
     // redis에 refresh 저장해놓고 재발급 때 마다 불러와서 access 새로 발급해주기
     @PostMapping("/reissue")
-    public ResponseEntity<?> reissue(HttpServletRequest request, HttpServletResponse response){
+    public ApiResponse<?> reIssueToken(HttpServletRequest request){
 
-        //get refresh token
-        String refresh = null;
+        log.debug("Access Token 재발급 : " + request);
+        JwtTokenResponseDto result = authService.reIssueToken(request);
 
-        return null;
+        return new ApiResponse<>(ResponseCode.SUCCESS.getMessage(), ResponseCode.SUCCESS.getStatus(), result);
     }
 }
