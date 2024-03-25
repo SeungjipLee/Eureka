@@ -9,5 +9,5 @@ public class CheckUserRequest {
     String userBirth;
     char userGender;
     String phoneNumber;
-    String password;
+    String authNumber;
 }
