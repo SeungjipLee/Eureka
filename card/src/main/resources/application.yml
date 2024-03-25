@@ -14,21 +14,21 @@ spring:
   # JPA
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     properties:
       hibernate:
         format_sql: true
 #        show_sql: true
 #        highlight_sql: true
         dialect: org.hibernate.dialect.MySQLDialect
-      defer-datasource-initializati on: true
+      defer-datasource-initialization on: true
 
   # MySQL
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/card_db?tinyInt1isBit=false&serverTimezone=UTC&characterEncoding=UTF-8
-    username: ssafy
-    password: ssafy
+    username: root
+    password: 1234
 
   data:
     redis:
