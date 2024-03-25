@@ -1,5 +1,6 @@
 package com.ssafy.eureka.domain.mydata.feign;
 
+import com.ssafy.eureka.common.response.MyDataApiResponse;
 import com.ssafy.eureka.domain.mydata.dto.request.MyDataCardHistoryRequest;
 import com.ssafy.eureka.domain.mydata.dto.request.MyDataTokenRequest;
 import com.ssafy.eureka.domain.mydata.dto.response.MyDataCardHistoryResponse;
@@ -16,16 +17,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface MyDataFeign {
 
     @PostMapping(path = "/auth/mydata")
-    public MyDataTokenResponse requestToken(
+    public MyDataApiResponse<MyDataTokenResponse> requestToken(
         @RequestBody MyDataTokenRequest myDataTokenRequest);
 
     @PostMapping(path = "/user/list")
-    public MyDataUserCardResponse searchUserCard(
+    public MyDataApiResponse<MyDataUserCardResponse> searchUserCard(
         @RequestHeader("Authorization") String accessToken,
         @RequestParam("cardCompanyId") int cardComapnyId);
 
     @PostMapping(path = "/user/history")
-    public MyDataCardHistoryResponse searchCardPayList(
+    public MyDataApiResponse<MyDataCardHistoryResponse> searchCardPayList(
         @RequestHeader("Authorization") String accessToken,
         @RequestBody MyDataCardHistoryRequest myDataCardHistoryRequest);
 }

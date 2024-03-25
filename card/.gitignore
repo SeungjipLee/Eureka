@@ -37,3 +37,6 @@ out/
 .vscode/
 
 ### application ###
+
+### yml
+src/main/resources/application-prod.yml

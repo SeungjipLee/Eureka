@@ -6,38 +6,3 @@ server:
 spring:
   profiles:
     active: dev
-
-  # config
-  config:
-    import:
-      optional:classpath:/application-dev.yml
-  # JPA
-  jpa:
-    hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-        format_sql: true
-#        show_sql: true
-#        highlight_sql: true
-        dialect: org.hibernate.dialect.MySQLDialect
-      defer-datasource-initializati on: true
-
-  # MySQL
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/card_db?tinyInt1isBit=false&serverTimezone=UTC&characterEncoding=UTF-8
-    username: ssafy
-    password: ssafy
-
-  data:
-    redis:
-      host: redis
-      port: 6379
-
-logging:
-  level:
-    com.ssafy.card: debug
-
-jwt:
-  secret: f35FS462GS54GADBNK32aXVH335YRGSF67JGH042FWD;
