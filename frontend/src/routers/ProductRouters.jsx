@@ -3,6 +3,7 @@ import ProductPage from "../pages/ProductPage/ProductPage";
 import ByCard from "../pages/ProductPage/components/ByCard";
 import ByCategory from "../pages/ProductPage/components/ByCategory";
 import CompareCard from "../pages/ProductPage/components/CompareCard";
+import CurrentBenefitMore from "../pages/ProductPage/components/CurrentBenefitMore";
 
 const ProductStack = createStackNavigator();
 
@@ -13,6 +14,10 @@ function ProductRouters() {
       <ProductStack.Screen name="ByCard" component={ByCard} />
       <ProductStack.Screen name="ByCategory" component={ByCategory} />
       <ProductStack.Screen name="CompareCard" component={CompareCard} />
+      <ProductStack.Screen
+        name="CurrentBenefitMore"
+        component={CurrentBenefitMore}
+      />
     </ProductStack.Navigator>
   );
 }

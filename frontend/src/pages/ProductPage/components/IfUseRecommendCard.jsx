@@ -133,8 +133,8 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   compareCardBtnText: {
-    fontSize: 20,
-    fontWeight: "400",
+    fontSize: 15,
+    fontWeight: "600",
     color: "white",
   },
 });
