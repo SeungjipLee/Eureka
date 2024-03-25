@@ -66,7 +66,7 @@ public class UserCardServiceImpl implements UserCardService {
     public MyDataCardListResponse searchUserCard(String userId,
         SearchUserCardRequest searchUserCardRequest) {
         MyDataToken myDataToken = mydataTokenRepository.findById(userId)
-            .orElseThrow(() -> new CustomException(ResponseCode.MYDATA_TOKEN_ERROR));
+            .orElseThrow(() -> new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR));
 
         String accessToken = myDataToken.getAccessToken();
 
@@ -78,7 +78,7 @@ public class UserCardServiceImpl implements UserCardService {
             MyDataApiResponse<?> response = myDataFeign.searchUserCard(accessToken, comp);
 
             if (response.getStatus() != 200) {
-                throw new CustomException(ResponseCode.MYDATA_TOKEN_ERROR);
+                throw new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR);
             }
 
             MyDataUserCardResponse myDataUserCardResponse = (MyDataUserCardResponse) response.getData();
@@ -121,7 +121,7 @@ public class UserCardServiceImpl implements UserCardService {
     @Override
     public CardHistoryListResponse listCardHistory(String userId, int userCardId, String yyyymm) {
         MyDataToken myDataToken = mydataTokenRepository.findById(userId)
-            .orElseThrow(() -> new CustomException(ResponseCode.MYDATA_TOKEN_ERROR));
+            .orElseThrow(() -> new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR));
 
         String accessToken = myDataToken.getAccessToken();
 
@@ -132,7 +132,7 @@ public class UserCardServiceImpl implements UserCardService {
             new MyDataCardHistoryRequest(userCard.getCardIdentifier(), yyyymm));
 
         if (response.getStatus() != 200) {
-            throw new CustomException(ResponseCode.MYDATA_TOKEN_ERROR);
+            throw new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR);
         }
 
         MyDataCardHistoryResponse myDataCardPayList = (MyDataCardHistoryResponse) response.getData();
@@ -172,7 +172,7 @@ public class UserCardServiceImpl implements UserCardService {
             .orElseThrow(() -> new CustomException(ResponseCode.USER_CARD_NOT_FOUND));
 
         MyDataToken myDataToken = mydataTokenRepository.findById(userId)
-            .orElseThrow(() -> new CustomException(ResponseCode.MYDATA_TOKEN_ERROR));
+            .orElseThrow(() -> new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR));
 
         String accessToken = myDataToken.getAccessToken();
 

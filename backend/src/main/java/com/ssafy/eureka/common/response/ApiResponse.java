@@ -28,4 +28,7 @@ public class ApiResponse<T> implements Serializable {
         return new ApiResponse<>(status, message, null);
     }
 
+    public static <T> ApiResponse<T> ok(int status, String message, T data) {
+        return new ApiResponse<>(ResponseCode.SUCCESS.getCode(), message, data);
+    }
 }

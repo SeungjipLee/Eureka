@@ -73,22 +73,16 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public CheckUserRespnose checkUser(CheckUserRequest checkUserRequest) {
-
         // 인증번호 체크
-        if(!checkUserRequest.getPassword().equals("123456")){
+        if(!checkUserRequest.getAuthNumber().equals("123456")){
             throw new CustomException(ResponseCode.PASSWORD_ERROR);
         }
 
         String encodePhoneNumber = aesUtil.encrypt(checkUserRequest.getPhoneNumber());
 
-        UserEntity user = userRepository.findByPhoneNumber(encodePhoneNumber)
-            .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
-
-        if(user.getIsUnregistered()){
-            throw new CustomException(ResponseCode.USER_NOT_FOUND);
-        }
-
-        return new CheckUserRespnose(user.getUserId(), user.getUserName());
+        return userRepository.findByPhoneNumber(encodePhoneNumber)
+            .map(user -> new CheckUserRespnose(user.getUserId(), user.getUserName()))
+            .orElse(null);
     }
 
     @Override
@@ -115,14 +109,14 @@ public class UserServiceImpl implements UserService{
         MyDataApiResponse<?> response = myDataFeign.requestToken(new MyDataTokenRequest(signUpRequest.getPhoneNumber(), signUpRequest.getUserBirth(), signUpRequest.getUserName()));
 
         if(response.getStatus() != 200){
-            throw new CustomException(ResponseCode.MYDATA_TOKEN_ERROR);
+            throw new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR);
         }
 
         MyDataTokenResponse myDataTokenResponse = (MyDataTokenResponse) response.getData();
         MyDataToken myDataToken = new MyDataToken(userId, myDataTokenResponse.getAccessToken(), myDataTokenResponse.getRefreshToken());
 
         if(myDataToken.getAccessToken() == null){
-            throw new CustomException(ResponseCode.MYDATA_TOKEN_ERROR);
+            throw new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR);
         }
 
         mydataTokenRepository.save(myDataToken);
@@ -157,7 +151,7 @@ public class UserServiceImpl implements UserService{
         MyDataApiResponse<?> response = myDataFeign.requestToken(new MyDataTokenRequest(phoneNumber, userBirth, user.getUserName()));
 
         if(response.getStatus() != 200){
-            throw new CustomException(ResponseCode.MYDATA_TOKEN_ERROR);
+            throw new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR);
         }
 
         MyDataTokenResponse myDataTokenResponse = (MyDataTokenResponse) response.getData();
