@@ -15,7 +15,7 @@ function MyAkaList() {
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
-        <Pressable onPress={() => navigation.navigate("StatisticsPage")}>
+        <Pressable onPress={() => navigation.navigate("StatisticsPage1")}>
           <MaterialCommunityIcons
             name="chevron-left"
             size={80}

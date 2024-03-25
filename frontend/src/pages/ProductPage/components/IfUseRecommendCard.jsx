@@ -6,13 +6,16 @@ import {
   ScrollView,
   Dimensions,
   TouchableOpacity,
+  Pressable,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 const CARD_WIDTH = (SCREEN_WIDTH - 80) / 2;
 
 function IfUseRecommendCard() {
+  const navigation = useNavigation();
   return (
     <View style={styles.container}>
       <View style={styles.maintextContainer}>
@@ -58,6 +61,15 @@ function IfUseRecommendCard() {
         <Text style={styles.subText}>추천카드를 사용하면</Text>
         <Text style={styles.subText}>3,300원 더 할인받아요!</Text>
         <Text>kb국민 아자아자 파이팅 카드</Text>
+      </View>
+
+      <View style={styles.compareCard}>
+        <Pressable
+          onPress={() => navigation.navigate("CompareCard")}
+          style={styles.compareCardBtn}
+        >
+          <Text style={styles.compareCardBtnText}>내 카드랑 비교하기</Text>
+        </Pressable>
       </View>
     </View>
   );
@@ -110,5 +122,19 @@ const styles = StyleSheet.create({
   subText: {
     fontSize: 16,
     fontWeight: "600",
+  },
+  compareCard: { justifyContent: "center", alignItems: "center" },
+  compareCardBtn: {
+    justifyContent: "center",
+    alignItems: "center",
+    width: 200,
+    height: 50,
+    backgroundColor: "#6c98ff",
+    borderRadius: 15,
+  },
+  compareCardBtnText: {
+    fontSize: 20,
+    fontWeight: "400",
+    color: "white",
   },
 });
