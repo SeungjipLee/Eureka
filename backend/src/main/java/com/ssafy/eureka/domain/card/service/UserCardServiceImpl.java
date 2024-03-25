@@ -91,7 +91,7 @@ public class UserCardServiceImpl implements UserCardService {
                     cardEntity.getCardName(), cardEntity.getImagePath(), cardEntity.getImgAttr());
                 cardList.add(c);
             }
-            list.add(new MyDataCard(cardCompanyName, cardList));
+            list.add(new MyDataCard(comp, cardCompanyName, cardList));
         }
 
         MyDataCardListResponse res = new MyDataCardListResponse();
