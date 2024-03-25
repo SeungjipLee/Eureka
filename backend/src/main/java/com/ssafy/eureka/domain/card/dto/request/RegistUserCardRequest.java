@@ -17,7 +17,5 @@ public class RegistUserCardRequest {
     public static class RegistUserCard{
         private int cardId;
         private String cardIdentifier;
-        private String firstCardNumber;
-        private String lastCardNumber;
     }
 }

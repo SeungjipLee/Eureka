@@ -3,6 +3,7 @@ package com.ssafy.eureka.domain.card.service;
 import com.ssafy.eureka.common.exception.CustomException;
 import com.ssafy.eureka.common.response.MyDataApiResponse;
 import com.ssafy.eureka.common.response.ResponseCode;
+import com.ssafy.eureka.domain.card.dto.CardCompanyEntity;
 import com.ssafy.eureka.domain.card.dto.CardEntity;
 import com.ssafy.eureka.domain.card.dto.UserCardEntity;
 import com.ssafy.eureka.domain.card.dto.request.RegistPayCardRequest;
@@ -11,6 +12,8 @@ import com.ssafy.eureka.domain.card.dto.request.RegistUserCardRequest.RegistUser
 import com.ssafy.eureka.domain.card.dto.response.CardHistoryListResponse;
 import com.ssafy.eureka.domain.card.dto.response.MyDataCardListResponse;
 import com.ssafy.eureka.domain.card.dto.response.MyDataCardListResponse.MyDataCard;
+import com.ssafy.eureka.domain.card.dto.response.MyDataCardListResponse.MyDataCard.Card;
+import com.ssafy.eureka.domain.card.repository.CardCompanyRepository;
 import com.ssafy.eureka.domain.card.repository.CardRepository;
 import com.ssafy.eureka.domain.card.repository.UserCardRepository;
 import com.ssafy.eureka.domain.mydata.dto.MyDataToken;
@@ -26,9 +29,12 @@ import com.ssafy.eureka.domain.payment.dto.request.PayTokenRequest;
 import com.ssafy.eureka.domain.payment.dto.response.PayTokenResponse;
 import com.ssafy.eureka.domain.payment.feign.PaymentFeign;
 import com.ssafy.eureka.domain.user.repository.UserRepository;
+import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -40,9 +46,21 @@ public class UserCardServiceImpl implements UserCardService {
     private final UserCardRepository userCardRepository;
     private final UserRepository userRepository;
     private final CardRepository cardRepository;
+    private final CardCompanyRepository cardCompanyRepository;
 
     private final MyDataFeign myDataFeign;
     private final PaymentFeign paymentFeign;
+
+    private Map<Integer, String> cardCompany;
+
+    @PostConstruct
+    public void initCardCompany() {
+        this.cardCompany = new HashMap<>();
+        List<CardCompanyEntity> list = cardCompanyRepository.findAll();
+        for (CardCompanyEntity comp : list) {
+            cardCompany.put(comp.getCardCompanyId(), comp.getCompanyName());
+        }
+    }
 
     @Override
     public MyDataCardListResponse searchUserCard(String userId,
@@ -55,29 +73,43 @@ public class UserCardServiceImpl implements UserCardService {
         List<MyDataCard> list = new ArrayList<>();
 
         for (Integer comp : searchUserCardRequest.getCardCompayList()) {
-            MyDataApiResponse<?> response =myDataFeign.searchUserCard(accessToken, comp);
+            String cardCompanyName = cardCompany.get(comp);
 
-            if(response.getStatus() != 200){
+            MyDataApiResponse<?> response = myDataFeign.searchUserCard(accessToken, comp);
+
+            if (response.getStatus() != 200) {
                 throw new CustomException(ResponseCode.MYDATA_TOKEN_ERROR);
             }
 
             MyDataUserCardResponse myDataUserCardResponse = (MyDataUserCardResponse) response.getData();
 
-            for (MyDataUserCard myDataUserCard : myDataUserCardResponse.getUserCardList()) {
-                CardEntity card = cardRepository.findByCardId(myDataUserCard.getCardId());
-                if (card != null) {
-                    list.add(new MyDataCard(card, myDataUserCard));
-                }
+            List<Card> cardList = new ArrayList<>();
+            for (MyDataUserCard card : myDataUserCardResponse.getUserCardList()) {
+                CardEntity cardEntity = cardRepository.findByCardId(card.getCardId());
+
+                Card c = new Card(card.getCardId(), card.getCardIdentifier(),
+                    cardEntity.getCardName(), cardEntity.getImagePath(), cardEntity.getImgAttr());
+                cardList.add(c);
             }
+            list.add(new MyDataCard(cardCompanyName, cardList));
         }
 
-        return new MyDataCardListResponse(list);
+        MyDataCardListResponse res = new MyDataCardListResponse();
+        res.setCardList(list);
+
+        return res;
     }
 
     @Override
-    public UserCardListResponse listUserCard(String userId) {
-        List<UserCardEntity> userCardList = userCardRepository.findAllByUserId(
-            Integer.parseInt(userId));
+    public UserCardListResponse listUserCard(String userId, int status) {
+        List<UserCardEntity> userCardList = null;
+        if (status == 0) {
+            userCardList = userCardRepository.findAllByUserId(Integer.parseInt(userId));
+        }else if(status == 1){
+            userCardList = userCardRepository.findAllByUserIdAndIsPaymentEnabledTrue(Integer.parseInt(userId));
+        }else{
+            userCardList = new ArrayList<>();
+        }
 
         for (UserCardEntity card : userCardList) {
             card.setToken(null);
@@ -96,10 +128,10 @@ public class UserCardServiceImpl implements UserCardService {
         UserCardEntity userCard = userCardRepository.findByUserCardId(userCardId)
             .orElseThrow(() -> new CustomException(ResponseCode.USER_CARD_NOT_FOUND));
 
-        MyDataApiResponse response = myDataFeign.searchCardPayList(accessToken,
+        MyDataApiResponse<?> response = myDataFeign.searchCardPayList(accessToken,
             new MyDataCardHistoryRequest(userCard.getCardIdentifier(), yyyymm));
 
-        if(response.getStatus() != 200){
+        if (response.getStatus() != 200) {
             throw new CustomException(ResponseCode.MYDATA_TOKEN_ERROR);
         }
 
@@ -137,16 +169,17 @@ public class UserCardServiceImpl implements UserCardService {
     public void registPayCard(String userId, RegistPayCardRequest registPayCardRequest) {
         UserCardEntity userCard = userCardRepository.findByUserCardId(
                 registPayCardRequest.getUserCardId())
-            .orElseThrow(()->new CustomException(ResponseCode.USER_CARD_NOT_FOUND));
+            .orElseThrow(() -> new CustomException(ResponseCode.USER_CARD_NOT_FOUND));
 
         MyDataToken myDataToken = mydataTokenRepository.findById(userId)
             .orElseThrow(() -> new CustomException(ResponseCode.MYDATA_TOKEN_ERROR));
 
         String accessToken = myDataToken.getAccessToken();
 
-        MyDataApiResponse<?> response = paymentFeign.requestPayToken(accessToken, new PayTokenRequest(registPayCardRequest));
+        MyDataApiResponse<?> response = paymentFeign.requestPayToken(accessToken,
+            new PayTokenRequest(registPayCardRequest));
 
-        if(response.getStatus() != 200){
+        if (response.getStatus() != 200) {
             throw new CustomException(ResponseCode.PAY_TOKEN_ERROR);
         }
 
