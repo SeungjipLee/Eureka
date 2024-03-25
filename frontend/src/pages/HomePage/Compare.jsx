@@ -63,7 +63,7 @@ function Compare () {
   }
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.backcontainer}>
         <Pressable onPress={() => navigation.navigate('Home')}>
             <MaterialCommunityIcons 
@@ -129,7 +129,7 @@ function Compare () {
         />
 
       </View>
-    </ScrollView>
+    </View>
   )
 }
 

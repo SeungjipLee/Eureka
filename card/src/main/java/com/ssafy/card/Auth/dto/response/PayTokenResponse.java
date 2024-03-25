@@ -1,8 +1,10 @@
-package com.ssafy.eureka.domain.payment.dto.response;
+package com.ssafy.card.Auth.dto.response;
 
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
-@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class PayTokenResponse {
     private int cardId;
     private String cardIdentifier;
