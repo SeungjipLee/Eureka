@@ -112,7 +112,7 @@ public class CardDataUtil {
                                             }
 
                                             Optional<SmallCategoryEntity> entity = smallCategoryRepository.findByCategoryName(detail.getSubCategory());
-                                            int smallCategoryId = 0;
+                                            Integer smallCategoryId = null;
                                             if(entity.isPresent()){
                                                 smallCategoryId = entity.get().getSmallCategoryId();
                                             }else{
