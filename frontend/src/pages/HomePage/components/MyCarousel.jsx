@@ -1,7 +1,5 @@
 import React, { useRef, useState } from 'react';
 import { View, Text, Dimensions, StyleSheet } from 'react-native';
-import Carousel from 'react-native-snap-carousel';
-import ImagedCarouselCard from "react-native-imaged-carousel-card";
 
 
 const SLIDER_WIDTH = Dimensions.get('window').width;
@@ -10,7 +8,6 @@ const ITEM_HEIGHT = 150;
 
 function MyCarousel() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const carouselRef = useRef(null);
 
   const data = [
     { title: '삼성 tap tap O 카드', image: require('../../../../assets/card.png') },
@@ -23,12 +20,7 @@ function MyCarousel() {
     const isActive = index === activeIndex;
     return (
       <View style={[styles.itemContainer, styles.case, {height: isActive ? ITEM_HEIGHT * 1.2 : ITEM_HEIGHT}]}>
-        <ImagedCarouselCard
-          width={ITEM_WIDTH}
-          height={isActive ? ITEM_HEIGHT * 1.2 : ITEM_HEIGHT}
-          shadowColor="#051934"
-          source={item.image}
-        />
+        
         <Text style={styles.name}>{item.title}</Text>
       </View>
     );
@@ -36,17 +28,7 @@ function MyCarousel() {
 
   return (
     <View>
-      <Carousel
-        ref={carouselRef}
-        data={data}
-        renderItem={renderItem}
-        sliderWidth={SLIDER_WIDTH}
-        itemWidth={ITEM_WIDTH}
-        onSnapToItem={(index) => setActiveIndex(index)}
-        activeSlideAlignment={'center'}
-        inactiveSlideScale={0.8}
-        inactiveSlideOpacity={0.7}
-      />
+      
     </View>
   );
 }
