@@ -218,18 +218,18 @@ const styles = StyleSheet.create({
     width: 150,
     height: 60,
     backgroundColor: "#b4b4b4",
-    marginRight: 10, // 오른쪽 마진 값을 증가시켜 간격을 더 넓게 조정
+    marginRight: 10,
     justifyContent: "center",
     alignItems: "center",
-    shadowColor: "#000", // 그림자 색상
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2, // 그림자의 방향과 거리
+      height: 2,
     },
-    shadowOpacity: 0.25, // 그림자의 투명도
-    shadowRadius: 3.84, // 그림자의 둥근 정도
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
 
-    elevation: 5, // 안드로이드에서 그림자 효과를 위해 필요
+    elevation: 5,
   },
   applyBtn: {
     borderRadius: 10,
@@ -238,15 +238,15 @@ const styles = StyleSheet.create({
     backgroundColor: "#6b84ff",
     justifyContent: "center",
     alignItems: "center",
-    shadowColor: "#000", // 그림자 색상
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2, // 그림자의 방향과 거리
+      height: 2,
     },
-    shadowOpacity: 0.25, // 그림자의 투명도
-    shadowRadius: 3.84, // 그림자의 둥근 정도
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
 
-    elevation: 5, // 안드로이드에서 그림자 효과를 위해 필요
+    elevation: 5,
   },
 
   nextBtn: {
@@ -364,12 +364,5 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     marginBottom: 20,
-  },
-  bulletPoint: {
-    width: 10, // 점의 크기, 필요에 따라 조정
-    height: 10, // 점의 크기, 필요에 따라 조정
-    borderRadius: 5, // 점을 원형으로 만듭니다 (width/2)
-    backgroundColor: "black", // 점의 색상
-    marginRight: 10, // 텍스트와의 간격
   },
 });

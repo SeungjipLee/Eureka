@@ -4,6 +4,7 @@ import ByCard from "../pages/ProductPage/components/ByCard";
 import ByCategory from "../pages/ProductPage/components/ByCategory";
 import CompareCard from "../pages/ProductPage/components/CompareCard";
 import CurrentBenefitMore from "../pages/ProductPage/components/CurrentBenefitMore";
+import FitYourConsumption from "../pages/ProductPage/components/FitYourConsumption";
 
 const ProductStack = createStackNavigator();
 
@@ -17,6 +18,10 @@ function ProductRouters() {
       <ProductStack.Screen
         name="CurrentBenefitMore"
         component={CurrentBenefitMore}
+      />
+      <ProductStack.Screen
+        name="FitYourConsumption"
+        component={FitYourConsumption}
       />
     </ProductStack.Navigator>
   );
