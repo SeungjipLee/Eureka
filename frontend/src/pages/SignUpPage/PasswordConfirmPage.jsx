@@ -1,15 +1,46 @@
 import React, { useState, createRef } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, Pressable, TextInput } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Pressable, TextInput, Alert } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
+import TokenUtils from '../../stores/TokenUtils'
+import axios from 'axios';
 
-const PasswordPage = ({ route, navigation }) => {
+
+const PasswordConfirmPage = ({ route, navigation }) => {
   const { verificationInfo } = route.params;
   const initialRefs = Array(6).fill().map(() => createRef());
   const [inputValues, setInputValues] = useState(Array(6).fill(''));
   const [activeInputIndex, setActiveInputIndex] = useState(0);
 
   const [buttonBackgrounds, setButtonBackgrounds] = useState(Array(12).fill('#3675FF')); // 12개의 버튼에 대한 배경색 상태 초기화
+
+  // 현재 입력 필드가 채워지면 초기 비밀번호와 비교하는 함수
+  // checkPasswordMatch 함수 수정
+  const checkPasswordMatch = async (currentPassword) => {
+    if (currentPassword === verificationInfo.password) {
+      try {
+        const signupData = {
+          ...verificationInfo,
+        };
+
+        const response = await axios.post('https://j10e101.p.ssafy.io/api/user/signup', signupData);
+        const { accessToken, refreshToken } = response.data.data;
+        await TokenUtils.setToken(accessToken, refreshToken);
+        Alert.alert("성공", "회원가입이 완료되었습니다.", [{ text: '확인', onPress: () => navigation.navigate('Routers') }]);
+      } catch (error) {
+        console.error('회원가입 실패:', error);
+        Alert.alert("회원가입 오류", "회원가입 과정에서 오류가 발생했습니다.");
+        // 비밀번호 입력 칸 초기화
+        setInputValues(Array(6).fill(''));
+        setActiveInputIndex(0);
+      }
+    } else {
+      Alert.alert("오류", "비밀번호가 일치하지 않습니다.", [{ text: '확인' }]);
+      // 비밀번호 입력 칸 초기화
+      setInputValues(Array(6).fill(''));
+      setActiveInputIndex(0);
+    }
+  };
 
   const handleInputChange = (text, index) => {
     const newInputValues = [...inputValues];
@@ -44,20 +75,8 @@ const PasswordPage = ({ route, navigation }) => {
 
     setInputValues(newInputValues);
 
-    // 수정된 부분: 상태 업데이트 함수 호출 직후가 아닌, 새로운 입력값 배열을 기반으로 검사를 실행합니다.
-    // 예상되는 새로운 상태를 기반으로 모든 입력이 완료되었는지 확인합니다.
     if (newInputValues.every((value) => value !== '') && newInputValues.length === 6) {
-      // 모든 입력이 완료되었으면 비밀번호를 verificationInfo에 추가하고, authNumber를 제거합니다.
-
-      const newPassword = newInputValues.join('');
-      const updatedVerificationInfo = {
-        ...verificationInfo,
-        password: newPassword
-      };
-      delete updatedVerificationInfo.authNumber; // authNumber 키를 삭제합니다.
-
-      // PasswordConfirmPage로 네비게이션하면서 수정된 verificationInfo 데이터를 전달합니다.
-      navigation.navigate('PasswordConfirmPage', { verificationInfo: updatedVerificationInfo });
+      checkPasswordMatch(newInputValues.join(''));
     }
 
     // 버튼 배경색 업데이트 로직
@@ -71,7 +90,6 @@ const PasswordPage = ({ route, navigation }) => {
       setButtonBackgrounds(resetBackgrounds);
     }, 50);
   };
-
 
   const renderNumberPad = () => {
     const buttons = [
@@ -108,7 +126,7 @@ const PasswordPage = ({ route, navigation }) => {
       </View>
       <View style={styles.passwordContainer}>
         <View style={styles.promptContainer}>
-          <Text style={styles.prompt}>비밀번호를 눌러주세요</Text>
+          <Text style={styles.prompt}>비밀번호 확인</Text>
         </View>
         <View style={styles.inputContainer}>
           {inputValues.map((value, index) => (
@@ -224,5 +242,5 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PasswordPage;
+export default PasswordConfirmPage;
 

@@ -5,7 +5,6 @@ import HomeRouters from "./HomeRouters";
 import CardRouters from "./CardRouters";
 import StatisticsRouters from "./StatisticsRouters";
 import ProductRouters from "./ProductRouters";
-import AuthRouters from './AuthRouters'
 
 
 function Routers() {
@@ -44,7 +43,7 @@ function Routers() {
       />
       <Tab.Screen
         name="QRScanPage"
-        component={AuthRouters}
+        component={QRScanPage}
         options={{
           tabBarLabel: "QR결제",
           tabBarIcon: ({ color }) => (
