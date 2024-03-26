@@ -165,15 +165,15 @@ const styles = StyleSheet.create({
     backgroundColor: "#6b84ff",
     justifyContent: "center",
     alignItems: "center",
-    shadowColor: "#000", // 그림자 색상
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2, // 그림자의 방향과 거리
+      height: 2,
     },
-    shadowOpacity: 0.25, // 그림자의 투명도
-    shadowRadius: 3.84, // 그림자의 둥근 정도
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
 
-    elevation: 5, // 안드로이드에서 그림자 효과를 위해 필요
+    elevation: 5,
   },
   bottomContainer: {
     flexDirection: "row",
