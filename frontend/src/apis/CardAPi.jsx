@@ -39,7 +39,7 @@ async function addOwnCard(token, data, success, fail) {
 
 async function addPayCard(token, data, success, fail) {
   try {
-    const response = await API(token).post('/card/regist', data)
+    const response = await API(token).post('/ucard/regist/pay', data)
     success(response);
   } catch (error) {
     fail(error);

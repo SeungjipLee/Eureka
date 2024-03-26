@@ -17,6 +17,8 @@ public class RequestPayRequest {
 
     private Long vat;
 
+    private int totalInstallCnt;
+
     private LocalDateTime requestedAt;
 
     private String redirectUrl;

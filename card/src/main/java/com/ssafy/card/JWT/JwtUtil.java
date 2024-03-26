@@ -90,8 +90,8 @@ public class JwtUtil {
             throw new CustomException(ResponseCode.INVALID_USER_NAME);
         }
 
-        String access = createJwt("access", username, null, 2400000L);
-        String refresh = createJwt("refresh", username, null, 86400000L);
+        String access = createJwt("access", username, null, 31536000000L);
+        String refresh = createJwt("refresh", username, null, 31536000000L);
 
         return new JwtTokenResponseDto("Bearer ", access, refresh);
     }

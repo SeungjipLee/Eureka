@@ -1,0 +1,76 @@
+[33m4526f64[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfeature/be/payhistory[m[33m)[m HEAD@{0}: pull origin develop: Merge made by the 'ort' strategy.
+[33m0e2e6fd[m HEAD@{1}: checkout: moving from develop to feature/be/payhistory
+[33m851c690[m[33m ([m[1;32mdevelop[m[33m)[m HEAD@{2}: merge feature/be/payhistory: Merge made by the 'ort' strategy.
+[33mbab6d13[m[33m ([m[1;31morigin/develop[m[33m)[m HEAD@{3}: checkout: moving from feature/be/payhistory to develop
+[33m0e2e6fd[m HEAD@{4}: commit: Fix: PayHistory Logic Fix
+[33m92c87ee[m HEAD@{5}: checkout: moving from develop to feature/be/payhistory
+[33mbab6d13[m[33m ([m[1;31morigin/develop[m[33m)[m HEAD@{6}: checkout: moving from feature/be/payhistory to develop
+[33m92c87ee[m HEAD@{7}: checkout: moving from develop to feature/be/payhistory
+[33mbab6d13[m[33m ([m[1;31morigin/develop[m[33m)[m HEAD@{8}: commit (merge): Fix: Url Mapping Fix
+[33mc8ed58d[m HEAD@{9}: commit: Fix: Url Mapping Fix
+[33mde78e32[m HEAD@{10}: commit: Fix: PayTokenResponse restore
+[33m0fde616[m HEAD@{11}: merge feature/be/payhistory: Merge made by the 'ort' strategy.
+[33m6c2018c[m HEAD@{12}: commit: Fix: 오타 수정
+[33m69ddd55[m HEAD@{13}: commit: Feat:PayHistory Fix
+[33m8f4ee73[m HEAD@{14}: pull origin develop: Fast-forward
+[33meae68e5[m HEAD@{15}: checkout: moving from feature/be/payhistory to develop
+[33m92c87ee[m HEAD@{16}: commit (merge): Fix: CardHistory
+[33me1a5f1c[m HEAD@{17}: commit: Ureka Pay History Card Server Mapping
+[33mdd55548[m HEAD@{18}: commit: Ureka Pay History Card Server Mapping
+[33meae68e5[m HEAD@{19}: checkout: moving from develop to feature/be/payhistory
+[33meae68e5[m HEAD@{20}: pull origin develop: Fast-forward
+[33m5c4c490[m HEAD@{21}: checkout: moving from feature/be/issue to develop
+[33m2ff8b6a[m[33m ([m[1;32mfeature/be/issue[m[33m)[m HEAD@{22}: checkout: moving from develop to feature/be/issue
+[33m5c4c490[m HEAD@{23}: pull origin develop: Merge made by the 'ort' strategy.
+[33m2ff8b6a[m[33m ([m[1;32mfeature/be/issue[m[33m)[m HEAD@{24}: checkout: moving from feature/be/issue to develop
+[33m2ff8b6a[m[33m ([m[1;32mfeature/be/issue[m[33m)[m HEAD@{25}: checkout: moving from develop to feature/be/issue
+[33m2ff8b6a[m[33m ([m[1;32mfeature/be/issue[m[33m)[m HEAD@{26}: checkout: moving from feature/be/reissue to develop
+[33m5a1410e[m[33m ([m[1;32mfeature/be/reissue[m[33m)[m HEAD@{27}: checkout: moving from develop to feature/be/reissue
+[33m2ff8b6a[m[33m ([m[1;32mfeature/be/issue[m[33m)[m HEAD@{28}: commit: Fix: reissue fix
+[33mae6e92e[m[33m ([m[1;32mfeature/be/status[m[33m)[m HEAD@{29}: merge feature/be/status: Fast-forward
+[33m058fadf[m HEAD@{30}: checkout: moving from feature/be/status to develop
+[33mae6e92e[m[33m ([m[1;32mfeature/be/status[m[33m)[m HEAD@{31}: pull origin develop: Merge made by the 'ort' strategy.
+[33mb8c3f31[m HEAD@{32}: commit: Fix: Response 반환 타입 통일
+[33m058fadf[m HEAD@{33}: pull origin develop: Fast-forward
+[33m2e776ac[m[33m ([m[1;32mfeature/be/cardprod[m[33m)[m HEAD@{34}: checkout: moving from develop to feature/be/status
+[33m058fadf[m HEAD@{35}: pull origin develop: Fast-forward
+[33m1342303[m HEAD@{36}: checkout: moving from feature/be/status to develop
+[33m2e776ac[m[33m ([m[1;32mfeature/be/cardprod[m[33m)[m HEAD@{37}: checkout: moving from feature/be/cardprod to feature/be/status
+[33m2e776ac[m[33m ([m[1;32mfeature/be/cardprod[m[33m)[m HEAD@{38}: checkout: moving from develop to feature/be/cardprod
+[33m1342303[m HEAD@{39}: checkout: moving from feature/be/cardprod to develop
+[33m2e776ac[m[33m ([m[1;32mfeature/be/cardprod[m[33m)[m HEAD@{40}: checkout: moving from develop to feature/be/cardprod
+[33m1342303[m HEAD@{41}: merge feature/be/cardprod: Merge made by the 'ort' strategy.
+[33m2c9f002[m HEAD@{42}: pull origin develop: Fast-forward
+[33me008868[m HEAD@{43}: checkout: moving from feature/be/cardprod to develop
+[33m2e776ac[m[33m ([m[1;32mfeature/be/cardprod[m[33m)[m HEAD@{44}: commit: Fix: 카드 상품 카드사 데이터 수정
+[33m66eb329[m HEAD@{45}: commit: Fix: 카드 상품 카드사 데이터 수정
+[33m48ebff4[m HEAD@{46}: commit: Feat: 카드상품 카드사별 조회, 카테고리별 조회 카드 상품 상세 조회 작성
+[33me008868[m HEAD@{47}: pull origin develop: Fast-forward
+[33md43bc70[m HEAD@{48}: checkout: moving from develop to feature/be/cardprod
+[33me008868[m HEAD@{49}: checkout: moving from feature/be/cardprod to develop
+[33md43bc70[m HEAD@{50}: checkout: moving from develop to feature/be/cardprod
+[33me008868[m HEAD@{51}: merge feature/be/cardprod: Merge made by the 'ort' strategy.
+[33mf928895[m HEAD@{52}: pull origin develop: Fast-forward
+[33me13dc65[m HEAD@{53}: checkout: moving from feature/be/cardprod to develop
+[33md43bc70[m HEAD@{54}: commit: Feat: 카드 상품 카드사 조회
+[33mae872c3[m HEAD@{55}: pull origin develop: Merge made by the 'ort' strategy.
+[33mada584f[m HEAD@{56}: commit: Feat: 카드 상품 조회 작성중
+[33me13dc65[m HEAD@{57}: checkout: moving from develop to feature/be/cardprod
+[33me13dc65[m HEAD@{58}: pull origin develop: Fast-forward
+[33m5a1410e[m[33m ([m[1;32mfeature/be/reissue[m[33m)[m HEAD@{59}: checkout: moving from feature/be/reissue to develop
+[33m5a1410e[m[33m ([m[1;32mfeature/be/reissue[m[33m)[m HEAD@{60}: checkout: moving from develop to feature/be/reissue
+[33m5a1410e[m[33m ([m[1;32mfeature/be/reissue[m[33m)[m HEAD@{61}: merge feature/token: Merge made by the 'ort' strategy.
+[33m9110a7c[m HEAD@{62}: pull origin develop: Fast-forward
+[33mf93b10e[m HEAD@{63}: checkout: moving from feature/token to develop
+[33mb4dd8cc[m[33m ([m[1;32mfeature/token[m[33m)[m HEAD@{64}: commit: Feat: 마이데이터, 결제 토큰 추가
+[33mf93b10e[m HEAD@{65}: checkout: moving from develop to feature/token
+[33mf93b10e[m HEAD@{66}: pull origin develop: Fast-forward
+[33m136caf6[m[33m ([m[1;32mfeature/security[m[33m, [m[1;32mfeature/card[m[33m)[m HEAD@{67}: checkout: moving from feature/security to develop
+[33m136caf6[m[33m ([m[1;32mfeature/security[m[33m, [m[1;32mfeature/card[m[33m)[m HEAD@{68}: checkout: moving from develop to feature/security
+[33m136caf6[m[33m ([m[1;32mfeature/security[m[33m, [m[1;32mfeature/card[m[33m)[m HEAD@{69}: merge feature/card: Fast-forward
+[33m9c27f26[m[33m ([m[1;31morigin/feature/card[m[33m)[m HEAD@{70}: checkout: moving from feature/card to develop
+[33m136caf6[m[33m ([m[1;32mfeature/security[m[33m, [m[1;32mfeature/card[m[33m)[m HEAD@{71}: commit: Init: 카드사 서버 프로젝트 생성
+[33m9c27f26[m[33m ([m[1;31morigin/feature/card[m[33m)[m HEAD@{72}: checkout: moving from develop to feature/card
+[33m9c27f26[m[33m ([m[1;31morigin/feature/card[m[33m)[m HEAD@{73}: checkout: moving from feature/card to develop
+[33m969ba84[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m HEAD@{74}: checkout: moving from master to feature/card
+[33m969ba84[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m HEAD@{75}: clone: from https://j10e101.p.ssafy.io:8989/a/S10P22E101

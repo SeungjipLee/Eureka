@@ -55,6 +55,7 @@ public class CardHistoryEntity {
     int smallCategoryId;
 
     int largeCategoryId;
+    String CategoryName;
 
     public CardHistoryEntity(CardHistoryEntity entity){
         LocalDateTime now = LocalDateTime.now();

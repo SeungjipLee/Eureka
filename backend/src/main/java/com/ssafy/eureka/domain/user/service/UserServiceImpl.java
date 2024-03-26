@@ -117,15 +117,15 @@ public class UserServiceImpl implements UserService{
     public JwtTokenResponse signUp(SignUpRequest signUpRequest) {
         String encodePhoneNumber = aesUtil.encrypt(signUpRequest.getPhoneNumber());
 
+        if(userRepository.findByPhoneNumber(encodePhoneNumber).isPresent()){
+            throw new CustomException(ResponseCode.USER_ALREADY_EXSIST);
+        }
+
         UserEntity user = UserEntity.signUpUser(
             signUpRequest.getUserName(),
             userUtil.formatBirthDate(signUpRequest.getUserBirth(), signUpRequest.getUserGender()),
             bCryptPasswordEncoder.encode(signUpRequest.getPassword()),
             encodePhoneNumber);
-
-        if(userRepository.findByPhoneNumber(encodePhoneNumber).isPresent()){
-            throw new CustomException(ResponseCode.USER_ALREADY_EXSIST);
-        }
 
         userRepository.save(user);
         String userId = String.valueOf(user.getUserId());
