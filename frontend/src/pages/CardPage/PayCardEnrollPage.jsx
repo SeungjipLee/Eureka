@@ -1,24 +1,67 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState, useEffect } from 'react'
 import { StyleSheet, Text, View, Pressable, TextInput } from "react-native"
 import { useNavigation } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import TokenUtils from '../../stores/TokenUtils';
+import { addPayCard } from '../../apis/CardAPi';
 
 function PayCardEnrollPage() {
   const navigation = useNavigation()
-  // TextInput 참조를 위한 Refs 생성
+  const [token, setToken] = useState('');
+
+  useEffect(() => {
+    const fetchToken = async () => {
+      const accessToken = await TokenUtils.getAccessToken();
+      setToken(accessToken);
+    };
+
+    fetchToken();
+  }, []);
+
+  const input1Ref = useRef();
   const input2Ref = useRef();
   const input3Ref = useRef();
   const input4Ref = useRef();
-  const expiryMonthRef = useRef(); // 유효기간 월 입력을 위한 ref
-  const expiryYearRef = useRef(); // 유효기간 연도 입력을 위한 ref
+  const expiryMonthRef = useRef(); 
+  const expiryYearRef = useRef(); 
   const cvcRef = useRef();
   const cardPasswordRef = useRef();
+
+  const [cardNumber1, setCardNumber1] = useState('')
+  const [cardNumber2, setCardNumber2] = useState('')
+  const [cardNumber3, setCardNumber3] = useState('')
+  const [cardNumber4, setCardNumber4] = useState('')
+  const [cardDueMonth, setCardDueMonth] = useState('')
+  const [cardDueYear, setCardDueYear] = useState('')
+  const [cardCVC, setCardCVC] = useState('')
+  const [cardPassword, setCardPassword] = useState('')
 
   const onChange = (text, nextInput, maxLength) => {
     if (text.length === maxLength && nextInput) {
       nextInput.current.focus();
     }
   };
+
+  const handleSubmit = async () => {
+    const inputData = {
+      cardNumber: cardNumber1+cardNumber2+cardNumber3+cardNumber4,
+      cvc: cardCVC,
+      expired_year: cardDueYear,
+      expired_month: cardDueMonth,
+      password: cardPassword
+    }
+    
+    // console.log(inputData)
+    // console.log(typeof(inputData))
+
+    addPayCard(
+      token,
+      inputData,
+      (res) => console.log(res),
+      (err) => console.log(err)
+    )
+  }
+
 
   return (
     <View style={styles.container}>
@@ -34,7 +77,10 @@ function PayCardEnrollPage() {
           editable={true}
           multiline={false}
           maxLength={4}
-          onChangeText={text => onChange(text, input2Ref, 4)}
+          onChangeText={text => {
+            setCardNumber1(text)
+            onChange(text, input2Ref, 4)
+          }}
           keyboardType="numeric"
           returnKeyType="next"
           blurOnSubmit={false}
@@ -45,7 +91,10 @@ function PayCardEnrollPage() {
           editable={true}
           multiline={false}
           maxLength={4}
-          onChangeText={text => onChange(text, input3Ref, 4)}
+          onChangeText={text => {
+            setCardNumber2(text)
+            onChange(text, input3Ref, 4)
+          }}
           ref={input2Ref}
           keyboardType="numeric"
           secureTextEntry={true} // 카드번호 가운데 부분 가리기를 원치 않는 경우 false로 설정
@@ -58,10 +107,13 @@ function PayCardEnrollPage() {
           editable={true}
           multiline={false}
           maxLength={4}
-          onChangeText={text => onChange(text, input4Ref, 4)}
+          onChangeText={text => {
+            setCardNumber3(text)  
+            onChange(text, input4Ref, 4)
+          }}  
           ref={input3Ref}
           keyboardType="numeric"
-          secureTextEntry={true} // 마찬가지로, 가리기 원치 않을 경우 false
+          secureTextEntry={true}
           returnKeyType="next"
           blurOnSubmit={false}
         />
@@ -71,7 +123,10 @@ function PayCardEnrollPage() {
           editable={true}
           multiline={false}
           maxLength={4}
-          onChangeText={text => onChange(text, expiryMonthRef, 4)} // 마지막 카드번호 입력 후 유효기간으로 이동
+          onChangeText={text => {
+            setCardNumber4(text)
+            onChange(text, expiryMonthRef, 4)
+          }}
           ref={input4Ref}
           keyboardType="numeric"
         />
@@ -83,7 +138,10 @@ function PayCardEnrollPage() {
         editable={true}
         multiline={false}
         maxLength={2}
-        onChangeText={(text) => onChange(text, expiryYearRef, 2)} // 월 입력 후 연도 입력으로 넘어가게 수정
+        onChangeText={(text) => {
+          setCardDueMonth(text)
+          onChange(text, expiryYearRef, 2)
+        }} 
         keyboardType="numeric"
         placeholder='월'
         ref={expiryMonthRef} // ref 수정
@@ -94,7 +152,10 @@ function PayCardEnrollPage() {
         editable={true}
         multiline={false}
         maxLength={2}
-        onChangeText={(text) => onChange(text, cvcRef, 2)} // 연도 입력 후 CVC로 넘어가게 수정
+        onChangeText={(text) => {
+          setCardDueYear(text)
+          onChange(text, cvcRef, 2)
+        }}
         keyboardType="numeric"
         placeholder='연'
         ref={expiryYearRef} // 새로운 연도 입력을 위한 ref
@@ -105,7 +166,10 @@ function PayCardEnrollPage() {
           editable={true}
           multiline={false}
           maxLength={3}
-          onChangeText={(text) => onChange(text, cardPasswordRef, 3)} // maxLength를 3으로  설정하여 CVC 입력 후 카드 비밀번호로 이동
+          onChangeText={(text) => {
+            setCardCVC(text)
+            onChange(text, cardPasswordRef, 3)
+          }}
           placeholder="CVC"
           keyboardType="numeric"
           ref={cvcRef}
@@ -118,15 +182,20 @@ function PayCardEnrollPage() {
           editable={true}
           multiline={false}
           maxLength={2}
-          onChangeText={(text) => onChange(text, null, 2)} // 마지막 필드이므로 다음 입력   필드 없음
+          onChangeText={(text) => {
+            setCardPassword(text)
+            onChange(text, null, 2)
+          }} 
           keyboardType="numeric"
           ref={cardPasswordRef}
         />
         <Text style={{fontSize:24, fontWeight:'bold', color:'#007bff'}}>* *</Text>
       </View>
-      <View style={styles.box}>
-        <Text style={styles.boxTxt}>결제 카드 추가</Text>
-      </View>
+      <Pressable onPress={handleSubmit}>
+        <View style={styles.box}>
+          <Text style={styles.boxTxt}>결제 카드 추가</Text>
+        </View>
+      </Pressable>
     </View>
   )
 }

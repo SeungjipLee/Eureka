@@ -1,14 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, FlatList, Image, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { addOwnCard } from '../../apis/CardAPi';
+import TokenUtils from '../../stores/TokenUtils';
+
+
 
 function OwnCardEnrollPage({ route }) {
   const navigation = useNavigation();
   const { responseData } = route.params || {};
-  const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1NCIsImlhdCI6MTcxMTM1MTA1OSwiZXhwIjoxNzQyODg3MDU5fQ.zJw03UW7QCJUR4xvI9jNfszwAQkH_WUJ77mhhoPIyQY'
-  
+  const [token, setToken] = useState('');
+
+  useEffect(() => {
+    const fetchToken = async () => {
+      const accessToken = await TokenUtils.getAccessToken();
+      setToken(accessToken);
+    };
+
+    fetchToken();
+  }, []);
+
   const [selectedCards, setSelectedCards] = useState([]);
 
   const toggleCardSelection = (cardCompanyId, cardId) => {

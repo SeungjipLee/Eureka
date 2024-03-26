@@ -1,5 +1,6 @@
 package com.ssafy.eureka.domain.pay.dto;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,6 +23,9 @@ public class PayHistoryEntity {
     private int payHistoryId;
 
     @NotNull
+    private String orderId;
+
+    @NotNull
     private int userId;
 
     @NotNull
@@ -36,13 +40,22 @@ public class PayHistoryEntity {
     @NotNull
     private String approvedNum;
 
-    @NotNull
+    @Column(columnDefinition = "DATETIME", nullable = false)
     private LocalDateTime approvedDateTime;
 
     @NotNull
     private int status;
 
+    @NotNull int payType;
+
+    @Column(columnDefinition = "DATETIME")
     private LocalDateTime transDateTime;
+
+    @NotNull
+    private String merchantName;
+
+    @NotNull
+    private String merchantRegno;
 
     @NotNull
     private int approvedAmt;

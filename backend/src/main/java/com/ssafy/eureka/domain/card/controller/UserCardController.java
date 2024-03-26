@@ -1,15 +1,14 @@
 package com.ssafy.eureka.domain.card.controller;
 
-import com.ssafy.eureka.common.response.ApiResponse;
 import com.ssafy.eureka.domain.card.dto.request.RegistPayCardRequest;
 import com.ssafy.eureka.domain.card.dto.request.RegistUserCardRequest;
 import com.ssafy.eureka.domain.card.dto.request.SearchUserCardRequest;
 import com.ssafy.eureka.domain.card.service.UserCardService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,52 +30,52 @@ public class UserCardController {
 
     @Operation(summary = "MyData 보유카드 검색하기")
     @PostMapping("/list/mydata")
-    public ApiResponse<?> searchUserCard(@AuthenticationPrincipal UserDetails userDetails,
+    public ResponseEntity<?> searchUserCard(@AuthenticationPrincipal UserDetails userDetails,
         @RequestBody SearchUserCardRequest searchUserCardRequest){
         log.debug("마이데이터 보유카드 검색, userId : " + userDetails.getUsername());
         log.debug("카드사 개수 : " + searchUserCardRequest.getCardCompayList().size());
-        return ApiResponse.ok("검색 성공", userCardService.searchUserCard(userDetails.getUsername(), searchUserCardRequest));
+        return ResponseEntity.ok(userCardService.searchUserCard(userDetails.getUsername(), searchUserCardRequest));
     }
 
     @Operation(summary = "등록한 보유 카드 조회")
     @PostMapping("/list/{status}")
-    public ApiResponse<?> listUserCard(@AuthenticationPrincipal UserDetails userDetails, @PathVariable("status") int status){
+    public ResponseEntity<?> listUserCard(@AuthenticationPrincipal UserDetails userDetails, @PathVariable("status") int status){
         log.debug("등록한 보유 카드 검색, userId : " + userDetails.getUsername() + ", status : " + status);
-        return ApiResponse.ok("조회 성공", userCardService.listUserCard(userDetails.getUsername(), status));
+        return ResponseEntity.ok(userCardService.listUserCard(userDetails.getUsername(), status));
     }
 
     @Operation(summary = "등록한 보유 카드 삭제")
     @DeleteMapping("/{userCardId}")
-    public ApiResponse<?> deleteUserCard(@AuthenticationPrincipal UserDetails userDetails,
+    public ResponseEntity<?> deleteUserCard(@AuthenticationPrincipal UserDetails userDetails,
         @RequestParam("userCardId") int userCardId) {
         log.debug("등록한 보유 카드 삭제, userId : " + userDetails.getUsername() + ", userCardId : " + userCardId);
         userCardService.deleteUserCard(userDetails.getUsername(), userCardId);
-        return ApiResponse.ok("삭제 성공");
+        return ResponseEntity.ok().build();
     }
 
     @Operation(summary = "해당 카드 모든 거래 내역 조회")
     @PostMapping("/list/pay")
-    public ApiResponse<?> listCardHistory(@AuthenticationPrincipal UserDetails userDetails
-                                          , @RequestParam String yyyymm){
-        log.debug("해당 카드 모든 거래 내역 조회, userId : " + userDetails.getUsername());
-        return ApiResponse.ok("조회 성공", userCardService.listCardHistory(userDetails.getUsername(), yyyymm));
+    public ResponseEntity<?> listCardHistory(@AuthenticationPrincipal UserDetails userDetails,
+        @RequestParam int userCardId, @RequestParam String yyyymm){
+        log.debug("카드 내역 조회, userId : " + userDetails.getUsername() + ", userCardId : " + userCardId);
+        return ResponseEntity.ok(userCardService.listCardHistory(userDetails.getUsername(), yyyymm));
     }
 
     @Operation(summary = "서버에 보유 카드 등록하기")
     @PostMapping("/regist")
-    public ApiResponse<?> registUserCard(@AuthenticationPrincipal UserDetails userDetails,
+    public ResponseEntity<?> registUserCard(@AuthenticationPrincipal UserDetails userDetails,
         @RequestBody RegistUserCardRequest registUserCardRequest) {
         log.debug("보유 카드 등록, userId : " + userDetails.getUsername());
         userCardService.registUserCard(userDetails.getUsername(), registUserCardRequest);
-        return ApiResponse.ok("등록 성공");
+        return ResponseEntity.ok().build();
     }
 
     @Operation(summary = "결제 카드로 등록하기")
     @PostMapping("/regist/pay")
-    public ApiResponse<?> registPayCard(@AuthenticationPrincipal UserDetails userDetails,
+    public ResponseEntity<?> registPayCard(@AuthenticationPrincipal UserDetails userDetails,
         @RequestBody RegistPayCardRequest registPayCardRequest){
         log.debug("결제 카드 등록, userId : " + userDetails.getUsername());
         userCardService.registPayCard(userDetails.getUsername(), registPayCardRequest);
-        return ApiResponse.ok("뜽록 성공");
+        return ResponseEntity.ok().build();
     }
 }

@@ -1,7 +1,8 @@
 package com.ssafy.eureka.common.exception;
 
-import com.ssafy.eureka.common.response.ApiResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -9,13 +10,12 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
-    public ApiResponse<?> handleException(Exception e) {
-        return ApiResponse.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),
-            e.getMessage());
+    public ResponseEntity<?> handleException(Exception e) {
+        return ResponseEntity.status(HttpServletResponse.SC_INTERNAL_SERVER_ERROR).body(e.getMessage());
     }
 
     @ExceptionHandler(CustomException.class)
-    public ApiResponse<?> handleCustomException(CustomException e) {
-        return ApiResponse.error(e.getCode(), e.getMessage());
+    public ResponseEntity<?> handleCustomException(CustomException e) {
+        return ResponseEntity.status(e.getCode()).body(e.getMessage());
     }
 }
