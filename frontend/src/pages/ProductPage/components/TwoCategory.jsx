@@ -15,9 +15,17 @@ function TwoCategory() {
   return (
     <View style={styles.container}>
       <View style={styles.category1}>
-        <Image></Image>
-        <View style={styles.textContainer}></View>
-        <Pressable onPress={() => navigation.navigate("ByCard")}>
+        <Image
+          source={require("../../../../assets/favicon.png")}
+          style={styles.image}
+        />
+        <View style={styles.textContainer}>
+          <Text style={{ fontSize: 13, fontWeight: "600" }}>
+            김싸피님 소비에 딱 맞는 카드
+          </Text>
+          <Text>대중교통, 소비, 음식점</Text>
+        </View>
+        <Pressable onPress={() => navigation.navigate("FitYourConsumption")}>
           <MaterialCommunityIcons
             name="chevron-right"
             size={26}
@@ -27,8 +35,16 @@ function TwoCategory() {
       </View>
 
       <View style={styles.category2}>
-        <Image></Image>
-        <View style={styles.textContainer}></View>
+        <Image
+          source={require("../../../../assets/favicon.png")}
+          style={styles.image}
+        />
+        <View style={styles.textContainer}>
+          <Text style={{ fontSize: 13, fontWeight: "600" }}>
+            20대들이 환장하는 카드
+          </Text>
+          <Text>디자인, 인기, 캐릭터</Text>
+        </View>
         <Pressable onPress={() => navigation.navigate("ByCard")}>
           <MaterialCommunityIcons
             name="chevron-right"
@@ -43,21 +59,35 @@ function TwoCategory() {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
   },
   category1: {
-    backgroundColor: "green",
+    flexDirection: "row",
     width: 400,
     height: 50,
     marginTop: 10,
   },
   category2: {
-    backgroundColor: "green",
+    flexDirection: "row",
     width: 400,
     height: 50,
     marginTop: 10,
     marginBottom: 20,
   },
-  textContainer: {},
+  textContainer: {
+    width: 180,
+    marginLeft: 25,
+    marginRight: 40,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  image: {
+    marginLeft: 25,
+    marginRight: 40,
+  },
+  nextBtn: {
+    marginTop: 15,
+  },
 });
 export default TwoCategory;

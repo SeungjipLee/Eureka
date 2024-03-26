@@ -1,13 +1,19 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import "./App.css";
 import RootLayout from "./pages/Root";
 import MainPage from "./pages/MainPage";
+import PayPage from "./pages/PayPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
-    children: [{ path: "/", element: <MainPage /> }],
+    children: [
+      { path: "/", element: <MainPage /> },
+      {
+        path: "/pay/",
+        element: <PayPage />,
+      },
+    ],
   },
 ]);
 
