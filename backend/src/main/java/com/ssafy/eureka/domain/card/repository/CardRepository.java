@@ -11,6 +11,7 @@ import java.util.List;
 public interface CardRepository extends JpaRepository<CardEntity, String> {
 
     CardEntity findByCardId(int cardId);
+    List<CardEntity> findAllBy();
     List<CardEntity> findByCardCompanyId(int companyId);
     @Query("SELECT c FROM CardEntity c WHERE c.cardId = :cardId")
     CardEntity findByCard(@Param("cardId") int cardId);

@@ -33,7 +33,6 @@ public class CardController {
     public ApiResponse<?> getCardProdCompanyList(@PathVariable int companyId){
 
         log.debug("카드 상품 카드사별 조회");
-        cardService.cardProdCompanyList(companyId);
         return ApiResponse.ok(cardService.cardProdCompanyList(companyId));
     }
 
@@ -42,7 +41,6 @@ public class CardController {
     public ApiResponse<?> getCardProdCategoryList(@PathVariable int categoryId){
 
         log.debug("카드 상품 카테고리별 조회");
-        cardService.cardProdCategoryList(categoryId);
         return ApiResponse.ok(cardService.cardProdCategoryList(categoryId));
     }
 
@@ -51,9 +49,18 @@ public class CardController {
     public ApiResponse<?> getCardProdDetail(@PathVariable int cardId){
 
         log.debug("카드 상품 상세 정보 조회");
-        cardService.cardProdDetail(cardId);
         return ApiResponse.ok(cardService.cardProdDetail(cardId));
     }
+
+    @Operation(summary = "카드 상품 추천")
+    @GetMapping("/prod/recommend")
+    public ApiResponse<?> cardProdRecommend(){
+
+        log.debug("카드 상품 추천");
+
+        return ApiResponse.ok(cardService.cardProdRecommend());
+    }
+
 
     @Operation(summary = "절대 임의로 하지 말기!!!")
     @GetMapping("/admin/regist")

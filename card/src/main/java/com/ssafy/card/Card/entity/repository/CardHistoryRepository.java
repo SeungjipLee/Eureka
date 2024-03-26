@@ -15,4 +15,6 @@ public interface CardHistoryRepository extends JpaRepository<CardHistoryEntity, 
         + "AND YEAR(c.approved_dtime) = :year "
         + "AND MONTH(c.approved_dtime) = :month", nativeQuery = true)
     List<CardHistoryEntity> findByUserCardIdAndMonthAndYear(@Param("userCardId") int userCardId, @Param("year") String year, @Param("month") String month);
+
+    List<CardHistoryEntity> findByUserCardId(int userCardId);
 }

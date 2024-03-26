@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -188,5 +189,20 @@ public class CardServiceImpl implements CardService{
                 cardId, imagePath, cardName, annualFee, previousPerformance,
                 registerPage, list);
         return cardProdDetailResponse;
+    }
+
+    @Override
+    public CardEntity cardProdRecommend() {
+
+        List<CardEntity> cardEntityList = cardRepository.findAllBy();
+
+        int size = cardEntityList.size();
+
+        Random rd = new Random();
+        int rdId = rd.nextInt(size);
+
+        CardEntity cardEntity = cardEntityList.get(rdId);
+
+        return cardEntity;
     }
 }
