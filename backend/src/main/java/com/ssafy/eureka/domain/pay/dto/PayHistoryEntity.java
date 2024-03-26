@@ -1,6 +1,8 @@
 package com.ssafy.eureka.domain.pay.dto;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
@@ -16,6 +18,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PayHistoryEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int payHistoryId;
 
     @NotNull

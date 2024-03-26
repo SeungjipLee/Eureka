@@ -10,8 +10,7 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import axios from 'axios'
-
+import axios from "axios";
 
 function ChooseOne({ data }) {
   const navigation = useNavigation();
@@ -47,7 +46,6 @@ function ChooseOne({ data }) {
   const [scrollX, setScrollX] = useState(0); // 스크롤 위치 상태
   const [selectCompanyName, setSelectCompanyName] = useState(data[0]);
   const itemWidth = 70; // 항목의 너비
-
 
   useEffect(() => {
     // 선택된 항목에 따라 바의 위치를 애니메이션으로 이동
@@ -100,7 +98,7 @@ function ChooseOne({ data }) {
         ]}
       >
         <Pressable
-          onPress={() => navigation.navigate("ProductPage")}
+          onPress={() => navigation.navigate("ProductPage1")}
           style={{ alignSelf: "flex-start" }}
         >
           <MaterialCommunityIcons

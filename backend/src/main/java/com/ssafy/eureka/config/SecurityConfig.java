@@ -67,10 +67,13 @@ public class SecurityConfig {
                 .accessDeniedHandler(new CustomAccessDeniedHandler()))
 
             .authorizeHttpRequests(auth -> auth
+
                 .requestMatchers(AUTH_WHITELIST).permitAll()
+
 //                .anyRequest().permitAll()
                 .anyRequest().authenticated()
             );
+
 
         return http.build();
     }

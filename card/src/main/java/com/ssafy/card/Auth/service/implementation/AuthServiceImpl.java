@@ -92,8 +92,7 @@ public class AuthServiceImpl implements AuthService {
         userCardEntity.get().setToken(access);
         userCardRepository.save(userCardEntity.get());
 
-        return new PayTokenResponse(userCardEntity.get().getCardId(), userCardEntity.get().getCardIdentifier(), "Bearer", access, null);
-    }
+        return new PayTokenResponse(userCardEntity.get().getCardId(), userCardEntity.get().getCardIdentifier(), "Bearer", access, null);    }
 
 
 }

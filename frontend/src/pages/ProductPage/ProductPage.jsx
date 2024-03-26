@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   },
   mainnotice: {
     flex: 2,
-    marginTop: 20,
+    marginTop: 50,
   },
   currentbenefit: {
     flex: 0.5,
@@ -59,7 +59,13 @@ const styles = StyleSheet.create({
     flex: 2,
     minHeight: 300,
     marginTop: 30,
+    marginBottom: 20,
   },
-  categoryrecommend: {},
-  twocategory: {},
+  categoryrecommend: {
+    marginBottom: 20,
+  },
+  twocategory: {
+    marginTop: 20,
+    marginBottom: 20,
+  },
 });

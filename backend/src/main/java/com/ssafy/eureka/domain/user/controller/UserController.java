@@ -35,7 +35,7 @@ public class UserController {
     @Operation(summary = "회원확인")
     @PostMapping("/check")
     public ApiResponse<?> checkUser(@RequestBody CheckUserRequest checkUserRequest) {
-        log.debug("회원확인, userName : " + checkUserRequest.getUserName());
+        log.debug("회원확인, userName : " + checkUserRequest.getUserName() + ", 인증번호 : " + checkUserRequest.getAuthNumber());
         return ApiResponse.ok("회원확인 성공", userService.checkUser(checkUserRequest));
     }
 

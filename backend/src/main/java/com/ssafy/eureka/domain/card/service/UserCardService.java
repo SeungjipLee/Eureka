@@ -7,13 +7,15 @@ import com.ssafy.eureka.domain.card.dto.response.CardHistoryListResponse;
 import com.ssafy.eureka.domain.card.dto.response.MyDataCardListResponse;
 import com.ssafy.eureka.domain.card.dto.response.UserCardListResponse;
 
+import java.util.List;
+
 public interface UserCardService {
 
     MyDataCardListResponse searchUserCard(String userId, SearchUserCardRequest searchUserCardRequest);
 
     UserCardListResponse listUserCard(String userId, int status);
 
-    CardHistoryListResponse listCardHistory(String userId, int userCardId, String yyyymm);
+    List<CardHistoryListResponse> listCardHistory(String userId, String yyyymm);
 
     void registUserCard(String userId, RegistUserCardRequest registUserCardRequest);
 
