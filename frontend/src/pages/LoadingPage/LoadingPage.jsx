@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import { View, Image, StyleSheet, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import TokenUtils from "../../stores/TokenUtils"; 
-
+import TokenUtils from "../../stores/TokenUtils";
 
 const LoadingScreen = () => {
   const navigation = useNavigation();
@@ -16,12 +15,9 @@ const LoadingScreen = () => {
         const accessToken = await TokenUtils.getAccessToken('accessToken');
         const refreshToken = await TokenUtils.getRefreshToken('refreshToken'); // refreshToken 확인 추가
 
-        if (accessToken) {
-          // AccessToken이 있으면 HomePage로 이동
+        if (accessToken || refreshToken) {
+          // AccessToken 또는 RefreshToken이 있으면 Routers로 이동
           navigation.replace('Routers');
-        } else if (refreshToken) {
-          // RefreshToken만 있으면 SignupPage로 이동
-          navigation.replace('SignupPage');
         } else {
           // 둘 다 없으면 SplashPage로 이동
           navigation.replace('SplashPage');
@@ -48,7 +44,6 @@ const LoadingScreen = () => {
     </View>
   );
 };
-
 
 const styles = StyleSheet.create({
   container: {

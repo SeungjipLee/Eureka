@@ -407,7 +407,7 @@ const SignupPage = () => {
         <View style={{ width: '100%', height: '35%', alignItems: 'center', display: 'flex', justifyContent: 'flex-end' }}>
           {/* TouchableOpacity를 사용한 "확인" 버튼 */}
           <TouchableOpacity style={styles.btn} onPress={handleConfirm}>
-            <Text style={styles.btnTxt}>확인</Text>
+            <Text style={styles.btnTxt}>확인2</Text>
           </TouchableOpacity>
         </View>
       </View>

@@ -1,7 +1,6 @@
 import React, { useState, createRef } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, Pressable, TextInput, Alert } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-
 import TokenUtils from '../../stores/TokenUtils'
 import axios from 'axios';
 
