@@ -76,6 +76,6 @@ public class UserCardController {
         @RequestBody RegistPayCardRequest registPayCardRequest){
         log.debug("결제 카드 등록, userId : " + userDetails.getUsername());
         userCardService.registPayCard(userDetails.getUsername(), registPayCardRequest);
-        return ResponseEntity.ok("뜽록 성공");
+        return ResponseEntity.ok().build();
     }
 }

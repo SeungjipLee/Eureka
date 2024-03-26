@@ -40,7 +40,7 @@ feign:
 
 jwt:
   secretKey: VYKlQrH0M4Gx7uUq7sXc7saINlUsZD9Vb6FZr5R4zoE
-  accessTokenExpiration: 86400000
+  accessTokenExpiration: 31536000000
   refreshTokenExpiration: 31536000000
 
 logging:

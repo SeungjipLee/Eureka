@@ -167,7 +167,7 @@ public class CardServiceImpl implements CardService{
         String cardName = cardEntity.getCardName();
         int annualFee = cardEntity.getAnnualFee();
         int previousPerformance = cardEntity.getPreviousPerformance();
-        String registerPage = cardEntity.getRegisterPage();
+        String registerPage = cardEntity.getJoinPath();
         List<CardProdDetailBenefitList> list = new ArrayList<>();
 
 

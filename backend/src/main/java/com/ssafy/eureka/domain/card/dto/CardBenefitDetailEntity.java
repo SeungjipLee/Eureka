@@ -55,14 +55,14 @@ public class CardBenefitDetailEntity {
         CardBenefitDetailEntity cardBenefitDetail = new CardBenefitDetailEntity();
         cardBenefitDetail.cardBenefitId = cardBenefitId;
         cardBenefitDetail.largeCategoryId = largeCategoryId;
-        if (smallCategoryId != 0) {
+        if(smallCategoryId != 0){
             cardBenefitDetail.smallCategoryId = smallCategoryId;
         }
         if (detail.getDiscountType().equals("즉시할인")) {
             cardBenefitDetail.discountType = 0;
         } else if (detail.getDiscountType().equals("청구할인")) {
             cardBenefitDetail.discountType = 1;
-        } else {
+        } else if(detail.getDiscountType().equals("포인트")){
             cardBenefitDetail.discountType = 2;
         }
         cardBenefitDetail.discountCostType = detail.getDiscountAmountType();

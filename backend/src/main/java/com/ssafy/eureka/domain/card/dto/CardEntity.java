@@ -1,7 +1,6 @@
 package com.ssafy.eureka.domain.card.dto;
 
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,10 +24,10 @@ public class CardEntity {
     private int cardCompanyId;
 
     @NotNull
-    private String cardName;
+    private int cardType;
 
     @NotNull
-    private String imagePath;
+    private String cardName;
 
     @NotNull
     private int annualFee;
@@ -36,22 +35,22 @@ public class CardEntity {
     @NotNull
     private int previousPerformance;
 
-    @Column(columnDefinition = "TEXT")
     private String caution;
 
-    private String registerPage;
+    @NotNull
+    private String imagePath;
 
     @NotNull
-    private boolean isExpired = false;
-
-    @NotNull
-    private int cardType;
+    private int imgAttr;
 
     @NotNull
     private int view = 0;
 
+    private String joinPath;
+
     @NotNull
-    private int imgAttr;
+    private boolean isExpired = false;
+
 
     public static CardEntity regist(Integer cardCompanyId, Integer cardType, CardProductDto cardProduct) {
         CardEntity card = new CardEntity();
@@ -61,13 +60,13 @@ public class CardEntity {
         card.annualFee = cardProduct.getAnnualFee();
         card.previousPerformance = cardProduct.getPreviousPerformance();
         card.caution = cardProduct.getBenefits().get(cardProduct.getBenefits().size() - 1).getDetailedDescription();
-        card.registerPage = cardProduct.getRegisterPath();
+        card.joinPath = cardProduct.getRegisterPath();
         card.isExpired = false;
         card.cardType = cardType;
         card.view = 0;
         if(cardProduct.getImageAttribute().equals("가로")){
             card.imgAttr = 0;
-        }else{
+        }else if(cardProduct.getImageAttribute().equals("세로")){
             card.imgAttr = 1;
         }
 

@@ -22,7 +22,7 @@ public interface MyDataFeign {
     @PostMapping(path = "/user/list")
     public MyDataApiResponse<MyDataUserCardResponse> searchUserCard(
         @RequestHeader("Authorization") String accessToken,
-        @RequestParam("cardCompanyId") int cardComapnyId);
+        @RequestParam("cardCompanyId") int cardCompanyId);
 
     @PostMapping(path = "/card/history")
     public MyDataApiResponse<MyDataCardHistoryResponse> searchCardPayList(

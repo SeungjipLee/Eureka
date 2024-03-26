@@ -33,7 +33,8 @@ public enum ResponseCode {
     PAY_TOKEN_ERROR(HttpServletResponse.SC_BAD_REQUEST,"카드사 토큰 발급 에러"),
     STORE_NOT_FOUND(HttpServletResponse.SC_BAD_REQUEST, "제휴 가맹점이 아닙니다."),
     PAY_INFO_NOT_FOUND(HttpServletResponse.SC_NOT_FOUND, "결제 정보를 찾을 수 없음"),
-    PAY_APRROVE_ERROR(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "카드 승인 오류");
+    PAY_APRROVE_ERROR(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "카드 승인 오류"),
+    ;
 
     private final int code;
     private final String message;
