@@ -54,12 +54,12 @@ public class UserCardController {
         return ApiResponse.ok("삭제 성공");
     }
 
-    @Operation(summary = "카드의 거래 내역 조회")
+    @Operation(summary = "해당 카드 모든 거래 내역 조회")
     @PostMapping("/list/pay")
-    public ApiResponse<?> listCardHistory(@AuthenticationPrincipal UserDetails userDetails,
-        @RequestParam int userCardId, @RequestParam String yyyymm){
-        log.debug("카드 내역 조회, userId : " + userDetails.getUsername() + ", userCardId : " + userCardId);
-        return ApiResponse.ok("조회 성공", userCardService.listCardHistory(userDetails.getUsername(), userCardId, yyyymm));
+    public ApiResponse<?> listCardHistory(@AuthenticationPrincipal UserDetails userDetails
+                                          , @RequestParam String yyyymm){
+        log.debug("해당 카드 모든 거래 내역 조회, userId : " + userDetails.getUsername());
+        return ApiResponse.ok("조회 성공", userCardService.listCardHistory(userDetails.getUsername(), yyyymm));
     }
 
     @Operation(summary = "서버에 보유 카드 등록하기")

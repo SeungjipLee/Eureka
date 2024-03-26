@@ -28,6 +28,7 @@ import com.ssafy.eureka.domain.card.repository.MydataTokenRepository;
 import com.ssafy.eureka.domain.payment.dto.request.PayTokenRequest;
 import com.ssafy.eureka.domain.payment.dto.response.PayTokenResponse;
 import com.ssafy.eureka.domain.payment.feign.PaymentFeign;
+import com.ssafy.eureka.domain.user.dto.UserEntity;
 import com.ssafy.eureka.domain.user.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
@@ -119,13 +120,18 @@ public class UserCardServiceImpl implements UserCardService {
     }
 
     @Override
-    public CardHistoryListResponse listCardHistory(String userId, int userCardId, String yyyymm) {
+    public List<CardHistoryListResponse> listCardHistory(String userId, String yyyymm) {
         MyDataToken myDataToken = mydataTokenRepository.findById(userId)
             .orElseThrow(() -> new CustomException(ResponseCode.MYDATA_TOKEN_ERROR));
 
         String accessToken = myDataToken.getAccessToken();
 
-        UserCardEntity userCard = userCardRepository.findByUserCardId(userCardId)
+        int intUserId = Integer.parseInt(userId);
+
+        UserEntity userEntity = userRepository.findByUserId(intUserId)
+                .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
+
+        UserCardEntity userCard = userCardRepository.findByUserCardId(intUserId)
             .orElseThrow(() -> new CustomException(ResponseCode.USER_CARD_NOT_FOUND));
 
         MyDataApiResponse<?> response = myDataFeign.searchCardPayList(accessToken,
@@ -137,7 +143,11 @@ public class UserCardServiceImpl implements UserCardService {
 
         MyDataCardHistoryResponse myDataCardPayList = (MyDataCardHistoryResponse) response.getData();
 
-        CardHistoryListResponse cardHistoryListResponse = new CardHistoryListResponse();
+        List<CardHistoryListResponse> cardHistoryListResponse = new ArrayList<>();
+        for(int i=0; i<myDataCardPayList.getMyDataCardHistoryList().size(); i++){
+            CardHistoryListResponse cardHistoryResponse = new CardHistoryListResponse(myDataCardPayList);
+            cardHistoryListResponse.add(cardHistoryResponse);
+        }
 
         // 조회한 데이터를 쓱싹 쓱싹 해서 반환하기
 
