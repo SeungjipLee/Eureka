@@ -99,37 +99,29 @@ const SignupPage = () => {
       try {
         const response = await axios.post('https://j10e101.p.ssafy.io/api/user/check', verificationInfo);
         if (response.status === 200) {
-          if (response.data === null) {
-            // response.data.data가 null인 경우의 로직 실행
+          // response.data에 값이 있는 경우, 즉 accessToken과 refreshToken이 반환된 경우
+          if (response.data && response.data.accessToken && response.data.refreshToken) {
+            // TokenUtils를 사용하여 accessToken과 refreshToken 저장 및 Routers로 이동
+            const { accessToken, refreshToken } = response.data;
+            await TokenUtils.setToken(accessToken, refreshToken);
+            navigation.navigate('Routers');
+          } else {
+            // response.data가 비어있거나 예상한 값이 없는 경우, 인증 성공 처리
             Alert.alert('인증 성공', '인증이 완료되었습니다.', [
               { text: "확인", onPress: () => navigation.navigate('PasswordPage', { verificationInfo: verificationInfo }) }
             ]);
-          } else {
-            // response.data가 null이 아니라면 TokenUtils를 사용하여 accessToken과 refreshToken 저장 및 홈으로 이동
-            const { accessToken, refreshToken } = response.data.data;
-            await TokenUtils.setToken(accessToken, refreshToken);
-            navigation.navigate('Routers');
           }
         }
       } catch (error) {
         console.error('인증 확인 실패:', error);
-        // verificationInfo에서 AuthNumber 값을 초기화
-        const updatedVerificationInfo = {
-          ...verificationInfo,
-          authNumber: '', // AuthNumber를 빈 문자열로 설정하여 초기화
-        };
         Alert.alert('인증 실패', '인증번호 확인에 실패했습니다.', [
-          {
-            text: "확인",
-            onPress: () => navigation.replace('SignupPage', { verificationInfo: updatedVerificationInfo }),
-          }
+          { text: "확인", onPress: () => setAuthNum('') },
         ]);
       }
     } else {
       checkAndShowAuthInput();
     }
   };
-
 
 
   const MiddleView = () => (
@@ -407,7 +399,7 @@ const SignupPage = () => {
         <View style={{ width: '100%', height: '35%', alignItems: 'center', display: 'flex', justifyContent: 'flex-end' }}>
           {/* TouchableOpacity를 사용한 "확인" 버튼 */}
           <TouchableOpacity style={styles.btn} onPress={handleConfirm}>
-            <Text style={styles.btnTxt}>확인2</Text>
+            <Text style={styles.btnTxt}>확인</Text>
           </TouchableOpacity>
         </View>
       </View>
