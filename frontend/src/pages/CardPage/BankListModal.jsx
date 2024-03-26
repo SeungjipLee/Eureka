@@ -3,11 +3,13 @@ import { FlatList, StyleSheet, Text, View, Image, TouchableOpacity, Modal, Touch
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { getMyCardList } from '../../apis/CardAPi';
+import TokenUtils from '../../stores/TokenUtils';
+
 
 
 function BankListModal ({ visible, onClose, onSelect }) {
   const navigation = useNavigation()
-  const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1NCIsImlhdCI6MTcxMTM1MTA1OSwiZXhwIjoxNzQyODg3MDU5fQ.zJw03UW7QCJUR4xvI9jNfszwAQkH_WUJ77mhhoPIyQY'
+  const token = TokenUtils.getAccessToken('accessToken')
 
   const banks = [
     { id: 1, name: 'KB국민카드', imgUrl: require('../../../assets/favicon.png')},
