@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, FlatList, Image, TouchableOpacity } from "react-native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
@@ -10,7 +10,16 @@ import TokenUtils from '../../stores/TokenUtils';
 function OwnCardEnrollPage({ route }) {
   const navigation = useNavigation();
   const { responseData } = route.params || {};
-  const token = TokenUtils.getAccessToken('accessToken')
+  const [token, setToken] = useState('');
+
+  useEffect(() => {
+    const fetchToken = async () => {
+      const accessToken = await TokenUtils.getAccessToken();
+      setToken(accessToken);
+    };
+
+    fetchToken();
+  }, []);
 
   const [selectedCards, setSelectedCards] = useState([]);
 

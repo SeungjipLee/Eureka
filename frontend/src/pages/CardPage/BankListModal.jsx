@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FlatList, StyleSheet, Text, View, Image, TouchableOpacity, Modal, TouchableWithoutFeedback } from "react-native"
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
@@ -9,7 +9,16 @@ import TokenUtils from '../../stores/TokenUtils';
 
 function BankListModal ({ visible, onClose, onSelect }) {
   const navigation = useNavigation()
-  const token = TokenUtils.getAccessToken('accessToken')
+  const [token, setToken] = useState('');
+
+  useEffect(() => {
+    const fetchToken = async () => {
+      const accessToken = await TokenUtils.getAccessToken();
+      setToken(accessToken);
+    };
+
+    fetchToken();
+  }, []);
 
   const banks = [
     { id: 1, name: 'KB국민카드', imgUrl: require('../../../assets/favicon.png')},
@@ -46,7 +55,7 @@ function BankListModal ({ visible, onClose, onSelect }) {
       token,
       inputData,
       (res) => {
-        navigation.navigate('OwnCardEnroll', { responseData: res.data.data.cardList })
+        navigation.navigate('OwnCardEnroll', { responseData: res.data.cardList })
       },
       (err) => console.log(err)
     )
