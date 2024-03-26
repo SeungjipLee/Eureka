@@ -144,12 +144,16 @@ public class UserCardServiceImpl implements UserCardService {
         return cardHistoryListResponse;
     }
 
-    //
     @Override
     public void registUserCard(String userId, RegistUserCardRequest registUserCardRequest) {
         for (RegistUserCard userCard : registUserCardRequest.getRegisterUserCard()) {
-            UserCardEntity card = UserCardEntity.registUserCard(userId, userCard);
-            userCardRepository.save(card);
+            UserCardEntity card = userCardRepository.findByCardIdentifier(userCard.getCardIdentifier())
+                .orElse(null);
+
+            if(card == null){
+                UserCardEntity newCard = UserCardEntity.registUserCard(userId, userCard);
+                userCardRepository.save(newCard);
+            }
         }
     }
 

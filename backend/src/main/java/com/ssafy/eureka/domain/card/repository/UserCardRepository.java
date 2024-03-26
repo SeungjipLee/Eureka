@@ -12,4 +12,5 @@ public interface UserCardRepository extends JpaRepository<UserCardEntity, String
     List<UserCardEntity> findAllByUserIdAndIsPaymentEnabledTrue(int userId);
 
     Optional<UserCardEntity> findByCardIdentifier(String cardIdentifier);
+
 }
