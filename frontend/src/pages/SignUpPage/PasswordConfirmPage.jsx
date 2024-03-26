@@ -1,7 +1,6 @@
 import React, { useState, createRef } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, Pressable, TextInput, Alert } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-
 import TokenUtils from '../../stores/TokenUtils'
 import axios from 'axios';
 
@@ -24,7 +23,7 @@ const PasswordConfirmPage = ({ route, navigation }) => {
         };
 
         const response = await axios.post('https://j10e101.p.ssafy.io/api/user/signup', signupData);
-        const { accessToken, refreshToken } = response.data.data;
+        const { accessToken, refreshToken } = response.data;
         await TokenUtils.setToken(accessToken, refreshToken);
         Alert.alert("성공", "회원가입이 완료되었습니다.", [{ text: '확인', onPress: () => navigation.navigate('Routers') }]);
       } catch (error) {

@@ -99,7 +99,7 @@ const SignupPage = () => {
       try {
         const response = await axios.post('https://j10e101.p.ssafy.io/api/user/check', verificationInfo);
         if (response.status === 200) {
-          if (response.data.data === null) {
+          if (response.data === null) {
             // response.data.data가 null인 경우의 로직 실행
             Alert.alert('인증 성공', '인증이 완료되었습니다.', [
               { text: "확인", onPress: () => navigation.navigate('PasswordPage', { verificationInfo: verificationInfo }) }
@@ -407,7 +407,7 @@ const SignupPage = () => {
         <View style={{ width: '100%', height: '35%', alignItems: 'center', display: 'flex', justifyContent: 'flex-end' }}>
           {/* TouchableOpacity를 사용한 "확인" 버튼 */}
           <TouchableOpacity style={styles.btn} onPress={handleConfirm}>
-            <Text style={styles.btnTxt}>확인</Text>
+            <Text style={styles.btnTxt}>확인2</Text>
           </TouchableOpacity>
         </View>
       </View>
