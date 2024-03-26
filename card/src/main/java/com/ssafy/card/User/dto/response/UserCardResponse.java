@@ -1,5 +1,6 @@
 package com.ssafy.card.User.dto.response;
 
+import com.ssafy.card.User.entity.UserCardEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,5 +14,12 @@ public class UserCardResponse {
     private int cardId;
     private String cardIdentifier;
     private String firstCardNumber;
-    private String LastCardNumber;
+    private String lastCardNumber;
+
+    public UserCardResponse(UserCardEntity entity){
+        this.cardId = entity.getCardId();
+        this.cardIdentifier = entity.getCardIdentifier();
+        this.firstCardNumber = getFirstCardNumber();
+        this.lastCardNumber = getLastCardNumber();
+    }
 }
