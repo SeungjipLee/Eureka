@@ -1,6 +1,5 @@
 package com.ssafy.eureka.domain.user.controller;
 
-import com.ssafy.eureka.common.response.ApiResponse;
 import com.ssafy.eureka.domain.user.dto.request.CheckUserRequest;
 import com.ssafy.eureka.domain.user.dto.request.LoginRequest;
 import com.ssafy.eureka.domain.user.dto.request.SendMessageRequest;
@@ -10,6 +9,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,30 +26,30 @@ public class UserController {
 
     @Operation(summary = "인증 문자 전송")
     @PostMapping("/send")
-    public ApiResponse<?> sendMessage(@RequestBody SendMessageRequest sendMessageRequest) {
+    public ResponseEntity<?> sendMessage(@RequestBody SendMessageRequest sendMessageRequest) {
         log.debug("인증 문자 전송, userName : " + sendMessageRequest.getUserName());
         userService.sendMessage(sendMessageRequest);
-        return ApiResponse.ok("문자 전송 성공");
+        return ResponseEntity.ok().build();
     }
 
     @Operation(summary = "회원확인")
     @PostMapping("/check")
-    public ApiResponse<?> checkUser(@RequestBody CheckUserRequest checkUserRequest) {
+    public ResponseEntity<?> checkUser(@RequestBody CheckUserRequest checkUserRequest) {
         log.debug("회원확인, userName : " + checkUserRequest.getUserName());
-        return ApiResponse.ok("회원확인 성공", userService.checkUser(checkUserRequest));
+        return ResponseEntity.ok(userService.checkUser(checkUserRequest));
     }
 
     @Operation(summary = "회원가입")
     @PostMapping("/signup")
-    public ApiResponse<?> signUp(@RequestBody SignUpRequest signUpRequest) {
+    public ResponseEntity<?> signUp(@RequestBody SignUpRequest signUpRequest) {
         log.debug("회원가입, userName : " + signUpRequest.getUserName());
-        return ApiResponse.ok("회원가입 성공", userService.signUp(signUpRequest));
+        return ResponseEntity.ok(userService.signUp(signUpRequest));
     }
 
     @Operation(summary =  "로그인")
     @PostMapping("/login")
-    public ApiResponse<?> signUp(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> signUp(@RequestBody LoginRequest loginRequest) {
         log.debug("로그인, userId : " + loginRequest.getUserId());
-        return ApiResponse.ok("로그인 성공", userService.login(loginRequest));
+        return ResponseEntity.ok(userService.login(loginRequest));
     }
 }

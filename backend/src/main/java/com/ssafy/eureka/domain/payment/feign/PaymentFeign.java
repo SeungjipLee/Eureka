@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 
-@FeignClient(name="paymentFeign", url="http://j10e101.p.ssafy.io:8001/card")
-//@FeignClient(name="paymentFeign", url="http://localhost:8001/card")
+@FeignClient(name="paymentFeign", url="${http://j10e101.p.ssafy.io:8001/card}")
+//@FeignClient(name="paymentFeign", url="${feign.url}")
 public interface PaymentFeign {
     @PostMapping(path = "/auth/pay")
     public MyDataApiResponse<PayTokenResponse> requestPayToken(

@@ -69,7 +69,6 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public PayTokenResponse issuePayToken(PayRequestDto dto) {
-
         String cardNumber = dto.getCardNumber();
         String cvc = dto.getCvc();
         String yy = dto.getExpired_year();

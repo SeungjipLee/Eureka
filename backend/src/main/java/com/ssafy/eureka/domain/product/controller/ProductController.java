@@ -1,11 +1,10 @@
 package com.ssafy.eureka.domain.product.controller;
 
-import com.ssafy.eureka.common.response.ApiResponse;
 import com.ssafy.eureka.domain.product.service.ProductService;
-import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,16 +28,16 @@ public class ProductController {
 
     // 카드사별, 카테고리 분류별
     @GetMapping("/list/{company}")
-    public ApiResponse getCardProdCompanyList(@PathVariable String company){
+    public ResponseEntity<?> getCardProdCompanyList(@PathVariable String company){
 
         productService.cardProdCompanyList();
-        return ApiResponse.ok("카드 상품 리스트 조회 성공");
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/list{category}")
-    public ApiResponse getCardProdCategoryList(@PathVariable String category){
+    public ResponseEntity<?> getCardProdCategoryList(@PathVariable String category){
 
-        return ApiResponse.ok("등록 성공");
+        return ResponseEntity.ok().build();
     }
 
     // 카드 상품 상세 조회
