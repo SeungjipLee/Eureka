@@ -1,11 +1,11 @@
 package com.ssafy.eureka.domain.card.controller;
 
-import com.ssafy.eureka.common.response.ApiResponse;
 import com.ssafy.eureka.domain.card.service.CardService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,52 +22,52 @@ public class CardController {
 
     @Operation(summary = "카드사 조회")
     @GetMapping("/comp/list")
-    public ApiResponse<?> listLargeCategory() {
+    public ResponseEntity<?> listLargeCategory() {
         log.debug("카드사 조회");
-        return ApiResponse.ok(cardService.listCardCompany());
+        return ResponseEntity.ok(cardService.listCardCompany());
     }
 
     // 카드사별, 카테고리 분류별
     @Operation(summary = "카드 상품 카드사별 조회")
     @GetMapping("/prod/comp/list/{companyId}")
-    public ApiResponse<?> getCardProdCompanyList(@PathVariable int companyId){
+    public ResponseEntity<?> getCardProdCompanyList(@PathVariable int companyId){
 
         log.debug("카드 상품 카드사별 조회");
-        return ApiResponse.ok(cardService.cardProdCompanyList(companyId));
+        cardService.cardProdCompanyList(companyId);
+        return ResponseEntity.ok(cardService.cardProdCompanyList(companyId));
     }
 
     @Operation(summary = "카드 상품 카테고리별 조회")
     @GetMapping("/prod/category/list/{categoryId}")
-    public ApiResponse<?> getCardProdCategoryList(@PathVariable int categoryId){
-
+    public ResponseEntity<?> getCardProdCategoryList(@PathVariable int categoryId){
         log.debug("카드 상품 카테고리별 조회");
-        return ApiResponse.ok(cardService.cardProdCategoryList(categoryId));
+        cardService.cardProdCategoryList(categoryId);
+        return ResponseEntity.ok(cardService.cardProdCategoryList(categoryId));
     }
 
     @Operation(summary = "카드 상품 상세 정보 조회")
     @GetMapping("/prod/detail/{cardId}")
-    public ApiResponse<?> getCardProdDetail(@PathVariable int cardId){
+    public ResponseEntity<?> getCardProdDetail(@PathVariable int cardId){
 
         log.debug("카드 상품 상세 정보 조회");
-        return ApiResponse.ok(cardService.cardProdDetail(cardId));
+        cardService.cardProdDetail(cardId);
+        return ResponseEntity.ok(cardService.cardProdDetail(cardId));
     }
 
     @Operation(summary = "카드 상품 추천")
     @GetMapping("/prod/recommend")
-    public ApiResponse<?> cardProdRecommend(){
-
+    public ResponseEntity<?> cardProdRecommend(){
         log.debug("카드 상품 추천");
-
-        return ApiResponse.ok(cardService.cardProdRecommend());
+        return ResponseEntity.ok(cardService.cardProdRecommend());
     }
 
 
     @Operation(summary = "절대 임의로 하지 말기!!!")
     @GetMapping("/admin/regist")
-    public ApiResponse registAllCardProduct (){
+    public ResponseEntity<?> registAllCardProduct (){
         log.debug("카드 상품 등록");
         cardService.registAllCardProduct();
-        return ApiResponse.ok("등록 성공");
+        return ResponseEntity.ok().build();
     }
 
 }

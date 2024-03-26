@@ -1,11 +1,11 @@
 package com.ssafy.eureka.domain.category.controller;
 
-import com.ssafy.eureka.common.response.ApiResponse;
 import com.ssafy.eureka.domain.category.service.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,9 +21,9 @@ public class CategoryController {
 
     @Operation(summary = "대분류 카테고리 조회")
     @GetMapping("/list")
-    public ApiResponse<?> listLargeCategory() {
+    public ResponseEntity<?> listLargeCategory() {
         log.debug("대분류 카테고리 조회");
-        return ApiResponse.ok(categoryService.listLargeCategory());
+        return ResponseEntity.ok(categoryService.listLargeCategory());
     }
 
 }
