@@ -99,7 +99,7 @@ const SignupPage = () => {
       try {
         const response = await axios.post('https://j10e101.p.ssafy.io/api/user/check', verificationInfo);
         if (response.status === 200) {
-          if (response.data.data === null) {
+          if (response.data === null) {
             // response.data.data가 null인 경우의 로직 실행
             Alert.alert('인증 성공', '인증이 완료되었습니다.', [
               { text: "확인", onPress: () => navigation.navigate('PasswordPage', { verificationInfo: verificationInfo }) }
