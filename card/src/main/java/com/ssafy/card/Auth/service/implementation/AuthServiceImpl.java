@@ -4,7 +4,6 @@ import com.ssafy.card.Auth.dto.RefreshToken;
 import com.ssafy.card.Auth.dto.request.MyDataRequestDto;
 import com.ssafy.card.Auth.dto.request.PayRequestDto;
 import com.ssafy.card.Auth.dto.response.JwtTokenResponseDto;
-import com.ssafy.card.Auth.repository.RefreshTokenRepository;
 import com.ssafy.card.Auth.service.AuthService;
 import com.ssafy.card.JWT.JwtUtil;
 import com.ssafy.card.User.entity.UserCardEntity;
@@ -32,7 +31,7 @@ public class AuthServiceImpl implements AuthService {
     private final JwtUtil jwtUtil;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private final RefreshTokenRepository refreshTokenRepository;
+//    private final RefreshTokenRepository refreshTokenRepository;
 
     @Override
     public JwtTokenResponseDto reIssueToken(HttpServletRequest dto) {
@@ -43,10 +42,10 @@ public class AuthServiceImpl implements AuthService {
         String username = jwtUtil.getUsername(jwtTokenResponseDto.getRefreshToken());
         System.out.println(username);
 
-//        if(refreshTokenRepository.existsByUserId(username)){
-//            refreshTokenRepository.deleteByUserId(username);
+//        if(refreshTokenRepository.existsByUserName(username)){
+//            refreshTokenRepository.deleteByUserName(username);
 //        }
-//
+
 //        refreshTokenRepository.save(new RefreshToken(username, jwtTokenResponseDto.getRefreshToken()));
 
         return new JwtTokenResponseDto("Bearer ", jwtTokenResponseDto.getAccessToken(), jwtTokenResponseDto.getRefreshToken());
@@ -58,8 +57,8 @@ public class AuthServiceImpl implements AuthService {
         UserEntity userEntity = userRepository.findByPhoneNumber(myDataRequestDto.getPhoneNumber())
                 .orElseThrow(() -> new CustomException(ResponseCode.INVALID_USER_NAME));
 
-        String access = jwtUtil.createJwt("access", userEntity.getPhoneNumber(), null, 86400000L);
-        String refresh = jwtUtil.createJwt("refresh", userEntity.getPhoneNumber(), null,326400000L);
+        String access = jwtUtil.createJwt("access", userEntity.getPhoneNumber(), null, 2400000L);
+        String refresh = jwtUtil.createJwt("refresh", userEntity.getPhoneNumber(), null,86400000L);
 
 //        refreshTokenRepository.save(new RefreshToken(userEntity.getPhoneNumber(), refresh));
 
@@ -75,30 +74,16 @@ public class AuthServiceImpl implements AuthService {
         String yy = dto.getExpired_year();
         String mm = dto.getExpired_month();
         String password = dto.getPassword();
-        System.out.println(cardNumber+"/"+cvc+"/"+yy+"/"+mm+"/"+password);
 
         Optional<UserCardEntity> userCardEntity = userCardRepository.findByCardNumber(cardNumber);
-        System.out.println("userCardEntity: "+ userCardEntity);
 
-        if(userCardEntity.isEmpty()) {
-            System.out.println("유저카드 엔티티 빔");
-            throw  new CustomException(ResponseCode.NOT_FOUND_CARD);
-        }
-        if(!userCardEntity.get().getCardCvc().equals(cvc)){
-            System.out.println("cvc 틀림");
-            throw new CustomException(ResponseCode.NOT_FOUND_CARD);
-        }
-        if(!userCardEntity.get().getExpired_year().equals(yy)) {
-            System.out.println("만료 연도 틀림 :"+ yy+ " / "+ userCardEntity.get().getExpired_year());
-            throw new CustomException(ResponseCode.NOT_FOUND_CARD);
-        }
-        if(!userCardEntity.get().getExpired_month().equals(mm)) {
-            throw new CustomException(ResponseCode.NOT_FOUND_CARD);
-        }
+        if(userCardEntity.isEmpty()) throw  new CustomException(ResponseCode.NOT_FOUND_CARD);
+        if(!userCardEntity.get().getCardCvc().equals(cvc)) throw new CustomException(ResponseCode.NOT_FOUND_CARD);
+        if(!userCardEntity.get().getExpired_year().equals(yy)) throw new CustomException(ResponseCode.NOT_FOUND_CARD);
+        if(!userCardEntity.get().getExpired_month().equals(mm)) throw new CustomException(ResponseCode.NOT_FOUND_CARD);
 
 
         String twoPass = userCardEntity.get().getCardPassword().substring(0, 2);
-        System.out.println(twoPass + " / "+ password);
         if(!twoPass.equals(password)) throw new CustomException(ResponseCode.NOT_FOUND_CARD);
 
         String access = jwtUtil.createJwt("access", cardNumber, null, 31536000L);

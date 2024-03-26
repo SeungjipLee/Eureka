@@ -10,24 +10,28 @@ function CategoryRecommend() {
         <Text style={styles.noticeText}>다른 카드들이 궁금하다면?</Text>
       </View>
       <View style={styles.byCard}>
-        <Text style={styles.byCardText}>카드사별로 찾아보기</Text>
-        <Pressable onPress={() => navigation.navigate("ByCard")}>
-          <MaterialCommunityIcons
-            name="chevron-right"
-            size={26}
-            style={styles.nextBtn}
-          />
-        </Pressable>
+        <View style={styles.innerContainer}>
+          <Text style={styles.byCardText}>카드사별로 찾아보기</Text>
+          <Pressable onPress={() => navigation.navigate("ByCard")}>
+            <MaterialCommunityIcons
+              name="chevron-right"
+              size={26}
+              style={styles.nextBtn}
+            />
+          </Pressable>
+        </View>
       </View>
       <View style={styles.byCatergory}>
-        <Text style={styles.byCardText}>카테고리별로 찾아보기</Text>
-        <Pressable onPress={() => navigation.navigate("ByCategory")}>
-          <MaterialCommunityIcons
-            name="chevron-right"
-            size={26}
-            style={styles.nextBtn}
-          />
-        </Pressable>
+        <View style={styles.innerContainer}>
+          <Text style={styles.byCardText}>카테고리별로 찾아보기</Text>
+          <Pressable onPress={() => navigation.navigate("ByCategory")}>
+            <MaterialCommunityIcons
+              name="chevron-right"
+              size={26}
+              style={styles.nextBtn}
+            />
+          </Pressable>
+        </View>
       </View>
     </View>
   );
@@ -44,28 +48,33 @@ const styles = StyleSheet.create({
   },
   byCard: {
     flexDirection: "row",
-    justifyContent: "center",
     alignItems: "center",
     height: 60,
-    width: 380,
+    width: 370,
     backgroundColor: "#d9d9d9",
+    borderRadius: 7,
     marginTop: 10,
     marginBottom: 10,
   },
   byCatergory: {
     flexDirection: "row",
-    justifyContent: "center",
     alignItems: "center",
     height: 60,
-    width: 380,
+    width: 370,
     backgroundColor: "#d9d9d9",
+    borderRadius: 7,
     marginBottom: 10,
+  },
+  innerContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "90%",
+    marginLeft: 20,
   },
   byCardText: {
     fontSize: 15,
     fontWeight: "semibold",
   },
-  nextBtn: {
-    marginStart: "auto",
-  },
+  nextBtn: {},
 });

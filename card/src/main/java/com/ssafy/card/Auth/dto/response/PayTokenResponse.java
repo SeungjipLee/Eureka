@@ -1,4 +1,4 @@
-package com.ssafy.eureka.domain.payment.dto.response;
+package com.ssafy.card.Auth.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

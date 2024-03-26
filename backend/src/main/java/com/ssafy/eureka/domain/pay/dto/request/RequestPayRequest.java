@@ -6,12 +6,15 @@ import lombok.Getter;
 @Getter
 public class RequestPayRequest {
     private String storeCode;
+
     private String storeId;
 
     private String orderId;
+
     private String orderName;
 
     private Long totalAmount;
+
     private Long vat;
 
     private LocalDateTime requestedAt;

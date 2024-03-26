@@ -1,6 +1,10 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import QRScanPage from "../pages/QRScanPage"
+import SignupPage from '../pages/SignUpPage/SignupPage'
 import PasswordPage from '../pages/SignUpPage/PasswordPage'
+import PasswordConfirmPage from '../pages/SignUpPage/PasswordConfirmPage'
+import Routers from "./Routers";
+import LoadingPage from "../pages/LoadingPage/LoadingPage"
+import SplashPage from "../pages/LoadingPage/SplashPage";
 
 
 
@@ -9,8 +13,12 @@ function AuthenticationRouter () {
   return (
     <AuthStack.Navigator
       screenOptions={{ headerShown: false }}>
-      <AuthStack.Screen name="QRScanPage" component={QRScanPage}/>
+      <AuthStack.Screen name="LoadingPage" component={LoadingPage}/>
+      <AuthStack.Screen name="SignupPage" component={SignupPage}/>
       <AuthStack.Screen name="PasswordPage" component={PasswordPage}/>
+      <AuthStack.Screen name="PasswordConfirmPage" component={PasswordConfirmPage}/>
+      <AuthStack.Screen name='SplashPage' component={SplashPage}/>
+      <AuthStack.Screen name='Routers' component={Routers}/>
     </AuthStack.Navigator>
   )
 }

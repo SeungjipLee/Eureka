@@ -10,7 +10,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RegistPayCardRequest {
-    private int userCardId;
     private String cardNumber; // 16자리
     private String cvc;
     private String expired_year;
