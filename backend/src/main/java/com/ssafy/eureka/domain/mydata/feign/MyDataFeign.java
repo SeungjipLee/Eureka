@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(name="myDataFeign", url="http://j10e101.p.ssafy.io:8001/card")
 //@FeignClient(name="myDataFeign", url="http://localhost:8001/card")
-public interface MyDataFeign {
+public interface MyDataFeign {deve
 
     @PostMapping(path = "/auth/mydata")
     public MyDataApiResponse<MyDataTokenResponse> requestToken(
