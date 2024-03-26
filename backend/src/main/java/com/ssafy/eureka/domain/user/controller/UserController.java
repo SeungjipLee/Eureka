@@ -4,6 +4,7 @@ import com.ssafy.eureka.domain.user.dto.request.CheckUserRequest;
 import com.ssafy.eureka.domain.user.dto.request.LoginRequest;
 import com.ssafy.eureka.domain.user.dto.request.SendMessageRequest;
 import com.ssafy.eureka.domain.user.dto.request.SignUpRequest;
+import com.ssafy.eureka.domain.user.dto.response.JwtTokenResponse;
 import com.ssafy.eureka.domain.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -36,7 +37,12 @@ public class UserController {
     @PostMapping("/check")
     public ResponseEntity<?> checkUser(@RequestBody CheckUserRequest checkUserRequest) {
         log.debug("회원확인, userName : " + checkUserRequest.getUserName());
-        return ResponseEntity.ok(userService.checkUser(checkUserRequest));
+        JwtTokenResponse res = userService.checkUser(checkUserRequest);
+        if(res == null){
+            return ResponseEntity.ok().build();
+        }else{
+            return ResponseEntity.ok(res);
+        }
     }
 
     @Operation(summary = "회원가입")
