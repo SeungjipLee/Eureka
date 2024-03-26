@@ -66,7 +66,7 @@ public class UserCardServiceImpl implements UserCardService {
     public MyDataCardListResponse searchUserCard(String userId,
         SearchUserCardRequest searchUserCardRequest) {
         MyDataToken myDataToken = mydataTokenRepository.findById(userId)
-            .orElseThrow(() -> new CustomException(ResponseCode.MYDATA_TOKEN_ERROR));
+            .orElseThrow(() -> new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR));
 
         String accessToken = myDataToken.getAccessToken();
 
@@ -78,7 +78,7 @@ public class UserCardServiceImpl implements UserCardService {
             MyDataApiResponse<?> response = myDataFeign.searchUserCard(accessToken, comp);
 
             if (response.getStatus() != 200) {
-                throw new CustomException(ResponseCode.MYDATA_TOKEN_ERROR);
+                throw new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR);
             }
 
             MyDataUserCardResponse myDataUserCardResponse = (MyDataUserCardResponse) response.getData();
@@ -121,7 +121,7 @@ public class UserCardServiceImpl implements UserCardService {
     @Override
     public CardHistoryListResponse listCardHistory(String userId, int userCardId, String yyyymm) {
         MyDataToken myDataToken = mydataTokenRepository.findById(userId)
-            .orElseThrow(() -> new CustomException(ResponseCode.MYDATA_TOKEN_ERROR));
+            .orElseThrow(() -> new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR));
 
         String accessToken = myDataToken.getAccessToken();
 
@@ -132,7 +132,7 @@ public class UserCardServiceImpl implements UserCardService {
             new MyDataCardHistoryRequest(userCard.getCardIdentifier(), yyyymm));
 
         if (response.getStatus() != 200) {
-            throw new CustomException(ResponseCode.MYDATA_TOKEN_ERROR);
+            throw new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR);
         }
 
         MyDataCardHistoryResponse myDataCardPayList = (MyDataCardHistoryResponse) response.getData();
@@ -144,12 +144,16 @@ public class UserCardServiceImpl implements UserCardService {
         return cardHistoryListResponse;
     }
 
-    //
     @Override
     public void registUserCard(String userId, RegistUserCardRequest registUserCardRequest) {
-        for (RegistUserCard usercard : registUserCardRequest.getRegisterUserCard()) {
-            UserCardEntity card = UserCardEntity.registUserCard(userId, usercard);
-            userCardRepository.save(card);
+        for (RegistUserCard userCard : registUserCardRequest.getRegisterUserCard()) {
+            UserCardEntity card = userCardRepository.findByCardIdentifier(userCard.getCardIdentifier())
+                .orElse(null);
+
+            if(card == null){
+                UserCardEntity newCard = UserCardEntity.registUserCard(userId, userCard);
+                userCardRepository.save(newCard);
+            }
         }
     }
 
@@ -167,12 +171,8 @@ public class UserCardServiceImpl implements UserCardService {
     @Transactional
     @Override
     public void registPayCard(String userId, RegistPayCardRequest registPayCardRequest) {
-        UserCardEntity userCard = userCardRepository.findByUserCardId(
-                registPayCardRequest.getUserCardId())
-            .orElseThrow(() -> new CustomException(ResponseCode.USER_CARD_NOT_FOUND));
-
         MyDataToken myDataToken = mydataTokenRepository.findById(userId)
-            .orElseThrow(() -> new CustomException(ResponseCode.MYDATA_TOKEN_ERROR));
+            .orElseThrow(() -> new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR));
 
         String accessToken = myDataToken.getAccessToken();
 
@@ -185,6 +185,14 @@ public class UserCardServiceImpl implements UserCardService {
 
         PayTokenResponse payTokenResponse = (PayTokenResponse) response.getData();
 
-        userCard.registPayCard(registPayCardRequest, payTokenResponse.getAccessToken());
+        UserCardEntity userCard = userCardRepository.findByCardIdentifier(payTokenResponse.getCardIdentifier())
+            .orElse(null);
+
+        if(userCard != null){
+            userCard.registPayCard(registPayCardRequest, payTokenResponse);
+        }else{
+            UserCardEntity card = new UserCardEntity(Integer.parseInt(userId), registPayCardRequest, payTokenResponse);
+            userCardRepository.save(card);
+        }
     }
 }

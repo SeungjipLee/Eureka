@@ -5,5 +5,5 @@ import lombok.Getter;
 @Getter
 public class AprrovePayRequest {
     private String orderId;
-    private String userCardId;
+    private int userCardId;
 }

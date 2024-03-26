@@ -36,7 +36,7 @@ public class CardHistoryEntity {
     @NotNull
     int payType;
 
-    @Column(columnDefinition = "DATETIME", nullable = false)
+    @Column(columnDefinition = "DATETIME")
     LocalDateTime transDtime;
 
     @Column(length = 75, nullable = false)
@@ -47,11 +47,14 @@ public class CardHistoryEntity {
 
     @NotNull
     int approvedAmt;
+
     int modifiedAmt;
+
     int totalInstallCnt;
 
-    @Column(length = 75, nullable = false)
-    String categoryName;
+    int smallCategoryId;
+
+    int largeCategoryId;
 
     public CardHistoryEntity(CardHistoryEntity entity){
         LocalDateTime now = LocalDateTime.now();
@@ -67,7 +70,7 @@ public class CardHistoryEntity {
         this.approvedAmt = entity.getApprovedAmt();
         this.modifiedAmt = entity.getModifiedAmt();
         this.totalInstallCnt = entity.getTotalInstallCnt();
-        this.categoryName = entity.getCategoryName();
+        this.smallCategoryId = entity.getSmallCategoryId();
+        this.largeCategoryId = entity.getLargeCategoryId();
     }
-
 }

@@ -1,10 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 import { store } from './src/stores/store';
 import { Provider } from 'react-redux'
-import Routers from './src/routers/Routers'
+import AuthRouters from './src/routers/AuthRouters'
 
 
 export default function App () {
@@ -12,7 +11,7 @@ export default function App () {
     <Provider store={store}>
       <NavigationContainer>
         <StatusBar />
-        <Routers />
+        <AuthRouters />
       </NavigationContainer>
     </Provider>
   );

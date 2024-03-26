@@ -1,5 +1,4 @@
-package com.ssafy.eureka.domain.user.dto;
-
+package com.ssafy.eureka.domain.pay.dto;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -12,7 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Table(name="pay_history")
+@Table(name = "pay_history")
 @Entity
 @Getter
 @NoArgsConstructor
@@ -20,7 +19,7 @@ import lombok.NoArgsConstructor;
 public class PayHistoryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long payHistoryId;
+    private int payHistoryId;
 
     @NotNull
     private int userId;
@@ -35,27 +34,24 @@ public class PayHistoryEntity {
     private int partnershipStoreId;
 
     @NotNull
-    private int storeId;
-
-    @NotNull
-    private String aprrovedNum;
+    private String approvedNum;
 
     @NotNull
     private LocalDateTime approvedDateTime;
-
-    @NotNull
-    private Long approvedAmt;
 
     @NotNull
     private int status;
 
     private LocalDateTime transDateTime;
 
-    private Long modifiedAmt;
+    @NotNull
+    private int approvedAmt;
+
+    private int modifiedAmt;
 
     @NotNull
-    private Long discount;
+    private int discount;
 
     @NotNull
-    private Long recommendDiscount;
+    private int recommendDiscount;
 }

@@ -7,7 +7,7 @@ import { getMyCardList } from '../../apis/CardAPi';
 
 function BankListModal ({ visible, onClose, onSelect }) {
   const navigation = useNavigation()
-  const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1NCIsImlhdCI6MTcxMTMzMzQwNSwiZXhwIjoxNzQyODY5NDA1fQ.nOLRDaJMIEfkGI_YnCs-C7UDGmS6Rg93OxI2zScYJ7U'
+  const token = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1NCIsImlhdCI6MTcxMTM1MTA1OSwiZXhwIjoxNzQyODg3MDU5fQ.zJw03UW7QCJUR4xvI9jNfszwAQkH_WUJ77mhhoPIyQY'
 
   const banks = [
     { id: 1, name: 'KB국민카드', imgUrl: require('../../../assets/favicon.png')},
@@ -44,8 +44,7 @@ function BankListModal ({ visible, onClose, onSelect }) {
       token,
       inputData,
       (res) => {
-        navigation.navigate('OwnCardEnroll', { responseData: JSON.stringify(res.data.data.cardList) })
-        // console.log(res.data.data.cardList)
+        navigation.navigate('OwnCardEnroll', { responseData: res.data.data.cardList })
       },
       (err) => console.log(err)
     )
