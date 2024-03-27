@@ -1,5 +1,7 @@
 package com.ssafy.eureka.domain.card.service;
 
+import com.ssafy.eureka.common.exception.CustomException;
+import com.ssafy.eureka.common.response.ResponseCode;
 import com.ssafy.eureka.domain.card.dto.CardBenefitDetailEntity;
 import com.ssafy.eureka.domain.card.dto.CardBenefitEntity;
 import com.ssafy.eureka.domain.card.dto.CardCompanyEntity;
@@ -141,7 +143,8 @@ public class CardServiceImpl implements CardService{
                     int cardId = cardBenefitEntity.getCardId();
                     String info = cardBenefitEntity.getInfo();
 
-                    CardEntity cardEntity = cardRepository.findByCard(cardId);
+                    CardEntity cardEntity = cardRepository.findByCard(cardId)
+                            .orElseThrow(() -> new CustomException(ResponseCode.CARD_NOT_FOUND));
 
                     String cardName = cardEntity.getCardName();
                     String cardImagePath = cardEntity.getImagePath();
@@ -161,7 +164,8 @@ public class CardServiceImpl implements CardService{
     @Override
     public CardProdDetailResponse cardProdDetail(int cardId) {
 
-        CardEntity cardEntity = cardRepository.findByCard(cardId);
+        CardEntity cardEntity = cardRepository.findByCard(cardId)
+                .orElseThrow(() -> new CustomException(ResponseCode.CARD_NOT_FOUND));
 
         String imagePath = cardEntity.getImagePath();
         String cardName = cardEntity.getCardName();

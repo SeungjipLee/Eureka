@@ -39,9 +39,9 @@ public class UserCardController {
 
     @Operation(summary = "등록한 보유 카드 조회")
     @PostMapping("/list/{status}")
-    public ResponseEntity<?> listUserCard(@AuthenticationPrincipal UserDetails userDetails, @PathVariable("status") int status){
+    public ResponseEntity<?> ownUserCardList(@AuthenticationPrincipal UserDetails userDetails, @PathVariable("status") int status){
         log.debug("등록한 보유 카드 검색, userId : " + userDetails.getUsername() + ", status : " + status);
-        return ResponseEntity.ok(userCardService.listUserCard(userDetails.getUsername(), status));
+        return ResponseEntity.ok(userCardService.ownUserCardList(userDetails.getUsername(), status));
     }
 
     @Operation(summary = "등록한 보유 카드 삭제")

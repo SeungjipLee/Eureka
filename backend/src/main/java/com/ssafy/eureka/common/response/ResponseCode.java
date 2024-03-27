@@ -17,6 +17,7 @@ public enum ResponseCode {
     USER_BIRTH_ERROR(HttpServletResponse.SC_NOT_FOUND, "주민등록번호 오류"),
 
     USER_CARD_NOT_FOUND(HttpServletResponse.SC_NOT_FOUND, "카드를 찾을 수 없음"),
+    CARD_NOT_FOUND(HttpServletResponse.SC_NOT_FOUND, "존재하지 않는 카드"),
 
     // 인증 문자 에러
     PASSWORD_ERROR(HttpServletResponse.SC_BAD_REQUEST, "인증번호 오류"),

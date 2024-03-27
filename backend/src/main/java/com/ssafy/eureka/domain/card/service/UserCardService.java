@@ -5,7 +5,7 @@ import com.ssafy.eureka.domain.card.dto.request.RegistUserCardRequest;
 import com.ssafy.eureka.domain.card.dto.request.SearchUserCardRequest;
 import com.ssafy.eureka.domain.card.dto.response.CardHistoryListResponse;
 import com.ssafy.eureka.domain.card.dto.response.MyDataCardListResponse;
-import com.ssafy.eureka.domain.card.dto.response.UserCardListResponse;
+import com.ssafy.eureka.domain.card.dto.response.OwnUserCardResponse;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ public interface UserCardService {
 
     MyDataCardListResponse searchUserCard(String userId, SearchUserCardRequest searchUserCardRequest);
 
-    UserCardListResponse listUserCard(String userId, int status);
+    List<OwnUserCardResponse> ownUserCardList(String userId, int status);
 
     List<CardHistoryListResponse> listCardHistory(String userId, String yyyymm);
 

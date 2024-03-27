@@ -52,7 +52,8 @@ public class CardHistoryEntity {
 
     int totalInstallCnt;
 
-    int smallCategoryId;
+    @Column(nullable = true)
+    Integer smallCategoryId;
 
     int largeCategoryId;
     String CategoryName;
