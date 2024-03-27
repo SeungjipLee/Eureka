@@ -11,7 +11,7 @@ function HomeMonthly () {
         <Text style={styles.subtitle}>이번달 할인 & 소비</Text>
       </View>
         <View style={styles.midcontainer}>
-          <Image style={styles.image} source={require('../../../../assets/favicon.png')}/>
+          <Image style={styles.image} source={require('../../../../assets/HomeIcon/Discount.png')}/>
           <View>
             <Text style={styles.font}>총 할인 예상 금액</Text>
             <Text style={styles.price}>192,393원</Text>
@@ -22,7 +22,7 @@ function HomeMonthly () {
           </Pressable>
         </View>
         <View style={styles.midcontainer}>
-          <Image style={styles.image} source={require('../../../../assets/favicon.png')}/>
+          <Image style={styles.image} source={require('../../../../assets/HomeIcon/CoinWallet.png')}/>
           <View>
             <Text style={styles.font}>총 결제 금액</Text>
             <Text style={styles.price}>1,192,393원</Text>
@@ -63,9 +63,10 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   image: {
-    width: 40,
-    height: 40,
-    marginEnd: 12,
+    width: 50,
+    height: 50,
+    marginEnd: 10,
+    marginLeft: 10
   },
   font : {
     fontSize: 16,
