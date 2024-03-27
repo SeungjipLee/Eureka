@@ -119,7 +119,19 @@ create table if not exists user_card
 create index idx_user_id on user_card(user_id);
 
 
-#9. pay_history
+#9. partnership_store
+drop table if exists partnership_store;
+create table if not exists partnership_store
+(
+    partnership_store_id    int             auto_increment      primary key     COMMENT '제휴 가맹점 관리번호',
+    small_category_id       int             not null                            COMMENT '소분류 카테고리 관리번호',
+    store_code              char(20)        not null            unique          COMMENT '가맹점 코드',
+    store_name              varchar(300)    not null            unique          COMMENT '가맹점명',
+    store_reg_no            char(12)        not null            unique          COMMENT '사업자 등록번호 "-"포함'
+);
+
+
+#10. pay_history
 drop table if exists pay_history;
 create table if not exists pay_history
 (
@@ -141,18 +153,6 @@ create table if not exists pay_history
 
 create index idx_user_id on pay_history(user_id);
 create index idx_user_card_id on pay_history(user_card_id);
-
-
-#10. partnership_store
-drop table if exists partnership_store;
-create table if not exists partnership_store
-(
-    partnership_store_id    int             auto_increment      primary key     COMMENT '제휴 가맹점 관리번호',
-    small_category_id       int             not null                            COMMENT '소분류 카테고리 관리번호',
-    store_code              char(20)        not null            unique          COMMENT '가맹점 코드',
-    store_name              varchar(300)    not null            unique          COMMENT '가맹점명',
-    store_reg_no            char(12)        not null            unique          COMMENT '사업자 등록번호 "-"포함'
-);
 
 
 #11. consumption_static
