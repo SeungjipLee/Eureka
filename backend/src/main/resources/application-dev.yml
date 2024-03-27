@@ -34,9 +34,9 @@ cloud:
       bucket: eureka_bucket
 
 feign:
-#  url: http://j10e101.p.ssafy.io:8001/card
-  url: http://localhost:8001/card
-
+  client:
+    baseurl:
+      myDataFeign: http://localhost:8001/card
 
 jwt:
   secretKey: VYKlQrH0M4Gx7uUq7sXc7saINlUsZD9Vb6FZr5R4zoE
