@@ -41,6 +41,7 @@ public class AuthController {
         @RequestBody String password) {
         log.debug("비밀번호 확인, userName : " + userDetails.getUsername());
         userService.checkPassword(userDetails, password);
+        log.debug("비밀번호 확인 성공");
         return ResponseEntity.ok().build();
     }
 

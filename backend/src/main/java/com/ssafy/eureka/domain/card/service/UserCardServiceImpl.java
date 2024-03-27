@@ -108,10 +108,8 @@ public class UserCardServiceImpl implements UserCardService {
         List<UserCardEntity> userCardEntityList = userCardRepository.findAllByUserId(Integer.parseInt(userId));
         if(userCardEntityList == null) throw new CustomException(ResponseCode.USER_CARD_NOT_FOUND);
 
-        System.out.println("내가 가진 카드 갯수 : " + userCardEntityList.size());
         for(int i=0; i<userCardEntityList.size(); i++){
 
-            System.out.println("현재 카드 Id: " +userCardEntityList.get(i).getCardId());
             int cardId = userCardEntityList.get(i).getCardId();
             // 카드 Entity 가져와서 카드 이름, 이미지
             CardEntity cardEntity = cardRepository.findByCard(cardId)
@@ -124,22 +122,15 @@ public class UserCardServiceImpl implements UserCardService {
             // 카드 id로 카드 혜택들 가져오기, 한 카드에 혜택 3개만 보여줄거야
             // 혜택이 3개가 안되는 경우도 고려
             List<CardBenefitEntity> cardBenefitEntityList = cardBenefitRepository.findByCardId(cardId);
-            System.out.println("cardBenefitEntityList");
 
             if(cardBenefitEntityList.size() == 0 || cardBenefitEntityList == null) continue;
-            int cardBenefitCnt=0;
             for(int j=0; j<cardBenefitEntityList.size(); j++){
 
             int cardBenefitId = cardBenefitEntityList.get(j).getCardBenefitId();
-                System.out.println("현재 유저: "+ userId);
-                System.out.println("카드 Id : "+cardBenefitEntityList.get(j).getCardId());
-                System.out.println("카드 혜택 Id : "+cardBenefitEntityList.get(j).getCardBenefitId());
-            System.out.println("카드 혜택 타이틀 : "+cardBenefitEntityList.get(j).getTitle());
                 if(cardBenefitEntityList.get(j) == null) continue;
 
             // 카드 혜택 id로 카드 상세 혜택들 가져오기
             List<CardBenefitDetailEntity> cardBenefitDetailEntityList = cardBenefitDetailRepository.findByCardBenefitId(cardBenefitId);
-                System.out.println("cardBenefitDetailEntityList Size : "+ cardBenefitDetailEntityList.size());
                 if(cardBenefitDetailEntityList.size() == 0 || cardBenefitDetailEntityList == null) continue;
                 System.out.println(cardBenefitDetailEntityList.get(0).getCardBenefitId());
 
@@ -147,7 +138,6 @@ public class UserCardServiceImpl implements UserCardService {
             for(int k=0; k<cardBenefitDetailEntityList.size(); k++){
 //                if(cardDetailBenefitList.get(k) == null) continue;
                 put = true;
-                System.out.println("cardBenefitDetail Id : "+ cardBenefitDetailEntityList.get(k).getCardBenefitDetailId());
                 String discountType = cardBenefitDetailEntityList.get(k).getDiscountCostType();
                 float discountCost = cardBenefitDetailEntityList.get(k).getDiscountCost();
                 int largeCategoryId = cardBenefitDetailEntityList.get(k).getLargeCategoryId();
@@ -163,7 +153,6 @@ public class UserCardServiceImpl implements UserCardService {
 
             } // cardBenefit
                 registerCardList.add(new OwnUserCardResponse(userCardEntityList.get(i), imagePath, cardName, imageAttr, cardDetailBenefitList));
-                System.out.println("registerCardList Size : "+ registerCardList.size());
                 cardDetailBenefitList = new ArrayList<>();
 
         }// cardEntity

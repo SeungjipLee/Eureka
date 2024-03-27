@@ -31,7 +31,8 @@ public class UserCardController {
         return ResponseEntity.ok(userCardService.searchUserCard(userDetails.getUsername(), searchUserCardRequest));
     }
 
-    @Operation(summary = "등록한 보유 카드, 결제 카드 조회")
+    // 모든 보유 카드, 결제 카드 조회
+    @Operation(summary = "등록한 보유 카드 조회")
     @GetMapping("/list/own")
     public ResponseEntity<?> ownUserCardList(@AuthenticationPrincipal UserDetails userDetails){
         log.debug("등록한 보유 카드, 결제 카드 조회 : " + userDetails.getUsername());
