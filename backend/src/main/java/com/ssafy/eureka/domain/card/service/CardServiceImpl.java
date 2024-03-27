@@ -80,7 +80,7 @@ public class CardServiceImpl implements CardService{
                 int largeCategoryId = cardBenefitDetailEntityList.get(k).getLargeCategoryId(); // 대분류 카테고리 id
                 int smallCategoryId = cardBenefitDetailEntityList.get(k).getSmallCategoryId(); // 소분류 카테고리 id
                 String discountCostType = cardBenefitDetailEntityList.get(k).getDiscountCostType(); // %, 원, L
-                float discountCost = cardBenefitDetailEntityList.get(k).getDiscountCost(); // 할인 비용
+                double discountCost = cardBenefitDetailEntityList.get(k).getDiscountCost(); // 할인 비용
 
                 LargeCategoryEntity largeCategoryEntity = largeCategoryRepository.findByLargeCategoryId(largeCategoryId);
                 String largeCategoryName = largeCategoryEntity.getCategoryName();
@@ -120,7 +120,7 @@ public class CardServiceImpl implements CardService{
             if (cardBenefitDetailEntityList.get(i) == null) continue;
 
             String discountCostType = cardBenefitDetailEntityList.get(i).getDiscountCostType(); // %, 원, L
-            float discountCost = cardBenefitDetailEntityList.get(i).getDiscountCost(); // 할인 비용
+            double discountCost = cardBenefitDetailEntityList.get(i).getDiscountCost(); // 할인 비용
             int cardBenefitId = cardBenefitDetailEntityList.get(i).getCardBenefitId(); // 카드 혜택 아이디
 
             // 같은 혜택이라면 같은 카드
