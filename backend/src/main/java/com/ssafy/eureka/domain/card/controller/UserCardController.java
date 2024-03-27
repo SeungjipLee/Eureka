@@ -31,10 +31,10 @@ public class UserCardController {
         return ResponseEntity.ok(userCardService.searchUserCard(userDetails.getUsername(), searchUserCardRequest));
     }
 
-    @Operation(summary = "등록한 보유 카드 조회")
+    @Operation(summary = "등록한 보유 카드, 결제 카드 조회")
     @GetMapping("/list/own")
     public ResponseEntity<?> ownUserCardList(@AuthenticationPrincipal UserDetails userDetails){
-        log.debug("등록한 보유 카드 검색, userId : " + userDetails.getUsername());
+        log.debug("등록한 보유 카드, 결제 카드 조회 : " + userDetails.getUsername());
         return ResponseEntity.ok(userCardService.ownUserCardList(userDetails.getUsername()));
     }
 

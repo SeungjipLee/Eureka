@@ -105,7 +105,7 @@ public class UserCardServiceImpl implements UserCardService {
         List<OwnUserCardResponse> registerCardList = new ArrayList<>();
         List<CardDetailBenefitList> cardDetailBenefitList = new ArrayList<>();
         // 현재 로그인한 유저의 보유카드 조회
-        List<UserCardEntity> userCardEntityList = userCardRepository.findAllByUserIdAndIsPaymentEnabled(Integer.parseInt(userId));
+        List<UserCardEntity> userCardEntityList = userCardRepository.findAllByUserId(Integer.parseInt(userId));
         if(userCardEntityList == null) throw new CustomException(ResponseCode.USER_CARD_NOT_FOUND);
 
         System.out.println("내가 가진 카드 갯수 : " + userCardEntityList.size());
