@@ -1,5 +1,6 @@
 package com.ssafy.eureka.domain.user.dto;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,22 +26,29 @@ public class UserEntity {
     private int userId;
 
     @NotNull
-    private String userName;
-
-    @NotNull
+    @Column(length = 6)
     private LocalDate userBirth;
 
     @NotNull
+    @Column(length = 30)
+    private String userName;
+
+    @NotNull
+    @Column(unique = true, length = 255)
     private String phoneNumber;
 
     @NotNull
-    private LocalDateTime registeredAt = LocalDateTime.now();
-
+    @Column(length = 255)
     private String password;
 
     @NotNull
-    private Boolean isUnregistered = false;
+    @Column(columnDefinition = "DATETIME")
+    private LocalDateTime registeredAt = LocalDateTime.now();
 
+    @NotNull
+    private Boolean isUnregistered;
+
+    @Column(columnDefinition = "DATETIME")
     private LocalDateTime unRegisteredAt;
 
     public static UserEntity signUpUser(String userName, String birth, String password, String phoneNumber) {
@@ -50,6 +58,7 @@ public class UserEntity {
             DateTimeFormatter.ofPattern("yyyyMMdd"));
         user.password = password;
         user.phoneNumber = phoneNumber;
+        user.isUnregistered = false;
         return user;
     }
 

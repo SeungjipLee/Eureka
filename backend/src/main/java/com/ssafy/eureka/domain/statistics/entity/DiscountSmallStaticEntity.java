@@ -8,21 +8,21 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "discount_detail_history")
-public class DiscountDetailHistoryEntity {
+@Table(name = "discount_small_static")
+public class DiscountSmallStaticEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int discountDetailHistoryId;
+    private int discountSmallStaticId;
 
     @NotNull
-    private int discountDetailId;
+    private int discountLargeStaticId;
 
     @NotNull
     private int smallCategoryId;
 
     @NotNull
-    private int consumption;
+    private int discount;
 
     @NotNull
     private int discountCount;

@@ -20,23 +20,16 @@ public class UserCardEntity {
     int userCardId;
 
     @Column(nullable = false)
-    int userId; // User PK
+    int userId;
 
     @Column(nullable = false)
-    int cardId; // Card PK
+    int cardId;
 
     @Column(length = 64, nullable = false)
     String cardIdentifier;
 
-    @NotNull
-    int cardMember;
-
     @Column(length = 16, nullable = false)
     String cardNumber;
-
-    String expired_year;
-
-    String expired_month;
 
     @Column(length = 3, nullable = false)
     String cardCvc;
@@ -44,18 +37,15 @@ public class UserCardEntity {
     @Column(length = 4, nullable = false)
     String cardPassword;
 
+    @NotNull
+    int cardMember;
+
+    @NotNull
+    String expired_year;
+
+    @NotNull
+    String expired_month;
+
     @Column(columnDefinition = "TEXT", nullable = true)
     String token;
-
-    public UserCardEntity(UserCardEntity entity){
-        this.userId = entity.getUserId();
-        this.cardId = entity.getCardId();
-        this.cardIdentifier = entity.getCardIdentifier();
-        this.cardMember = entity.getCardMember();
-        this.cardNumber = entity.getCardNumber();
-        this.expired_year = entity.getExpired_year();
-        this.expired_month = entity.getExpired_month();
-        this.cardCvc = entity.getCardCvc();
-    }
-
 }
