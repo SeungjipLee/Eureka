@@ -55,6 +55,7 @@ public class OwnUserCardResponse {
         this.paymentDate = userCardEntity.getPaymentDate();
         this.imagePath = imagePath;
         this.cardName = cardName;
+        this.imageAttr = imageAttr;
         this.list = list;
 
     }

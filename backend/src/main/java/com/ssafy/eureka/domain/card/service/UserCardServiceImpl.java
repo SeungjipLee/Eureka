@@ -32,8 +32,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserCardServiceImpl implements UserCardService {
@@ -117,8 +119,9 @@ public class UserCardServiceImpl implements UserCardService {
 
             String cardName = cardEntity.getCardName();
             String imagePath = cardEntity.getImagePath();
+            log.debug("cardEntity : "+ String.valueOf(cardEntity.getImgAttr()));
             int imageAttr = cardEntity.getImgAttr();
-
+            log.debug("imageAttr : "+ imageAttr );
             // 카드 id로 카드 혜택들 가져오기, 한 카드에 혜택 3개만 보여줄거야
             // 혜택이 3개가 안되는 경우도 고려
             List<CardBenefitEntity> cardBenefitEntityList = cardBenefitRepository.findByCardId(cardId);
@@ -131,8 +134,7 @@ public class UserCardServiceImpl implements UserCardService {
 
             // 카드 혜택 id로 카드 상세 혜택들 가져오기
             List<CardBenefitDetailEntity> cardBenefitDetailEntityList = cardBenefitDetailRepository.findByCardBenefitId(cardBenefitId);
-                if(cardBenefitDetailEntityList.size() == 0 || cardBenefitDetailEntityList == null) continue;
-                System.out.println(cardBenefitDetailEntityList.get(0).getCardBenefitId());
+            if(cardBenefitDetailEntityList.size() == 0 || cardBenefitDetailEntityList == null) continue;
 
             boolean put = false; // 상세 혜택 하나만 넣어줄거야
             for(int k=0; k<cardBenefitDetailEntityList.size(); k++){

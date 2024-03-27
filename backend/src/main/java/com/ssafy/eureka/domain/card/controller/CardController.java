@@ -27,7 +27,6 @@ public class CardController {
         return ResponseEntity.ok(cardService.listCardCompany());
     }
 
-    // 카드사별, 카테고리 분류별
     @Operation(summary = "카드 상품 카드사별 조회")
     @GetMapping("/prod/comp/list/{companyId}")
     public ResponseEntity<?> getCardProdCompanyList(@PathVariable int companyId){
