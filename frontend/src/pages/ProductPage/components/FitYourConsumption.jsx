@@ -121,10 +121,17 @@ function FitYourConsumption() {
         <View key={index} style={styles.mainContent}>
           <View style={styles.titleConatiner}>
             <View style={styles.titleTextContainer}>
-              <Text style={styles.titleBest}>
+              <Text style={{ fontSize: 16, fontWeight: "700" }}>
                 {category.categoryName}할인 BEST
               </Text>
-              <Text style={styles.titleSub}>
+              <Text
+                style={{
+                  fontSize: 13,
+                  fontWeight: "500",
+                  color: "#8a8a8a",
+                  marginTop: 5,
+                }}
+              >
                 총 {category.totalAmount} 썼어요
               </Text>
             </View>
@@ -142,9 +149,18 @@ function FitYourConsumption() {
               />
 
               <View style={styles.cardInfo}>
-                <Text>{card.cardName}</Text>
-                <Text>{card.discountContent}</Text>
-                <Text>{card.discountAmount} 더 할인받아요!</Text>
+                <Text style={{ fontSize: 12, color: "#707070" }}>
+                  {card.cardName}
+                </Text>
+                <Text style={{ fontSize: 14, fontWeight: "600" }}>
+                  {card.discountContent}
+                </Text>
+                <Text style={{ fontSize: 14, fontWeight: "800" }}>
+                  {card.discountAmount}
+                  <Text style={{ fontSize: 12, fontWeight: "600" }}>
+                    원 더 할인받아요!
+                  </Text>
+                </Text>
               </View>
             </View>
           ))}
@@ -159,7 +175,7 @@ const styles = StyleSheet.create({
   separator: {
     height: 0.7,
     width: "95%",
-    backgroundColor: "grey",
+    backgroundColor: "#d8d8d8",
     marginLeft: 10,
     marginTop: 25,
     marginBottom: 35,
@@ -201,21 +217,27 @@ const styles = StyleSheet.create({
   image2: {
     height: 70,
     width: 40,
+    marginRight: 50,
+    marginLeft: -120,
   },
-  mainContent: {
-    backgroundColor: "#85cf54",
-  },
+  mainContent: {},
   titleConatiner: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 10,
-    marginBottom: 20,
+    marginTop: 20,
+    marginBottom: 25,
+    marginLeft: 32,
   },
   titleTextContainer: {},
-  categoriesImage: {},
+  categoriesImage: {
+    marginRight: 50,
+  },
   cardContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 15,
+    marginTop: 15,
   },
   cardInfo: {},
 });
