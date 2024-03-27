@@ -33,12 +33,14 @@ public class OwnUserCardResponse {
     // 카드 Entity
     private String imagePath;
     private String cardName;
+    private int imageAttr;
 
     // 혜택
     List<CardDetailBenefitList> list = new ArrayList<>();
 
     public OwnUserCardResponse(UserCardEntity userCardEntity,
-                               String imagePath, String cardName, List<CardDetailBenefitList> list){
+                               String imagePath, String cardName, int imageAttr,
+                               List<CardDetailBenefitList> list){
         this.userCardId = userCardEntity.getUserCardId();
         this.userId = userCardEntity.getUserId();
         this.cardId = userCardEntity.getCardId();

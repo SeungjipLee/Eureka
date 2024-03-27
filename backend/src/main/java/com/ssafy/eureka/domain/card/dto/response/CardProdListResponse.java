@@ -16,6 +16,7 @@ public class CardProdListResponse {
     private String companyName;
     private String cardName;
     private String cardImagePath;
+    private int ImageAttr;
     private String info;
     private List<CardDetailBenefitList> list = new ArrayList<>();
 

@@ -59,6 +59,7 @@ public class CardServiceImpl implements CardService{
             int cardId = cardEntityList.get(i).getCardId();
             String cardName = cardEntityList.get(i).getCardName(); // 카드명
             String cardImagePath = cardEntityList.get(i).getImagePath();
+            int imageAttr = cardEntityList.get(i).getImgAttr();
 
             // 한 카드에서 한 혜택의 상위 2개의 혜택 디테일만 보여줄거야
             List<CardBenefitEntity> cardBenefitEntityList = cardBenefitRepository.findByCardId(cardId);
@@ -94,7 +95,7 @@ public class CardServiceImpl implements CardService{
 
                 if(cardDetailBenefitList.size() == 2) {
                     cardProdCompanyList.add(new CardProdListResponse(
-                            cardId, companyName, cardName, cardImagePath,
+                            cardId, companyName, cardName, cardImagePath, imageAttr,
                             info, cardDetailBenefitList
                     ));
                     break;
@@ -148,13 +149,14 @@ public class CardServiceImpl implements CardService{
 
                     String cardName = cardEntity.getCardName();
                     String cardImagePath = cardEntity.getImagePath();
+                    int imageAttr = cardEntity.getImgAttr();
                     int cardCompanyId = cardEntity.getCardCompanyId();
 
                         CardCompanyEntity cardCompanyEntity = cardCompanyRepository.findByCardCompanyId(cardCompanyId);
                         String companyName = cardCompanyEntity.getCompanyName();
 
                         cardProdCategoryList.add(new CardProdListResponse(
-                                cardId, companyName, cardName, cardImagePath,
+                                cardId, companyName, cardName, cardImagePath, imageAttr,
                                 info, cardDetailBenefitList
                         ));
                 }
