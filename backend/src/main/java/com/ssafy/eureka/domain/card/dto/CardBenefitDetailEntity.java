@@ -1,6 +1,7 @@
 package com.ssafy.eureka.domain.card.dto;
 
 import com.ssafy.eureka.domain.card.dto.CardProductDto.Benefit.BenefitDetail;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,6 +24,7 @@ public class CardBenefitDetailEntity {
     @NotNull
     private int cardBenefitId;
 
+    @NotNull
     private int largeCategoryId;
 
     private int smallCategoryId;
@@ -31,24 +33,28 @@ public class CardBenefitDetailEntity {
     @NotNull
     private int discountType;
 
+    @NotNull
+    private double discountCost;
+
     // %, 원, L
     @NotNull
+    @Column(length = 10)
     private String discountCostType;
 
     @NotNull
-    private float discountCost;
-
-    private int discountMax;
-
-    private int dailyLimitCount;
-
-    private int monthlyLimitCount;
-
-    private int discountLimit;
-
     private int payMin;
 
+    @NotNull
+    private int discountMax;
 
+    @NotNull
+    private int discountLimit;
+
+    @NotNull
+    private int dailyLimitCount;
+
+    @NotNull
+    private int monthlyLimitCount;
 
     public static CardBenefitDetailEntity regist(int cardBenefitId, int largeCategoryId,
         int smallCategoryId, BenefitDetail detail) {

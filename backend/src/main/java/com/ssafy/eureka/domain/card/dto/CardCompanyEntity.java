@@ -21,15 +21,18 @@ public class CardCompanyEntity {
     private int cardCompanyId;
 
     @NotNull
+    @Column(length = 30)
     private String companyName;
 
     @NotNull
-    @Column(unique = true)
+    @Column(length = 10, unique = true)
     private String orgCode;
 
     @NotNull
+    @Column(length = 3)
     private String cardBrand;
 
     @NotNull
+    @Column(length = 255)
     private String imagePath;
 }

@@ -21,9 +21,11 @@ public class ConsumptionStaticEntity {
     private int userCardId;
 
     @NotNull
+    @Column(length = 4)
     private String year;
 
     @NotNull
+    @Column(length = 2)
     private String month;
 
     @NotNull

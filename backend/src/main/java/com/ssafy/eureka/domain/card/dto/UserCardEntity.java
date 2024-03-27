@@ -12,6 +12,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigInteger;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,24 +36,31 @@ public class UserCardEntity {
     private int cardId;
 
     @NotNull
+    @Column(length = 100)
     private String cardIdentifier;
 
+    @Column(length = 4)
     private String firstCardNumber;
 
+    @Column(length = 4)
     private String lastCardNumber;
-
-    private String expired_year;
-
-    private String expired_month;
 
     @Column(columnDefinition = "BIGINT")
     private BigInteger currentMonthAmount;
 
+    @NotNull
     private boolean isPaymentEnabled;
 
-    private String token;
+    private LocalDateTime paymentDate;
 
-    private LocalDate paymentDate;
+    @Column(length = 2)
+    private String expired_year;
+
+    @Column(length = 2)
+    private String expired_month;
+
+    @Column(length = 255)
+    private String token;
 
     public UserCardEntity(int userId, RegistPayCardRequest registPayCardRequest, PayTokenResponse payTokenResponse) {
         this.userId = userId;

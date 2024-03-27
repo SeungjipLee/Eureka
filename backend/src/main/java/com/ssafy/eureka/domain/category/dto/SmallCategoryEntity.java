@@ -1,5 +1,6 @@
 package com.ssafy.eureka.domain.category.dto;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,6 +21,7 @@ public class SmallCategoryEntity {
     private int smallCategoryId;
 
     @NotNull
+    @Column(length = 300)
     private String categoryName;
 
     @NotNull
