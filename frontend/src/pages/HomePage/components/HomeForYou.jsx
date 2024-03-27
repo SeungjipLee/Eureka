@@ -12,7 +12,7 @@ function HomeForYou () {
         <Text style={styles.subtitle}>김싸피님을 위해 준비했어요</Text>
       </View>
         <View style={styles.midcontainer}>
-          <Image style={styles.image} source={require('../../../../assets/favicon.png')}/>
+          <Image style={styles.image} source={require('../../../../assets/HomeIcon/BarChart.png')}/>
           <View>
             <Text style={styles.font}>또래와 소비 비교해보기</Text>
           </View>
@@ -22,9 +22,9 @@ function HomeForYou () {
           </Pressable>
         </View>
         <View style={styles.midcontainer}>
-          <Image style={styles.image} source={require('../../../../assets/favicon.png')}/>
+          <Image style={styles.image} source={require('../../../../assets/HomeIcon/BankCards.png')}/>
           <View>
-            <Text style={styles.font}>내 소비에 딱 맞는 카드 추천 받기</Text>
+            <Text style={styles.font}>내 소비에 맞는 카드 추천 받기</Text>
           </View>
           <Pressable onPress={() => navigation.navigate('ProductPage')}>
             <MaterialCommunityIcons 
@@ -68,9 +68,9 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   image: {
-    width: 40,
-    height: 40,
-    marginEnd: 12,
+    width: 50,
+    height: 50,
+    marginHorizontal: 10,
   },
   font : {
     fontSize: 16,

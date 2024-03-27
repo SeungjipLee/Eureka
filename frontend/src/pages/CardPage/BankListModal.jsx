@@ -19,17 +19,17 @@ function BankListModal ({ visible, onClose, onSelect }) {
 
     fetchToken();
   }, []);
-
+  
   const banks = [
-    { id: 1, name: 'KB국민카드', imgUrl: require('../../../assets/favicon.png')},
-    { id: 2, name: '삼성카드', imgUrl: require('../../../assets/favicon.png') },
-    { id: 3, name: 'NH농협카드', imgUrl: require('../../../assets/favicon.png') },
-    { id: 4, name: '신한카드', imgUrl: require('../../../assets/favicon.png') },
-    { id: 5, name: '현대카드', imgUrl: require('../../../assets/favicon.png') },
-    { id: 6, name: '하나카드', imgUrl: require('../../../assets/favicon.png') },
-    { id: 7, name: '우리카드', imgUrl: require('../../../assets/favicon.png') },
-    { id: 8, name: 'IBK기업은행카드', imgUrl: require('../../../assets/favicon.png') },
-    { id: 9, name: '롯데카드', imgUrl: require('../../../assets/favicon.png') },
+    { id: 1, name: 'KB국민카드', imgUrl: require('../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_KB.png')},
+    { id: 2, name: '삼성카드', imgUrl: require('../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_삼성.png')},
+    { id: 3, name: 'NH농협카드', imgUrl: require('../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_농협.png')},
+    { id: 4, name: '신한카드', imgUrl: require('../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_신한.png')},
+    { id: 5, name: '현대카드', imgUrl: require('../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_현대카드.png')},
+    { id: 6, name: '하나카드', imgUrl: require('../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_하나.png')},
+    { id: 7, name: '우리카드', imgUrl: require('../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_우리.png')},
+    { id: 8, name: 'IBK기업은행카드', imgUrl: require('../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_IBK.png')},
+    { id: 9, name: '롯데카드', imgUrl: require('../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_롯데.png')},
   ];
 
   const [selectedBanks, setSelectedBanks] = useState([]);
@@ -49,13 +49,18 @@ function BankListModal ({ visible, onClose, onSelect }) {
     const inputData = {
       "cardCompayList": bankIds
     }
-    console.log(inputData)
 
     getMyCardList(
       token,
       inputData,
       (res) => {
-        navigation.navigate('OwnCardEnroll', { responseData: res.data.cardList })
+        const cardListWithImages = res.data.cardList.map(card => {
+          const bank = banks.find(bank => bank.name === card.bankName);
+          const imgUrl = bank ? bank.imgUrl : undefined;
+          return { ...card, imgUrl };
+        });
+  
+        navigation.navigate('OwnCardEnroll', { responseData: cardListWithImages });
       },
       (err) => console.log(err)
     )
@@ -83,7 +88,7 @@ function BankListModal ({ visible, onClose, onSelect }) {
                     style={[styles.bankItem, isSelected && styles.selectedBankItem]}
                     onPress={() => handleSelect(item)}
                   >
-                    <Image source={item.imgUrl} />
+                    <Image source={item.imgUrl} style={{width: 40, height: 40}}/>
                     <Text style={[styles.bankText, isSelected && styles.selectedBankText]}>{item.name}</Text>
                     <MaterialCommunityIcons
                       name="check"

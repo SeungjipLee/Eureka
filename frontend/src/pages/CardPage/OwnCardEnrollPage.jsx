@@ -11,6 +11,17 @@ function OwnCardEnrollPage({ route }) {
   const navigation = useNavigation();
   const { responseData } = route.params || {};
   const [token, setToken] = useState('');
+  const banks = [
+    { id: 1, name: 'KB국민카드', imgUrl: require('../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_KB.png')},
+    { id: 2, name: '삼성카드', imgUrl: require('../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_삼성.png')},
+    { id: 3, name: 'NH농협카드', imgUrl: require('../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_농협.png')},
+    { id: 4, name: '신한카드', imgUrl: require('../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_신한.png')},
+    { id: 5, name: '현대카드', imgUrl: require('../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_현대카드.png')},
+    { id: 6, name: '하나카드', imgUrl: require('../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_하나.png')},
+    { id: 7, name: '우리카드', imgUrl: require('../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_우리.png')},
+    { id: 8, name: 'IBK기업은행카드', imgUrl: require('../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_IBK.png')},
+    { id: 9, name: '롯데카드', imgUrl: require('../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_롯데.png')},
+  ];
 
   useEffect(() => {
     const fetchToken = async () => {
@@ -35,9 +46,14 @@ function OwnCardEnrollPage({ route }) {
   const renderCardItem = ({ item, cardCompanyId }) => {
     const uniqueCardKey = `${cardCompanyId}-${item.cardId}`;
     const isSelected = selectedCards.includes(uniqueCardKey);
+    // imgAttr 값에 따라 회전 스타일 적용
+    const imageStyle = item.imgAttr === 1 ? 
+      [{borderRadius:10, width: 55, height: 80, marginLeft: 10, marginRight: 30, transform: [{ rotate: '270deg' }] }] : 
+      {borderRadius:10, width: 80, height: 55, marginRight: 10 };
+  
     return (
       <TouchableOpacity style={styles.cardItem} onPress={() => toggleCardSelection(cardCompanyId, item.cardId)}>
-        <Image source={{ uri: item.imagePath }} style={styles.cardImage} />
+        <Image source={{ uri: item.imagePath }} style={imageStyle} />
         <Text style={styles.cardName}>{item.cardName}</Text>
         <MaterialCommunityIcons
           name={isSelected ? "check" : "checkbox-blank-outline"}
@@ -73,7 +89,7 @@ function OwnCardEnrollPage({ route }) {
   const renderBankItem = ({ item }) => (
     <View style={styles.bankContainer}>
       <View style={{flexDirection:'row'}}>
-        <Image style={{width: 30, height: 30, marginHorizontal: 10}} source={require('../../../assets/favicon.png')} />
+        <Image style={{width: 30, height: 30, marginHorizontal: 10}} source={banks[item.cardCompanyId-1].imgUrl} />
         <Text style={styles.bankName}>{item.companyName}</Text>
       </View>
       <View style={{ height: 1, backgroundColor:'#C5C5C5', marginVertical: 5 }}></View>
@@ -151,6 +167,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   cardItem: {
+    justifyContent:'space-around',
     flexDirection: 'row',
     alignItems: 'center',
     marginVertical: 3,
@@ -172,7 +189,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   btn: {
-    backgroundColor: 'blue',
+    backgroundColor: '#5187FF',
     alignItems: 'center',
     justifyContent: 'center',
     height: 50,
