@@ -31,20 +31,29 @@ public class UserCardController {
         return ResponseEntity.ok(userCardService.searchUserCard(userDetails.getUsername(), searchUserCardRequest));
     }
 
-    // 모든 보유 카드, 결제 카드 조회
+    // 해당 유저 보유 카드, 결제 카드의 카드 정보 +a 조회
     @Operation(summary = "등록한 보유 카드 조회")
     @GetMapping("/list/own")
     public ResponseEntity<?> ownUserCardList(@AuthenticationPrincipal UserDetails userDetails){
-        log.debug("등록한 보유 카드, 결제 카드 조회 : " + userDetails.getUsername());
+        log.debug("등록한 보유 카드, 결제 카드 조회 userId : " + userDetails.getUsername());
         return ResponseEntity.ok(userCardService.ownUserCardList(userDetails.getUsername()));
     }
 
-//    @Operation(summary = "등록한 결제 카드 조회")
-//    @PostMapping("/list/pay")
-//    public ResponseEntity<?> payUserCardList(@AuthenticationPrincipal UserDetails userDetails){
-//        log.debug("등록한 보유 카드 검색, userId : " + userDetails.getUsername());
-//        return ResponseEntity.ok(userCardService.ownUserCardList(userDetails.getUsername()));
-//    }
+    // 결제 카드의 실적, 사용 금액 보여주기용
+    // 현재까지 사용 금액도 보여줘야 하는데 이번 달 사용금액(통계) API가 필요
+    @Operation(summary = "등록한 결제 카드 조회")
+    @GetMapping("/list/pay")
+    public ResponseEntity<?> payUserCardList(@AuthenticationPrincipal UserDetails userDetails){
+        log.debug("등록한 결제 카드 조회, userId : " + userDetails.getUsername());
+        return ResponseEntity.ok(userCardService.payUserCardList(userDetails.getUsername()));
+    }
+
+    @Operation(summary = "카드 정보")
+    @GetMapping("/cardInfo/{userCardId}")
+    public ResponseEntity<?> userCardInfo(@PathVariable int userCardId){
+        log.debug("카드 타입, 결제 타입 유무, 실적 금액 정보 : "+ userCardId);
+        return ResponseEntity.ok(userCardService.userCardInfo(userCardId));
+    }
 
     @Operation(summary = "등록한 보유 카드 삭제")
     @DeleteMapping("/{userCardId}")
