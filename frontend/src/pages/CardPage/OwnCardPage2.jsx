@@ -11,6 +11,7 @@ function OwnCardPage2 () {
   const [token, setToken] = useState('');
   const [cardList, setCardList] = useState([]);
 
+  console.log(token)
   useFocusEffect(
     React.useCallback(() => {
       setModalVisible(false);
@@ -52,8 +53,9 @@ function OwnCardPage2 () {
               <Image
                 source={{ uri: item.imagePath }}
                 style={[
-                  styles.cardImage,
-                  item.imageAttr === 0 && { transform: [{ rotate: '90deg' }] }, // 조건부 스타일을 이렇게 적용
+                  item.imageAttr === 0
+                    ? { width: 80, height: 52, marginStart: -15, borderRadius: 10, transform: [{ rotate: '90deg' }] } 
+                    : styles.cardImage, 
                 ]}
               />
               <View style={{flex: 1}}>
@@ -110,12 +112,6 @@ const styles = StyleSheet.create({
   cardImage: {
     width: 52,
     height: 80,
-    marginRight: 10,
-    borderRadius: 8,
-  },
-  cardImage2: {
-    width: 80,
-    height: 52,
     marginRight: 10,
     borderRadius: 8,
   },
