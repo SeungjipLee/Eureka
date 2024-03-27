@@ -100,17 +100,18 @@ public class UserCardServiceImpl implements UserCardService {
     }
 
     @Override
-    public List<OwnUserCardResponse> ownUserCardList(String userId, int status) {
+    public List<OwnUserCardResponse> ownUserCardList(String userId) {
 
         List<OwnUserCardResponse> registerCardList = new ArrayList<>();
-        List<CardDetailBenefitList> cardDetailBenefitList;
+        List<CardDetailBenefitList> cardDetailBenefitList = new ArrayList<>();
         // 현재 로그인한 유저의 보유카드 조회
         List<UserCardEntity> userCardEntityList = userCardRepository.findAllByUserIdAndIsPaymentEnabled(Integer.parseInt(userId));
         if(userCardEntityList == null) throw new CustomException(ResponseCode.USER_CARD_NOT_FOUND);
 
+        System.out.println("내가 가진 카드 갯수 : " + userCardEntityList.size());
         for(int i=0; i<userCardEntityList.size(); i++){
 
-            cardDetailBenefitList = new ArrayList<>();
+            System.out.println("현재 카드 Id: " +userCardEntityList.get(i).getCardId());
             int cardId = userCardEntityList.get(i).getCardId();
             // 카드 Entity 가져와서 카드 이름, 이미지
             CardEntity cardEntity = cardRepository.findByCard(cardId)
@@ -121,21 +122,31 @@ public class UserCardServiceImpl implements UserCardService {
 
             // 카드 id로 카드 혜택들 가져오기, 한 카드에 혜택 3개만 보여줄거야
             // 혜택이 3개가 안되는 경우도 고려
-            List<CardBenefitEntity> cardBenefitEntityList = cardBenefitRepository.findByCardBenefitId(cardId);
+            List<CardBenefitEntity> cardBenefitEntityList = cardBenefitRepository.findByCardId(cardId);
+            System.out.println("cardBenefitEntityList");
 
+            if(cardBenefitEntityList.size() == 0 || cardBenefitEntityList == null) continue;
             int cardBenefitCnt=0;
             for(int j=0; j<cardBenefitEntityList.size(); j++){
 
             int cardBenefitId = cardBenefitEntityList.get(j).getCardBenefitId();
-            
+                System.out.println("현재 유저: "+ userId);
+                System.out.println("카드 Id : "+cardBenefitEntityList.get(j).getCardId());
+                System.out.println("카드 혜택 Id : "+cardBenefitEntityList.get(j).getCardBenefitId());
+            System.out.println("카드 혜택 타이틀 : "+cardBenefitEntityList.get(j).getTitle());
+                if(cardBenefitEntityList.get(j) == null) continue;
+
             // 카드 혜택 id로 카드 상세 혜택들 가져오기
             List<CardBenefitDetailEntity> cardBenefitDetailEntityList = cardBenefitDetailRepository.findByCardBenefitId(cardBenefitId);
+                System.out.println("cardBenefitDetailEntityList Size : "+ cardBenefitDetailEntityList.size());
+                System.out.println(cardBenefitDetailEntityList.get(0).getCardBenefitId());
 
+                if(cardBenefitDetailEntityList.size() == 0 || cardBenefitDetailEntityList == null) continue;
             boolean put = false; // 상세 혜택 하나만 넣어줄거야
             for(int k=0; k<cardBenefitDetailEntityList.size(); k++){
+//                if(cardDetailBenefitList.get(k) == null) continue;
 
-                if(cardDetailBenefitList.get(k) == null) continue;
-
+                System.out.println("cardBenefitDetail Id : "+ cardBenefitDetailEntityList.get(k).getCardBenefitDetailId());
                 String discountType = cardBenefitDetailEntityList.get(k).getDiscountCostType();
                 float discountCost = cardBenefitDetailEntityList.get(k).getDiscountCost();
                 int largeCategoryId = cardBenefitDetailEntityList.get(k).getLargeCategoryId();
@@ -144,14 +155,17 @@ public class UserCardServiceImpl implements UserCardService {
                 String largeCategoryName = largeCategoryEntity.getCategoryName();
 
                 cardDetailBenefitList.add(new CardDetailBenefitList(discountType, discountCost, largeCategoryName));
-                if (put) break;
+                System.out.println("여기야 : "+cardDetailBenefitList.get(k));
+//                if(put) break;
             }
 
+                registerCardList.add(new OwnUserCardResponse(userCardEntityList.get(i), imagePath, cardName, null));
+        System.out.println("registerCardList Size : "+ registerCardList.size());
+                cardDetailBenefitList = new ArrayList<>();
             }
 
-            registerCardList.add(new OwnUserCardResponse(userCardEntityList.get(i),
-                            cardName, imagePath, cardDetailBenefitList));
-        }
+        }// cardEntity
+
 
 
 //        List<UserCardEntity> userCardList = null;

@@ -34,7 +34,7 @@ public class OwnUserCardResponse {
     private String imagePath;
     private String cardName;
 
-    // 혜택 Top3
+    // 혜택
     List<CardDetailBenefitList> list = new ArrayList<>();
 
     public OwnUserCardResponse(UserCardEntity userCardEntity,

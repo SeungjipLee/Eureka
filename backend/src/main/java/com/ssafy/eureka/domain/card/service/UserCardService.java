@@ -13,7 +13,7 @@ public interface UserCardService {
 
     MyDataCardListResponse searchUserCard(String userId, SearchUserCardRequest searchUserCardRequest);
 
-    List<OwnUserCardResponse> ownUserCardList(String userId, int status);
+    List<OwnUserCardResponse> ownUserCardList(String userId);
 
     List<CardHistoryListResponse> listCardHistory(String userId, String yyyymm);
 
