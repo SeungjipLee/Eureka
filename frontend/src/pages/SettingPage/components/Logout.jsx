@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, Alert } from 'react-native';
-import StorageService from '../stores/TokenUtils';
+import TokenService from '../../../stores/TokenUtils';
 import { useNavigation } from '@react-navigation/native';
 
-const SettingPage = () => {
+const Logout = () => {
   const navigation = useNavigation();
 
   const handleLogout = () => {
@@ -26,7 +26,7 @@ const SettingPage = () => {
   // 로그아웃 로직을 별도의 함수로 분리
   const logout = async () => {
     try {
-      await StorageService.clearAllTokens(); // 모든 토큰을 삭제합니다.
+      await TokenService.clearAllTokens(); // 모든 토큰을 삭제합니다.
       navigation.navigate('SplashPage'); // SplashPage로 이동합니다.
     } catch (error) {
       Alert.alert("로그아웃 실패", "로그아웃 중 문제가 발생했습니다."); // 오류가 발생하면 사용자에게 알립니다.
@@ -42,4 +42,4 @@ const SettingPage = () => {
   );
 };
 
-export default SettingPage;
+export default Logout;

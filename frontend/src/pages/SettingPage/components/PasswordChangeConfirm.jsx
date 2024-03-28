@@ -1,42 +1,47 @@
 import React, { useState, createRef } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, Pressable, TextInput, Alert } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import TokenService from '../../stores/TokenUtils'
+import TokenService from '../../../stores/TokenUtils';
 import axios from 'axios';
 
-
-const PasswordConfirmPage = ({ route, navigation }) => {
-  const { verificationInfo } = route.params;
+const PasswordChangeConfirm = ({ navigation, route }) => {
+  const { password: postpassword } = route.params;
   const initialRefs = Array(6).fill().map(() => createRef());
   const [inputValues, setInputValues] = useState(Array(6).fill(''));
   const [activeInputIndex, setActiveInputIndex] = useState(0);
+  const [buttonBackgrounds, setButtonBackgrounds] = useState(Array(12).fill('#3675FF'));
 
-  const [buttonBackgrounds, setButtonBackgrounds] = useState(Array(12).fill('#3675FF')); // 12개의 버튼에 대한 배경색 상태 초기화
+  // 비밀번호 일치 확인 및 변경 요청 함수
+  // 비밀번호 일치 확인 및 변경 요청 함수
+  const updatePassword = async (newPassword) => {
+    try {
+      const accessToken = await TokenService.getAccessToken(); // 토큰 가져오기
 
-  // 현재 입력 필드가 채워지면 초기 비밀번호와 비교하는 함수
-  // checkPasswordMatch 함수 수정
-  const checkPasswordMatch = async (currentPassword) => {
-    if (currentPassword === verificationInfo.password) {
-      try {
-        const signupData = {
-          ...verificationInfo,
-        };
+      const response = await axios.put('https://j10e101.p.ssafy.io/api/auth/user', { password: newPassword }, { // newPassword를 객체 형태로 전달 수정
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      });
 
-        const response = await axios.post('https://j10e101.p.ssafy.io/api/user/signup', signupData);
-        const { accessToken, refreshToken } = response.data;
-        await TokenService.setToken(accessToken, refreshToken);
-        // console.log(accessToken)
-        Alert.alert("성공", "회원가입이 완료되었습니다.", [{ text: '확인', onPress: () => navigation.navigate('Routers') }]);
-      } catch (error) {
-        console.error('회원가입 실패:', error);
-        Alert.alert("회원가입 오류", "회원가입 과정에서 오류가 발생했습니다.");
-        // 비밀번호 입력 칸 초기화
-        setInputValues(Array(6).fill(''));
-        setActiveInputIndex(0);
+      if (response.status === 200) {
+        Alert.alert("성공", "비밀번호가 변경되었습니다.", [{ text: '확인', onPress: () => navigation.navigate('SettingPage') }]);
+      } else {
+        throw new Error('비밀번호 변경 실패');
       }
+    } catch (error) {
+      console.error('비밀번호 변경 오류:', error);
+      Alert.alert("오류", "비밀번호 변경 과정에서 오류가 발생했습니다.");
+      setInputValues(Array(6).fill('')); // 오류 발생 시 비밀번호 칸 초기화 추가
+      setActiveInputIndex(0); // 첫 번째 입력 칸으로 커서 이동 추가
+    }
+  };
+
+  // 현재 입력 필드를 확인하는 함수
+  const checkPasswordMatch = (currentPassword) => {
+    if (currentPassword === postpassword) {
+      updatePassword(currentPassword);
     } else {
       Alert.alert("오류", "비밀번호가 일치하지 않습니다.", [{ text: '확인' }]);
-      // 비밀번호 입력 칸 초기화
       setInputValues(Array(6).fill(''));
       setActiveInputIndex(0);
     }
@@ -113,15 +118,32 @@ const PasswordConfirmPage = ({ route, navigation }) => {
     );
   };
 
+  const confirmCancelation = () => {
+    Alert.alert(
+      '비밀번호 변경 중단', // 대화상자 제목
+      '비밀번호 변경을 중단하시겠습니까?', // 대화상자 메세지
+      [
+        {
+          text: '아니오',
+          style: 'cancel',
+        },
+        {
+          text: '예',
+          onPress: () => navigation.navigate('SettingPage'), // '예'를 눌렀을 때 설정 페이지로 이동
+        },
+      ],
+      { cancelable: false }
+    );
+  };
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
       <View style={styles.topBar}>
-        <Pressable style={styles.pressable} onPress={() => navigation.goBack()}>
+        <Pressable style={styles.pressable} onPress={confirmCancelation}>
           <MaterialCommunityIcons name="chevron-left" size={40} color="white" />
         </Pressable>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>간편비밀번호 등록</Text>
+          <Text style={styles.title}>비밀번호 변경</Text>
         </View>
       </View>
       <View style={styles.passwordContainer}>
@@ -242,4 +264,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PasswordConfirmPage;
+export default PasswordChangeConfirm;
