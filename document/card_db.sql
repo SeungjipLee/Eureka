@@ -65,7 +65,7 @@ create index idx_user_id ON user_card(user_id);
 
 #5. card_history
 drop table if exists card_history;
-create table card_history
+create table if not exists card_history
 (
     card_history_id         int           auto_increment    primary key   COMMENT '카드 결제 내역 관리번호',
     user_card_id            int           not null                        COMMENT '유저 카드 관리번호',
@@ -85,6 +85,6 @@ create table card_history
 
 create index idx_user_card_id ON card_history(user_card_id);
 create index idx_approved_num ON card_history(approved_num);
-CREATE INDEX idx_user_card_id_approved_dtime ON card_history(user_card_id, approved_date_time);
+CREATE INDEX idx_user_card_id_approved_date_time ON card_history(user_card_id, approved_date_time);
 
 

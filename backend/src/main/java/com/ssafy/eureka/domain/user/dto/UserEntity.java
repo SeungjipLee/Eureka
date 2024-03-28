@@ -27,7 +27,7 @@ public class UserEntity {
 
     @NotNull
     @Column(length = 6)
-    private LocalDate userBirth;
+    private String userBirth;
 
     @NotNull
     @Column(length = 30)
@@ -54,8 +54,7 @@ public class UserEntity {
     public static UserEntity signUpUser(String userName, String birth, String password, String phoneNumber) {
         UserEntity user = new UserEntity();
         user.userName = userName;
-        user.userBirth = LocalDate.parse(birth,
-            DateTimeFormatter.ofPattern("yyyyMMdd"));
+        user.userBirth = birth;
         user.password = password;
         user.phoneNumber = phoneNumber;
         user.isUnregistered = false;

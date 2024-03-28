@@ -96,7 +96,7 @@ public class UserServiceImpl implements UserService{
         refreshTokenRepository.save(new RefreshToken(String.valueOf(user.getUserId()), jwtTokenResponse.getRefreshToken()));
 
         String phoneNumber = aesUtil.decrypt(user.getPhoneNumber());
-        String userBirth = user.getUserBirth().format(DateTimeFormatter.ofPattern("yyMMdd"));
+        String userBirth = user.getUserBirth();
 
         MyDataApiResponse<?> response = myDataFeign.requestToken(new MyDataTokenRequest(phoneNumber, userBirth, user.getUserName()));
 
@@ -173,7 +173,7 @@ public class UserServiceImpl implements UserService{
         refreshTokenRepository.save(new RefreshToken(String.valueOf(user.getUserId()), jwtTokenResponse.getRefreshToken()));
 
         String phoneNumber = aesUtil.decrypt(user.getPhoneNumber());
-        String userBirth = user.getUserBirth().format(DateTimeFormatter.ofPattern("yyMMdd"));
+        String userBirth = user.getUserBirth();
 
         MyDataApiResponse<?> response = myDataFeign.requestToken(new MyDataTokenRequest(phoneNumber, userBirth, user.getUserName()));
 
