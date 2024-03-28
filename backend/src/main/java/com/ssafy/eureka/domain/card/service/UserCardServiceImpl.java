@@ -118,7 +118,7 @@ public class UserCardServiceImpl implements UserCardService {
 
             // 카드 Entity 가져와서 카드 이름, 이미지
             CardEntity cardEntity = cardRepository.findByCard(cardId)
-                    .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
 
             String cardName = cardEntity.getCardName();
             String imagePath = cardEntity.getImagePath();
@@ -130,13 +130,13 @@ public class UserCardServiceImpl implements UserCardService {
 
             for(int j=0; j<cardBenefitEntityList.size(); j++){
 
-            int cardBenefitId = cardBenefitEntityList.get(j).getCardBenefitId();
+                int cardBenefitId = cardBenefitEntityList.get(j).getCardBenefitId();
 
-            // 카드 혜택 id로 카드 상세 혜택들 가져오기
-            List<CardBenefitDetailEntity> cardBenefitDetailEntityList = cardBenefitDetailRepository.findByCardBenefitId(cardBenefitId);
-            
-            // 혜택은 있지만 상세 혜택 테이블에서 혜택 번호가 없는 경우
-            if(cardBenefitDetailEntityList.isEmpty()) continue;
+                // 카드 혜택 id로 카드 상세 혜택들 가져오기
+                List<CardBenefitDetailEntity> cardBenefitDetailEntityList = cardBenefitDetailRepository.findByCardBenefitId(cardBenefitId);
+
+                // 혜택은 있지만 상세 혜택 테이블에서 혜택 번호가 없는 경우
+                if(cardBenefitDetailEntityList.isEmpty()) continue;
 
 
                 String discountType = cardBenefitDetailEntityList.get(0).getDiscountCostType();
@@ -152,7 +152,7 @@ public class UserCardServiceImpl implements UserCardService {
                 if(cardDetailBenefitList.size() == 3) break;
 
             } // cardBenefit
-                registerCardList.add(new OwnUserCardResponse(userCardEntityList.get(i), imagePath, cardName, imageAttr, cardDetailBenefitList));
+            registerCardList.add(new OwnUserCardResponse(userCardEntityList.get(i), imagePath, cardName, imageAttr, cardDetailBenefitList));
 
         }// cardEntity
 
@@ -169,19 +169,19 @@ public class UserCardServiceImpl implements UserCardService {
         for (UserCardEntity userCardEntity : userCardEntityList)
         {
 
-        int userCardId = userCardEntity.getUserCardId();
-        int cardId = userCardEntity.getCardId();
-        String firstCardNumber = userCardEntity.getFirstCardNumber();
-        String lastCardNumber = userCardEntity.getLastCardNumber();
+            int userCardId = userCardEntity.getUserCardId();
+            int cardId = userCardEntity.getCardId();
+            String firstCardNumber = userCardEntity.getFirstCardNumber();
+            String lastCardNumber = userCardEntity.getLastCardNumber();
 
-        CardEntity cardEntity = cardRepository.findByCard(cardId)
+            CardEntity cardEntity = cardRepository.findByCard(cardId)
                 .orElseThrow(() -> new CustomException(ResponseCode.CARD_NOT_FOUND));
 
-        int previousPerformance = cardEntity.getPreviousPerformance();
-        String cardName = cardEntity.getCardName();
-        String imagePath = cardEntity.getImagePath();
+            int previousPerformance = cardEntity.getPreviousPerformance();
+            String cardName = cardEntity.getCardName();
+            String imagePath = cardEntity.getImagePath();
 
-        payUserCardResponseList.add(new PayUserCardResponse(
+            payUserCardResponseList.add(new PayUserCardResponse(
                 userCardId, Integer.parseInt(userId),
                 cardId, cardName, previousPerformance,
                 firstCardNumber, lastCardNumber, imagePath));
@@ -193,7 +193,7 @@ public class UserCardServiceImpl implements UserCardService {
     public CardInfoResponse userCardInfo(int userCardId) {
 
         UserCardEntity userCardEntity = userCardRepository.findByUserCardId(userCardId)
-                .orElseThrow(() -> new CustomException(ResponseCode.USER_CARD_NOT_FOUND));
+            .orElseThrow(() -> new CustomException(ResponseCode.USER_CARD_NOT_FOUND));
 
         boolean isPaymentEnabled = userCardEntity.isPaymentEnabled();
         int cardId = userCardEntity.getCardId();
@@ -216,7 +216,7 @@ public class UserCardServiceImpl implements UserCardService {
         int intUserId = Integer.parseInt(userId);
 
         UserEntity userEntity = userRepository.findByUserId(intUserId)
-                .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
+            .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
 
         UserCardEntity userCard = userCardRepository.findByUserCardId(intUserId)
             .orElseThrow(() -> new CustomException(ResponseCode.USER_CARD_NOT_FOUND));
