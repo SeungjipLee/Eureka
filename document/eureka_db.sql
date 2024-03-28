@@ -89,6 +89,7 @@ create table if not exists user
 (
     user_id          int            auto_increment      primary key                 COMMENT '유저 관리번호',
     user_birth       char(6)        not null                                        COMMENT '생년월일(6자리)',
+    userGender       char(1)        not null                                        COMMENT '주민번호 뒤자리 1번쨰',
     user_name        varchar(30)    not null                                        COMMENT '이름',
     phone_number     varchar(255)   not null            unique                      COMMENT '휴대폰 번호(AES-256)',
     password         varchar(255)   not null                                        COMMENT '비밀번호(6자리, BCrypt)',

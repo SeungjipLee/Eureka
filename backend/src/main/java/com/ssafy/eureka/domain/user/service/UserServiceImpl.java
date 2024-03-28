@@ -122,8 +122,7 @@ public class UserServiceImpl implements UserService{
         }
 
         UserEntity user = UserEntity.signUpUser(
-            signUpRequest.getUserName(),
-            userUtil.formatBirthDate(signUpRequest.getUserBirth(), signUpRequest.getUserGender()),
+            signUpRequest,
             bCryptPasswordEncoder.encode(signUpRequest.getPassword()),
             encodePhoneNumber);
 
