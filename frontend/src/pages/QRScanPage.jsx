@@ -15,12 +15,12 @@ const App = () => {
   const [BorderBottomColor4, setBorderBottomColor4] = useState('lightgray');
   const [BorderBottomColor5, setBorderBottomColor5] = useState('lightgray');
 
-  const [PhoneNum, setPhoneNum] = useState(0);
-  const [RNum, setRNum] = useState(0);
-  const [RNum2, setRNum2] = useState(0);
+  const [PhoneNum, setPhoneNum] = useState('');
+  const [RNum, setRNum] = useState('');
+  const [RNum2, setRNum2] = useState('');
   const [Name, setName] = useState('');
   const [PickerValue, setPickerValue] = useState('SKT'); // picker의 선택된 값
-  const [AuthNum, setAuthNum] = useState(0);
+  const [AuthNum, setAuthNum] = useState('');
 
   const phoneNumInputRef = useRef(null);
   const rNumInputRef = useRef(null);

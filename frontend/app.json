@@ -32,6 +32,9 @@
         "projectId": "5e56431c-5a30-4354-9423-d1ba02e08b7b"
       }
     },
-    "owner": "iniyap"
+    "owner": "iniyap",
+    "plugins": [
+      "react-native-vision-camera"
+    ]
   }
 }
