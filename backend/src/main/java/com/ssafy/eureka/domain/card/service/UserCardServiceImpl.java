@@ -215,31 +215,23 @@ public class UserCardServiceImpl implements UserCardService {
             .orElseThrow(() -> new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR));
 
         String accessToken = myDataToken.getAccessToken();
-        log.debug("accessToken : " + accessToken);
 
         int intUserId = Integer.parseInt(userId);
 
         UserEntity userEntity = userRepository.findByUserId(intUserId)
             .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
 
-        log.debug("카드 정보 : " + userCardId);
         UserCardEntity userCardEntity = userCardRepository.findByUserCardId(userCardId)
             .orElseThrow(() -> new CustomException(ResponseCode.USER_CARD_NOT_FOUND));
 
-        log.debug("카드 식별자 : " + userCardEntity.getCardIdentifier());
-        log.debug("년월 : " + yyyymm);
         MyDataApiResponse<?> response = myDataFeign.searchCardPayList(accessToken,
         userCardEntity.getCardIdentifier(), yyyymm);
-
-        log.debug("response.getStatus() : "+ response.getStatus());
 
         if (response.getStatus() != 200) {
             throw new CustomException(400, response.getMessage());
         }
 
         List<MyDataCardHistoryResponse.MyDataCardHistory> myDataCardPayList = (List<MyDataCardHistoryResponse.MyDataCardHistory>) response.getData();
-
-        log.debug("myDataCardPayList : "+ myDataCardPayList);
 
         return new MyDataCardHistoryResponse(myDataCardPayList);
     }

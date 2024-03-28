@@ -9,20 +9,30 @@ import com.ssafy.eureka.domain.card.dto.UserCardEntity;
 import com.ssafy.eureka.domain.card.repository.CardBenefitDetailRepository;
 import com.ssafy.eureka.domain.card.repository.CardRepository;
 import com.ssafy.eureka.domain.card.repository.UserCardRepository;
+import com.ssafy.eureka.domain.category.dto.LargeCategoryEntity;
+import com.ssafy.eureka.domain.category.dto.SmallCategoryEntity;
+import com.ssafy.eureka.domain.category.repository.LargeCategoryRepository;
 import com.ssafy.eureka.domain.category.repository.SmallCategoryRepository;
+import com.ssafy.eureka.domain.pay.dto.PayHistoryEntity;
 import com.ssafy.eureka.domain.pay.dto.PayInfo;
 import com.ssafy.eureka.domain.pay.dto.request.AprrovePayRequest;
 import com.ssafy.eureka.domain.pay.dto.request.RequestPayRequest;
 import com.ssafy.eureka.domain.pay.dto.response.AprrovePayResponse;
 import com.ssafy.eureka.domain.pay.dto.response.CardRecommendResponse;
 import com.ssafy.eureka.domain.pay.dto.response.CardRecommendResponse.RecommendCard;
+import com.ssafy.eureka.domain.pay.dto.response.PayHistoryListResponse;
+import com.ssafy.eureka.domain.pay.dto.response.PayHistoryResponse;
 import com.ssafy.eureka.domain.pay.repository.PayHistoryRepository;
 import com.ssafy.eureka.domain.pay.repository.PayInfoRepository;
 import com.ssafy.eureka.domain.payment.dto.request.PayRequest;
 import com.ssafy.eureka.domain.payment.feign.PaymentFeign;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
+
+import com.ssafy.eureka.domain.user.dto.UserEntity;
+import com.ssafy.eureka.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -31,6 +41,7 @@ import org.springframework.stereotype.Service;
 public class PayServiceImpl implements PayService{
 
     private final UserCardRepository userCardRepository;
+    private final UserRepository userRepository;
 
     private final PayHistoryRepository payHistoryRepository;
     private final PayInfoRepository payInfoRepository;
@@ -38,6 +49,7 @@ public class PayServiceImpl implements PayService{
 
     private final CardBenefitDetailRepository cardBenefitDetailRepository;
     private final SmallCategoryRepository smallCategoryRepository;
+    private final LargeCategoryRepository largeCategoryRepository;
     private final CardRepository cardRepository;
 
 
@@ -98,5 +110,43 @@ public class PayServiceImpl implements PayService{
         // 결제 결과 반환
 
         return null;
+    }
+
+    @Override
+    public PayHistoryResponse payHistory(String userId, String yyyymm) {
+
+        UserEntity userEntity = userRepository.findByUserId(Integer.parseInt(userId))
+                .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
+
+        List<PayHistoryEntity> payHistoryEntityList =
+                payHistoryRepository.findByUserId(
+                        Integer.parseInt(userId),
+                        yyyymm.substring(0, 4), yyyymm.substring(4, 6));
+        if (payHistoryEntityList.isEmpty()) return null;
+
+        int totalAmt=0;
+
+        List<PayHistoryListResponse> payHistoryListResponseList = new ArrayList<>();
+        for(PayHistoryEntity payHistoryEntity: payHistoryEntityList){
+
+            int largeCategoryId = payHistoryEntity.getLargeCategoryId();
+            int smallCategoryId = payHistoryEntity.getSmallCategoryId();
+            totalAmt += payHistoryEntity.getApprovedAmt();
+
+            LargeCategoryEntity largeCategoryEntity
+                    = largeCategoryRepository.findByLargeCategoryId(largeCategoryId);
+            Optional<SmallCategoryEntity> smallCategoryEntity
+                    = smallCategoryRepository.findBySmallCategoryId(smallCategoryId);
+
+            String largeCategoryName = largeCategoryEntity.getCategoryName();
+            String smallCategoryName = smallCategoryEntity.get().getCategoryName();
+
+            payHistoryListResponseList.add(new PayHistoryListResponse(
+                    payHistoryEntity, largeCategoryName, smallCategoryName
+            ));
+        }
+
+
+        return new PayHistoryResponse(totalAmt, payHistoryListResponseList);
     }
 }

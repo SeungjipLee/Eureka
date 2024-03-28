@@ -37,9 +37,6 @@ public class PayHistoryEntity {
     private int recommendCardId;
 
     @NotNull
-    private int partnershipStoreId;
-
-    @NotNull
     private int largeCategoryId;
 
     private int smallCategoryId;
