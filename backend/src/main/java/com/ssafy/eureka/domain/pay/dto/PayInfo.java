@@ -19,34 +19,51 @@ public class PayInfo {
     private String userId;
 
     @NotNull
-    private String storeCode;
+    private String storeName;
 
     @NotNull
-    private String storeId;
+    private String storeRegNo;
 
     @NotNull
     private String orderName;
 
     @NotNull
-    private Long totalAmount;
+    private int totalAmount;
 
     @NotNull
-    private Long vat;
+    private int vat;
+
+    @NotNull
+    private int totalInstallCnt;
 
     @NotNull
     private LocalDateTime requestedAt;
 
     private String redirectUrl;
 
-    public PayInfo(String userId, RequestPayRequest requestPayRequest) {
+    @NotNull
+    private int largeCategoryId;
+
+    private Integer smallCategoryId;
+
+    private int recommendCardId;
+
+    private int recommendDiscount;
+
+    public PayInfo(String userId, RequestPayRequest requestPayRequest, int recommendCardId, int recommendDiscount) {
         this.userId = userId;
         this.orderId = requestPayRequest.getOrderId();
-        this.storeCode = requestPayRequest.getStoreCode();
-        this.storeId = requestPayRequest.getStoreId();
+        this.storeName = requestPayRequest.getStoreName();
+        this.storeRegNo = requestPayRequest.getStoreRegNo();
         this.orderName = requestPayRequest.getOrderName();
         this.totalAmount = requestPayRequest.getTotalAmount();
         this.vat = requestPayRequest.getVat();
+        this.totalInstallCnt = requestPayRequest.getTotalInstallCnt();
         this.requestedAt = requestPayRequest.getRequestedAt();
         this.redirectUrl = requestPayRequest.getRedirectUrl();
+        this.largeCategoryId = requestPayRequest.getLargeCategoryId();
+        this.smallCategoryId = requestPayRequest.getSmallCategoryId();
+        this.recommendCardId = recommendCardId;
+        this.recommendDiscount = recommendDiscount;
     }
 }

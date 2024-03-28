@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/pay")
 public class PayController {
 
-    private PayService payService;
+    private final PayService payService;
 
     @Operation(summary = "결제 요청(결제 정보)")
     @PostMapping("/request")

@@ -27,7 +27,8 @@ public enum ResponseCode {
 
     CONFLICT_RESOURCE(409, "중복된 값이 있습니다. 다시 입력해주세요"),
 
-    USER_CARD_NOT_FOUND(404, "유저 카드를 찾을 수 없음.");
+    USER_CARD_NOT_FOUND(404, "유저 카드를 찾을 수 없음."),
+    PAY_TOKEN_ERROR(400, "결제 토큰이 올바르지 않습니다.");
 
     private int status;
     private String message;
