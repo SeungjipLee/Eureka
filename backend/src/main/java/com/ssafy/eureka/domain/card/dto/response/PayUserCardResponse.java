@@ -20,4 +20,5 @@ public class PayUserCardResponse {
     String firstCardNumber;
     String lastCardNumber;
     String imagePath;
+    int imgAttr;
 }

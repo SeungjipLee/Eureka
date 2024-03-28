@@ -180,11 +180,12 @@ public class UserCardServiceImpl implements UserCardService {
             int previousPerformance = cardEntity.getPreviousPerformance();
             String cardName = cardEntity.getCardName();
             String imagePath = cardEntity.getImagePath();
+            int imgAttr = cardEntity.getImgAttr();
 
             payUserCardResponseList.add(new PayUserCardResponse(
                 userCardId, Integer.parseInt(userId),
                 cardId, cardName, previousPerformance,
-                firstCardNumber, lastCardNumber, imagePath));
+                firstCardNumber, lastCardNumber, imagePath, imgAttr));
         }
         return payUserCardResponseList;
     }
@@ -224,11 +225,12 @@ public class UserCardServiceImpl implements UserCardService {
 
         MyDataApiResponse<?> response = myDataFeign.searchCardPayList(accessToken,
             new MyDataCardHistoryRequest(userCardEntity.getCardIdentifier(), yyyymm));
-        log.debug("마이 데이터 Feign ");
+        log.debug("response.getStatus() : "+ response.getStatus());
 
         if (response.getStatus() != 200) {
             throw new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR);
         }
+        log.debug("response.getStatus() 후 ");
 
         MyDataCardHistoryResponse myDataCardPayList = (MyDataCardHistoryResponse) response.getData();
 
