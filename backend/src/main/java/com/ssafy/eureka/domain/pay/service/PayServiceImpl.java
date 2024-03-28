@@ -90,7 +90,7 @@ public class PayServiceImpl implements PayService{
         MyDataApiResponse<?> response = paymentFeign.requestPay(userCard.getToken(), payRequest);
 
         if(response.getStatus() != 200){
-            throw new CustomException(ResponseCode.PAY_APRROVE_ERROR);
+            throw new CustomException(400, response.getMessage());
         }
 
         // 결제 내역 저장

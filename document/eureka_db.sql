@@ -94,7 +94,7 @@ create table if not exists user
     phone_number     varchar(255)   not null            unique                      COMMENT '휴대폰 번호(AES-256)',
     password         varchar(255)   not null                                        COMMENT '비밀번호(6자리, BCrypt)',
     registered_at    datetime       not null            DEFAULT current_timestamp   COMMENT '가입 일시',
-    is_unregistered  bit            not null            DEFAULT 0                   COMMENT '탈퇴 여부',
+    is_unregistered  boolean        not null            DEFAULT 0                   COMMENT '탈퇴 여부',
     un_registered_at datetime       null                                            COMMENT '탈외 일시'
 );
 
