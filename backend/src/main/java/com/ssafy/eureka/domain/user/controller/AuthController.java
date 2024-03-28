@@ -39,7 +39,7 @@ public class AuthController {
     @PostMapping("/user")
     public ResponseEntity<?> checkPassword(@AuthenticationPrincipal UserDetails userDetails,
         @RequestBody String password) {
-        log.debug("비밀번호 확인, userName : " + userDetails.getUsername());
+        log.debug("비밀번호 확인, userName : " + userDetails.getUsername() + ", 비밀번호 : " + password);
         userService.checkPassword(userDetails, password);
         log.debug("비밀번호 확인 성공");
         return ResponseEntity.ok().build();
@@ -50,7 +50,7 @@ public class AuthController {
     @PutMapping("/user")
     public ResponseEntity<?> updatePassword(@AuthenticationPrincipal UserDetails userDetails,
         @RequestBody String password) {
-        log.debug("비밀번호 변경, userId : " + userDetails.getUsername());
+        log.debug("비밀번호 변경, userId : " + userDetails.getUsername() + ", 비밀번호 : " + password);
         userService.updatePassword(userDetails, password);
         return ResponseEntity.ok().build();
     }
