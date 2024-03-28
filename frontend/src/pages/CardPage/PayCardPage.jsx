@@ -9,37 +9,49 @@ function PayCardPage() {
       imgSrc: require("../../../assets/card.png"),
       title: "KB 국민 My WE:SH 카드",
       now: 321000,
-      target: 400000
+      target: 400000,
+      firstCardNumber: "5000",
+      lastCardNumber: "0001"
     },
     {
       imgSrc: require("../../../assets/card.png"),
       title: "다담카드",
       now: 111000,
-      target: 300000
+      target: 300000,
+      firstCardNumber: "5000",
+      lastCardNumber: "0002"
     },
     {
       imgSrc: require("../../../assets/card.png"),
       title: "BeV V카드(스카이패스형)",
       now: 0,
-      target: 200000
+      target: 200000,
+      firstCardNumber: "5000",
+      lastCardNumber: "0003"
     },
     {
       imgSrc: require("../../../assets/card.png"),
       title: "신한카드 Mr.Life",
       now: 511000,
-      target: 400000
+      target: 400000,
+      firstCardNumber: "5000",
+      lastCardNumber: "0004"
     },
     {
       imgSrc: require("../../../assets/card.png"),
       title: "KB 국민 My WE:SH 카드",
       now : 0,
-      target: 300000
+      target: 300000,
+      firstCardNumber: "5000",
+      lastCardNumber: "0005"
     },
     {
       imgSrc: require("../../../assets/card.png"),
       title: "KB 국민 My WE:SH 카드",
       now: 10000,
-      target: 0
+      target: 0,
+      firstCardNumber: "5000",
+      lastCardNumber: "0006"
     },
   ]
 
@@ -54,6 +66,7 @@ function PayCardPage() {
             <Image source={item.imgSrc} style={styles.cardImage} />
             <View style={{ flex: 1 }}>
               <Text style={styles.cardTitle}>{item.title}</Text>
+              <Text>{item.firstCardNumber}- **** - **** - {item.lastCardNumber}</Text>
               {item.target - item.now > 0 ? (
                 <Text>
                   이용 실적이 
@@ -93,7 +106,7 @@ const styles = StyleSheet.create({
   cardTitle: {
     fontSize: 16,
     fontWeight: 'bold',
-    marginBottom: 5,
+    marginBottom: 3,
   },
   cardImage: {
     width: 102,

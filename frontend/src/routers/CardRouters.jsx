@@ -8,16 +8,16 @@ import OwnCardPage from "../pages/CardPage/OwnCardPage";
 
 
 function CardRouters () {
-  const HomeStack = createStackNavigator()
+  const CardStack = createStackNavigator()
   return (
-    <HomeStack.Navigator
+    <CardStack.Navigator
       screenOptions={{ headerShown: false }}>
-      <HomeStack.Screen name="CardHome" component={OwnCardPage}/>
-      <HomeStack.Screen name="CardDetail" component={CardDetailPage}/>
-      <HomeStack.Screen name="CardDetailPay" component={CardDetailPayPage}/>
-      <HomeStack.Screen name="PayCardEnroll" component={PayCardEnrollPage}/>
-      <HomeStack.Screen name="OwnCardEnroll" component={OwnCardEnrollPage}/>
-    </HomeStack.Navigator>
+      <CardStack.Screen name="CardHome" component={OwnCardPage}/>
+      <CardStack.Screen name="CardDetail" component={CardDetailPage}/>
+      <CardStack.Screen name="CardDetailPay" component={CardDetailPayPage}/>
+      <CardStack.Screen name="PayCardEnroll" component={PayCardEnrollPage}/>
+      <CardStack.Screen name="OwnCardEnroll" component={OwnCardEnrollPage}/>
+    </CardStack.Navigator>
   )
 }
 
