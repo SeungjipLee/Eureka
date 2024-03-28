@@ -11,7 +11,6 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import axios from "axios";
 import { selectCardId } from "../../../../slices/productSlice";
 
 function ChooseOne({ data }) {
