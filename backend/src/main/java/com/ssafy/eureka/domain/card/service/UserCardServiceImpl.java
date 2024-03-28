@@ -281,6 +281,7 @@ public class UserCardServiceImpl implements UserCardService {
         log.debug("response : " + response);
 
         if (response.getStatus() != 200) {
+            log.debug("에러 발생 : " + response.getMessage());
             throw new CustomException(ResponseCode.PAY_TOKEN_ERROR);
         }
 
