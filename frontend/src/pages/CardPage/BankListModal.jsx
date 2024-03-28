@@ -85,7 +85,6 @@ function BankListModal({ visible, onClose, onSelect }) {
       );
     } else {
       setSelectedBanks([...selectedBanks, bank]);
-      console.log(selectedBanks);
     }
   };
 

@@ -38,7 +38,8 @@
     "react-native-screens": "~3.29.0",
     "react-native-tab-view": "^3.5.2",
     "react-native-vision-camera": "^3.9.2",
-    "expo-image": "~1.10.6"
+    "expo-image": "~1.10.6",
+    "expo-camera": "~14.1.1"
   },
   "devDependencies": {
     "@babel/core": "^7.24.3",

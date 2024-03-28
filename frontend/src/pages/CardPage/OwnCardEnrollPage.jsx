@@ -174,7 +174,7 @@ function OwnCardEnrollPage({ route }) {
     addOwnCard(
       token,
       inputData,
-      (res) => console.log(res),
+      (res) => {},
       (err) => console.log(err)
     );
     navigation.navigate("CardHome");
