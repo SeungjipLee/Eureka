@@ -23,6 +23,7 @@ public class CardBenefitEntity {
     @NotNull
     private int cardId;
 
+    @Column(length = 300)
     private String title;
 
     @Column(columnDefinition = "TEXT")

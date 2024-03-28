@@ -13,6 +13,10 @@ public class RequestPayRequest {
 
     private String orderName;
 
+    private int largeCategoryId;
+
+    private int smallCategoryId;
+
     private Long totalAmount;
 
     private Long vat;

@@ -1,6 +1,7 @@
 package com.ssafy.eureka.domain.card.dto;
 
 import com.ssafy.eureka.domain.card.dto.CardProductDto.Benefit.BenefitDetail;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,6 +24,7 @@ public class CardBenefitDetailEntity {
     @NotNull
     private int cardBenefitId;
 
+    @NotNull
     private int largeCategoryId;
 
     private int smallCategoryId;
@@ -31,38 +33,42 @@ public class CardBenefitDetailEntity {
     @NotNull
     private int discountType;
 
+    @NotNull
+    private double discountCost;
+
     // %, 원, L
     @NotNull
+    @Column(length = 10)
     private String discountCostType;
 
     @NotNull
-    private float discountCost;
-
-    private int discountMax;
-
-    private int dailyLimitCount;
-
-    private int monthlyLimitCount;
-
-    private int discountLimit;
-
     private int payMin;
 
+    @NotNull
+    private int discountMax;
 
+    @NotNull
+    private int discountLimit;
+
+    @NotNull
+    private int dailyLimitCount;
+
+    @NotNull
+    private int monthlyLimitCount;
 
     public static CardBenefitDetailEntity regist(int cardBenefitId, int largeCategoryId,
         int smallCategoryId, BenefitDetail detail) {
         CardBenefitDetailEntity cardBenefitDetail = new CardBenefitDetailEntity();
         cardBenefitDetail.cardBenefitId = cardBenefitId;
         cardBenefitDetail.largeCategoryId = largeCategoryId;
-        if (smallCategoryId != 0) {
+        if(smallCategoryId != 0){
             cardBenefitDetail.smallCategoryId = smallCategoryId;
         }
         if (detail.getDiscountType().equals("즉시할인")) {
             cardBenefitDetail.discountType = 0;
         } else if (detail.getDiscountType().equals("청구할인")) {
             cardBenefitDetail.discountType = 1;
-        } else {
+        } else if(detail.getDiscountType().equals("포인트")){
             cardBenefitDetail.discountType = 2;
         }
         cardBenefitDetail.discountCostType = detail.getDiscountAmountType();

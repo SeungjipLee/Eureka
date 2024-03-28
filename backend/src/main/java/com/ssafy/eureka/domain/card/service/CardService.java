@@ -1,5 +1,6 @@
 package com.ssafy.eureka.domain.card.service;
 
+import com.ssafy.eureka.domain.card.dto.CardBenefitEntity;
 import com.ssafy.eureka.domain.card.dto.CardEntity;
 import com.ssafy.eureka.domain.card.dto.response.CardCompanyListResponse;
 import com.ssafy.eureka.domain.card.dto.response.CardProdDetailResponse;
@@ -14,7 +15,7 @@ public interface CardService {
     CardCompanyListResponse listCardCompany();
     List<CardProdListResponse> cardProdCompanyList(int companyId);
     List<CardProdListResponse> cardProdCategoryList(int categoryId);
-    CardProdDetailResponse cardProdDetail(int cardId);
+    List<CardBenefitEntity> cardProdDetail(int cardId);
 
     CardEntity cardProdRecommend();
 }

@@ -1,23 +1,84 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Text, FlatList, Image, TouchableOpacity } from "react-native";
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
-import { addOwnCard } from '../../apis/CardAPi';
-import TokenUtils from '../../stores/TokenUtils';
-
-
+import React, { useState, useEffect } from "react";
+import {
+  StyleSheet,
+  View,
+  Text,
+  FlatList,
+  Image,
+  TouchableOpacity,
+} from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import { addOwnCard } from "../../apis/CardAPi";
+import TokenUtils from "../../stores/TokenUtils";
 
 function OwnCardEnrollPage({ route }) {
   const navigation = useNavigation();
   const { responseData } = route.params || {};
-  const token = TokenUtils.getAccessToken('accessToken')
+  const [token, setToken] = useState("");
+  const banks = [
+    {
+      id: 1,
+      name: "KB국민카드",
+      imgUrl: require("../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_국민.png"),
+    },
+    {
+      id: 2,
+      name: "삼성카드",
+      imgUrl: require("../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_삼성.png"),
+    },
+    {
+      id: 3,
+      name: "NH농협카드",
+      imgUrl: require("../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_농협.png"),
+    },
+    {
+      id: 4,
+      name: "신한카드",
+      imgUrl: require("../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_신한.png"),
+    },
+    {
+      id: 5,
+      name: "현대카드",
+      imgUrl: require("../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_현대.png"),
+    },
+    {
+      id: 6,
+      name: "하나카드",
+      imgUrl: require("../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_하나.png"),
+    },
+    {
+      id: 7,
+      name: "우리카드",
+      imgUrl: require("../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_우리.png"),
+    },
+    {
+      id: 8,
+      name: "IBK기업은행카드",
+      imgUrl: require("../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_기업.png"),
+    },
+    {
+      id: 9,
+      name: "롯데카드",
+      imgUrl: require("../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_롯데.png"),
+    },
+  ];
+
+  useEffect(() => {
+    const fetchToken = async () => {
+      const accessToken = await TokenUtils.getAccessToken();
+      setToken(accessToken);
+    };
+
+    fetchToken();
+  }, []);
 
   const [selectedCards, setSelectedCards] = useState([]);
 
   const toggleCardSelection = (cardCompanyId, cardId) => {
     const uniqueCardKey = `${cardCompanyId}-${cardId}`;
     if (selectedCards.includes(uniqueCardKey)) {
-      setSelectedCards(selectedCards.filter(id => id !== uniqueCardKey));
+      setSelectedCards(selectedCards.filter((id) => id !== uniqueCardKey));
     } else {
       setSelectedCards([...selectedCards, uniqueCardKey]);
     }
@@ -26,15 +87,33 @@ function OwnCardEnrollPage({ route }) {
   const renderCardItem = ({ item, cardCompanyId }) => {
     const uniqueCardKey = `${cardCompanyId}-${item.cardId}`;
     const isSelected = selectedCards.includes(uniqueCardKey);
+    // imgAttr 값에 따라 회전 스타일 적용
+    const imageStyle =
+      item.imgAttr === 1
+        ? [
+            {
+              borderRadius: 10,
+              width: 55,
+              height: 80,
+              marginLeft: 10,
+              marginRight: 30,
+              transform: [{ rotate: "270deg" }],
+            },
+          ]
+        : { borderRadius: 10, width: 80, height: 55, marginRight: 10 };
+
     return (
-      <TouchableOpacity style={styles.cardItem} onPress={() => toggleCardSelection(cardCompanyId, item.cardId)}>
-        <Image source={{ uri: item.imagePath }} style={styles.cardImage} />
+      <TouchableOpacity
+        style={styles.cardItem}
+        onPress={() => toggleCardSelection(cardCompanyId, item.cardId)}
+      >
+        <Image source={{ uri: item.imagePath }} style={imageStyle} />
         <Text style={styles.cardName}>{item.cardName}</Text>
         <MaterialCommunityIcons
           name={isSelected ? "check" : "checkbox-blank-outline"}
           size={24}
-          color={isSelected ? '#6396FE' : '#C5C5C5'}
-          style={{ marginLeft: 'auto' }}
+          color={isSelected ? "#6396FE" : "#C5C5C5"}
+          style={{ marginLeft: "auto" }}
         />
       </TouchableOpacity>
     );
@@ -42,59 +121,74 @@ function OwnCardEnrollPage({ route }) {
 
   function getSelectedCardDetails(selectedCards, responseData) {
     const selectedCardDetails = [];
-  
-    selectedCards.forEach(selectedCardKey => {
+
+    selectedCards.forEach((selectedCardKey) => {
       const [cardCompanyId, cardId] = selectedCardKey.split("-");
-  
-      const companyData = responseData.find(company => company.cardCompanyId.toString() === cardCompanyId);
-      if (!companyData) return; 
-  
-      const cardData = companyData.list.find(card => card.cardId.toString() === cardId);
+
+      const companyData = responseData.find(
+        (company) => company.cardCompanyId.toString() === cardCompanyId
+      );
+      if (!companyData) return;
+
+      const cardData = companyData.list.find(
+        (card) => card.cardId.toString() === cardId
+      );
       if (!cardData) return; // 해당 카드가 없으면 스킵
-  
+
       selectedCardDetails.push({
         cardId: cardData.cardId,
         cardIdentifier: cardData.cardIdentifier,
       });
     });
-  
+
     return selectedCardDetails;
   }
 
   const renderBankItem = ({ item }) => (
     <View style={styles.bankContainer}>
-      <View style={{flexDirection:'row'}}>
-        <Image style={{width: 30, height: 30, marginHorizontal: 10}} source={require('../../../assets/favicon.png')} />
+      <View style={{ flexDirection: "row" }}>
+        <Image
+          style={{ width: 30, height: 30, marginHorizontal: 10 }}
+          source={banks[item.cardCompanyId - 1].imgUrl}
+        />
         <Text style={styles.bankName}>{item.companyName}</Text>
       </View>
-      <View style={{ height: 1, backgroundColor:'#C5C5C5', marginVertical: 5 }}></View>
+      <View
+        style={{ height: 1, backgroundColor: "#C5C5C5", marginVertical: 5 }}
+      ></View>
       <FlatList
         data={item.list}
-        renderItem={({ item: cardItem }) => renderCardItem({ item: cardItem, cardCompanyId: item.cardCompanyId })}
+        renderItem={({ item: cardItem }) =>
+          renderCardItem({ item: cardItem, cardCompanyId: item.cardCompanyId })
+        }
         keyExtractor={(cardItem) => `${item.cardCompanyId}-${cardItem.cardId}`}
       />
     </View>
   );
 
   const handleSubmit = async () => {
-    const cardDetails = getSelectedCardDetails(selectedCards, responseData)
+    const cardDetails = getSelectedCardDetails(selectedCards, responseData);
     const inputData = {
-      registerUserCard: cardDetails
-    }
+      registerUserCard: cardDetails,
+    };
     addOwnCard(
       token,
       inputData,
-      (res)=>console.log(res),
-      (err)=>console.log(err)
-    )
-    navigation.navigate('CardHome')
+      (res) => console.log(res),
+      (err) => console.log(err)
+    );
+    navigation.navigate("CardHome");
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <MaterialCommunityIcons name="chevron-left" size={50} color="#B8B8B8" />
+          <MaterialCommunityIcons
+            name="chevron-left"
+            size={50}
+            color="#B8B8B8"
+          />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>보유 카드 불러오기</Text>
       </View>
@@ -106,7 +200,8 @@ function OwnCardEnrollPage({ route }) {
         keyExtractor={(item) => `${item.cardCompanyId}`}
       />
       <Text style={styles.selectionText}>
-        <Text style={styles.selectionCount}>{selectedCards.length}</Text>개 선택됨
+        <Text style={styles.selectionCount}>{selectedCards.length}</Text>개
+        선택됨
       </Text>
       <TouchableOpacity style={styles.btn} onPress={handleSubmit}>
         <Text style={styles.btnText}>선택 완료</Text>
@@ -120,30 +215,31 @@ export default OwnCardEnrollPage;
 const styles = StyleSheet.create({
   container: {
     height: 750,
-    width: '90%',
-    alignSelf: 'center',
+    width: "90%",
+    alignSelf: "center",
     marginTop: 20,
   },
   header: {
-    marginStart: 20, 
-    marginTop: 40, 
-    flexDirection:'row', 
-    alignItems: 'center'
+    marginStart: 20,
+    marginTop: 40,
+    flexDirection: "row",
+    alignItems: "center",
   },
   headerTitle: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginLeft: 10,
   },
   bankContainer: {
-    backgroundColor: '#ffffff',
+    backgroundColor: "#ffffff",
     marginVertical: 10,
     borderRadius: 20,
     padding: 10,
   },
   cardItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    justifyContent: "space-around",
+    flexDirection: "row",
+    alignItems: "center",
     marginVertical: 3,
     padding: 10,
   },
@@ -154,8 +250,8 @@ const styles = StyleSheet.create({
   },
   bankName: {
     fontSize: 20,
-    fontWeight: 'bold',
-    color: '#333',
+    fontWeight: "bold",
+    color: "#333",
     marginBottom: 10,
   },
   cardName: {
@@ -163,26 +259,26 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   btn: {
-    backgroundColor: 'blue',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#5187FF",
+    alignItems: "center",
+    justifyContent: "center",
     height: 50,
     margin: 20,
     borderRadius: 10,
   },
   btnText: {
-    color: 'white',
+    color: "white",
     fontSize: 20,
   },
   selectionText: {
-    textAlign: 'center',
+    textAlign: "center",
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginTop: 10,
     marginBottom: 20,
   },
   selectionCount: {
-    color: 'blue',
+    color: "blue",
     fontSize: 24,
   },
 });

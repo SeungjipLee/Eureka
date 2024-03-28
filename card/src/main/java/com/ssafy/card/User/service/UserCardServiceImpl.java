@@ -30,7 +30,7 @@ public class UserCardServiceImpl implements UserCardService {
         UserEntity user = userRepository.findByPhoneNumber(phoneNumber)
                 .orElseThrow(() -> new CustomException(ResponseCode.NOT_FOUND_CARD));
 
-        List<UserCardEntity> userCardList = userCardRepository.findAllByUserId(user.getUserId());
+        List<UserCardEntity> userCardList = userCardRepository.findAllByUserIdAndCardCompanyId(user.getUserId(), cardCompanyId);
 
         List<UserCardResponse> list = new ArrayList<>();
         for (UserCardEntity userCard : userCardList) {

@@ -18,6 +18,7 @@ import com.ssafy.eureka.domain.category.dto.LargeCategoryEntity;
 import com.ssafy.eureka.domain.category.dto.SmallCategoryEntity;
 import com.ssafy.eureka.domain.category.repository.LargeCategoryRepository;
 import com.ssafy.eureka.domain.category.repository.SmallCategoryRepository;
+import jakarta.transaction.Transactional;
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -44,7 +45,9 @@ public class CardDataUtil {
         카드 정보를 가져오는 API가 존재하지 않아
         크롤링을 통해 JSON File을 만들고 File을 읽어 DB에 저장
      */
+
     public void cardProductFileLoad () {
+        System.out.println("---------- 시 작 ----------");
         Gson gson = new Gson();
 
         List<CardCompanyEntity> cardCompanyList = cardCompanyRepository.findAll();
@@ -65,8 +68,13 @@ public class CardDataUtil {
         File folder = new File(directoryPath);
         File[] listOfFiles = folder.listFiles();
 
+        CardEntity testcard = null;
+        CardBenefitEntity testcardbenefit = null;
+        CardBenefitDetailEntity testcardbenefitdetail = null;
+
         if (listOfFiles != null) {
             for (File file : listOfFiles) {
+                System.out.println("-----" + file.getPath() + "-----");
                 if (file.isFile() && file.getName().endsWith(".json")) {
                     try {
                         String content = new String(Files.readAllBytes(file.toPath()), StandardCharsets.UTF_8);
@@ -85,6 +93,7 @@ public class CardDataUtil {
                         for (JsonElement element : jsonArray) {
                             CardProductDto cardProduct = gson.fromJson(element, CardProductDto.class);
 
+                            System.out.println(cardProduct.getCardName());
                             // 여기서 obj를 DB에 저장하자.
 
                             // 1. 카드 저장
@@ -92,6 +101,7 @@ public class CardDataUtil {
                                 cardCompany.get(cardProduct.getCardCompany()),
                                 Integer.valueOf(cardType),
                                 cardProduct);
+                            testcard = card;
                             cardRepository.save(card);
 
                             // 2. 카드 혜택 정보 저장
@@ -102,6 +112,7 @@ public class CardDataUtil {
                                     if(benefit.getTitle().equals("유의사항")) continue;
 
                                     CardBenefitEntity cardBenefit = CardBenefitEntity.regist(card.getCardId(), benefit);
+                                    testcardbenefit = cardBenefit;
                                     cardBenefitRepository.save(cardBenefit);
 
                                     // 3. 카드 혜택 상세 정보 저장
@@ -111,21 +122,25 @@ public class CardDataUtil {
                                                 int ll = 1;
                                             }
 
-                                            Optional<SmallCategoryEntity> entity = smallCategoryRepository.findByCategoryName(detail.getSubCategory());
-                                            Integer smallCategoryId = null;
-                                            if(entity.isPresent()){
-                                                smallCategoryId = entity.get().getSmallCategoryId();
-                                            }else{
-                                                SmallCategoryEntity smallCategory = SmallCategoryEntity.regist(largeCategory.get(detail.getMainCategory()), detail.getSubCategory());
-                                                smallCategoryRepository.save(smallCategory);
-                                                smallCategoryId = smallCategory.getSmallCategoryId();
+                                            int smallCategoryId = 0;
+                                            if(!detail.getSubCategory().isEmpty()){
+                                                Optional<SmallCategoryEntity> entity = smallCategoryRepository.findByCategoryName(detail.getSubCategory());
+
+                                                if(entity.isPresent()){
+                                                    smallCategoryId = entity.get().getSmallCategoryId();
+                                                }else{
+                                                    SmallCategoryEntity smallCategory = SmallCategoryEntity.regist(largeCategory.get(detail.getMainCategory()), detail.getSubCategory());
+                                                    smallCategoryRepository.save(smallCategory);
+                                                    smallCategoryId = smallCategory.getSmallCategoryId();
+                                                }
                                             }
 
-                                            CardBenefitDetailEntity cardBenefitDetail = CardBenefitDetailEntity.regist(
+                                            CardBenefitDetailEntity  cardBenefitDetail = CardBenefitDetailEntity.regist(
                                                 cardBenefit.getCardBenefitId(),
                                                 largeCategory.get(detail.getMainCategory()),
                                                 smallCategoryId,
                                                 detail);
+                                            testcardbenefitdetail = cardBenefitDetail;
                                             cardBenefitDetailRepository.save(cardBenefitDetail);
                                         }
                                     }
@@ -138,5 +153,7 @@ public class CardDataUtil {
                 }
             }
         }
+
+        System.out.println("---------- 종 료 ----------");
     }
 }

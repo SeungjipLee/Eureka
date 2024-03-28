@@ -69,7 +69,7 @@ function PayCardPage() {
       />
       <Pressable onPress={()=>navigation.navigate('PayCardEnroll')}>
         <View style={styles.btnContainer}>
-          <Image source={require('../../../assets/favicon.png')} style={styles. img}/>
+          <Image source={require('../../../assets/HomeIcon/Plus.png')} style={styles.img}/>
           <Text style={{ fontSize: 20, color: '#0050FF' }}>결제 카드 등록하기</ Text>
         </View>
       </Pressable>
@@ -119,11 +119,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#F3F3F3',
     marginBottom: 100,
     borderRadius: 20,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    elevation: 5
   },
   img: {
-    height: 30,
-    width: 30,
+    height: 40,
+    width: 40,
     marginEnd: 10,
   }
 })

@@ -1,5 +1,7 @@
 package com.ssafy.eureka.domain.card.service;
 
+import com.ssafy.eureka.common.exception.CustomException;
+import com.ssafy.eureka.common.response.ResponseCode;
 import com.ssafy.eureka.domain.card.dto.CardBenefitDetailEntity;
 import com.ssafy.eureka.domain.card.dto.CardBenefitEntity;
 import com.ssafy.eureka.domain.card.dto.CardCompanyEntity;
@@ -57,6 +59,7 @@ public class CardServiceImpl implements CardService{
             int cardId = cardEntityList.get(i).getCardId();
             String cardName = cardEntityList.get(i).getCardName(); // 카드명
             String cardImagePath = cardEntityList.get(i).getImagePath();
+            int imageAttr = cardEntityList.get(i).getImgAttr();
 
             // 한 카드에서 한 혜택의 상위 2개의 혜택 디테일만 보여줄거야
             List<CardBenefitEntity> cardBenefitEntityList = cardBenefitRepository.findByCardId(cardId);
@@ -77,7 +80,7 @@ public class CardServiceImpl implements CardService{
                 int largeCategoryId = cardBenefitDetailEntityList.get(k).getLargeCategoryId(); // 대분류 카테고리 id
                 int smallCategoryId = cardBenefitDetailEntityList.get(k).getSmallCategoryId(); // 소분류 카테고리 id
                 String discountCostType = cardBenefitDetailEntityList.get(k).getDiscountCostType(); // %, 원, L
-                float discountCost = cardBenefitDetailEntityList.get(k).getDiscountCost(); // 할인 비용
+                double discountCost = cardBenefitDetailEntityList.get(k).getDiscountCost(); // 할인 비용
 
                 LargeCategoryEntity largeCategoryEntity = largeCategoryRepository.findByLargeCategoryId(largeCategoryId);
                 String largeCategoryName = largeCategoryEntity.getCategoryName();
@@ -92,7 +95,7 @@ public class CardServiceImpl implements CardService{
 
                 if(cardDetailBenefitList.size() == 2) {
                     cardProdCompanyList.add(new CardProdListResponse(
-                            cardId, companyName, cardName, cardImagePath,
+                            cardId, companyName, cardName, cardImagePath, imageAttr,
                             info, cardDetailBenefitList
                     ));
                     break;
@@ -117,7 +120,7 @@ public class CardServiceImpl implements CardService{
             if (cardBenefitDetailEntityList.get(i) == null) continue;
 
             String discountCostType = cardBenefitDetailEntityList.get(i).getDiscountCostType(); // %, 원, L
-            float discountCost = cardBenefitDetailEntityList.get(i).getDiscountCost(); // 할인 비용
+            double discountCost = cardBenefitDetailEntityList.get(i).getDiscountCost(); // 할인 비용
             int cardBenefitId = cardBenefitDetailEntityList.get(i).getCardBenefitId(); // 카드 혜택 아이디
 
             // 같은 혜택이라면 같은 카드
@@ -141,17 +144,19 @@ public class CardServiceImpl implements CardService{
                     int cardId = cardBenefitEntity.getCardId();
                     String info = cardBenefitEntity.getInfo();
 
-                    CardEntity cardEntity = cardRepository.findByCard(cardId);
+                    CardEntity cardEntity = cardRepository.findByCard(cardId)
+                            .orElseThrow(() -> new CustomException(ResponseCode.CARD_NOT_FOUND));
 
                     String cardName = cardEntity.getCardName();
                     String cardImagePath = cardEntity.getImagePath();
+                    int imageAttr = cardEntity.getImgAttr();
                     int cardCompanyId = cardEntity.getCardCompanyId();
 
                         CardCompanyEntity cardCompanyEntity = cardCompanyRepository.findByCardCompanyId(cardCompanyId);
                         String companyName = cardCompanyEntity.getCompanyName();
 
                         cardProdCategoryList.add(new CardProdListResponse(
-                                cardId, companyName, cardName, cardImagePath,
+                                cardId, companyName, cardName, cardImagePath, imageAttr,
                                 info, cardDetailBenefitList
                         ));
                 }
@@ -159,36 +164,36 @@ public class CardServiceImpl implements CardService{
     }
 
     @Override
-    public CardProdDetailResponse cardProdDetail(int cardId) {
+    public List<CardBenefitEntity> cardProdDetail(int cardId) {
 
-        CardEntity cardEntity = cardRepository.findByCard(cardId);
+        CardEntity cardEntity = cardRepository.findByCard(cardId)
+                .orElseThrow(() -> new CustomException(ResponseCode.CARD_NOT_FOUND));
 
-        String imagePath = cardEntity.getImagePath();
-        String cardName = cardEntity.getCardName();
-        int annualFee = cardEntity.getAnnualFee();
-        int previousPerformance = cardEntity.getPreviousPerformance();
-        String registerPage = cardEntity.getRegisterPage();
-        List<CardProdDetailBenefitList> list = new ArrayList<>();
+//        String imagePath = cardEntity.getImagePath();
+//        String cardName = cardEntity.getCardName();
+//        int annualFee = cardEntity.getAnnualFee();
+//        int previousPerformance = cardEntity.getPreviousPerformance();
+//        String registerPage = cardEntity.getJoinPath();
+//        List<CardProdDetailBenefitList> list = new ArrayList<>();
 
-
-        List<CardBenefitEntity> cardBenefitEntityList = cardBenefitRepository.findByCardId(cardId);
-        for (int i=0; i<cardBenefitEntityList.size(); i++){
-
-            int cardBenefitId = cardBenefitEntityList.get(i).getCardBenefitId();
-            List<CardBenefitDetailEntity> cardBenefitDetailEntityList = cardBenefitDetailRepository.findByCardBenefitId(cardBenefitId);
-
-            for(int j=0; j<cardBenefitDetailEntityList.size(); j++){
-                int largeCategoryId = cardBenefitDetailEntityList.get(j).getLargeCategoryId();
-                LargeCategoryEntity largeCategoryEntity = largeCategoryRepository.findByLargeCategoryId(largeCategoryId);
-                String largeCategoryName = largeCategoryEntity.getCategoryName();
-                list.add(new CardProdDetailBenefitList(cardBenefitDetailEntityList.get(j), largeCategoryName));
-            }
-        }
-
-        CardProdDetailResponse cardProdDetailResponse = new CardProdDetailResponse(
-                cardId, imagePath, cardName, annualFee, previousPerformance,
-                registerPage, list);
-        return cardProdDetailResponse;
+//        List<CardBenefitEntity> cardBenefitEntityList = cardBenefitRepository.findByCardId(cardId);
+//        for (int i=0; i<cardBenefitEntityList.size(); i++){
+//
+//            int cardBenefitId = cardBenefitEntityList.get(i).getCardBenefitId();
+//            List<CardBenefitDetailEntity> cardBenefitDetailEntityList = cardBenefitDetailRepository.findByCardBenefitId(cardBenefitId);
+//
+//            for(int j=0; j<cardBenefitDetailEntityList.size(); j++){
+//                int largeCategoryId = cardBenefitDetailEntityList.get(j).getLargeCategoryId();
+//                LargeCategoryEntity largeCategoryEntity = largeCategoryRepository.findByLargeCategoryId(largeCategoryId);
+//                String largeCategoryName = largeCategoryEntity.getCategoryName();
+//                list.add(new CardProdDetailBenefitList(cardBenefitDetailEntityList.get(j), largeCategoryName));
+//            }
+//        }
+//
+//        CardProdDetailResponse cardProdDetailResponse = new CardProdDetailResponse(
+//                cardId, imagePath, cardName, annualFee, previousPerformance,
+//                registerPage, list);
+        return cardBenefitRepository.findByCardId(cardId);
     }
 
     @Override

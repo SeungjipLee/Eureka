@@ -29,9 +29,12 @@
     },
     "extra": {
       "eas": {
-        "projectId": "7074485e-031e-46b8-9bb1-57503d66a2cb"
+        "projectId": "5e56431c-5a30-4354-9423-d1ba02e08b7b"
       }
     },
-    "owner": "pengisblue"
+    "owner": "iniyap",
+    "plugins": [
+      "react-native-vision-camera"
+    ]
   }
 }

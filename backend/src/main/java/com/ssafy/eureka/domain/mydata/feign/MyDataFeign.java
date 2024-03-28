@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@FeignClient(name="myDataFeign", url="http://j10e101.p.ssafy.io:8001/card")
-//@FeignClient(name="myDataFeign", url="${feign.url}")
+@FeignClient(name="myDataFeign", url="${feign.client.baseurl.myDataFeign}")
 public interface MyDataFeign {
     @PostMapping(path = "/auth/mydata")
     public MyDataApiResponse<MyDataTokenResponse> requestToken(
@@ -22,7 +21,7 @@ public interface MyDataFeign {
     @PostMapping(path = "/user/list")
     public MyDataApiResponse<MyDataUserCardResponse> searchUserCard(
         @RequestHeader("Authorization") String accessToken,
-        @RequestParam("cardCompanyId") int cardComapnyId);
+        @RequestParam("cardCompanyId") int cardCompanyId);
 
     @PostMapping(path = "/card/history")
     public MyDataApiResponse<MyDataCardHistoryResponse> searchCardPayList(

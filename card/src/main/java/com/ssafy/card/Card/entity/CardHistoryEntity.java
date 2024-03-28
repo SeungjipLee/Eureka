@@ -1,13 +1,11 @@
 package com.ssafy.card.Card.entity;
 
-import com.ssafy.card.User.entity.UserCardEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -22,13 +20,7 @@ public class CardHistoryEntity {
     int cardHistoryId;
 
     @Column(nullable = false)
-    int userCardId; // 유저 카드 PK
-
-    @Column(length = 21)
-    String approvedNum;
-
-    @Column(columnDefinition = "DATETIME", nullable = false)
-    LocalDateTime approvedDtime;
+    int userCardId;
 
     @NotNull
     int status;
@@ -36,42 +28,31 @@ public class CardHistoryEntity {
     @NotNull
     int payType;
 
+    @Column(length = 8)
+    String approvedNum;
+
+    @Column(columnDefinition = "DATETIME", nullable = false)
+    LocalDateTime approvedDateTime;
+
+    @NotNull
+    int approvedAmt;
+
     @Column(columnDefinition = "DATETIME")
-    LocalDateTime transDtime;
+    LocalDateTime transDateTime;
+
+    int modifiedAmt;
 
     @Column(length = 75, nullable = false)
     String merchantName;
 
     @Column(length = 12, nullable = false)
-    String merchantRegno;
-
-    @NotNull
-    int approvedAmt;
-
-    int modifiedAmt;
+    String merchantRegNo;
 
     int totalInstallCnt;
 
-    int smallCategoryId;
-
+    @NotNull
     int largeCategoryId;
-    String CategoryName;
 
-    public CardHistoryEntity(CardHistoryEntity entity){
-        LocalDateTime now = LocalDateTime.now();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-        this.userCardId = entity.getUserCardId();
-        this.approvedNum = entity.getApprovedNum();
-        this.approvedDtime = now;
-        this.status = entity.getStatus();
-        this.payType = entity.getPayType();
-        this.transDtime = now;
-        this.merchantRegno = entity.getMerchantRegno();
-        this.approvedAmt = entity.getApprovedAmt();
-        this.modifiedAmt = entity.getModifiedAmt();
-        this.totalInstallCnt = entity.getTotalInstallCnt();
-        this.smallCategoryId = entity.getSmallCategoryId();
-        this.largeCategoryId = entity.getLargeCategoryId();
-    }
+    @NotNull
+    int smallCategoryId;
 }

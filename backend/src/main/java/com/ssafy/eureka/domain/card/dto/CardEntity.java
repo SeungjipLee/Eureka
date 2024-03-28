@@ -25,10 +25,11 @@ public class CardEntity {
     private int cardCompanyId;
 
     @NotNull
-    private String cardName;
+    private int cardType;
 
     @NotNull
-    private String imagePath;
+    @Column(length = 300)
+    private String cardName;
 
     @NotNull
     private int annualFee;
@@ -39,19 +40,22 @@ public class CardEntity {
     @Column(columnDefinition = "TEXT")
     private String caution;
 
-    private String registerPage;
+    @NotNull
+    @Column(length = 255)
+    private String imagePath;
+
+    @NotNull
+    private int imgAttr;
+
+    @NotNull
+    private int view;
+
+    @Column(columnDefinition = "TEXT")
+    private String joinPath;
 
     @NotNull
     private boolean isExpired = false;
 
-    @NotNull
-    private int cardType;
-
-    @NotNull
-    private int view = 0;
-
-    @NotNull
-    private int imgAttr;
 
     public static CardEntity regist(Integer cardCompanyId, Integer cardType, CardProductDto cardProduct) {
         CardEntity card = new CardEntity();
@@ -61,13 +65,13 @@ public class CardEntity {
         card.annualFee = cardProduct.getAnnualFee();
         card.previousPerformance = cardProduct.getPreviousPerformance();
         card.caution = cardProduct.getBenefits().get(cardProduct.getBenefits().size() - 1).getDetailedDescription();
-        card.registerPage = cardProduct.getRegisterPath();
+        card.joinPath = cardProduct.getRegisterPath();
         card.isExpired = false;
         card.cardType = cardType;
         card.view = 0;
         if(cardProduct.getImageAttribute().equals("가로")){
             card.imgAttr = 0;
-        }else{
+        }else if(cardProduct.getImageAttribute().equals("세로")){
             card.imgAttr = 1;
         }
 

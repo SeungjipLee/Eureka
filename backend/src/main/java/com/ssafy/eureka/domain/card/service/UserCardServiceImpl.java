@@ -3,28 +3,23 @@ package com.ssafy.eureka.domain.card.service;
 import com.ssafy.eureka.common.exception.CustomException;
 import com.ssafy.eureka.common.response.MyDataApiResponse;
 import com.ssafy.eureka.common.response.ResponseCode;
-import com.ssafy.eureka.domain.card.dto.CardCompanyEntity;
-import com.ssafy.eureka.domain.card.dto.CardEntity;
-import com.ssafy.eureka.domain.card.dto.UserCardEntity;
+import com.ssafy.eureka.domain.card.dto.*;
 import com.ssafy.eureka.domain.card.dto.request.RegistPayCardRequest;
 import com.ssafy.eureka.domain.card.dto.request.RegistUserCardRequest;
 import com.ssafy.eureka.domain.card.dto.request.RegistUserCardRequest.RegistUserCard;
-import com.ssafy.eureka.domain.card.dto.response.CardHistoryListResponse;
-import com.ssafy.eureka.domain.card.dto.response.MyDataCardListResponse;
+import com.ssafy.eureka.domain.card.dto.response.*;
 import com.ssafy.eureka.domain.card.dto.response.MyDataCardListResponse.MyDataCard;
 import com.ssafy.eureka.domain.card.dto.response.MyDataCardListResponse.MyDataCard.Card;
-import com.ssafy.eureka.domain.card.repository.CardCompanyRepository;
-import com.ssafy.eureka.domain.card.repository.CardRepository;
-import com.ssafy.eureka.domain.card.repository.UserCardRepository;
+import com.ssafy.eureka.domain.card.repository.*;
+import com.ssafy.eureka.domain.category.dto.LargeCategoryEntity;
+import com.ssafy.eureka.domain.category.repository.LargeCategoryRepository;
 import com.ssafy.eureka.domain.mydata.dto.MyDataToken;
 import com.ssafy.eureka.domain.card.dto.request.SearchUserCardRequest;
-import com.ssafy.eureka.domain.card.dto.response.UserCardListResponse;
 import com.ssafy.eureka.domain.mydata.dto.request.MyDataCardHistoryRequest;
 import com.ssafy.eureka.domain.mydata.dto.response.MyDataCardHistoryResponse;
 import com.ssafy.eureka.domain.mydata.dto.response.MyDataUserCardResponse;
 import com.ssafy.eureka.domain.mydata.dto.response.MyDataUserCardResponse.MyDataUserCard;
 import com.ssafy.eureka.domain.mydata.feign.MyDataFeign;
-import com.ssafy.eureka.domain.card.repository.MydataTokenRepository;
 import com.ssafy.eureka.domain.payment.dto.request.PayTokenRequest;
 import com.ssafy.eureka.domain.payment.dto.response.PayTokenResponse;
 import com.ssafy.eureka.domain.payment.feign.PaymentFeign;
@@ -37,8 +32,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserCardServiceImpl implements UserCardService {
@@ -48,6 +45,9 @@ public class UserCardServiceImpl implements UserCardService {
     private final UserRepository userRepository;
     private final CardRepository cardRepository;
     private final CardCompanyRepository cardCompanyRepository;
+    private final CardBenefitDetailRepository cardBenefitDetailRepository;
+    private final CardBenefitRepository cardBenefitRepository;
+    private final LargeCategoryRepository largeCategoryRepository;
 
     private final MyDataFeign myDataFeign;
     private final PaymentFeign paymentFeign;
@@ -102,21 +102,114 @@ public class UserCardServiceImpl implements UserCardService {
     }
 
     @Override
-    public UserCardListResponse listUserCard(String userId, int status) {
-        List<UserCardEntity> userCardList = null;
-        if (status == 0) {
-            userCardList = userCardRepository.findAllByUserId(Integer.parseInt(userId));
-        }else if(status == 1){
-            userCardList = userCardRepository.findAllByUserIdAndIsPaymentEnabledTrue(Integer.parseInt(userId));
-        }else{
-            userCardList = new ArrayList<>();
-        }
+    public List<OwnUserCardResponse> ownUserCardList(String userId) {
 
-        for (UserCardEntity card : userCardList) {
-            card.setToken(null);
-        }
+        List<OwnUserCardResponse> registerCardList = new ArrayList<>();
+        List<CardDetailBenefitList> cardDetailBenefitList;
 
-        return new UserCardListResponse(userCardList);
+        // 현재 로그인한 유저의 보유카드 조회
+        List<UserCardEntity> userCardEntityList = userCardRepository.findAllByUserId(Integer.parseInt(userId));
+        if(userCardEntityList == null) throw new CustomException(ResponseCode.USER_CARD_NOT_FOUND);
+
+        log.debug("1");
+        for(int i=0; i<userCardEntityList.size(); i++){
+
+            cardDetailBenefitList = new ArrayList<>();
+            int cardId = userCardEntityList.get(i).getCardId();
+
+            // 카드 Entity 가져와서 카드 이름, 이미지
+            CardEntity cardEntity = cardRepository.findByCard(cardId)
+                .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
+
+            String cardName = cardEntity.getCardName();
+            String imagePath = cardEntity.getImagePath();
+            int imageAttr = cardEntity.getImgAttr();
+
+            // 카드 id로 카드 혜택들 가져오기
+            // 한 카드에 혜택 3개만 보여줄거야, 첫 번째 혜택의 첫 번째 상세혜택 -> 총 3개
+            List<CardBenefitEntity> cardBenefitEntityList = cardBenefitRepository.findByCardId(cardId);
+
+            log.debug("2");
+            for(int j=0; j<cardBenefitEntityList.size(); j++){
+
+                int cardBenefitId = cardBenefitEntityList.get(j).getCardBenefitId();
+
+                // 카드 혜택 id로 카드 상세 혜택들 가져오기
+                List<CardBenefitDetailEntity> cardBenefitDetailEntityList = cardBenefitDetailRepository.findByCardBenefitId(cardBenefitId);
+
+                // 혜택은 있지만 상세 혜택 테이블에서 혜택 번호가 없는 경우
+                if(cardBenefitDetailEntityList.isEmpty()) continue;
+
+
+                String discountType = cardBenefitDetailEntityList.get(0).getDiscountCostType();
+                double discountCost = cardBenefitDetailEntityList.get(0).getDiscountCost();
+                int largeCategoryId = cardBenefitDetailEntityList.get(0).getLargeCategoryId();
+
+                LargeCategoryEntity largeCategoryEntity = largeCategoryRepository.findByLargeCategoryId(largeCategoryId);
+                String largeCategoryName = largeCategoryEntity.getCategoryName();
+
+                // 한 혜택의 첫 번째 상세 혜택에서 할인 타입, 할인 비용, 카테고리 이름만 담기
+                cardDetailBenefitList.add(new CardDetailBenefitList(discountType, discountCost, largeCategoryName));
+
+                if(cardDetailBenefitList.size() == 3) break;
+
+            } // cardBenefit
+            log.debug("userCardEntityList.get(i), imagePath, cardName, imageAttr, cardDetailBenefitList : "
+                    + userCardEntityList.get(i) +" / "+ imagePath+" / "+ cardName+" / "+imageAttr +" / "+cardDetailBenefitList);
+
+            registerCardList.add(new OwnUserCardResponse(userCardEntityList.get(i), imagePath, cardName, imageAttr, cardDetailBenefitList));
+            log.debug("4");
+        }// cardEntity
+
+        log.debug("registerCardList");
+        return registerCardList;
+    }
+
+    @Override
+    public List<PayUserCardResponse> payUserCardList(String userId) {
+
+        List<PayUserCardResponse> payUserCardResponseList = new ArrayList<>();
+        List<UserCardEntity> userCardEntityList = userCardRepository.findAllByUserIdAndIsPaymentEnabledTrue(Integer.parseInt(userId));
+        if (userCardEntityList.isEmpty()) throw new CustomException(ResponseCode.USER_CARD_NOT_FOUND);
+
+        for (UserCardEntity userCardEntity : userCardEntityList)
+        {
+
+            int userCardId = userCardEntity.getUserCardId();
+            int cardId = userCardEntity.getCardId();
+            String firstCardNumber = userCardEntity.getFirstCardNumber();
+            String lastCardNumber = userCardEntity.getLastCardNumber();
+
+            CardEntity cardEntity = cardRepository.findByCard(cardId)
+                .orElseThrow(() -> new CustomException(ResponseCode.CARD_NOT_FOUND));
+
+            int previousPerformance = cardEntity.getPreviousPerformance();
+            String cardName = cardEntity.getCardName();
+            String imagePath = cardEntity.getImagePath();
+
+            payUserCardResponseList.add(new PayUserCardResponse(
+                userCardId, Integer.parseInt(userId),
+                cardId, cardName, previousPerformance,
+                firstCardNumber, lastCardNumber, imagePath));
+        }
+        return payUserCardResponseList;
+    }
+
+    @Override
+    public CardInfoResponse userCardInfo(int userCardId) {
+
+        UserCardEntity userCardEntity = userCardRepository.findByUserCardId(userCardId)
+            .orElseThrow(() -> new CustomException(ResponseCode.USER_CARD_NOT_FOUND));
+
+        boolean isPaymentEnabled = userCardEntity.isPaymentEnabled();
+        int cardId = userCardEntity.getCardId();
+
+        CardEntity cardEntity = cardRepository.findByCardId(cardId);
+        String cardName = cardEntity.getCardName();
+        int cardType = cardEntity.getCardType();
+        int previousPerformance = cardEntity.getPreviousPerformance();
+
+        return new CardInfoResponse(userCardId, cardId, cardName, cardType, previousPerformance, isPaymentEnabled);
     }
 
     @Override
@@ -129,7 +222,7 @@ public class UserCardServiceImpl implements UserCardService {
         int intUserId = Integer.parseInt(userId);
 
         UserEntity userEntity = userRepository.findByUserId(intUserId)
-                .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
+            .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
 
         UserCardEntity userCard = userCardRepository.findByUserCardId(intUserId)
             .orElseThrow(() -> new CustomException(ResponseCode.USER_CARD_NOT_FOUND));
