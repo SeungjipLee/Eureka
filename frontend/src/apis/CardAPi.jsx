@@ -11,7 +11,7 @@ async function getOwnCard(token, success, fail) {
 
 async function getPayCard(token, success, fail) {
   try {
-    const response = await API(token).get('/ucard/list/1')
+    const response = await API(token).get('/ucard/list/pay')
     success(response);
   } catch (error) {
     fail(error);
