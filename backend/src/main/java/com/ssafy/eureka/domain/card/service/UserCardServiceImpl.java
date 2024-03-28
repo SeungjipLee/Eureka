@@ -139,7 +139,7 @@ public class UserCardServiceImpl implements UserCardService {
 //                if(cardDetailBenefitList.get(k) == null) continue;
                 put = true;
                 String discountType = cardBenefitDetailEntityList.get(k).getDiscountCostType();
-                float discountCost = cardBenefitDetailEntityList.get(k).getDiscountCost();
+                double discountCost = cardBenefitDetailEntityList.get(k).getDiscountCost();
                 int largeCategoryId = cardBenefitDetailEntityList.get(k).getLargeCategoryId();
 
                 LargeCategoryEntity largeCategoryEntity = largeCategoryRepository.findByLargeCategoryId(largeCategoryId);

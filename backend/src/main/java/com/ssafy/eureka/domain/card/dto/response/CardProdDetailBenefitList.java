@@ -22,7 +22,7 @@ public class CardProdDetailBenefitList {
     private int smallCategoryId;
     private int discountType;
     private String discountCostType;
-    private float discountCost;
+    private double discountCost;
     private int discountMax;
     private int dailyLimitCount;
     private int monthlyLimitCount;
