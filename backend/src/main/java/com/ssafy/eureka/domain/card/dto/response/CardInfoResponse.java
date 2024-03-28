@@ -17,4 +17,6 @@ public class CardInfoResponse {
     int cardType;
     int previousPerformance;
     boolean isPaymentEnabled;
+    String imagePath;
+    int imgAttr;
 }
