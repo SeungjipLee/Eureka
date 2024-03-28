@@ -1,9 +1,23 @@
-import React from 'react';
-import { View, Image, StyleSheet, Dimensions, TouchableOpacity, Text } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, Image, StyleSheet, Dimensions, TouchableOpacity, Text, BackHandler } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const SplashPage = () => {
   const navigation = useNavigation();
+
+  useEffect(() => {
+    const backAction = () => {
+      BackHandler.exitApp(); // 앱 종료
+      return true; // 이벤트 버블링을 방지
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction
+    );
+
+    return () => backHandler.remove(); // 컴포넌트 언마운트 시 이벤트 리스너 제거
+  }, []);
 
   return (
     <View style={styles.container}>

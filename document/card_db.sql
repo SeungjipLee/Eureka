@@ -71,7 +71,7 @@ create table if not exists card_history
     user_card_id            int           not null                        COMMENT '유저 카드 관리번호',
     status                  int           not null                        COMMENT '결제 상태(0:승인, 1:승인취소, 2:정정, 3:무승인매입)',
     pay_type                int           not null                        COMMENT '사용구분 (0:신용, 1:체크)',
-    approved_num            char(8)       not null          unique        COMMENT '승인 번호',
+    approved_num            char(8)       not null                        COMMENT '승인 번호',
     approved_date_time      datetime      not null                        COMMENT '승인 일시',
     approved_amt            int           not null                        COMMENT '승인 금액',
     trans_date_time         datetime      null                            COMMENT '정정 또는 취소 일시',
@@ -80,7 +80,7 @@ create table if not exists card_history
     merchant_reg_no         char(12)      not null                        COMMENT '사업자 등록번호 "-"포함',
     total_install_cnt       tinyint       null                            COMMENT '할부 개월 수',
     large_category_id       int           not null                        COMMENT '대분류 카테고리 번호',
-    small_category_id       int           not null                        COMMENT '소분류 카테고리 번호'
+    small_category_id       int           null                            COMMENT '소분류 카테고리 번호'
 );
 
 create index idx_user_card_id ON card_history(user_card_id);
