@@ -202,8 +202,11 @@ public class UserCardServiceImpl implements UserCardService {
         String cardName = cardEntity.getCardName();
         int cardType = cardEntity.getCardType();
         int previousPerformance = cardEntity.getPreviousPerformance();
+        String imagePath = cardEntity.getImagePath();
+        int imgAttr = cardEntity.getImgAttr();
 
-        return new CardInfoResponse(userCardId, cardId, cardName, cardType, previousPerformance, isPaymentEnabled);
+        return new CardInfoResponse(userCardId, cardId, cardName, cardType, previousPerformance,
+                isPaymentEnabled, imagePath, imgAttr);
     }
 
     @Override
