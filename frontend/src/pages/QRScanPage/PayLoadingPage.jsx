@@ -6,7 +6,7 @@ import { Asset } from 'expo-asset';
 
 const PayLoadingPage = () => {
   const navigation = useNavigation();
-  const gif = Asset.fromModule(require('../../../assets/loading.gif')).uri;
+  const gif = Asset.fromModule(require('../../../assets/payloading.gif')).uri;
 
   useEffect(() => {
     const timer = setTimeout(() => {
