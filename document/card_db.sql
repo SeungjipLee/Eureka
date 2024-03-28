@@ -86,5 +86,3 @@ create table if not exists card_history
 create index idx_user_card_id ON card_history(user_card_id);
 create index idx_approved_num ON card_history(approved_num);
 CREATE INDEX idx_user_card_id_approved_date_time ON card_history(user_card_id, approved_date_time);
-
-

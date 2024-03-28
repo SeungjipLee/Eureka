@@ -1,5 +1,6 @@
 #5-2. card_history dummy
 
+아래의 테이블과 조건에 해당하는 더미데이터를 만들어줘
 
 drop table if exists card_history;
 create table if not exists card_history
@@ -27,7 +28,7 @@ create table if not exists card_history
 user_card_id는 25 ~ 30번 골고루 해줘
 status, pay_type은 모두 0으로 해줘
 approved_num은 8자리 숫자로 랜덤하게 해줘
-approved_amt는 결제 금액인데 적당한 금액으로 해줘
+approved_amt는 1000단위로 3000 ~ 30000 사이의 값으로 해줘
 approved_date_time는 그럴듯하게 너가 만들어줘
 trans_date_time은 모두 null로 해줘
 modified_amt는 모두 null로 해줘
@@ -37,6 +38,7 @@ total_install_cnt는 모두 null로 해줘
 large_category_id, small_category_id는 merchant_name에 같이 써놓을게.
 
 2023년 12월 1일부터 2024년 3월 27일까지 하루의 3 ~ 10건 이내로 해서 만들어줘 총 800건 정도로
+그리고 시간순으로 정렬해줘
 
 merchant 목록
 merchant_name, large_category_id, small_category_id, merchant_reg_no
