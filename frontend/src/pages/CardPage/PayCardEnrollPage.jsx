@@ -18,7 +18,6 @@ function PayCardEnrollPage() {
     fetchToken();
   }, []);
 
-  const input1Ref = useRef();
   const input2Ref = useRef();
   const input3Ref = useRef();
   const input4Ref = useRef();
@@ -60,6 +59,7 @@ function PayCardEnrollPage() {
       (res) => console.log(res),
       (err) => console.log(err)
     )
+    navigation.navigate('CardHome')
   }
 
 

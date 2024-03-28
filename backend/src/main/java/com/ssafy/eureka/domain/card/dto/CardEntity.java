@@ -1,6 +1,7 @@
 package com.ssafy.eureka.domain.card.dto;
 
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,6 +28,7 @@ public class CardEntity {
     private int cardType;
 
     @NotNull
+    @Column(length = 300)
     private String cardName;
 
     @NotNull
@@ -35,17 +37,20 @@ public class CardEntity {
     @NotNull
     private int previousPerformance;
 
+    @Column(columnDefinition = "TEXT")
     private String caution;
 
     @NotNull
+    @Column(length = 255)
     private String imagePath;
 
     @NotNull
     private int imgAttr;
 
     @NotNull
-    private int view = 0;
+    private int view;
 
+    @Column(columnDefinition = "TEXT")
     private String joinPath;
 
     @NotNull

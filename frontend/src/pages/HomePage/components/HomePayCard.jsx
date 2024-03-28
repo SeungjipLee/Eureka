@@ -12,7 +12,7 @@ function HomePayCard () {
         <Pressable onPress={() => navigation.navigate('Setting')}>
           <View style={styles.settingIcon}>
             <MaterialCommunityIcons 
-              name="cog-outline" size={26}/>
+              name="cog-outline" size={36} color={'#9E9797'}/>
           </View>
         </Pressable>
       </View>

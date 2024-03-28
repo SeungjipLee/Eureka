@@ -96,6 +96,7 @@ public class SecurityConfig {
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/join/**").permitAll()
                         .requestMatchers("/login").permitAll()
+
 //                        .requestMatchers("/admin").hasRole("ADMIN")
 
                         // requestMatchers로 특정한 경로 외에 모든 경로에 대한 처리

@@ -1,5 +1,7 @@
 package com.ssafy.eureka.domain.user.dto;
 
+import com.ssafy.eureka.domain.user.dto.request.SignUpRequest;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -25,31 +27,42 @@ public class UserEntity {
     private int userId;
 
     @NotNull
+    @Column(length = 6)
+    private String userBirth;
+
+    @NotNull
+    private char userGender;
+
+    @NotNull
+    @Column(length = 30)
     private String userName;
 
     @NotNull
-    private LocalDate userBirth;
-
-    @NotNull
+    @Column(unique = true, length = 255)
     private String phoneNumber;
 
     @NotNull
-    private LocalDateTime registeredAt = LocalDateTime.now();
-
+    @Column(length = 255)
     private String password;
 
     @NotNull
-    private Boolean isUnregistered = false;
+    @Column(columnDefinition = "DATETIME")
+    private LocalDateTime registeredAt = LocalDateTime.now();
 
+    @NotNull
+    private Boolean isUnregistered;
+
+    @Column(columnDefinition = "DATETIME")
     private LocalDateTime unRegisteredAt;
 
-    public static UserEntity signUpUser(String userName, String birth, String password, String phoneNumber) {
+    public static UserEntity signUpUser(SignUpRequest signUpRequest, String password, String phoneNumber) {
         UserEntity user = new UserEntity();
-        user.userName = userName;
-        user.userBirth = LocalDate.parse(birth,
-            DateTimeFormatter.ofPattern("yyyyMMdd"));
+        user.userName = signUpRequest.getUserName();
+        user.userBirth = signUpRequest.getUserBirth();
+        user.userGender = signUpRequest.getUserGender();
         user.password = password;
         user.phoneNumber = phoneNumber;
+        user.isUnregistered = false;
         return user;
     }
 

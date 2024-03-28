@@ -18,11 +18,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PayHistoryEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int payHistoryId;
 
     @NotNull
+    @Column(unique = true, length = 64)
     private String orderId;
 
     @NotNull
@@ -38,29 +40,33 @@ public class PayHistoryEntity {
     private int partnershipStoreId;
 
     @NotNull
+    private int largeCategoryId;
+
+    @NotNull
+    private int smallCategoryId;
+
+    @NotNull
+    @Column(length = 8)
     private String approvedNum;
 
-    @Column(columnDefinition = "DATETIME", nullable = false)
+    @NotNull
+    @Column(columnDefinition = "DATETIME")
     private LocalDateTime approvedDateTime;
 
     @NotNull
-    private int status;
+    private int approvedAmt;
 
-    @NotNull int payType;
+    @NotNull
+    private int status;
 
     @Column(columnDefinition = "DATETIME")
     private LocalDateTime transDateTime;
 
     @NotNull
-    private String merchantName;
-
-    @NotNull
-    private String merchantRegno;
-
-    @NotNull
-    private int approvedAmt;
-
     private int modifiedAmt;
+
+    @NotNull
+    private int totalInstallCnt;
 
     @NotNull
     private int discount;

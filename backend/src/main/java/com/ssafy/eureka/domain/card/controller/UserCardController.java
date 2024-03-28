@@ -11,13 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Tag(name = "유저 카드 API", description = "보유 카드...")
@@ -37,11 +31,28 @@ public class UserCardController {
         return ResponseEntity.ok(userCardService.searchUserCard(userDetails.getUsername(), searchUserCardRequest));
     }
 
+    // 해당 유저 보유 카드, 결제 카드의 카드 정보 +a 조회
     @Operation(summary = "등록한 보유 카드 조회")
-    @PostMapping("/list/{status}")
-    public ResponseEntity<?> listUserCard(@AuthenticationPrincipal UserDetails userDetails, @PathVariable("status") int status){
-        log.debug("등록한 보유 카드 검색, userId : " + userDetails.getUsername() + ", status : " + status);
-        return ResponseEntity.ok(userCardService.listUserCard(userDetails.getUsername(), status));
+    @GetMapping("/list/own")
+    public ResponseEntity<?> ownUserCardList(@AuthenticationPrincipal UserDetails userDetails){
+        log.debug("등록한 보유 카드, 결제 카드 조회 userId : " + userDetails.getUsername());
+        return ResponseEntity.ok(userCardService.ownUserCardList(userDetails.getUsername()));
+    }
+
+    // 결제 카드의 실적, 사용 금액 보여주기용
+    // 현재까지 사용 금액도 보여줘야 하는데 이번 달 사용금액(통계) API가 필요
+    @Operation(summary = "등록한 결제 카드 조회")
+    @GetMapping("/list/pay")
+    public ResponseEntity<?> payUserCardList(@AuthenticationPrincipal UserDetails userDetails){
+        log.debug("등록한 결제 카드 조회, userId : " + userDetails.getUsername());
+        return ResponseEntity.ok(userCardService.payUserCardList(userDetails.getUsername()));
+    }
+
+    @Operation(summary = "카드 정보")
+    @GetMapping("/cardInfo/{userCardId}")
+    public ResponseEntity<?> userCardInfo(@PathVariable int userCardId){
+        log.debug("카드 타입, 결제 타입 유무, 실적 금액 정보 : "+ userCardId);
+        return ResponseEntity.ok(userCardService.userCardInfo(userCardId));
     }
 
     @Operation(summary = "등록한 보유 카드 삭제")

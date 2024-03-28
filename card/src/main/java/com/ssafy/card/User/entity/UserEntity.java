@@ -24,25 +24,12 @@ public class UserEntity  {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int userId;
 
-    @Column(columnDefinition = "TEXT", nullable = false)
+    @Column(length = 11, unique = true, nullable = false)
     String phoneNumber;
 
     @Column(length = 6, nullable = false)
     String birth;
 
-    @Column(length = 15, nullable = false)
+    @Column(length = 30, nullable = false)
     String name;
-
-    public UserEntity(UserEntity entity){
-//        this.phoneNumber = entity.phoneNumber;
-//        this.birth = entity.getBirth();
-//        this.name = entity.getName();
-    }
-
-    public UserEntity(MyDataRequestDto dto, List<String> roles){
-//        this.phoneNumber = dto.getPhoneNumber();
-//        this.birth = dto.getBirth();
-//        this.name = dto.getName();
-    }
-
 }
