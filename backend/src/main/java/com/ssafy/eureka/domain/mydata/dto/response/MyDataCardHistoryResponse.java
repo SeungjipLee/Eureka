@@ -5,6 +5,7 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @NoArgsConstructor
@@ -13,18 +14,23 @@ public class MyDataCardHistoryResponse {
     List<MyDataCardHistory> myDataCardHistoryList;
 
     @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class MyDataCardHistory {
         int cardHistoryId;
         int userCardId;
-        String approvedNum;
         int status;
         int payType;
-        LocalDateTime transDtime;
-        String merchantName;
-        String merchantRegno;
+        String approvedNum;
+        LocalDateTime approvedDateTime;
         int approvedAmt;
-        int modifiedAmt;
-        int totalInstallCnt;
-        String categoryName;
+        LocalDateTime transDateTime;
+        Integer modifiedAmt;
+        String merchantName;
+        String merchantRegNo;
+        Integer totalInstallCnt;
+        int largeCategoryId;
+        Integer smallCategoryId;
     }
 }

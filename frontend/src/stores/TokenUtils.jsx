@@ -5,7 +5,7 @@ const StorageKeys = {
   RefreshToken: 'refreshToken',
 };
 
-const StorageService = {
+const TokenService = {
   // 토큰 저장
   setToken: async (accessToken, refreshToken) => {
     try {
@@ -47,4 +47,4 @@ const StorageService = {
   },
 };
 
-export default StorageService;
+export default TokenService;

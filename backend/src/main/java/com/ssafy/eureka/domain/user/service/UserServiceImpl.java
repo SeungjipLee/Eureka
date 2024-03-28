@@ -96,12 +96,12 @@ public class UserServiceImpl implements UserService{
         refreshTokenRepository.save(new RefreshToken(String.valueOf(user.getUserId()), jwtTokenResponse.getRefreshToken()));
 
         String phoneNumber = aesUtil.decrypt(user.getPhoneNumber());
-        String userBirth = user.getUserBirth().format(DateTimeFormatter.ofPattern("yyMMdd"));
+        String userBirth = user.getUserBirth();
 
         MyDataApiResponse<?> response = myDataFeign.requestToken(new MyDataTokenRequest(phoneNumber, userBirth, user.getUserName()));
 
         if(response.getStatus() != 200){
-            throw new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR);
+            throw new CustomException(400, response.getMessage());
         }
 
         MyDataTokenResponse myDataTokenResponse = (MyDataTokenResponse) response.getData();
@@ -122,8 +122,7 @@ public class UserServiceImpl implements UserService{
         }
 
         UserEntity user = UserEntity.signUpUser(
-            signUpRequest.getUserName(),
-            userUtil.formatBirthDate(signUpRequest.getUserBirth(), signUpRequest.getUserGender()),
+            signUpRequest,
             bCryptPasswordEncoder.encode(signUpRequest.getPassword()),
             encodePhoneNumber);
 
@@ -136,7 +135,7 @@ public class UserServiceImpl implements UserService{
         MyDataApiResponse<?> response = myDataFeign.requestToken(new MyDataTokenRequest(signUpRequest.getPhoneNumber(), signUpRequest.getUserBirth(), signUpRequest.getUserName()));
 
         if(response.getStatus() != 200){
-            throw new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR);
+            throw new CustomException(400, response.getMessage());
         }
 
         MyDataTokenResponse myDataTokenResponse = (MyDataTokenResponse) response.getData();
@@ -173,12 +172,12 @@ public class UserServiceImpl implements UserService{
         refreshTokenRepository.save(new RefreshToken(String.valueOf(user.getUserId()), jwtTokenResponse.getRefreshToken()));
 
         String phoneNumber = aesUtil.decrypt(user.getPhoneNumber());
-        String userBirth = user.getUserBirth().format(DateTimeFormatter.ofPattern("yyMMdd"));
+        String userBirth = user.getUserBirth();
 
         MyDataApiResponse<?> response = myDataFeign.requestToken(new MyDataTokenRequest(phoneNumber, userBirth, user.getUserName()));
 
         if(response.getStatus() != 200){
-            throw new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR);
+            throw new CustomException(400, response.getMessage());
         }
 
         MyDataTokenResponse myDataTokenResponse = (MyDataTokenResponse) response.getData();
@@ -206,5 +205,6 @@ public class UserServiceImpl implements UserService{
 
         String encodePassword = bCryptPasswordEncoder.encode(password);
         user.updatePassword(encodePassword);
+        userRepository.save(user);
     }
 }

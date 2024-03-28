@@ -1,59 +1,60 @@
 import { FlatList, StyleSheet, Text, View, Image, TouchableOpacity, Pressable } from "react-native"
-import { useNavigation } from '@react-navigation/native';
+import React, { useState, useEffect } from "react";
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import { getPayCard } from "../../apis/CardAPi";
+import TokenUtils from '../../stores/TokenUtils';
 
 
 function PayCardPage() {
   const navigation = useNavigation()
-  const data = [
-    {
-      imgSrc: require("../../../assets/card.png"),
-      title: "KB 국민 My WE:SH 카드",
-      now: 321000,
-      target: 400000
-    },
-    {
-      imgSrc: require("../../../assets/card.png"),
-      title: "다담카드",
-      now: 111000,
-      target: 300000
-    },
-    {
-      imgSrc: require("../../../assets/card.png"),
-      title: "BeV V카드(스카이패스형)",
-      now: 0,
-      target: 200000
-    },
-    {
-      imgSrc: require("../../../assets/card.png"),
-      title: "신한카드 Mr.Life",
-      now: 511000,
-      target: 400000
-    },
-    {
-      imgSrc: require("../../../assets/card.png"),
-      title: "KB 국민 My WE:SH 카드",
-      now : 0,
-      target: 300000
-    },
-    {
-      imgSrc: require("../../../assets/card.png"),
-      title: "KB 국민 My WE:SH 카드",
-      now: 10000,
-      target: 0
-    },
-  ]
+  const [token, setToken] = useState('');
+  const [cardList, setCardList] = useState([]);
+
+  console.log(token)
+  useEffect(() => {
+    const fetchToken = async () => {
+      const accessToken = await TokenUtils.getAccessToken();
+      setToken(accessToken);
+    };
+  
+    fetchToken();
+  }, []);
+  
+  const fetchCardList = async () => {
+    if (token) { 
+      getPayCard(
+        token,
+        (res) => {
+          setCardList(res.data);
+        },
+        (err) => console.log(err)
+      );
+    }
+  };
+  
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchCardList();
+      return () => {};
+    }, [token])
+  );
+
 
   return (
     <View style={{backgroundColor:'#ffffff'}}>
       <FlatList
         style={styles.listStyle}
-        data={data}
+        data={cardList}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
           <View style={styles.cardContainer}>
-            <Image source={item.imgSrc} style={styles.cardImage} />
+            <Image
+              source={{ uri: item.imagePath }}
+              style={item.imgAttr === 1 ? [styles.cardImage, styles.rotatedImage] : styles.cardImage}
+            />
             <View style={{ flex: 1 }}>
-              <Text style={styles.cardTitle}>{item.title}</Text>
+              <Text style={styles.cardTitle}>{item.cardName}</Text>
+              <Text>{item.firstCardNumber}- **** - **** - {item.lastCardNumber}</Text>
               {item.target - item.now > 0 ? (
                 <Text>
                   이용 실적이 
@@ -69,7 +70,7 @@ function PayCardPage() {
       />
       <Pressable onPress={()=>navigation.navigate('PayCardEnroll')}>
         <View style={styles.btnContainer}>
-          <Image source={require('../../../assets/favicon.png')} style={styles. img}/>
+          <Image source={require('../../../assets/HomeIcon/Plus.png')} style={styles.img}/>
           <Text style={{ fontSize: 20, color: '#0050FF' }}>결제 카드 등록하기</ Text>
         </View>
       </Pressable>
@@ -81,6 +82,7 @@ export default PayCardPage
 
 const styles = StyleSheet.create({
   cardContainer: {
+    justifyContent:'space-around',
     flexDirection: 'row',
     alignItems: 'center',
     marginVertical: 8,
@@ -93,13 +95,21 @@ const styles = StyleSheet.create({
   cardTitle: {
     fontSize: 16,
     fontWeight: 'bold',
-    marginBottom: 5,
+    marginBottom: 3,
   },
   cardImage: {
     width: 102,
     height: 64,
     marginRight: 10,
     borderRadius: 8,
+  },
+  rotatedImage: {
+    transform: [{ rotate: '-90deg' }],
+    width: 64,
+    height: 102,
+    marginHorizontal: 20,
+    marginEnd: 30,
+    marginVertical: -15
   },
   highlightText: {
     color: '#007bff', // 파란색으로 하이라이트
@@ -119,11 +129,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#F3F3F3',
     marginBottom: 100,
     borderRadius: 20,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    elevation: 5
   },
   img: {
-    height: 30,
-    width: 30,
+    height: 40,
+    width: 40,
     marginEnd: 10,
   }
 })

@@ -32,8 +32,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserCardServiceImpl implements UserCardService {
@@ -77,7 +79,7 @@ public class UserCardServiceImpl implements UserCardService {
             MyDataApiResponse<?> response = myDataFeign.searchUserCard(accessToken, comp);
 
             if (response.getStatus() != 200) {
-                throw new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR);
+                throw new CustomException(400, response.getMessage());
             }
 
             MyDataUserCardResponse myDataUserCardResponse = (MyDataUserCardResponse) response.getData();
@@ -103,112 +105,143 @@ public class UserCardServiceImpl implements UserCardService {
     public List<OwnUserCardResponse> ownUserCardList(String userId) {
 
         List<OwnUserCardResponse> registerCardList = new ArrayList<>();
-        List<CardDetailBenefitList> cardDetailBenefitList = new ArrayList<>();
+        List<CardDetailBenefitList> cardDetailBenefitList;
+
         // 현재 로그인한 유저의 보유카드 조회
         List<UserCardEntity> userCardEntityList = userCardRepository.findAllByUserId(Integer.parseInt(userId));
         if(userCardEntityList == null) throw new CustomException(ResponseCode.USER_CARD_NOT_FOUND);
 
         for(int i=0; i<userCardEntityList.size(); i++){
 
+            cardDetailBenefitList = new ArrayList<>();
             int cardId = userCardEntityList.get(i).getCardId();
+
             // 카드 Entity 가져와서 카드 이름, 이미지
             CardEntity cardEntity = cardRepository.findByCard(cardId)
-                    .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
 
             String cardName = cardEntity.getCardName();
             String imagePath = cardEntity.getImagePath();
             int imageAttr = cardEntity.getImgAttr();
 
-            // 카드 id로 카드 혜택들 가져오기, 한 카드에 혜택 3개만 보여줄거야
-            // 혜택이 3개가 안되는 경우도 고려
+            // 카드 id로 카드 혜택들 가져오기
+            // 한 카드에 혜택 3개만 보여줄거야, 첫 번째 혜택의 첫 번째 상세혜택 -> 총 3개
             List<CardBenefitEntity> cardBenefitEntityList = cardBenefitRepository.findByCardId(cardId);
 
-            if(cardBenefitEntityList.size() == 0 || cardBenefitEntityList == null) continue;
             for(int j=0; j<cardBenefitEntityList.size(); j++){
 
-            int cardBenefitId = cardBenefitEntityList.get(j).getCardBenefitId();
-                if(cardBenefitEntityList.get(j) == null) continue;
+                int cardBenefitId = cardBenefitEntityList.get(j).getCardBenefitId();
 
-            // 카드 혜택 id로 카드 상세 혜택들 가져오기
-            List<CardBenefitDetailEntity> cardBenefitDetailEntityList = cardBenefitDetailRepository.findByCardBenefitId(cardBenefitId);
-                if(cardBenefitDetailEntityList.size() == 0 || cardBenefitDetailEntityList == null) continue;
-                System.out.println(cardBenefitDetailEntityList.get(0).getCardBenefitId());
+                // 카드 혜택 id로 카드 상세 혜택들 가져오기
+                List<CardBenefitDetailEntity> cardBenefitDetailEntityList = cardBenefitDetailRepository.findByCardBenefitId(cardBenefitId);
 
-            boolean put = false; // 상세 혜택 하나만 넣어줄거야
-            for(int k=0; k<cardBenefitDetailEntityList.size(); k++){
-//                if(cardDetailBenefitList.get(k) == null) continue;
-                put = true;
-                String discountType = cardBenefitDetailEntityList.get(k).getDiscountCostType();
-                float discountCost = cardBenefitDetailEntityList.get(k).getDiscountCost();
-                int largeCategoryId = cardBenefitDetailEntityList.get(k).getLargeCategoryId();
+                // 혜택은 있지만 상세 혜택 테이블에서 혜택 번호가 없는 경우
+                if(cardBenefitDetailEntityList.isEmpty()) continue;
+
+                String discountType = cardBenefitDetailEntityList.get(0).getDiscountCostType();
+                double discountCost = cardBenefitDetailEntityList.get(0).getDiscountCost();
+                int largeCategoryId = cardBenefitDetailEntityList.get(0).getLargeCategoryId();
 
                 LargeCategoryEntity largeCategoryEntity = largeCategoryRepository.findByLargeCategoryId(largeCategoryId);
                 String largeCategoryName = largeCategoryEntity.getCategoryName();
 
+                // 한 혜택의 첫 번째 상세 혜택에서 할인 타입, 할인 비용, 카테고리 이름만 담기
                 cardDetailBenefitList.add(new CardDetailBenefitList(discountType, discountCost, largeCategoryName));
-                if(put) break;
 
-            }
                 if(cardDetailBenefitList.size() == 3) break;
 
             } // cardBenefit
-                registerCardList.add(new OwnUserCardResponse(userCardEntityList.get(i), imagePath, cardName, imageAttr, cardDetailBenefitList));
-                cardDetailBenefitList = new ArrayList<>();
 
+            registerCardList.add(new OwnUserCardResponse(userCardEntityList.get(i), imagePath, cardName, imageAttr, cardDetailBenefitList));
         }// cardEntity
 
-
-
-//        List<UserCardEntity> userCardList = null;
-//        if (status == 0) {
-//            userCardList = userCardRepository.findAllByUserId(Integer.parseInt(userId));
-//        }else if(status == 1){
-//            userCardList = userCardRepository.findAllByUserIdAndIsPaymentEnabledTrue(Integer.parseInt(userId));
-//        }else{
-//            userCardList = new ArrayList<>();
-//        }
-//
-//        for (UserCardEntity card : userCardList) {
-//            card.setToken(null);
-//        }
-
-//        return new UserCardListResponse(userCardList);
         return registerCardList;
     }
 
     @Override
-    public List<CardHistoryListResponse> listCardHistory(String userId, String yyyymm) {
+    public List<PayUserCardResponse> payUserCardList(String userId) {
+
+        List<PayUserCardResponse> payUserCardResponseList = new ArrayList<>();
+        List<UserCardEntity> userCardEntityList = userCardRepository.findAllByUserIdAndIsPaymentEnabledTrue(Integer.parseInt(userId));
+        if (userCardEntityList.isEmpty()) return payUserCardResponseList;
+
+        for (UserCardEntity userCardEntity : userCardEntityList)
+        {
+
+            int userCardId = userCardEntity.getUserCardId();
+            int cardId = userCardEntity.getCardId();
+            String firstCardNumber = userCardEntity.getFirstCardNumber();
+            String lastCardNumber = userCardEntity.getLastCardNumber();
+
+            CardEntity cardEntity = cardRepository.findByCard(cardId)
+                .orElseThrow(() -> new CustomException(ResponseCode.CARD_NOT_FOUND));
+
+            int previousPerformance = cardEntity.getPreviousPerformance();
+            String cardName = cardEntity.getCardName();
+            String imagePath = cardEntity.getImagePath();
+            int imgAttr = cardEntity.getImgAttr();
+
+            payUserCardResponseList.add(new PayUserCardResponse(
+                userCardId, Integer.parseInt(userId),
+                cardId, cardName, previousPerformance,
+                firstCardNumber, lastCardNumber, imagePath, imgAttr));
+        }
+        return payUserCardResponseList;
+    }
+
+    @Override
+    public CardInfoResponse userCardInfo(int userCardId) {
+
+        UserCardEntity userCardEntity = userCardRepository.findByUserCardId(userCardId)
+            .orElseThrow(() -> new CustomException(ResponseCode.USER_CARD_NOT_FOUND));
+
+        boolean isPaymentEnabled = userCardEntity.isPaymentEnabled();
+        int cardId = userCardEntity.getCardId();
+
+        CardEntity cardEntity = cardRepository.findByCardId(cardId);
+        String cardName = cardEntity.getCardName();
+        int cardType = cardEntity.getCardType();
+        int previousPerformance = cardEntity.getPreviousPerformance();
+        String imagePath = cardEntity.getImagePath();
+        int imgAttr = cardEntity.getImgAttr();
+
+        return new CardInfoResponse(userCardId, cardId, cardName, cardType, previousPerformance,
+                isPaymentEnabled, imagePath, imgAttr);
+    }
+
+    @Override
+    public MyDataCardHistoryResponse listCardHistory(String userId, int userCardId, String yyyymm) {
         MyDataToken myDataToken = mydataTokenRepository.findById(userId)
             .orElseThrow(() -> new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR));
 
         String accessToken = myDataToken.getAccessToken();
+        log.debug("accessToken : " + accessToken);
 
         int intUserId = Integer.parseInt(userId);
 
         UserEntity userEntity = userRepository.findByUserId(intUserId)
-                .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
+            .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
 
-        UserCardEntity userCard = userCardRepository.findByUserCardId(intUserId)
+        log.debug("카드 정보 : " + userCardId);
+        UserCardEntity userCardEntity = userCardRepository.findByUserCardId(userCardId)
             .orElseThrow(() -> new CustomException(ResponseCode.USER_CARD_NOT_FOUND));
 
+        log.debug("카드 식별자 : " + userCardEntity.getCardIdentifier());
+        log.debug("년월 : " + yyyymm);
         MyDataApiResponse<?> response = myDataFeign.searchCardPayList(accessToken,
-            new MyDataCardHistoryRequest(userCard.getCardIdentifier(), yyyymm));
+        userCardEntity.getCardIdentifier(), yyyymm);
+
+        log.debug("response.getStatus() : "+ response.getStatus());
 
         if (response.getStatus() != 200) {
-            throw new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR);
+            throw new CustomException(400, response.getMessage());
         }
 
         MyDataCardHistoryResponse myDataCardPayList = (MyDataCardHistoryResponse) response.getData();
 
-        List<CardHistoryListResponse> cardHistoryListResponse = new ArrayList<>();
-        for(int i=0; i<myDataCardPayList.getMyDataCardHistoryList().size(); i++){
-            CardHistoryListResponse cardHistoryResponse = new CardHistoryListResponse(myDataCardPayList);
-            cardHistoryListResponse.add(cardHistoryResponse);
-        }
+        log.debug("myDataCardPayList : "+ myDataCardPayList);
 
-        // 조회한 데이터를 쓱싹 쓱싹 해서 반환하기
-
-        return cardHistoryListResponse;
+        return myDataCardPayList;
     }
 
     @Override
@@ -245,9 +278,10 @@ public class UserCardServiceImpl implements UserCardService {
 
         MyDataApiResponse<?> response = paymentFeign.requestPayToken(accessToken,
             new PayTokenRequest(registPayCardRequest));
+        log.debug("response : " + response);
 
         if (response.getStatus() != 200) {
-            throw new CustomException(ResponseCode.PAY_TOKEN_ERROR);
+            throw new CustomException(400, response.getMessage());
         }
 
         PayTokenResponse payTokenResponse = (PayTokenResponse) response.getData();

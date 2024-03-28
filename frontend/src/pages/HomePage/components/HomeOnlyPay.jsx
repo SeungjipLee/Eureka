@@ -11,7 +11,7 @@ function HomeOnlyPay () {
     <View>
       <View style={styles.container}>
         <View style={styles.midcontainer}>
-          <Image style={styles.image} source={require('../../../../assets/favicon.png')}/>
+          <Image style={styles.image} source={require('../../../../assets/HomeIcon/CardPayment.png')}/>
           <View>
             <Text style={styles.font}>이번달 페이 결제 금액</Text>
             <Text style={styles.price}>530,000원</Text>
@@ -48,9 +48,9 @@ const styles = StyleSheet.create({
     marginTop: 12,
   },
   image: {
-    width: 40,
-    height: 40,
-    marginEnd: 12,
+    width: 50,
+    height: 50,
+    marginHorizontal: 10,
   },
   font : {
     fontSize: 16,

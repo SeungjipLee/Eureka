@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
@@ -19,11 +20,11 @@ public class CardEntity {
     @Column(nullable = false)
     int cardCompanyId;
 
+    @NotNull
+    int cardType;
+
     @Column(length = 30, nullable = false)
     String cardName;
-
-    @Column(columnDefinition = "TEXT", nullable = false)
-    String imagePath;
 
     @NotNull
     int annualFee;
@@ -34,29 +35,15 @@ public class CardEntity {
     @Column(columnDefinition = "TEXT")
     String caution;
 
-    @Column(columnDefinition = "TEXT")
-    String joinPath;
-    int isExpired;
+    @Column(columnDefinition = "TEXT", nullable = false)
+    String imagePath;
 
     @NotNull
-    int cardType;
+    int imgAttr;
 
-    public CardEntity(CardEntity entity){
-        this.cardCompanyId = entity.getCardCompanyId();
-        this.cardName = entity.getCardName();
-        this.imagePath = entity.getImagePath();
-        this.annualFee = entity.getAnnualFee();
-        this.previousPerformance = entity.getPreviousPerformance();
-        this.caution = entity.getCaution();
-        this.joinPath = entity.getJoinPath();
-        this.isExpired = entity.getIsExpired();
-        this.cardType = entity.getCardType();
-    }
+    @Column(columnDefinition = "TEXT")
+    String joinPath;
 
-    // default
-    public CardEntity(){
-        this.annualFee = 0;
-        this.previousPerformance = 0;
-        this.isExpired = 0;
-    }
+    @NotNull
+    boolean isExpired;
 }

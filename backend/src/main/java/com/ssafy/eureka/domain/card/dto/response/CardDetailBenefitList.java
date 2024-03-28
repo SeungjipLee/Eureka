@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class CardDetailBenefitList {
 
     String discountCostType;
-    float discountCost;
+    double discountCost;
     String largeCategoryName;
 
 }

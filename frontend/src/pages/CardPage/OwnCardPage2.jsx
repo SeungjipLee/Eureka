@@ -1,83 +1,46 @@
-import React from "react";
-import { FlatList, StyleSheet, Text, View, Image, TouchableOpacity, Pressable } from "react-native"
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { FlatList, StyleSheet, Text, View, Image, TouchableOpacity, Pressable } from "react-native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import BankListModal from "./BankListModal";
-import { useFocusEffect } from "@react-navigation/native";
-import { useNavigation } from '@react-navigation/native';
-
+import { getOwnCard } from "../../apis/CardAPi";
+import TokenUtils from '../../stores/TokenUtils';
 
 function OwnCardPage2 () {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
+  const [token, setToken] = useState('');
+  const [cardList, setCardList] = useState([]);
+
+  console.log(token)
+  useEffect(() => {
+    const fetchToken = async () => {
+      const accessToken = await TokenUtils.getAccessToken();
+      setToken(accessToken);
+    };
+  
+    fetchToken();
+  }, []);
+  
+  const fetchCardList = async () => {
+    if (token) { 
+      getOwnCard(
+        token,
+        (res) => {
+          setCardList(res.data);
+        },
+        (err) => console.log(err)
+      );
+    }
+  };
+  
   useFocusEffect(
     React.useCallback(() => {
-      setModalVisible(false);
-
-      return () => {
-      };
-    }, [])
+      fetchCardList();
+      return () => {};
+    }, [token])
   );
 
-  const data = [
-    {
-      imgSrc: require("../../../assets/card2.png"),
-      title: "KB 국민 My WE:SH 카드",
-      benefit: {
-        "KB Pay": "10% 할인",
-        "음식점": "10% 할인",
-        "마트": "10% 할인"
-      }
-    },
-    {
-      imgSrc: require("../../../assets/card2.png"),
-      title: "다담카드",
-      benefit: {
-        "KB Pay": "10% 할인",
-        "음식점": "10% 할인",
-        "마트": "10% 할인"
-      }
-    },
-    {
-      imgSrc: require("../../../assets/card2.png"),
-      title: "BeV V카드(스카이패스형)",
-      benefit: {
-        "KB Pay": "10% 할인",
-        "음식점": "10% 할인",
-        "마트": "10% 할인"
-      }
-    },
-    {
-      imgSrc: require("../../../assets/card2.png"),
-      title: "신한카드 Mr.Life",
-      benefit: {
-        "관리비": "10% 할인",
-        "주유": "리터당 60원 할인",
-        "통신": "10% 할인"
-      }
-    },
-    {
-      imgSrc: require("../../../assets/card2.png"),
-      title: "KB 국민 My WE:SH 카드",
-      benefit: {
-        "KB Pay": "10% 할인",
-        "음식점": "10% 할인",
-        "마트": "10% 할인"
-      }
-    },
-    {
-      imgSrc: require("../../../assets/card2.png"),
-      title: "KB 국민 My WE:SH 카드",
-      benefit: {
-        "KB Pay": "10% 할인",
-        "음식점": "10% 할인",
-        "마트": "10% 할인"
-      }
-    },
-  ]
-
-
   const handleSelectBank = (bank) => {
-    console.log('Selected Bank:', bank);
     setModalVisible(false); // 은행 선택 후 모달 닫기
   };
 
@@ -85,26 +48,32 @@ function OwnCardPage2 () {
     <View style={{backgroundColor:'#ffffff'}}>
         <FlatList
           style={styles.listStyle}
-          data={data}
+          data={cardList}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
             <View style={styles.cardContainer}>
               <Image
-                source={item.imgSrc}
-                style={styles.cardImage}
+                source={{ uri: item.imagePath }}
+                style={[
+                  item.imageAttr === 0
+                    ? { width: 80, height: 52, marginStart: -15, borderRadius: 10, transform: [{ rotate: '90deg' }] } 
+                    : styles.cardImage, 
+                ]}
               />
               <View style={{flex: 1}}>
-                <Text style={styles.cardTitle}>{item.title}</Text>
+                <Text style={styles.cardTitle}>{item.cardName}</Text>
                 <View style={styles.benefitsContainer}>
-                  {Object.entries(item.benefit).map(([key, value], index) => (
-                    <View key={index}>
-                      <Text style={styles.benefitKey}>{key}</Text>
-                      <Text style={styles.benefitValue}>{value}</Text>
-                  </View>
+                  {item.list.map((benefit, index) => (
+                    <View key={index} style={styles.benefitRow}>
+                      <Text style={styles.benefitKey}>{benefit.largeCategoryName}</Text>
+                      <Text style={styles.benefitValue}>
+                        {benefit.discountCostType === "%" ? `${benefit.discountCost}% 할인` : `${benefit.discountCost}원 할인`}
+                      </Text>
+                    </View>
                   ))}
                 </View>
               </View>
-              <TouchableOpacity style={styles.detailButton} onPress={()=> navigation.navigate('CardDetail')}>
+              <TouchableOpacity style={styles.detailButton} onPress={() => navigation.navigate('CardDetail', { userCardId: item.userCardId })}>
                 <Text style={styles.detailButtonText}>자세히 보기</Text>
               </TouchableOpacity>
             </View>
@@ -121,8 +90,7 @@ function OwnCardPage2 () {
         onSelect={handleSelectBank}
       />
     </View>
-      
-  )
+  );
 }
 
 export default OwnCardPage2
@@ -150,13 +118,20 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   benefitsContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    flexDirection: 'row', // 혜택들을 세로로 나열
+    alignItems: 'flex-start',
+    marginVertical: 5
+  },
+  benefitRow: {
+    flexDirection: 'col',
+    alignItems: 'center',
+    marginBottom: 4,
+    marginRight: 20,
   },
   benefitKey: {
     fontSize: 14,
     fontWeight: 'bold',
+    marginRight: 5,
   },
   benefitValue: {
     fontSize: 12,
@@ -172,7 +147,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     marginVertical: 20,
-    width:"60%",
+    width: "60%",
     height: 40,
     alignSelf: 'center',
     backgroundColor: '#5087FF',
@@ -183,6 +158,6 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     fontSize: 16,
     fontWeight: 'bold',
-    alignSelf:'center'
+    alignSelf: 'center',
   },
-})
+});

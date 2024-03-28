@@ -2,7 +2,7 @@ import API from "./Api";
 
 async function getOwnCard(token, success, fail) {
   try {
-    const response = await API(token).get('/card/list/own')
+    const response = await API(token).get('/ucard/list/own')
     success(response);
   } catch (error) {
     fail(error);
@@ -11,7 +11,7 @@ async function getOwnCard(token, success, fail) {
 
 async function getPayCard(token, success, fail) {
   try {
-    const response = await API(token).get('/ucard/list')
+    const response = await API(token).get('/ucard/list/pay')
     success(response);
   } catch (error) {
     fail(error);
@@ -46,18 +46,27 @@ async function addPayCard(token, data, success, fail) {
   }
 }
 
-async function deletePayCard(token, cardId, success, fail) {
+async function getCardDetail(token, userCardId, success, fail) {
   try {
-    const response = await API(token).delete(`/card/pay/${cardId}`)
+    const response = await API(token).get(`/ucard/cardInfo/${userCardId}`)
     success(response);
   } catch (error) {
     fail(error);
   }
 }
 
-async function deleteOwnCard(token, cardId, success, fail) {
+async function getCardHistory(token, userCardId, yyyymm, success, fail) {
   try {
-    const response = await API(token).delete(`/card/own/${cardId}`)
+    const response = await API(token).post(`/ucard/list/pay?userCardId=${userCardId}&yyyymm=${yyyymm}`)
+    success(response);
+  } catch (error) {
+    fail(error);
+  }
+}
+
+async function cardPay(token, data, success, fail) {
+  try {
+    const response = await API(token).post('/pay/request', data)
     success(response);
   } catch (error) {
     fail(error);
@@ -65,4 +74,4 @@ async function deleteOwnCard(token, cardId, success, fail) {
 }
 
 
-export { getOwnCard, addOwnCard, getMyCardList, getPayCard, addPayCard, deleteOwnCard, deletePayCard }
+export { getOwnCard, addOwnCard, getMyCardList, getPayCard, addPayCard, getCardDetail, cardPay, getCardHistory }

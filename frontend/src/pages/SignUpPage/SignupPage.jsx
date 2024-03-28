@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, SafeAreaView, TextInput, Alert, TouchableOpacit
 import { Picker } from '@react-native-picker/picker';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
-import TokenUtils from '../../stores/TokenUtils';
+import TokenService from '../../stores/TokenUtils';
 
 const SignupPage = () => {
 
@@ -47,6 +47,7 @@ const SignupPage = () => {
           // 성공적으로 응답을 받았을 때
           Alert.alert('인증번호가 전송되었습니다.', '인증번호를 입력해주세요.');
           setShowAuthInput(true); // 인증번호 입력란을 표시
+          setTimeout(() => authNumInputRef.current.focus(), 100);
         })
         .catch(error => {
           // 요청이 실패했을 때
@@ -103,8 +104,12 @@ const SignupPage = () => {
           if (response.data && response.data.accessToken && response.data.refreshToken) {
             // TokenUtils를 사용하여 accessToken과 refreshToken 저장 및 Routers로 이동
             const { accessToken, refreshToken } = response.data;
-            await TokenUtils.setToken(accessToken, refreshToken);
-            navigation.navigate('Routers');
+            await TokenService.setToken(accessToken, refreshToken);
+            navigation.reset({
+              index: 0, // 새 스택의 시작 인덱스를 0으로 설정합니다.
+              routes: [{ name: 'Routers' }], // 이동할 라우트의 배열을 설정합니다.
+            });
+            console.log(accessToken)
           } else {
             // response.data가 비어있거나 예상한 값이 없는 경우, 인증 성공 처리
             Alert.alert('인증 성공', '인증이 완료되었습니다.', [
@@ -140,6 +145,9 @@ const SignupPage = () => {
         keyboardType='numeric'
         onChangeText={value => {
           setPhoneNum(value);
+          if (value.length === 11) {
+            rNumInputRef.current.focus(); // 전화번호 입력이 완료되면 다음 필드로 자동 이동
+          }
         }}
         onFocus={() => {
           setBorderBottomColor1('#3675FF');
@@ -175,6 +183,9 @@ const SignupPage = () => {
           value={RNum}
           onChangeText={value => {
             setRNum(value);
+            if (value.length === 6) {
+              rNum2InputRef.current.focus(); // 전화번호 입력이 완료되면 다음 필드로 자동 이동
+            }
           }}
           maxLength={6}
           keyboardType='numeric'
@@ -205,6 +216,9 @@ const SignupPage = () => {
           value={RNum2}
           onChangeText={value => {
             setRNum2(value);
+            if (value.length === 1) {
+              nameInputRef.current.focus(); // 전화번호 입력이 완료되면 다음 필드로 자동 이동
+            }
           }}
           maxLength={1}
           keyboardType='numeric'

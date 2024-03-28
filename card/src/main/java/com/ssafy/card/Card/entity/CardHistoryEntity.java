@@ -1,13 +1,13 @@
 package com.ssafy.card.Card.entity;
 
-import com.ssafy.card.User.entity.UserCardEntity;
+import com.ssafy.card.Card.dto.request.ApprovePayRequest;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import java.util.concurrent.ThreadLocalRandom;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -22,13 +22,7 @@ public class CardHistoryEntity {
     int cardHistoryId;
 
     @Column(nullable = false)
-    int userCardId; // 유저 카드 PK
-
-    @Column(length = 21)
-    String approvedNum;
-
-    @Column(columnDefinition = "DATETIME", nullable = false)
-    LocalDateTime approvedDtime;
+    int userCardId;
 
     @NotNull
     int status;
@@ -36,43 +30,46 @@ public class CardHistoryEntity {
     @NotNull
     int payType;
 
+    @Column(length = 8)
+    String approvedNum;
+
+    @Column(columnDefinition = "DATETIME", nullable = false)
+    LocalDateTime approvedDateTime;
+
+    @NotNull
+    int approvedAmt;
+
     @Column(columnDefinition = "DATETIME")
-    LocalDateTime transDtime;
+    LocalDateTime transDateTime;
+
+    Integer modifiedAmt;
 
     @Column(length = 75, nullable = false)
     String merchantName;
 
     @Column(length = 12, nullable = false)
-    String merchantRegno;
+    String merchantRegNo;
+
+    Integer totalInstallCnt;
 
     @NotNull
-    int approvedAmt;
+    int largeCategoryId;
 
-    int modifiedAmt;
-
-    int totalInstallCnt;
-
-    @Column(nullable = true)
     Integer smallCategoryId;
 
-    int largeCategoryId;
-    String CategoryName;
-
-    public CardHistoryEntity(CardHistoryEntity entity){
-        LocalDateTime now = LocalDateTime.now();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-        this.userCardId = entity.getUserCardId();
-        this.approvedNum = entity.getApprovedNum();
-        this.approvedDtime = now;
-        this.status = entity.getStatus();
-        this.payType = entity.getPayType();
-        this.transDtime = now;
-        this.merchantRegno = entity.getMerchantRegno();
-        this.approvedAmt = entity.getApprovedAmt();
-        this.modifiedAmt = entity.getModifiedAmt();
-        this.totalInstallCnt = entity.getTotalInstallCnt();
-        this.smallCategoryId = entity.getSmallCategoryId();
-        this.largeCategoryId = entity.getLargeCategoryId();
+    public static CardHistoryEntity regist(int userCardId, ApprovePayRequest approvePayRequest) {
+        CardHistoryEntity cardHistory = new CardHistoryEntity();
+        cardHistory.userCardId = userCardId;
+        cardHistory.status = 0;
+        cardHistory.payType = 0;
+        cardHistory.approvedNum = String.format("%08d", ThreadLocalRandom.current().nextLong(100000000L));
+        cardHistory.approvedDateTime = LocalDateTime.now();
+        cardHistory.approvedAmt = approvePayRequest.getTotalAmount();
+        cardHistory.merchantName = approvePayRequest.getStoreName();
+        cardHistory.merchantRegNo = approvePayRequest.getStoreRegNo();
+        cardHistory.totalInstallCnt = approvePayRequest.getTotalInstallCnt();
+        cardHistory.largeCategoryId = approvePayRequest.getLargeCategoryId();
+        cardHistory.smallCategoryId = approvePayRequest.getSmallCategoryId();
+        return cardHistory;
     }
 }

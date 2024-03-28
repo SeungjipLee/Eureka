@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import {
   StyleSheet,
   Text,
@@ -10,48 +11,48 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import axios from "axios";
+import { selectCardId } from "../../../../slices/productSlice";
 
 function ChooseOne({ data }) {
   const navigation = useNavigation();
   const animation = useRef(new Animated.Value(0)).current;
-  const scrollViewRef = useRef(); // ScrollView ref
+  const scrollViewRef = useRef();
+  const dispatch = useDispatch();
   const itemColorMapping = {
-    "Item 1": "#FAD2E1",
-    "Item 2": "#E2F0CB",
-    "Item 3": "#B5EAD7",
-    "Item 4": "#C7CEEA",
-    "Item 5": "#FFDAC1",
-    "Item 6": "#FF9AA2",
-    "Item 7": "#FFB7B2",
-    "Item 8": "#FF9AA2",
-    "Item 9": "#FFB7B2",
-    "Item 10": "#FFDAC1",
-    "Item 11": "#E2F0CB",
-    "Item 12": "#B5EAD7",
-    "Item 13": "#C7CEEA",
-    "Item 14": "#E4C1F9",
-    "Item 15": "#D1E8E2",
-    "Item 16": "#EDE7B1",
-    "Item 17": "#FAD2E1",
-    "Item 18": "#D3AB9E",
-    "Item 19": "#84A9AC",
-    "Item 20": "#6D8299",
-    "Item 21": "#AE96BC",
-    "Item 22": "#AC92A6",
-    "Item 23": "#9B9B7A",
+    삼성: "#8A9CC8",
+    농협: "#B9D1A8",
+    국민: "#7FAED6",
+    신한: "#6F9FC3",
+    우리: "#C7E89E",
+    하나: "#76C1A6",
+    기업: "#6F8DBD",
+    현대: "#E6A1C4",
+    롯데: "#D07A7A",
+  };
+
+  const logoImages = {
+    삼성: require("../../../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_삼성.png"),
+    농협: require("../../../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_농협.png"),
+    국민: require("../../../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_국민.png"),
+    신한: require("../../../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_신한.png"),
+    우리: require("../../../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_우리.png"),
+    하나: require("../../../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_하나.png"),
+    기업: require("../../../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_기업.png"),
+    현대: require("../../../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_현대.png"),
+    롯데: require("../../../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_롯데.png"),
   };
 
   const [selected, setSelected] = useState(0);
-  const [scrollX, setScrollX] = useState(0); // 스크롤 위치 상태
-  const [selectCompanyName, setSelectCompanyName] = useState(data[0]);
-  const itemWidth = 70; // 항목의 너비
+  const [scrollX, setScrollX] = useState(0);
+  const [selectCompanyName, setSelectCompanyName] = useState(data[0].name);
+  const itemWidth = 70;
 
   useEffect(() => {
-    // 선택된 항목에 따라 바의 위치를 애니메이션으로 이동
-    // 스크롤 위치를 고려하여 애니메이션 값을 수정
     Animated.timing(animation, {
-      toValue: selected * (itemWidth + 40) - scrollX,
+      toValue:
+        selected * (itemWidth + 40) -
+        scrollX +
+        ((itemWidth + 40) / 2 - styles.selectedBar.width / 2),
       duration: 300,
       useNativeDriver: true,
     }).start();
@@ -60,20 +61,22 @@ function ChooseOne({ data }) {
   const renderItem = (item, index) => {
     return (
       <Pressable
-        key={index}
+        key={item.id}
         onPress={() => {
           setSelected(index);
-          setSelectCompanyName(item);
+          setSelectCompanyName(item.name);
+          dispatch(selectCardId(item.id));
         }}
         style={{ width: itemWidth, marginHorizontal: 20, alignItems: "center" }}
       >
         <Text
           style={{
             color: selected === index ? "#4f4f4f" : "#8e8e8e",
-            fontSize: 15,
+            fontSize: 17,
+            fontWeight: "400",
           }}
         >
-          {item}
+          {item.name}
         </Text>
       </Pressable>
     );
@@ -82,9 +85,9 @@ function ChooseOne({ data }) {
   // 선의 스타일을 동적으로 계산합니다.
   const lineStyle = {
     height: 0.2,
-    backgroundColor: "#d4d4d4", // 선의 색상
-    width: (itemWidth + 10) * data.length, // 선의 길이를 계산
-    alignSelf: "center", // 가운데 정렬
+    backgroundColor: "#d4d4d4",
+    width: (itemWidth + 10) * data.length,
+    alignSelf: "center",
   };
 
   return (
@@ -124,10 +127,7 @@ function ChooseOne({ data }) {
               <Text style={styles.companyName}>인기있는 카드</Text>
             </View>
           </View>
-          <Image
-            source={require("../../../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_농협.png")}
-            style={styles.image}
-          />
+          <Image source={logoImages[selectCompanyName]} style={styles.image} />
         </View>
       </View>
 
@@ -157,11 +157,17 @@ function ChooseOne({ data }) {
   );
 }
 
-// 예시 데이터
-const initialData = Array.from(
-  { length: 23 },
-  (_, index) => `Item ${index + 1}`
-);
+const initialData = [
+  { id: 1, name: "국민" },
+  { id: 2, name: "삼성" },
+  { id: 3, name: "농협" },
+  { id: 4, name: "신한" },
+  { id: 5, name: "현대" },
+  { id: 6, name: "하나" },
+  { id: 7, name: "우리" },
+  { id: 8, name: "기업" },
+  { id: 9, name: "롯데" },
+];
 
 export default function App() {
   return <ChooseOne data={initialData} />;
@@ -176,19 +182,19 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 0,
     height: 2,
-    width: 60, // 바의 너비를 각 항목의 너비와 동일하게 설정
-    backgroundColor: "#696969", // 바의 색상
+    width: 60,
+    backgroundColor: "#696969",
   },
   topContainer: {
-    flexDirection: "column", // 요소들을 수직으로 쌓기
-    alignItems: "center", // 가운데 정렬
-    padding: 10, // 컨테이너에 약간의 여백 추가
+    flexDirection: "column",
+    alignItems: "center",
+    padding: 10,
     backgroundColor: "#fffeb6",
   },
   nextBtn: {
     marginTop: 30,
     marginBottom: 20,
-    color: "#b0b0b0",
+    color: "#e8e8e8",
   },
   noticeTextContainer: {
     marginLeft: 25,
@@ -202,7 +208,7 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   companyName: {
-    fontSize: 20,
-    fontWeight: "400",
+    fontSize: 22,
+    fontWeight: "500",
   },
 });

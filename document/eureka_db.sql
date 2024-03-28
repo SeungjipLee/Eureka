@@ -24,7 +24,7 @@ drop table if exists small_category;
 create table if not exists small_category
 (
     small_category_id   int             auto_increment    primary key       COMMENT '소분류 카테고리 관리번호',
-    category_name       varchar(300)    not null          unique            COMMENT '소분류 카테고리 이름',
+    category_name       varchar(300)    not null                            COMMENT '소분류 카테고리 이름',
     large_category_id   tinyint         not null                            COMMENT '대분류 카테고리 관리번호'
 );
 
@@ -38,11 +38,11 @@ create table if not exists card(
     annual_fee           int            not null                           COMMENT '연회비',
     previous_performance int            not null                           COMMENT '전월실적',
     caution              text           null                               COMMENT '유의사항',
-    image_path           text           not null                           COMMENT '카드 이미지 경로',
+    image_path           varchar(255)   not null                           COMMENT '카드 이미지 경로',
     img_attr             int            not null                           COMMENT '카드 이미지 방향',
-    view                 int            not null                           COMMENT '카드 조회수',
+    view                 int            not null            default 0      COMMENT '카드 조회수',
     join_path            text           null                               COMMENT '카드 가입 경로',
-    is_expired           int            not null                           COMMENT '카드 만료 여부(가입)'
+    is_expired           boolean        not null            default 0      COMMENT '카드 만료 여부(가입)'
 );
 
 create index idx_card_company on card(card_company_id);
@@ -68,7 +68,7 @@ create table if not exists card_benefit_detail
     card_benefit_detail_id int          auto_increment   primary key    COMMENT '할인 상세혜택 관리번호',
     card_benefit_id        int          not null                        COMMENT '할인 혜택 관리번호',
     large_category_id      tinyint      not null                        COMMENT '대분류 카테고리',
-    small_category_id      int          not null                        COMMENT '소분류 카테고리 관리번호',
+    small_category_id      int          null                            COMMENT '소분류 카테고리 관리번호',
     discount_type          int          not null                        COMMENT '할인 타입(0:즉시, 1:청구, 2:포인트)',
     discount_cost          double       not null                        COMMENT '할인 가격',
     discount_cost_type     varchar(10)  null                            COMMENT '할인 가격 타입(원, %, L)',
@@ -89,12 +89,13 @@ create table if not exists user
 (
     user_id          int            auto_increment      primary key                 COMMENT '유저 관리번호',
     user_birth       char(6)        not null                                        COMMENT '생년월일(6자리)',
+    user_gender      char(1)        not null                                        COMMENT '주민번호 뒤자리 1번쨰',
     user_name        varchar(30)    not null                                        COMMENT '이름',
     phone_number     varchar(255)   not null            unique                      COMMENT '휴대폰 번호(AES-256)',
     password         varchar(255)   not null                                        COMMENT '비밀번호(6자리, BCrypt)',
     registered_at    datetime       not null            DEFAULT current_timestamp   COMMENT '가입 일시',
-    is_unregistered  bit            not null            DEFAULT 0                   COMMENT '탈퇴 여부',
-    un_registered_at datetime(6)    null                                            COMMENT '탈외 일시'
+    is_unregistered  boolean        not null            DEFAULT 0                   COMMENT '탈퇴 여부',
+    un_registered_at datetime       null                                            COMMENT '탈외 일시'
 );
 
 
@@ -105,12 +106,12 @@ create table if not exists user_card
     user_card_id            int             auto_increment     primary key      COMMENT '유저 카드 관리번호',
     user_id                 int             not null                            COMMENT '유저 관리번호',
     card_id                 int             not null                            COMMENT '카드 관리번호',
-    card_identifier         char(100)       not null                            COMMENT '카드 식별자 값',
+    card_identifier         char(100)       not null           unique           COMMENT '카드 식별자 값',
     first_card_number       char(4)         null                                COMMENT '카드 앞 4자리',
     last_card_number        char(4)         null                                COMMENT '카드 뒤 4자리',
     current_month_amount    bigint          null                                COMMENT '당월 사용 금액',
     is_payment_enabled      bit             not null           default 0        COMMENT '결제 카드 등록 여부',
-    payment_date            date            null                                COMMENT '결제일',
+    payment_date            datetime        null                                COMMENT '결제일',
     expired_year            char(2)         null                                COMMENT '카드 유효기간 도(2자리)',
     expired_month           char(2)         null                                COMMENT '카드 유효기간 월(2자리)',
     token                   varchar(255)    null
@@ -119,7 +120,19 @@ create table if not exists user_card
 create index idx_user_id on user_card(user_id);
 
 
-#9. pay_history
+#9. partnership_store
+# drop table if exists partnership_store;
+# create table if not exists partnership_store
+# (
+#     partnership_store_id    int             auto_increment      primary key     COMMENT '제휴 가맹점 관리번호',
+#     small_category_id       int             not null                            COMMENT '소분류 카테고리 관리번호',
+#     store_code              char(20)        not null            unique          COMMENT '가맹점 코드',
+#     store_name              varchar(300)    not null            unique          COMMENT '가맹점명',
+#     store_reg_no            char(12)        not null                            COMMENT '사업자 등록번호 "-"포함'
+# );
+
+
+#10. pay_history
 drop table if exists pay_history;
 create table if not exists pay_history
 (
@@ -127,32 +140,23 @@ create table if not exists pay_history
     order_id                char(64)        not null            unique                      COMMENT '주문 번호',
     user_id                 int             not null                                        COMMENT '유저 관리번호',
     user_card_id            int             not null                                        COMMENT '유저 카드 관리번호',
-    partnership_store_id    int             not null                                        COMMENT '제휴 가맹점 관리번호',
+    recommendCardId         int             not null                                        COMMENT '추천 카드 관리번호',
+#     partnership_store_id    int             not null                                        COMMENT '제휴 가맹점 관리번호',
     large_category_id       tinyint         not null                                        COMMENT '대분류 카테고리 번호',
-    small_category_id       int             not null                                        COMMENT '소분류 카테고리 번호',
+    small_category_id       int             null                                            COMMENT '소분류 카테고리 번호',
     approved_num            char(8)         not null                                        COMMENT '승인 번호',
-    approved_dtime          datetime        not null            default current_timestamp   COMMENT '승인 일시',
+    approved_date_time      datetime        not null            default current_timestamp   COMMENT '승인 일시',
     approved_amt            int             not null                                        COMMENT '승인 금액',
     status                  int             not null                                        COMMENT '결제 상태(0:승인, 1:승인취소, 2:정정, 3:무승인매입)',
-    trans_dtime             datetime        not null                                        COMMENT '정정 또는 취소 일시',
+    trans_date_time         datetime        not null                                        COMMENT '정정 또는 취소 일시',
     modified_amt            int             not null                                        COMMENT '정정 후 금액',
-    total_install_cnt       tinyint         not null                                        COMMENT '할부 개월 수'
+    total_install_cnt       tinyint         not null                                        COMMENT '할부 개월 수',
+    discount                int             not null            default 0                   COMMENT '할인 금액',
+    recommendDiscount       int             not null            default 0                   COMMENT '추천 카드 할인 금액'
 );
 
 create index idx_user_id on pay_history(user_id);
 create index idx_user_card_id on pay_history(user_card_id);
-
-
-#10. partnership_store
-drop table if exists partnership_store;
-create table if not exists partnership_store
-(
-    partnership_store_id    int             auto_increment      primary key     COMMENT '제휴 가맹점 관리번호',
-    small_category_id       int             not null                            COMMENT '소분류 카테고리 관리번호',
-    store_code              char(20)        not null            unique          COMMENT '가맹점 코드',
-    store_name              varchar(300)    not null            unique          COMMENT '가맹점명',
-    store_reg_no            char(12)        not null            unique          COMMENT '사업자 등록번호 "-"포함'
-);
 
 
 #11. consumption_static
@@ -183,7 +187,7 @@ create table if not exists consumption_large_static
 create index idx_consumption_static_id_large_category_id on consumption_large_static(consumption_static_id, large_category_id);
 
 
-#13. consumption_detail_history
+#13. consumption_small_static
 drop table if exists consumption_small_static;
 create table if not exists consumption_small_static
 (
@@ -205,20 +209,20 @@ create table if not exists discount_static
     user_card_id            int         not null                            COMMENT '유저 카드 관리번호',
     year                    char(4)     not null                            COMMENT '년도 (4자리)',
     month                   char(2)     not null                            COMMENT '월 (2자리)',
-    total_discount          bigint      not null            default 0       COMMENT '총 할인 금액'
+    total_discount          int         not null            default 0       COMMENT '총 할인 금액'
 );
 
 create index idx_user_card_id_year_month on discount_static(user_card_id, year, month);
 
 
-#15. discount_detail
+#15. discount_large_static
 drop table if exists discount_large_static;
 create table if not exists discount_large_static
 (
     discount_large_static_id     int         auto_increment      primary key     COMMENT '할인 상세 관리 번호(대분류 카테고리별)',
     discount_static_id           int         not null                            COMMENT '할인 통계 관리 번호',
     large_category_id            tinyint     not null                            COMMENT '대분류 카테고리 관리번호',
-    discount_amount              bigint      not null                            COMMENT '총 할인 금액',
+    discount_amount              int         not null                            COMMENT '총 할인 금액',
     discount_count               int         not null                            COMMENT '총 할인 횟수'
 );
 
@@ -232,10 +236,8 @@ create table if not exists discount_small_static
     discount_small_static_id    int         auto_increment      primary key     COMMENT '할인 금액 내역 관리번호(소분류 카테고리별)',
     discount_large_static_id    int         not null                            COMMENT '할인 상세 관리 번호',
     small_category_id           int         not null                            COMMENT '소분류 카테고리 관리번호',
-    discount                    bigint      not null                            COMMENT '할인 금액',
+    discount                    int         not null                            COMMENT '할인 금액',
     discount_count              int         not null                            COMMENT '할인 횟수'
 );
 
 create index idx_discount_large_static_id_small_category_id on discount_small_static(discount_large_static_id, small_category_id);
-
-

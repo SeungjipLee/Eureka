@@ -8,7 +8,6 @@ import HomeForYou from "./components/HomeForYou"
 function HomePage() {
   return (
       <ScrollView style={styles.container}>
-        <View style={styles.icon}><HomeIcon /></View>
         <View style={styles.paycard}><HomePayCard /></View>
         <View style={styles.monthly}><HomeMonthly /></View>
         <View style={styles.onlypay}><HomeOnlyPay /></View>
@@ -25,10 +24,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     flex: 1,
   },
-  icon: {
-    marginBottom:10,
-  },
   paycard: {
+    marginTop: 20,
     marginBottom:10,
   },
   monthly: {
