@@ -19,7 +19,7 @@ public class PayInfo {
     private String userId;
 
     @NotNull
-    private String storeCode;
+    private String storeName;
 
     @NotNull
     private String storeId;
@@ -28,10 +28,10 @@ public class PayInfo {
     private String orderName;
 
     @NotNull
-    private Long totalAmount;
+    private int totalAmount;
 
     @NotNull
-    private Long vat;
+    private int vat;
 
     @NotNull
     private LocalDateTime requestedAt;
@@ -41,7 +41,7 @@ public class PayInfo {
     public PayInfo(String userId, RequestPayRequest requestPayRequest) {
         this.userId = userId;
         this.orderId = requestPayRequest.getOrderId();
-        this.storeCode = requestPayRequest.getStoreCode();
+        this.storeName = requestPayRequest.getStoreName();
         this.storeId = requestPayRequest.getStoreId();
         this.orderName = requestPayRequest.getOrderName();
         this.totalAmount = requestPayRequest.getTotalAmount();

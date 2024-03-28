@@ -46,8 +46,8 @@ public class PayServiceImpl implements PayService{
         PayInfo payInfo = new PayInfo(userId, requestPayRequest);
         payInfoRepository.save(payInfo);
 
-        int largeCategory = requestPayRequest.getLargeCategoryId();
-        int smallCategory = requestPayRequest.getSmallCategoryId();
+        Integer largeCategory = requestPayRequest.getLargeCategoryId();
+        Integer smallCategory = requestPayRequest.getSmallCategoryId();
 
         List<UserCardEntity> userCardList = userCardRepository.findAllByUserIdAndIsPaymentEnabledTrue(Integer.parseInt(userId));
 
@@ -63,11 +63,14 @@ public class PayServiceImpl implements PayService{
 
             // 00원 할인된다만 정해서 넣어주면 됨.
             card.setDiscountAmount(new Random().nextInt(21) * 100);
+            if (card.getDiscountCost() > requestPayRequest.getTotalAmount()){
+                card.setDiscountAmount(Math.toIntExact(requestPayRequest.getTotalAmount()));
+            }
 
             list.add(card);
         }
 
-        // 우선 순위 정하기
+        // 정렬하기
 
         return new CardRecommendResponse(list);
     }

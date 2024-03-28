@@ -5,21 +5,21 @@ import lombok.Getter;
 
 @Getter
 public class RequestPayRequest {
-    private String storeCode;
-
     private String storeId;
+
+    private String storeName;
 
     private String orderId;
 
     private String orderName;
 
-    private int largeCategoryId;
+    private Integer largeCategoryId;
 
-    private int smallCategoryId;
+    private Integer smallCategoryId;
 
-    private Long totalAmount;
+    private int totalAmount;
 
-    private Long vat;
+    private int vat;
 
     private int totalInstallCnt;
 
