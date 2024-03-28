@@ -27,12 +27,12 @@ public class CardHistoryResponse {
         LocalDateTime approvedDateTime;
         int approvedAmt;
         LocalDateTime transDateTime;
-        int modifiedAmt;
+        Integer modifiedAmt;
         String merchantName;
         String merchantRegNo;
-        int totalInstallCnt;
+        Integer totalInstallCnt;
         int largeCategoryId;
-        int smallCategoryId;
+        Integer smallCategoryId;
 
         public MyDataCardHistory(CardHistoryEntity history) {
             this.cardHistoryId = history.getCardHistoryId();

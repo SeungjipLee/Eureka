@@ -40,7 +40,7 @@ public class CardHistoryEntity {
     @Column(columnDefinition = "DATETIME")
     LocalDateTime transDateTime;
 
-    int modifiedAmt;
+    Integer modifiedAmt;
 
     @Column(length = 75, nullable = false)
     String merchantName;
@@ -48,10 +48,10 @@ public class CardHistoryEntity {
     @Column(length = 12, nullable = false)
     String merchantRegNo;
 
-    int totalInstallCnt;
+    Integer totalInstallCnt;
 
     @NotNull
     int largeCategoryId;
 
-    int smallCategoryId;
+    Integer smallCategoryId;
 }

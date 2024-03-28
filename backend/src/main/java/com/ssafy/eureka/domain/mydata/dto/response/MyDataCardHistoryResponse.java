@@ -26,11 +26,11 @@ public class MyDataCardHistoryResponse {
         LocalDateTime approvedDateTime;
         int approvedAmt;
         LocalDateTime transDateTime;
-        int modifiedAmt;
+        Integer modifiedAmt;
         String merchantName;
         String merchantRegNo;
-        int totalInstallCnt;
+        Integer totalInstallCnt;
         int largeCategoryId;
-        int smallCategoryId;
+        Integer smallCategoryId;
     }
 }
