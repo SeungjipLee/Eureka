@@ -123,7 +123,6 @@ function BankListModal({ visible, onClose, onSelect }) {
       <TouchableWithoutFeedback onPress={onClose}>
         <View style={styles.modalOverlay}>
           <View style={styles.modalView}>
-            {/* 여기에 텍스트와 리스트 렌더링 부분이 있습니다. */}
             <FlatList
               data={banks}
               keyExtractor={(item) => item.id}
@@ -184,7 +183,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "flex-end",
     alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.5)", // 반투명 배경 설정
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   modalView: {
     width: "100%",
