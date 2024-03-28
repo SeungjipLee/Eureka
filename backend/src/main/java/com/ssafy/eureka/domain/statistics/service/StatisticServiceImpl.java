@@ -10,12 +10,14 @@ import com.ssafy.eureka.domain.statistics.entity.DiscountStaticEntity;
 import com.ssafy.eureka.domain.statistics.repository.ConsumptionStaticRepository;
 import com.ssafy.eureka.domain.statistics.repository.DiscountStaticRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class StatisticServiceImpl implements StatisticService {
@@ -38,18 +40,26 @@ public class StatisticServiceImpl implements StatisticService {
         for (UserCardEntity userCardEntity : userCardEntityList) {
             int userCardId = userCardEntity.getUserCardId();
 
+            log.debug("통계 조회, 카드 번호 : " + userCardId);
+
             // 소비 통계 값 저장
             Optional<ConsumptionStaticEntity> consumptionStaticEntity =
                     consumptionStaticRepository.findByUserCardIdAndMonthAndYear(userCardId, yyyyMM.substring(0, 4), yyyyMM.substring(4, 6));
             if(consumptionStaticEntity.isPresent()) {
+                log.debug("소비 금액 : " + consumptionStaticEntity.get().getTotalConsumption());
                 totalConsumption = totalConsumption.add(consumptionStaticEntity.get().getTotalConsumption());
+            } else {
+                log.debug("소비 금액 : 0");
             }
 
             // 할인 통계 값 저장
             Optional<DiscountStaticEntity> discountStaticEntity =
                     discountStaticRepository.findByUserCardIdAndMonthAndYear(userCardId, yyyyMM.substring(0, 4), yyyyMM.substring(4, 6));
             if (discountStaticEntity.isPresent()) {
+                log.debug("할인 금액 : " + discountStaticEntity.get().getTotalDiscount());
                 totalDiscount += discountStaticEntity.get().getTotalDiscount();
+            } else {
+                log.debug("할인 금액 : 0");
             }
         }
 
