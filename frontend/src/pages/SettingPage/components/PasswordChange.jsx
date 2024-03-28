@@ -1,5 +1,5 @@
-import React, { useState, createRef } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, Pressable, TextInput } from 'react-native';
+import React, { useState, createRef, useEffect } from 'react';
+import { StyleSheet, Text, View, SafeAreaView, Pressable, TextInput, Alert, BackHandler } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const PasswordChange = ({ navigation }) => { // navigation prop 추가
@@ -89,11 +89,40 @@ const PasswordChange = ({ navigation }) => { // navigation prop 추가
     );
   };
 
+  const confirmCancelation = () => {
+    Alert.alert(
+      '비밀번호 변경 중단', // 대화상자 제목
+      '비밀번호 변경을 중단하시겠습니까?', // 대화상자 메세지
+      [
+        {
+          text: '아니오',
+          style: 'cancel',
+        },
+        {
+          text: '예',
+          onPress: () => navigation.navigate('SettingPage'),
+        },
+      ],
+      { cancelable: false }
+    );
+  };
+
+  useEffect(() => {
+    const backAction = () => {
+      confirmCancelation();
+      // true를 반환하면 기본 동작(앱 종료)을 막습니다.
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+
+    return () => backHandler.remove();
+  }, []);
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
       <View style={styles.topBar}>
-        <Pressable style={styles.pressable} onPress={() => navigation.goBack()}>
+        <Pressable style={styles.pressable} onPress={confirmCancelation}>
           <MaterialCommunityIcons name="chevron-left" size={40} color="white" />
         </Pressable>
         <View style={styles.titleContainer}>

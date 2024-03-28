@@ -118,28 +118,10 @@ const PasswordChangeConfirm = ({ navigation, route }) => {
     );
   };
 
-  const confirmCancelation = () => {
-    Alert.alert(
-      '비밀번호 변경 중단', // 대화상자 제목
-      '비밀번호 변경을 중단하시겠습니까?', // 대화상자 메세지
-      [
-        {
-          text: '아니오',
-          style: 'cancel',
-        },
-        {
-          text: '예',
-          onPress: () => navigation.navigate('SettingPage'), // '예'를 눌렀을 때 설정 페이지로 이동
-        },
-      ],
-      { cancelable: false }
-    );
-  };
-
   return (
     <SafeAreaView style={styles.safeAreaView}>
       <View style={styles.topBar}>
-        <Pressable style={styles.pressable} onPress={confirmCancelation}>
+        <Pressable style={styles.pressable} onPress={() => navigation.goBack()}>
           <MaterialCommunityIcons name="chevron-left" size={40} color="white" />
         </Pressable>
         <View style={styles.titleContainer}>

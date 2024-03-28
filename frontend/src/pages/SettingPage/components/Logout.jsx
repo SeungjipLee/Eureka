@@ -14,7 +14,7 @@ const Logout = () => {
       [
         {
           text: "취소",
-          onPress: () => {}, // 취소 버튼 클릭 시 아무것도 하지 않음
+          onPress: () => { }, // 취소 버튼 클릭 시 아무것도 하지 않음
           style: "cancel",
         },
         { text: "확인", onPress: () => logout() } // 확인 버튼 클릭 시 logout 함수 실행
@@ -27,7 +27,10 @@ const Logout = () => {
   const logout = async () => {
     try {
       await TokenService.clearAllTokens(); // 모든 토큰을 삭제합니다.
-      navigation.navigate('SplashPage'); // SplashPage로 이동합니다.
+      navigation.reset({
+        index: 0, // 새 스택의 시작 인덱스를 0으로 설정합니다.
+        routes: [{ name: 'SplashPage' }], // 이동할 라우트의 배열을 설정합니다.
+      }); // SplashPage로 이동합니다.
     } catch (error) {
       Alert.alert("로그아웃 실패", "로그아웃 중 문제가 발생했습니다."); // 오류가 발생하면 사용자에게 알립니다.
     }
