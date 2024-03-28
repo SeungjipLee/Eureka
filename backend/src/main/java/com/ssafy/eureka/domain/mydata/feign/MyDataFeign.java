@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-//@FeignClient(name="myDataFeign", url="${feign.client.baseurl.myDataFeign}")
 @FeignClient(name="myDataFeign", url="${feign.client.baseurl.myDataFeign}")
 public interface MyDataFeign {
     @PostMapping(path = "/auth/mydata")
