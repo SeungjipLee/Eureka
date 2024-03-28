@@ -1,6 +1,8 @@
 package com.ssafy.card.Card.service;
 
 
+import com.ssafy.card.Card.dto.request.ApprovePayRequest;
+import com.ssafy.card.Card.dto.response.ApprovePayResponse;
 import com.ssafy.card.Card.dto.response.CardHistoryResponse;
 import com.ssafy.card.Card.entity.CardEntity;
 import com.ssafy.card.Card.entity.CardHistoryEntity;
@@ -16,4 +18,5 @@ public interface CardService {
     public List<UserCardResponse> cardList(UserDetails userDetails);
     public CardHistoryResponse cardHistory(String phoneNumber, String cardIdentifier, String yyyymm);
 
+    ApprovePayResponse approvePay(ApprovePayRequest approvePayRequest);
 }

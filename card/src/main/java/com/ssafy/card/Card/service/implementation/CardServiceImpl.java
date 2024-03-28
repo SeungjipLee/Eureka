@@ -1,5 +1,7 @@
 package com.ssafy.card.Card.service.implementation;
 
+import com.ssafy.card.Card.dto.request.ApprovePayRequest;
+import com.ssafy.card.Card.dto.response.ApprovePayResponse;
 import com.ssafy.card.Card.dto.response.CardHistoryResponse;
 import com.ssafy.card.Card.entity.CardEntity;
 import com.ssafy.card.Card.entity.CardHistoryEntity;
@@ -80,5 +82,23 @@ public class CardServiceImpl implements CardService {
         }
 
         return new CardHistoryResponse(myDataCardHistoryList);
+    }
+
+    @Override
+    public ApprovePayResponse approvePay(ApprovePayRequest approvePayRequest) {
+        // 토큰 검증하기.
+        UserCardEntity userCard = userCardRepository.findByCardIdentifier(approvePayRequest.getCardIdentifier())
+            .orElseThrow(() -> new CustomException(ResponseCode.NOT_FOUND_CARD));
+
+        if(!userCard.getToken().equals(approvePayRequest.getToken())){
+            throw new CustomException(ResponseCode.PAY_TOKEN_ERROR);
+        }
+
+        // 결제 내역 저장하기.
+        CardHistoryEntity cardHistory = CardHistoryEntity.regist(userCard.getUserCardId(), approvePayRequest);
+        cardHistoryRepository.save(cardHistory);
+
+
+        return new ApprovePayResponse(cardHistory);
     }
 }

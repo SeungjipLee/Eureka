@@ -1,7 +1,9 @@
 package com.ssafy.card.Card.entity;
 
+import com.ssafy.card.Card.dto.request.ApprovePayRequest;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import java.util.concurrent.ThreadLocalRandom;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -54,4 +56,20 @@ public class CardHistoryEntity {
     int largeCategoryId;
 
     Integer smallCategoryId;
+
+    public static CardHistoryEntity regist(int userCardId, ApprovePayRequest approvePayRequest) {
+        CardHistoryEntity cardHistory = new CardHistoryEntity();
+        cardHistory.userCardId = userCardId;
+        cardHistory.status = 0;
+        cardHistory.payType = 0;
+        cardHistory.approvedNum = String.format("%08d", ThreadLocalRandom.current().nextLong(100000000L));
+        cardHistory.approvedDateTime = LocalDateTime.now();
+        cardHistory.approvedAmt = approvePayRequest.getTotalAmount();
+        cardHistory.merchantName = approvePayRequest.getStoreName();
+        cardHistory.merchantRegNo = approvePayRequest.getStoreRegNo();
+        cardHistory.totalInstallCnt = approvePayRequest.getTotalInstallCnt();
+        cardHistory.largeCategoryId = approvePayRequest.getLargeCategoryId();
+        cardHistory.smallCategoryId = approvePayRequest.getSmallCategoryId();
+        return cardHistory;
+    }
 }

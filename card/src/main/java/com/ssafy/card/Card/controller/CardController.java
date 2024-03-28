@@ -1,18 +1,15 @@
 package com.ssafy.card.Card.controller;
 
+import com.ssafy.card.Card.dto.request.ApprovePayRequest;
+import com.ssafy.card.Card.dto.response.ApprovePayResponse;
 import com.ssafy.card.Card.dto.response.CardHistoryResponse;
-import com.ssafy.card.Card.entity.CardEntity;
-import com.ssafy.card.Card.entity.CardHistoryEntity;
 import com.ssafy.card.Card.service.CardService;
-import com.ssafy.card.User.dto.response.CardPayHistoryResponse;
 import com.ssafy.card.User.dto.response.UserCardResponse;
-import com.ssafy.card.User.entity.UserCardEntity;
 import com.ssafy.card.common.ApiResponse;
 import com.ssafy.card.common.ResponseCode;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.coyote.Response;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -46,5 +43,14 @@ public class CardController {
         CardHistoryResponse result = cardService.cardHistory(phoneNumber, cardIdentifier, yyyymm);
 
         return new ApiResponse(ResponseCode.SUCCESS.getMessage(), ResponseCode.SUCCESS.getStatus(), result);
+    }
+
+    @PostMapping("/pay")
+    public ApiResponse<?> approvePay(@AuthenticationPrincipal UserDetails userDetails,
+        @RequestBody ApprovePayRequest approvePayRequest){
+
+        ApprovePayResponse result = cardService.approvePay(approvePayRequest);
+
+        return new ApiResponse<>(ResponseCode.SUCCESS.getMessage(), ResponseCode.SUCCESS.getStatus(), result);
     }
 }
