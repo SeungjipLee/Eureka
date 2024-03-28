@@ -22,7 +22,7 @@ public class PayInfo {
     private String storeName;
 
     @NotNull
-    private String storeId;
+    private String storeRegNo;
 
     @NotNull
     private String orderName;
@@ -34,19 +34,36 @@ public class PayInfo {
     private int vat;
 
     @NotNull
+    private int totalInstallCnt;
+
+    @NotNull
     private LocalDateTime requestedAt;
 
     private String redirectUrl;
 
-    public PayInfo(String userId, RequestPayRequest requestPayRequest) {
+    @NotNull
+    private int largeCategoryId;
+
+    private Integer smallCategoryId;
+
+    private int recommendCardId;
+
+    private int recommendDiscount;
+
+    public PayInfo(String userId, RequestPayRequest requestPayRequest, int recommendCardId, int recommendDiscount) {
         this.userId = userId;
         this.orderId = requestPayRequest.getOrderId();
         this.storeName = requestPayRequest.getStoreName();
-        this.storeId = requestPayRequest.getStoreId();
+        this.storeRegNo = requestPayRequest.getStoreRegNo();
         this.orderName = requestPayRequest.getOrderName();
         this.totalAmount = requestPayRequest.getTotalAmount();
         this.vat = requestPayRequest.getVat();
+        this.totalInstallCnt = requestPayRequest.getTotalInstallCnt();
         this.requestedAt = requestPayRequest.getRequestedAt();
         this.redirectUrl = requestPayRequest.getRedirectUrl();
+        this.largeCategoryId = requestPayRequest.getLargeCategoryId();
+        this.smallCategoryId = requestPayRequest.getSmallCategoryId();
+        this.recommendCardId = recommendCardId;
+        this.recommendDiscount = recommendDiscount;
     }
 }

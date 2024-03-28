@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 public class RequestPayRequest {
-    private String storeId;
+    private String storeRegNo;
 
     private String storeName;
 
