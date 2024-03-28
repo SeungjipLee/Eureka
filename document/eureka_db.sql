@@ -24,7 +24,7 @@ drop table if exists small_category;
 create table if not exists small_category
 (
     small_category_id   int             auto_increment    primary key       COMMENT '소분류 카테고리 관리번호',
-    category_name       varchar(300)    not null          unique            COMMENT '소분류 카테고리 이름',
+    category_name       varchar(300)    not null                            COMMENT '소분류 카테고리 이름',
     large_category_id   tinyint         not null                            COMMENT '대분류 카테고리 관리번호'
 );
 
@@ -89,6 +89,7 @@ create table if not exists user
 (
     user_id          int            auto_increment      primary key                 COMMENT '유저 관리번호',
     user_birth       char(6)        not null                                        COMMENT '생년월일(6자리)',
+    user_gender      char(1)        not null                                        COMMENT '주민번호 뒤자리 1번쨰',
     user_name        varchar(30)    not null                                        COMMENT '이름',
     phone_number     varchar(255)   not null            unique                      COMMENT '휴대폰 번호(AES-256)',
     password         varchar(255)   not null                                        COMMENT '비밀번호(6자리, BCrypt)',
@@ -105,7 +106,7 @@ create table if not exists user_card
     user_card_id            int             auto_increment     primary key      COMMENT '유저 카드 관리번호',
     user_id                 int             not null                            COMMENT '유저 관리번호',
     card_id                 int             not null                            COMMENT '카드 관리번호',
-    card_identifier         char(100)       not null                            COMMENT '카드 식별자 값',
+    card_identifier         char(100)       not null           unique           COMMENT '카드 식별자 값',
     first_card_number       char(4)         null                                COMMENT '카드 앞 4자리',
     last_card_number        char(4)         null                                COMMENT '카드 뒤 4자리',
     current_month_amount    bigint          null                                COMMENT '당월 사용 금액',
@@ -120,15 +121,15 @@ create index idx_user_id on user_card(user_id);
 
 
 #9. partnership_store
-drop table if exists partnership_store;
-create table if not exists partnership_store
-(
-    partnership_store_id    int             auto_increment      primary key     COMMENT '제휴 가맹점 관리번호',
-    small_category_id       int             not null                            COMMENT '소분류 카테고리 관리번호',
-    store_code              char(20)        not null            unique          COMMENT '가맹점 코드',
-    store_name              varchar(300)    not null            unique          COMMENT '가맹점명',
-    store_reg_no            char(12)        not null                            COMMENT '사업자 등록번호 "-"포함'
-);
+# drop table if exists partnership_store;
+# create table if not exists partnership_store
+# (
+#     partnership_store_id    int             auto_increment      primary key     COMMENT '제휴 가맹점 관리번호',
+#     small_category_id       int             not null                            COMMENT '소분류 카테고리 관리번호',
+#     store_code              char(20)        not null            unique          COMMENT '가맹점 코드',
+#     store_name              varchar(300)    not null            unique          COMMENT '가맹점명',
+#     store_reg_no            char(12)        not null                            COMMENT '사업자 등록번호 "-"포함'
+# );
 
 
 #10. pay_history
@@ -142,7 +143,7 @@ create table if not exists pay_history
     recommendCardId         int             not null                                        COMMENT '추천 카드 관리번호',
     partnership_store_id    int             not null                                        COMMENT '제휴 가맹점 관리번호',
     large_category_id       tinyint         not null                                        COMMENT '대분류 카테고리 번호',
-    small_category_id       int             not null                                        COMMENT '소분류 카테고리 번호',
+    small_category_id       int             null                                            COMMENT '소분류 카테고리 번호',
     approved_num            char(8)         not null                                        COMMENT '승인 번호',
     approved_date_time      datetime        not null            default current_timestamp   COMMENT '승인 일시',
     approved_amt            int             not null                                        COMMENT '승인 금액',
@@ -240,7 +241,3 @@ create table if not exists discount_small_static
 );
 
 create index idx_discount_large_static_id_small_category_id on discount_small_static(discount_large_static_id, small_category_id);
-
-
-
-

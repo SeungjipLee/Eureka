@@ -15,7 +15,7 @@ public interface UserCardService {
     List<PayUserCardResponse> payUserCardList(String userId);
     CardInfoResponse userCardInfo(int userCardId);
 
-    List<CardHistoryListResponse> listCardHistory(String userId, String yyyymm);
+    List<CardHistoryListResponse> listCardHistory(String userId, int userCardId, String yyyymm);
 
     void registUserCard(String userId, RegistUserCardRequest registUserCardRequest);
 

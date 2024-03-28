@@ -47,6 +47,6 @@ public class AuthController {
         log.debug("Access Token 재발급 : " + request);
         JwtTokenResponseDto result = authService.reIssueToken(request);
 
-        return new ApiResponse<>(ResponseCode.SUCCESS.getMessage(), ResponseCode.SUCCESS.getStatus(), result);
+        return new ApiResponse(ResponseCode.SUCCESS.getMessage(), ResponseCode.SUCCESS.getStatus(), result);
     }
 }

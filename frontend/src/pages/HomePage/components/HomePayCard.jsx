@@ -9,7 +9,7 @@ function HomePayCard () {
     <View>
       <View style={styles.header}>
         <Text style={styles.easyPay}>간편 결제</Text>
-        <Pressable onPress={() => navigation.navigate('Setting')}>
+        <Pressable onPress={() => navigation.navigate('SettingRouters')}>
           <View style={styles.settingIcon}>
             <MaterialCommunityIcons 
               name="cog-outline" size={36} color={'#9E9797'}/>

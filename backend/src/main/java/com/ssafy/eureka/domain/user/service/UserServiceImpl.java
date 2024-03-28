@@ -96,7 +96,7 @@ public class UserServiceImpl implements UserService{
         refreshTokenRepository.save(new RefreshToken(String.valueOf(user.getUserId()), jwtTokenResponse.getRefreshToken()));
 
         String phoneNumber = aesUtil.decrypt(user.getPhoneNumber());
-        String userBirth = user.getUserBirth().format(DateTimeFormatter.ofPattern("yyMMdd"));
+        String userBirth = user.getUserBirth();
 
         MyDataApiResponse<?> response = myDataFeign.requestToken(new MyDataTokenRequest(phoneNumber, userBirth, user.getUserName()));
 
@@ -122,8 +122,7 @@ public class UserServiceImpl implements UserService{
         }
 
         UserEntity user = UserEntity.signUpUser(
-            signUpRequest.getUserName(),
-            userUtil.formatBirthDate(signUpRequest.getUserBirth(), signUpRequest.getUserGender()),
+            signUpRequest,
             bCryptPasswordEncoder.encode(signUpRequest.getPassword()),
             encodePhoneNumber);
 
@@ -173,7 +172,7 @@ public class UserServiceImpl implements UserService{
         refreshTokenRepository.save(new RefreshToken(String.valueOf(user.getUserId()), jwtTokenResponse.getRefreshToken()));
 
         String phoneNumber = aesUtil.decrypt(user.getPhoneNumber());
-        String userBirth = user.getUserBirth().format(DateTimeFormatter.ofPattern("yyMMdd"));
+        String userBirth = user.getUserBirth();
 
         MyDataApiResponse<?> response = myDataFeign.requestToken(new MyDataTokenRequest(phoneNumber, userBirth, user.getUserName()));
 
@@ -206,5 +205,6 @@ public class UserServiceImpl implements UserService{
 
         String encodePassword = bCryptPasswordEncoder.encode(password);
         user.updatePassword(encodePassword);
+        userRepository.save(user);
     }
 }

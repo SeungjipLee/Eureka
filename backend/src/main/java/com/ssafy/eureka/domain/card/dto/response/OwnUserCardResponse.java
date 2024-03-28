@@ -1,6 +1,7 @@
 package com.ssafy.eureka.domain.card.dto.response;
 
 import com.ssafy.eureka.domain.card.dto.UserCardEntity;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,7 +29,7 @@ public class OwnUserCardResponse {
     private BigInteger currentMonthAmount;
     private boolean isPaymentEnabled;
     private String token;
-    private LocalDate paymentDate;
+    private LocalDateTime paymentDate;
 
     // 카드 Entity
     private String imagePath;
@@ -52,12 +53,11 @@ public class OwnUserCardResponse {
         this.currentMonthAmount = userCardEntity.getCurrentMonthAmount();
         this.isPaymentEnabled = userCardEntity.isPaymentEnabled();
         this.token = userCardEntity.getToken();
-        this.paymentDate = LocalDate.from(userCardEntity.getPaymentDate());
+        this.paymentDate = userCardEntity.getPaymentDate();
         this.imagePath = imagePath;
         this.cardName = cardName;
         this.imageAttr = imageAttr;
         this.list = list;
-
     }
 }
 

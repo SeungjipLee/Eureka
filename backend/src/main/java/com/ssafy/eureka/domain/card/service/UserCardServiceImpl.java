@@ -118,7 +118,7 @@ public class UserCardServiceImpl implements UserCardService {
 
             // 카드 Entity 가져와서 카드 이름, 이미지
             CardEntity cardEntity = cardRepository.findByCard(cardId)
-                    .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
 
             String cardName = cardEntity.getCardName();
             String imagePath = cardEntity.getImagePath();
@@ -130,13 +130,13 @@ public class UserCardServiceImpl implements UserCardService {
 
             for(int j=0; j<cardBenefitEntityList.size(); j++){
 
-            int cardBenefitId = cardBenefitEntityList.get(j).getCardBenefitId();
+                int cardBenefitId = cardBenefitEntityList.get(j).getCardBenefitId();
 
-            // 카드 혜택 id로 카드 상세 혜택들 가져오기
-            List<CardBenefitDetailEntity> cardBenefitDetailEntityList = cardBenefitDetailRepository.findByCardBenefitId(cardBenefitId);
-            
-            // 혜택은 있지만 상세 혜택 테이블에서 혜택 번호가 없는 경우
-            if(cardBenefitDetailEntityList.isEmpty()) continue;
+                // 카드 혜택 id로 카드 상세 혜택들 가져오기
+                List<CardBenefitDetailEntity> cardBenefitDetailEntityList = cardBenefitDetailRepository.findByCardBenefitId(cardBenefitId);
+
+                // 혜택은 있지만 상세 혜택 테이블에서 혜택 번호가 없는 경우
+                if(cardBenefitDetailEntityList.isEmpty()) continue;
 
 
                 String discountType = cardBenefitDetailEntityList.get(0).getDiscountCostType();
@@ -152,8 +152,8 @@ public class UserCardServiceImpl implements UserCardService {
                 if(cardDetailBenefitList.size() == 3) break;
 
             } // cardBenefit
-                registerCardList.add(new OwnUserCardResponse(userCardEntityList.get(i), imagePath, cardName, imageAttr, cardDetailBenefitList));
 
+            registerCardList.add(new OwnUserCardResponse(userCardEntityList.get(i), imagePath, cardName, imageAttr, cardDetailBenefitList));
         }// cardEntity
 
         return registerCardList;
@@ -164,27 +164,28 @@ public class UserCardServiceImpl implements UserCardService {
 
         List<PayUserCardResponse> payUserCardResponseList = new ArrayList<>();
         List<UserCardEntity> userCardEntityList = userCardRepository.findAllByUserIdAndIsPaymentEnabledTrue(Integer.parseInt(userId));
-        if (userCardEntityList.isEmpty()) throw new CustomException(ResponseCode.USER_CARD_NOT_FOUND);
+        if (userCardEntityList.isEmpty()) return payUserCardResponseList;
 
         for (UserCardEntity userCardEntity : userCardEntityList)
         {
 
-        int userCardId = userCardEntity.getUserCardId();
-        int cardId = userCardEntity.getCardId();
-        String firstCardNumber = userCardEntity.getFirstCardNumber();
-        String lastCardNumber = userCardEntity.getLastCardNumber();
+            int userCardId = userCardEntity.getUserCardId();
+            int cardId = userCardEntity.getCardId();
+            String firstCardNumber = userCardEntity.getFirstCardNumber();
+            String lastCardNumber = userCardEntity.getLastCardNumber();
 
-        CardEntity cardEntity = cardRepository.findByCard(cardId)
+            CardEntity cardEntity = cardRepository.findByCard(cardId)
                 .orElseThrow(() -> new CustomException(ResponseCode.CARD_NOT_FOUND));
 
-        int previousPerformance = cardEntity.getPreviousPerformance();
-        String cardName = cardEntity.getCardName();
-        String imagePath = cardEntity.getImagePath();
+            int previousPerformance = cardEntity.getPreviousPerformance();
+            String cardName = cardEntity.getCardName();
+            String imagePath = cardEntity.getImagePath();
+            int imgAttr = cardEntity.getImgAttr();
 
-        payUserCardResponseList.add(new PayUserCardResponse(
+            payUserCardResponseList.add(new PayUserCardResponse(
                 userCardId, Integer.parseInt(userId),
                 cardId, cardName, previousPerformance,
-                firstCardNumber, lastCardNumber, imagePath));
+                firstCardNumber, lastCardNumber, imagePath, imgAttr));
         }
         return payUserCardResponseList;
     }
@@ -193,7 +194,7 @@ public class UserCardServiceImpl implements UserCardService {
     public CardInfoResponse userCardInfo(int userCardId) {
 
         UserCardEntity userCardEntity = userCardRepository.findByUserCardId(userCardId)
-                .orElseThrow(() -> new CustomException(ResponseCode.USER_CARD_NOT_FOUND));
+            .orElseThrow(() -> new CustomException(ResponseCode.USER_CARD_NOT_FOUND));
 
         boolean isPaymentEnabled = userCardEntity.isPaymentEnabled();
         int cardId = userCardEntity.getCardId();
@@ -207,7 +208,7 @@ public class UserCardServiceImpl implements UserCardService {
     }
 
     @Override
-    public List<CardHistoryListResponse> listCardHistory(String userId, String yyyymm) {
+    public List<CardHistoryListResponse> listCardHistory(String userId, int userCardId, String yyyymm) {
         MyDataToken myDataToken = mydataTokenRepository.findById(userId)
             .orElseThrow(() -> new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR));
 
@@ -216,17 +217,20 @@ public class UserCardServiceImpl implements UserCardService {
         int intUserId = Integer.parseInt(userId);
 
         UserEntity userEntity = userRepository.findByUserId(intUserId)
-                .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
+            .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
 
-        UserCardEntity userCard = userCardRepository.findByUserCardId(intUserId)
+        log.debug("카드 정보 : " + userCardId);
+        UserCardEntity userCardEntity = userCardRepository.findByUserCardId(userCardId)
             .orElseThrow(() -> new CustomException(ResponseCode.USER_CARD_NOT_FOUND));
 
         MyDataApiResponse<?> response = myDataFeign.searchCardPayList(accessToken,
-            new MyDataCardHistoryRequest(userCard.getCardIdentifier(), yyyymm));
+            new MyDataCardHistoryRequest(userCardEntity.getCardIdentifier(), yyyymm));
+        log.debug("response.getStatus() : "+ response.getStatus());
 
         if (response.getStatus() != 200) {
             throw new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR);
         }
+        log.debug("response.getStatus() 후 ");
 
         MyDataCardHistoryResponse myDataCardPayList = (MyDataCardHistoryResponse) response.getData();
 
@@ -237,7 +241,6 @@ public class UserCardServiceImpl implements UserCardService {
         }
 
         // 조회한 데이터를 쓱싹 쓱싹 해서 반환하기
-
         return cardHistoryListResponse;
     }
 
@@ -275,8 +278,10 @@ public class UserCardServiceImpl implements UserCardService {
 
         MyDataApiResponse<?> response = paymentFeign.requestPayToken(accessToken,
             new PayTokenRequest(registPayCardRequest));
+        log.debug("response : " + response);
 
         if (response.getStatus() != 200) {
+            log.debug("에러 발생 : " + response.getMessage());
             throw new CustomException(ResponseCode.PAY_TOKEN_ERROR);
         }
 

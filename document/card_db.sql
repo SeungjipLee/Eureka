@@ -6,7 +6,7 @@ create table if not exists card_company
 (
     card_company_id int             auto_increment      primary key     COMMENT '카드사 PK',
     company_name    varchar(30)     not null                            COMMENT '카드사 이름',
-    org_code        char(10)        not null                            COMMENT '기관 번호',
+    org_code        char(10)        not null            unique          COMMENT '기관 번호',
     card_brand      varchar(3)      not null                            COMMENT '카드사 브랜드 번호',
     image_path      varchar(255)    not null                            COMMENT '카드사 이미지 경로'
 );
@@ -19,7 +19,7 @@ create table if not exists card
     card_id              int         auto_increment     primary key     COMMENT '카드 관리번호',
     card_company_id      int         not null                           COMMENT '카드사 관리번호',
     card_type            int         not null                           COMMENT '카드 타입(0:신용, 1:체크, 2:소액신용체크)',
-    card_name            varchar(30) not null                           COMMENT '카드 이름',
+    card_name            varchar(300) not null                           COMMENT '카드 이름',
     annual_fee           int         not null                           COMMENT '연회비',
     previous_performance int         not null                           COMMENT '전월실적',
     caution              text        null                               COMMENT '유의사항',
@@ -50,8 +50,8 @@ create table if not exists user_card
     user_card_id    int             auto_increment  primary key     COMMENT '유저 카드 관리번호',
     user_id         int             not null                        COMMENT '유저 관리번호',
     card_id         int             not null                        COMMENT '카드 관리번호',
-    card_identifier char(64)        not null                        COMMENT '카드 식별자 값',
-    card_number     char(16)        not null                        COMMENT '카드 번호("-"없이 16자리)',
+    card_identifier char(64)        not null        unique          COMMENT '카드 식별자 값',
+    card_number     char(16)        not null        unique          COMMENT '카드 번호("-"없이 16자리)',
     card_cvc        char(3)         not null                        COMMENT '카드 cvc(3자리)',
     card_password   char(4)         not null                        COMMENT '카드 비밀번호(4자리)',
     card_member     int             not null                        COMMENT '본인/가족 (0:본인, 1:가족)',
@@ -65,7 +65,7 @@ create index idx_user_id ON user_card(user_id);
 
 #5. card_history
 drop table if exists card_history;
-create table card_history
+create table if not exists card_history
 (
     card_history_id         int           auto_increment    primary key   COMMENT '카드 결제 내역 관리번호',
     user_card_id            int           not null                        COMMENT '유저 카드 관리번호',
@@ -80,11 +80,11 @@ create table card_history
     merchant_reg_no         char(12)      not null                        COMMENT '사업자 등록번호 "-"포함',
     total_install_cnt       tinyint       null                            COMMENT '할부 개월 수',
     large_category_id       int           not null                        COMMENT '대분류 카테고리 번호',
-    small_category_id       int           not null                        COMMENT '소분류 카테고리 번호'
+    small_category_id       int           null                            COMMENT '소분류 카테고리 번호'
 );
 
 create index idx_user_card_id ON card_history(user_card_id);
 create index idx_approved_num ON card_history(approved_num);
-CREATE INDEX idx_user_card_id_approved_dtime ON card_history(user_card_id, approved_dtime);
+CREATE INDEX idx_user_card_id_approved_date_time ON card_history(user_card_id, approved_date_time);
 
 

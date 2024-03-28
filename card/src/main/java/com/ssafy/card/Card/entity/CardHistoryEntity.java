@@ -1,13 +1,11 @@
 package com.ssafy.card.Card.entity;
 
-import com.ssafy.card.User.entity.UserCardEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -55,6 +53,5 @@ public class CardHistoryEntity {
     @NotNull
     int largeCategoryId;
 
-    @NotNull
     int smallCategoryId;
 }
