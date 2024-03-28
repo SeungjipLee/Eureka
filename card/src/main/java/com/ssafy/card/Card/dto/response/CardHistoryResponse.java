@@ -2,11 +2,6 @@ package com.ssafy.card.Card.dto.response;
 
 
 import com.ssafy.card.Card.entity.CardHistoryEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,32 +16,34 @@ import java.time.LocalDateTime;
 public class CardHistoryResponse {
 
     int cardHistoryId;
-    int userCardId; // 유저 카드 PK
+    int userCardId;
     String approvedNum;
-    LocalDateTime approvedDtime;
+    LocalDateTime approvedDateTime;
     int status;
     int payType;
-    LocalDateTime transDtime;
+    LocalDateTime transDateTime;
     String merchantName;
-    String merchantRegno;
+    String merchantRegNo;
     int approvedAmt;
     int modifiedAmt;
     int totalInstallCnt;
-    String categoryName;
+    int largeCategoryId;
+    int smallCategoryId;
 
     public CardHistoryResponse(CardHistoryEntity entity){
         this.cardHistoryId = entity.getCardHistoryId();
         this.userCardId = entity.getUserCardId();
         this.approvedNum = entity.getApprovedNum();
-        this.approvedDtime = entity.getApprovedDtime();
+        this.approvedDateTime = entity.getApprovedDateTime();
         this.status = entity.getStatus();
         this.payType = entity.getPayType();
-        this.transDtime = entity.getTransDtime();
+        this.transDateTime = entity.getTransDateTime();
         this.merchantName = entity.getMerchantName();
-        this.merchantRegno = entity.getMerchantRegno();
+        this.merchantRegNo = entity.getMerchantRegNo();
         this.approvedAmt = entity.getApprovedAmt();
         this.modifiedAmt = entity.getModifiedAmt();
         this.totalInstallCnt = entity.getTotalInstallCnt();
-        this.categoryName = entity.getCategoryName();
+        this.largeCategoryId = entity.getLargeCategoryId();
+        this.smallCategoryId = entity.getSmallCategoryId();
     }
 }

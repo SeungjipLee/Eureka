@@ -9,7 +9,6 @@ import com.ssafy.eureka.domain.card.dto.UserCardEntity;
 import com.ssafy.eureka.domain.card.repository.CardBenefitDetailRepository;
 import com.ssafy.eureka.domain.card.repository.CardRepository;
 import com.ssafy.eureka.domain.card.repository.UserCardRepository;
-import com.ssafy.eureka.domain.category.dto.SmallCategoryEntity;
 import com.ssafy.eureka.domain.category.repository.SmallCategoryRepository;
 import com.ssafy.eureka.domain.pay.dto.PayInfo;
 import com.ssafy.eureka.domain.pay.dto.request.AprrovePayRequest;
@@ -17,7 +16,6 @@ import com.ssafy.eureka.domain.pay.dto.request.RequestPayRequest;
 import com.ssafy.eureka.domain.pay.dto.response.AprrovePayResponse;
 import com.ssafy.eureka.domain.pay.dto.response.CardRecommendResponse;
 import com.ssafy.eureka.domain.pay.dto.response.CardRecommendResponse.RecommendCard;
-import com.ssafy.eureka.domain.pay.repository.PartnershipStoreRepository;
 import com.ssafy.eureka.domain.pay.repository.PayHistoryRepository;
 import com.ssafy.eureka.domain.pay.repository.PayInfoRepository;
 import com.ssafy.eureka.domain.payment.dto.request.PayRequest;
@@ -39,7 +37,6 @@ public class PayServiceImpl implements PayService{
     private final PaymentFeign paymentFeign;
 
     private final CardBenefitDetailRepository cardBenefitDetailRepository;
-    private final PartnershipStoreRepository partnershipStoreRepository;
     private final SmallCategoryRepository smallCategoryRepository;
     private final CardRepository cardRepository;
 
@@ -49,11 +46,8 @@ public class PayServiceImpl implements PayService{
         PayInfo payInfo = new PayInfo(userId, requestPayRequest);
         payInfoRepository.save(payInfo);
 
-        SmallCategoryEntity category = smallCategoryRepository.findSmallCategoryByStoreCode(payInfo.getStoreCode())
-            .orElseThrow(() -> new CustomException(ResponseCode.STORE_NOT_FOUND));
-
-        int largeCategory = category.getLargeCategoryId();
-        int smallCategory = category.getSmallCategoryId();
+        int largeCategory = requestPayRequest.getLargeCategoryId();
+        int smallCategory = requestPayRequest.getSmallCategoryId();
 
         List<UserCardEntity> userCardList = userCardRepository.findAllByUserIdAndIsPaymentEnabledTrue(Integer.parseInt(userId));
 
