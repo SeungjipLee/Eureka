@@ -3,7 +3,7 @@ import { StyleSheet, Text, View, SafeAreaView, TextInput, Alert, TouchableOpacit
 import { Picker } from '@react-native-picker/picker';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
-import TokenUtils from '../../stores/TokenUtils';
+import TokenService from '../../stores/TokenUtils';
 
 const SignupPage = () => {
 
@@ -103,8 +103,9 @@ const SignupPage = () => {
           if (response.data && response.data.accessToken && response.data.refreshToken) {
             // TokenUtils를 사용하여 accessToken과 refreshToken 저장 및 Routers로 이동
             const { accessToken, refreshToken } = response.data;
-            await TokenUtils.setToken(accessToken, refreshToken);
+            await TokenService.setToken(accessToken, refreshToken);
             navigation.navigate('Routers');
+            console.log(accessToken)
           } else {
             // response.data가 비어있거나 예상한 값이 없는 경우, 인증 성공 처리
             Alert.alert('인증 성공', '인증이 완료되었습니다.', [
