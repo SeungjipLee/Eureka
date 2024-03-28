@@ -79,7 +79,7 @@ public class UserCardServiceImpl implements UserCardService {
             MyDataApiResponse<?> response = myDataFeign.searchUserCard(accessToken, comp);
 
             if (response.getStatus() != 200) {
-                throw new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR);
+                throw new CustomException(400, response.getMessage());
             }
 
             MyDataUserCardResponse myDataUserCardResponse = (MyDataUserCardResponse) response.getData();
@@ -228,7 +228,7 @@ public class UserCardServiceImpl implements UserCardService {
         log.debug("response.getStatus() : "+ response.getStatus());
 
         if (response.getStatus() != 200) {
-            throw new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR);
+            throw new CustomException(400, response.getMessage());
         }
         log.debug("response.getStatus() 후 ");
 
@@ -281,8 +281,7 @@ public class UserCardServiceImpl implements UserCardService {
         log.debug("response : " + response);
 
         if (response.getStatus() != 200) {
-            log.debug("에러 발생 : " + response.getMessage());
-            throw new CustomException(ResponseCode.PAY_TOKEN_ERROR);
+            throw new CustomException(400, response.getMessage());
         }
 
         PayTokenResponse payTokenResponse = (PayTokenResponse) response.getData();

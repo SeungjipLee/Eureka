@@ -101,7 +101,7 @@ public class UserServiceImpl implements UserService{
         MyDataApiResponse<?> response = myDataFeign.requestToken(new MyDataTokenRequest(phoneNumber, userBirth, user.getUserName()));
 
         if(response.getStatus() != 200){
-            throw new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR);
+            throw new CustomException(400, response.getMessage());
         }
 
         MyDataTokenResponse myDataTokenResponse = (MyDataTokenResponse) response.getData();
@@ -135,7 +135,7 @@ public class UserServiceImpl implements UserService{
         MyDataApiResponse<?> response = myDataFeign.requestToken(new MyDataTokenRequest(signUpRequest.getPhoneNumber(), signUpRequest.getUserBirth(), signUpRequest.getUserName()));
 
         if(response.getStatus() != 200){
-            throw new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR);
+            throw new CustomException(400, response.getMessage());
         }
 
         MyDataTokenResponse myDataTokenResponse = (MyDataTokenResponse) response.getData();
@@ -177,7 +177,7 @@ public class UserServiceImpl implements UserService{
         MyDataApiResponse<?> response = myDataFeign.requestToken(new MyDataTokenRequest(phoneNumber, userBirth, user.getUserName()));
 
         if(response.getStatus() != 200){
-            throw new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR);
+            throw new CustomException(400, response.getMessage());
         }
 
         MyDataTokenResponse myDataTokenResponse = (MyDataTokenResponse) response.getData();
