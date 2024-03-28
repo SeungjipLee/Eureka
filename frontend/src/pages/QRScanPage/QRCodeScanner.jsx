@@ -1,28 +1,44 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Text, View, StyleSheet, Pressable, Dimensions } from "react-native";
+import { Text, View, StyleSheet, Pressable, Image } from "react-native";
 import { Camera } from "expo-camera";
 import { MaterialIcons } from '@expo/vector-icons';
+import { cardPay } from "../../apis/CardAPi";
+import TokenUtils from "../../stores/TokenUtils";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
 export default function QRcodeScanner() {
+  const navigation = useNavigation()
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
-  const [barcodeData, setBarcodeData] = useState(null)
+  const [barcodeData, setBarcodeData] = useState(null);
   const cameraRef = useRef(null);
+  const [token, setToken] = useState('');
 
   useEffect(() => {
-    const getCameraPermissions = async () => {
+    (async () => {
       const { status } = await Camera.requestCameraPermissionsAsync();
       setHasPermission(status === "granted");
-    };
-
-    getCameraPermissions();
+      const accessToken = await TokenUtils.getAccessToken();
+      setToken(accessToken);
+    })();
   }, []);
+
+  useFocusEffect(() => {
+    setScanned(false);
+  });
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
-    setBarcodeData({ type, data })
-    alert('결제 코드 인식 성공');
-    console.log({ type, data })
+    setBarcodeData({ type, data });
+    
+    cardPay(
+      token,
+      { type, data }, // Use the latest barcode data directly here
+      (res) => console.log(res),
+      (err) => console.log(err)  
+    );
+    console.log({ type, data });
+    navigation.navigate('PayLoadingPage');
   };
 
   const handleRetryScan = () => {
@@ -63,9 +79,12 @@ export default function QRcodeScanner() {
         </View>
       )}
       {!scanned && (
-        <View style={styles.cameraButton}>
-          <MaterialIcons name="photo-camera" size={64} color="white" />
-        </View>
+        <>
+        <Pressable onPress={() => navigation.navigate('HomePage')} style={styles.cameraButton1}>
+          <MaterialIcons name="chevron-left" size={64} color="white" />
+        </Pressable>
+        <Image source={require('../../../assets/QRBorder.png')} style={styles.cameraButton2}/>
+      </>
       )}
     </View>
   );
@@ -77,6 +96,12 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "center",
     position: 'relative',
+  },
+  backButton: {
+    position: 'absolute',
+    top: 20,
+    left: 20,
+    zIndex: 999,
   },
   camera: {
     flex: 1,
@@ -96,12 +121,17 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
-  cameraButton: {
+  cameraButton1: {
     position: 'absolute',
-    bottom: 20,
+    top: 50,
+    left: 140,
     alignSelf: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
-    borderRadius: 50,
-    padding: 10,
+  },
+  cameraButton2: {
+    position: 'absolute',
+    top: 200,
+    alignSelf: 'center',
+    width: 300,
+    height: 300,
   },
 });

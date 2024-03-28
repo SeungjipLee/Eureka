@@ -1,10 +1,66 @@
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, Image, Pressable, ScrollView } from "react-native"
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import TokenUtils from "../../stores/TokenUtils";
+import { getCardDetail, getCardHistory } from "../../apis/CardAPi";
 
 
-function CardDetailPage() {
+
+function CardDetailPage({route}) {
   const navigation = useNavigation()
+  const { userCardId } = route.params || {};
+  const [token, setToken] = useState('');
+  const [cardInfo, setCardInfo] = useState([]);
+  const [cardHistory, setCardHistory] = useState([])
+  const [month, setMonth] = useState('03')
+  const [year, setYear] = useState('2024')
+
+  useEffect(() => {
+    const fetchToken = async () => {
+      const accessToken = await TokenUtils.getAccessToken();
+      setToken(accessToken);
+    };
+  
+    fetchToken();
+  }, []);
+  const fetchCardList = async () => {
+    if (token) { 
+      getCardDetail(
+        token,
+        userCardId,
+        (res) => {
+          setCardInfo(res.data);
+          console.log(res.data)
+        },
+        (err) => console.log(err)
+      );
+    }
+  };
+  
+  const fetchHistoryList = async () => {
+    if (token) {
+      getCardHistory(
+        token,
+        userCardId,
+        year+month,
+        (res) => {
+          setCardHistory(res.data)
+          console.log(res.data)
+        },
+        (err) => console.log(userCardId, year+month)
+      )
+    }
+  }
+
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchCardList();
+      fetchHistoryList()
+      return () => {};
+    }, [token])
+  );
+
   const data = {
     month: 3,
     name: "삼성카드 taptap O",
@@ -50,14 +106,17 @@ function CardDetailPage() {
       </Pressable>
       <Text style={styles.title}>카드 정보</Text>
 
-      <Text style={styles.cardName}>{data.name}</Text>
-      <Image source={data.imgUrl} style={styles.cardImg} />
+      <Text style={styles.cardName}>{cardInfo.cardName}</Text>
+      <Image
+        source={{ uri: cardInfo.imagePath }}
+        style={cardInfo.imgAttr === 1 ? [styles.cardImg, styles.rotatedImage] : styles.cardImg}
+      />
       <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
         <View style={styles.patch}>
-          <Text style={styles.patchfont}>{data.creditCheck}</Text>
+          <Text style={styles.patchfont}>{cardInfo.cardType === 1 ? '신용' : '체크'}</Text>
         </View>
         <View style={styles.patch}>
-          <Text style={styles.patchfont}>{data.cardStatus}</Text>
+          <Text style={styles.patchfont}>{cardInfo.paymentEnabled === true ? '결제 카드' : '보유 카드'}</Text>
         </View>
       </View>
 
@@ -90,7 +149,7 @@ function CardDetailPage() {
           <Pressable onPress={() => navigation.navigate('CardHome')} style={{  marginLeft: 20 }}>
             <MaterialCommunityIcons name="chevron-left" size={50} color="#B8B8B8"/>
           </Pressable>
-          <Text style={{fontSize: 24}}>3월📅</Text>
+          <Text style={{fontSize: 24}}>{month}월📅</Text>
           <Pressable onPress={() => navigation.navigate('CardHome')} style={{ marginRight: 20 }}>
             <MaterialCommunityIcons name="chevron-right" size={50} color="#B8B8B8"/>
           </Pressable>
@@ -163,9 +222,17 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   cardImg: {
-    width: 220,
-    height: 120,
+    width: 240,
+    height: 140,
     borderRadius: 10,
+  },
+  rotatedImage: {
+    transform: [{ rotate: '-90deg' }],
+    width: 140,
+    height: 240,
+    marginHorizontal: 20,
+    marginEnd: 30,
+    marginVertical: -40
   },
   patch: {
      paddingHorizontal: 15,
