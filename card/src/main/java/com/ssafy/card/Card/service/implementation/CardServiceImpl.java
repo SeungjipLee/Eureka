@@ -59,7 +59,7 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public List<CardHistoryEntity> cardHistory(String phoneNumber, String cardIdentifier, String yyyymm) {
+    public CardHistoryResponse cardHistory(String phoneNumber, String cardIdentifier, String yyyymm) {
 
         UserEntity userEntity = userRepository.findByPhoneNumber(phoneNumber)
                 .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
@@ -72,13 +72,13 @@ public class CardServiceImpl implements CardService {
 
         List<CardHistoryEntity> list = cardHistoryRepository.findByUserCardIdAndMonthAndYear(
                 userCardId, yyyymm.substring(0, 4), yyyymm.substring(4, 6));
-        List<CardHistoryEntity> list2 = cardHistoryRepository.findByUserCardId(userCardId);
 
-        List<CardHistoryResponse> historyList = new ArrayList<>();
-        for(int i=0; i<list.size(); i++){
-            historyList.add(new CardHistoryResponse(list.get(i)));
+        List<CardHistoryResponse.MyDataCardHistory> myDataCardHistoryList = new ArrayList<>();
+
+        for(CardHistoryEntity history : list){
+            myDataCardHistoryList.add(new CardHistoryResponse.MyDataCardHistory(history));
         }
 
-        return list;
+        return new CardHistoryResponse(myDataCardHistoryList);
     }
 }

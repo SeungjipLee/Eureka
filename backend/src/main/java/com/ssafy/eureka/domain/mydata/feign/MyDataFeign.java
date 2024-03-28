@@ -23,7 +23,7 @@ public interface MyDataFeign {
         @RequestParam("cardCompanyId") int cardCompanyId);
 
     @GetMapping(path = "/card/history")
-    public MyDataApiResponse<List<MyDataCardHistoryResponse.MyDataCardHistory>> searchCardPayList(
+    public MyDataApiResponse<MyDataCardHistoryResponse> searchCardPayList(
         @RequestHeader("Authorization") String accessToken,
         @RequestParam("cardIdentifier") String cardIdentifier,
         @RequestParam("yyyymm") String yyyymm);

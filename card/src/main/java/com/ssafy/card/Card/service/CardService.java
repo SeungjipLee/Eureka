@@ -14,6 +14,6 @@ import java.util.List;
 public interface CardService {
 
     public List<UserCardResponse> cardList(UserDetails userDetails);
-    public List<CardHistoryEntity> cardHistory(String phoneNumber, String cardIdentifier, String yyyymm);
+    public CardHistoryResponse cardHistory(String phoneNumber, String cardIdentifier, String yyyymm);
 
 }

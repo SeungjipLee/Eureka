@@ -33,10 +33,10 @@ cloud:
     s3:
       bucket: eureka_bucket
 
-#feign:
-#  client:
-#    baseurl:
-#      myDataFeign: http://localhost:8001/card
+feign:
+  client:
+    baseurl:
+      myDataFeign: http://localhost:8001/card
 
 jwt:
   secretKey: VYKlQrH0M4Gx7uUq7sXc7saINlUsZD9Vb6FZr5R4zoE

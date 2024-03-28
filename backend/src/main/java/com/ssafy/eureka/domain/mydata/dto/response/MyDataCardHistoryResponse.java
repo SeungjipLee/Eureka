@@ -20,15 +20,15 @@ public class MyDataCardHistoryResponse {
     public static class MyDataCardHistory {
         int cardHistoryId;
         int userCardId;
-        String approvedNum;
-        LocalDateTime approvedDateTime;
         int status;
         int payType;
+        String approvedNum;
+        LocalDateTime approvedDateTime;
+        int approvedAmt;
         LocalDateTime transDateTime;
+        int modifiedAmt;
         String merchantName;
         String merchantRegNo;
-        int approvedAmt;
-        int modifiedAmt;
         int totalInstallCnt;
         int largeCategoryId;
         int smallCategoryId;

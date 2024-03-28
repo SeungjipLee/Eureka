@@ -234,11 +234,11 @@ public class UserCardServiceImpl implements UserCardService {
             throw new CustomException(400, response.getMessage());
         }
 
-        List<MyDataCardHistoryResponse.MyDataCardHistory> myDataCardPayList = (List<MyDataCardHistoryResponse.MyDataCardHistory>) response.getData();
+        MyDataCardHistoryResponse myDataCardPayList = (MyDataCardHistoryResponse) response.getData();
 
         log.debug("myDataCardPayList : "+ myDataCardPayList);
 
-        return new MyDataCardHistoryResponse(myDataCardPayList);
+        return myDataCardPayList;
     }
 
     @Override

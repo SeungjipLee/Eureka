@@ -43,7 +43,7 @@ public class CardController {
         System.out.println("카드 결제 내역 조회, 카드식별자 : "+ cardIdentifier +"/" + yyyymm);
         log.debug("카드 결제 내역 조회, 카드식별자 : "+ cardIdentifier );
         String phoneNumber = userDetails.getUsername();
-        List<CardHistoryEntity> result = cardService.cardHistory(phoneNumber, cardIdentifier, yyyymm);
+        CardHistoryResponse result = cardService.cardHistory(phoneNumber, cardIdentifier, yyyymm);
 
         return new ApiResponse(ResponseCode.SUCCESS.getMessage(), ResponseCode.SUCCESS.getStatus(), result);
     }

@@ -64,11 +64,11 @@ public class UserCardController {
         return ResponseEntity.ok().build();
     }
 
-    @Operation(summary = "해당 카드 모든 거래 내역 조회")
+    @Operation(summary = "해당 카드 거래 내역 조회")
     @PostMapping("/list/pay")
     public ResponseEntity<?> listCardHistory(@AuthenticationPrincipal UserDetails userDetails,
                                              @RequestParam int userCardId, @RequestParam String yyyymm){
-        log.debug("카드 내역 조회, userId : " + userDetails.getUsername());
+        log.debug("카드 내역 조회, userId : " + userDetails.getUsername() + ", 카드번호 : " + userCardId + ", yyyymm : " + yyyymm);
         return ResponseEntity.ok(userCardService.listCardHistory(userDetails.getUsername(), userCardId, yyyymm));
     }
 
