@@ -111,7 +111,6 @@ public class UserCardServiceImpl implements UserCardService {
         List<UserCardEntity> userCardEntityList = userCardRepository.findAllByUserId(Integer.parseInt(userId));
         if(userCardEntityList == null) throw new CustomException(ResponseCode.USER_CARD_NOT_FOUND);
 
-        log.debug("1");
         for(int i=0; i<userCardEntityList.size(); i++){
 
             cardDetailBenefitList = new ArrayList<>();
@@ -129,7 +128,6 @@ public class UserCardServiceImpl implements UserCardService {
             // 한 카드에 혜택 3개만 보여줄거야, 첫 번째 혜택의 첫 번째 상세혜택 -> 총 3개
             List<CardBenefitEntity> cardBenefitEntityList = cardBenefitRepository.findByCardId(cardId);
 
-            log.debug("2");
             for(int j=0; j<cardBenefitEntityList.size(); j++){
 
                 int cardBenefitId = cardBenefitEntityList.get(j).getCardBenefitId();
@@ -154,14 +152,10 @@ public class UserCardServiceImpl implements UserCardService {
                 if(cardDetailBenefitList.size() == 3) break;
 
             } // cardBenefit
-            log.debug("userCardEntityList.get(i), imagePath, cardName, imageAttr, cardDetailBenefitList : "
-                    + userCardEntityList.get(i) +" / "+ imagePath+" / "+ cardName+" / "+imageAttr +" / "+cardDetailBenefitList);
 
             registerCardList.add(new OwnUserCardResponse(userCardEntityList.get(i), imagePath, cardName, imageAttr, cardDetailBenefitList));
-            log.debug("4");
         }// cardEntity
 
-        log.debug("registerCardList");
         return registerCardList;
     }
 
@@ -170,7 +164,7 @@ public class UserCardServiceImpl implements UserCardService {
 
         List<PayUserCardResponse> payUserCardResponseList = new ArrayList<>();
         List<UserCardEntity> userCardEntityList = userCardRepository.findAllByUserIdAndIsPaymentEnabledTrue(Integer.parseInt(userId));
-        if (userCardEntityList.isEmpty()) throw new CustomException(ResponseCode.USER_CARD_NOT_FOUND);
+        if (userCardEntityList.isEmpty()) return payUserCardResponseList;
 
         for (UserCardEntity userCardEntity : userCardEntityList)
         {
@@ -213,7 +207,7 @@ public class UserCardServiceImpl implements UserCardService {
     }
 
     @Override
-    public List<CardHistoryListResponse> listCardHistory(String userId, String yyyymm) {
+    public List<CardHistoryListResponse> listCardHistory(String userId, int userCardId, String yyyymm) {
         MyDataToken myDataToken = mydataTokenRepository.findById(userId)
             .orElseThrow(() -> new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR));
 
@@ -224,11 +218,13 @@ public class UserCardServiceImpl implements UserCardService {
         UserEntity userEntity = userRepository.findByUserId(intUserId)
             .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
 
-        UserCardEntity userCard = userCardRepository.findByUserCardId(intUserId)
+        log.debug("카드 정보 : " + userCardId);
+        UserCardEntity userCardEntity = userCardRepository.findByUserCardId(userCardId)
             .orElseThrow(() -> new CustomException(ResponseCode.USER_CARD_NOT_FOUND));
 
         MyDataApiResponse<?> response = myDataFeign.searchCardPayList(accessToken,
-            new MyDataCardHistoryRequest(userCard.getCardIdentifier(), yyyymm));
+            new MyDataCardHistoryRequest(userCardEntity.getCardIdentifier(), yyyymm));
+        log.debug("마이 데이터 Feign ");
 
         if (response.getStatus() != 200) {
             throw new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR);
@@ -243,7 +239,6 @@ public class UserCardServiceImpl implements UserCardService {
         }
 
         // 조회한 데이터를 쓱싹 쓱싹 해서 반환하기
-
         return cardHistoryListResponse;
     }
 
@@ -281,6 +276,7 @@ public class UserCardServiceImpl implements UserCardService {
 
         MyDataApiResponse<?> response = paymentFeign.requestPayToken(accessToken,
             new PayTokenRequest(registPayCardRequest));
+        log.debug("response : " + response);
 
         if (response.getStatus() != 200) {
             throw new CustomException(ResponseCode.PAY_TOKEN_ERROR);
