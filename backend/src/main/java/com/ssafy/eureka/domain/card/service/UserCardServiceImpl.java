@@ -111,6 +111,7 @@ public class UserCardServiceImpl implements UserCardService {
         List<UserCardEntity> userCardEntityList = userCardRepository.findAllByUserId(Integer.parseInt(userId));
         if(userCardEntityList == null) throw new CustomException(ResponseCode.USER_CARD_NOT_FOUND);
 
+        log.debug("1");
         for(int i=0; i<userCardEntityList.size(); i++){
 
             cardDetailBenefitList = new ArrayList<>();
@@ -128,6 +129,7 @@ public class UserCardServiceImpl implements UserCardService {
             // 한 카드에 혜택 3개만 보여줄거야, 첫 번째 혜택의 첫 번째 상세혜택 -> 총 3개
             List<CardBenefitEntity> cardBenefitEntityList = cardBenefitRepository.findByCardId(cardId);
 
+            log.debug("2");
             for(int j=0; j<cardBenefitEntityList.size(); j++){
 
                 int cardBenefitId = cardBenefitEntityList.get(j).getCardBenefitId();
@@ -152,10 +154,14 @@ public class UserCardServiceImpl implements UserCardService {
                 if(cardDetailBenefitList.size() == 3) break;
 
             } // cardBenefit
-            registerCardList.add(new OwnUserCardResponse(userCardEntityList.get(i), imagePath, cardName, imageAttr, cardDetailBenefitList));
+            log.debug("userCardEntityList.get(i), imagePath, cardName, imageAttr, cardDetailBenefitList : "
+                    + userCardEntityList.get(i) +" / "+ imagePath+" / "+ cardName+" / "+imageAttr +" / "+cardDetailBenefitList);
 
+            registerCardList.add(new OwnUserCardResponse(userCardEntityList.get(i), imagePath, cardName, imageAttr, cardDetailBenefitList));
+            log.debug("4");
         }// cardEntity
 
+        log.debug("registerCardList");
         return registerCardList;
     }
 

@@ -53,7 +53,7 @@ public class OwnUserCardResponse {
         this.currentMonthAmount = userCardEntity.getCurrentMonthAmount();
         this.isPaymentEnabled = userCardEntity.isPaymentEnabled();
         this.token = userCardEntity.getToken();
-        this.paymentDate = LocalDateTime.from(userCardEntity.getPaymentDate());
+        this.paymentDate = userCardEntity.getPaymentDate();
         this.imagePath = imagePath;
         this.cardName = cardName;
         this.imageAttr = imageAttr;
