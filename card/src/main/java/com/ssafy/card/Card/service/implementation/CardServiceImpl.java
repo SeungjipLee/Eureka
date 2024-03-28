@@ -69,13 +69,10 @@ public class CardServiceImpl implements CardService {
 
         // 해당 유저 카드 ID
         int userCardId = userCardEntity.getUserCardId();
-        String token = userCardEntity.getToken();
-
-        if(token == null) throw new CustomException(ResponseCode.INVALID_ACCESS_TOKEN);
 
         List<CardHistoryEntity> list = cardHistoryRepository.findByUserCardIdAndMonthAndYear(
                 userCardId, yyyymm.substring(0, 4), yyyymm.substring(4, 6));
-//        List<CardHistoryEntity> list = cardHistoryRepository.findByUserCardId(userCardId);
+        List<CardHistoryEntity> list2 = cardHistoryRepository.findByUserCardId(userCardId);
 
         List<CardHistoryResponse> historyList = new ArrayList<>();
         for(int i=0; i<list.size(); i++){

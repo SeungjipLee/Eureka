@@ -138,7 +138,6 @@ public class UserCardServiceImpl implements UserCardService {
                 // 혜택은 있지만 상세 혜택 테이블에서 혜택 번호가 없는 경우
                 if(cardBenefitDetailEntityList.isEmpty()) continue;
 
-
                 String discountType = cardBenefitDetailEntityList.get(0).getDiscountCostType();
                 double discountCost = cardBenefitDetailEntityList.get(0).getDiscountCost();
                 int largeCategoryId = cardBenefitDetailEntityList.get(0).getLargeCategoryId();
@@ -208,11 +207,12 @@ public class UserCardServiceImpl implements UserCardService {
     }
 
     @Override
-    public List<CardHistoryListResponse> listCardHistory(String userId, int userCardId, String yyyymm) {
+    public MyDataCardHistoryResponse listCardHistory(String userId, int userCardId, String yyyymm) {
         MyDataToken myDataToken = mydataTokenRepository.findById(userId)
             .orElseThrow(() -> new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR));
 
         String accessToken = myDataToken.getAccessToken();
+        log.debug("accessToken : " + accessToken);
 
         int intUserId = Integer.parseInt(userId);
 
@@ -223,25 +223,22 @@ public class UserCardServiceImpl implements UserCardService {
         UserCardEntity userCardEntity = userCardRepository.findByUserCardId(userCardId)
             .orElseThrow(() -> new CustomException(ResponseCode.USER_CARD_NOT_FOUND));
 
+        log.debug("카드 식별자 : " + userCardEntity.getCardIdentifier());
+        log.debug("년월 : " + yyyymm);
         MyDataApiResponse<?> response = myDataFeign.searchCardPayList(accessToken,
-            new MyDataCardHistoryRequest(userCardEntity.getCardIdentifier(), yyyymm));
+        userCardEntity.getCardIdentifier(), yyyymm);
+
         log.debug("response.getStatus() : "+ response.getStatus());
 
         if (response.getStatus() != 200) {
             throw new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR);
         }
-        log.debug("response.getStatus() 후 ");
 
-        MyDataCardHistoryResponse myDataCardPayList = (MyDataCardHistoryResponse) response.getData();
+        List<MyDataCardHistoryResponse.MyDataCardHistory> myDataCardPayList = (List<MyDataCardHistoryResponse.MyDataCardHistory>) response.getData();
 
-        List<CardHistoryListResponse> cardHistoryListResponse = new ArrayList<>();
-        for(int i=0; i<myDataCardPayList.getMyDataCardHistoryList().size(); i++){
-            CardHistoryListResponse cardHistoryResponse = new CardHistoryListResponse(myDataCardPayList);
-            cardHistoryListResponse.add(cardHistoryResponse);
-        }
+        log.debug("myDataCardPayList : "+ myDataCardPayList);
 
-        // 조회한 데이터를 쓱싹 쓱싹 해서 반환하기
-        return cardHistoryListResponse;
+        return new MyDataCardHistoryResponse(myDataCardPayList);
     }
 
     @Override
