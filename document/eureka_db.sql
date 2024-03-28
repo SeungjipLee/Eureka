@@ -143,7 +143,7 @@ create table if not exists pay_history
     recommendCardId         int             not null                                        COMMENT '추천 카드 관리번호',
     partnership_store_id    int             not null                                        COMMENT '제휴 가맹점 관리번호',
     large_category_id       tinyint         not null                                        COMMENT '대분류 카테고리 번호',
-    small_category_id       int             not null                                        COMMENT '소분류 카테고리 번호',
+    small_category_id       int             null                                            COMMENT '소분류 카테고리 번호',
     approved_num            char(8)         not null                                        COMMENT '승인 번호',
     approved_date_time      datetime        not null            default current_timestamp   COMMENT '승인 일시',
     approved_amt            int             not null                                        COMMENT '승인 금액',

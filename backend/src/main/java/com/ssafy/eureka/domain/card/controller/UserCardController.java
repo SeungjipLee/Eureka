@@ -86,6 +86,7 @@ public class UserCardController {
     public ResponseEntity<?> registPayCard(@AuthenticationPrincipal UserDetails userDetails,
         @RequestBody RegistPayCardRequest registPayCardRequest){
         log.debug("결제 카드 등록, userId : " + userDetails.getUsername());
+        log.debug(registPayCardRequest.getCardNumber() + " / " + registPayCardRequest.getCvc() + " / " + registPayCardRequest.getExpired_year() + " / " + registPayCardRequest.getExpired_month() + " / " + registPayCardRequest.getPassword());
         userCardService.registPayCard(userDetails.getUsername(), registPayCardRequest);
         return ResponseEntity.ok().build();
     }

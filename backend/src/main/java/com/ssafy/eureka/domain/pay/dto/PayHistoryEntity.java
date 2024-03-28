@@ -42,7 +42,6 @@ public class PayHistoryEntity {
     @NotNull
     private int largeCategoryId;
 
-    @NotNull
     private int smallCategoryId;
 
     @NotNull
