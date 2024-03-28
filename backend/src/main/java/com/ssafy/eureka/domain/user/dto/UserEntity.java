@@ -54,7 +54,7 @@ public class UserEntity {
     public static UserEntity signUpUser(String userName, String birth, String password, String phoneNumber) {
         UserEntity user = new UserEntity();
         user.userName = userName;
-        user.userBirth = birth;
+        user.userBirth = birth.substring(2,8);
         user.password = password;
         user.phoneNumber = phoneNumber;
         user.isUnregistered = false;
