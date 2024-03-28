@@ -1,20 +1,9 @@
-use card_db;
+use eureka_db;
 
-# 1-2. card_company dummy
-INSERT INTO card_company(company_name, org_code, card_brand, image_path)
-VALUES  ("KB국민카드", "KB1N5V9I3W", "11", ""),
-        ("삼성카드", "S1P9V6G2T4", "51", ""),
-        ("NH농협카드", "NH3O8Z7L3N", "91", ""),
-        ("신한카드", "SH1D5T3K9S", "41", ""),
-        ("현대카드", "HD9P5Q7L2T", "61", ""),
-        ("하나카드", "HN1C2M3S5K", "21", ""),
-        ("우리카드", "WR9R2L4Z5A", "W1", ""),
-        ("IBK기업은행카드", "IB1C3M5Q7P", "3K", ""),
-        ("롯데카드", "RD3L5Q8P7S", "71", "")
-;
+#4-2. card dummy
 
-#2-2. card dummy
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 0, '노리2 체크카드(KB Pay)', 0, 200000, '월간 통합할인한도
+INSERT INTO eureka_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, view, join_path, is_expired)
+VALUES (1, 0, '노리2 체크카드(KB Pay)', 0, 200000, '월간 통합할인한도
 전월 이용실적 구간 20만원 미만 20만원 이상 40만원 이상 60만원 이상 80만원 이상
 월간 통합할인한도 일상혜택 커피 할인 20,000원 30,000원 40,000원 50,000원
 
@@ -41,8 +30,8 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 본 상품을 국내외겸용(Master, Visa)으로 발급 시 해당 국제브랜드사의 플래티늄(Platinum) 서비스가 제공됩니다.
 · 단, 공통 서비스만 제공되며 발급사 선택서비스는 제공되지 않습니다.
 · 별도의 국제브랜드사 서비스 안내장을 참조하시기 바랍니다.
-- 플래티늄(Platinum) 서비스에 대한 세부내용 및 유의사항은 각 국제브랜드사 홈페이지를 통해 확인하실 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2422/card_img/27141/2422card.png', 1, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?mainCC=a&cooperationcode=07964&solicitorcode=7030084002', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 0, '노리2 체크카드(Global)', 0, 200000, '월간 통합할인한도
+- 플래티늄(Platinum) 서비스에 대한 세부내용 및 유의사항은 각 국제브랜드사 홈페이지를 통해 확인하실 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2422/card_img/27141/2422card.png', 1, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?mainCC=a&cooperationcode=07964&solicitorcode=7030084002', 0);
+INSERT INTO eureka_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, view, join_path, is_expired) VALUES (1, 0, '노리2 체크카드(Global)', 0, 200000, '월간 통합할인한도
 전월 이용실적 구간 20만원 미만 20만원 이상 40만원 이상 60만원 이상 80만원 이상
 월간 통합할인한도 일상혜택 커피 할인 20,000원 30,000원 40,000원 50,000원
 
@@ -69,8 +58,8 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 본 상품을 국내외겸용(Master)으로 발급 시 해당 국제브랜드사의 플래티늄(Platinum) 서비스가 제공됩니다.
 · 단, 공통 서비스만 제공되며 발급사 선택서비스는 제공되지 않습니다.
 · 별도의 국제브랜드사 서비스 안내장을 참조하시기 바랍니다.
-- 플래티늄(Platinum) 서비스에 대한 세부내용 및 유의사항은 각 국제브랜드사 홈페이지를 통해 확인하실 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2423/card_img/27142/2423card.png', 1, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?mainCC=a&cooperationcode=07972&solicitorcode=7030084002', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 0, '노리체크카드', 0, 200000, '월간 통합할인한도
+- 플래티늄(Platinum) 서비스에 대한 세부내용 및 유의사항은 각 국제브랜드사 홈페이지를 통해 확인하실 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2423/card_img/27142/2423card.png', 1, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?mainCC=a&cooperationcode=07972&solicitorcode=7030084002', 0);
+INSERT INTO eureka_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, view, join_path, is_expired) VALUES (1, 0, '노리체크카드', 0, 200000, '월간 통합할인한도
 - 전월 이용실적 20만원 이상: 1만원
 - 전월 이용실적 30만원 이상: 2만원
 - 전월 이용실적 50만원 이상: 3만원
@@ -85,8 +74,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - \'월간 통합할인한도\'란 KB국민 노리체크카드 및 노리체크 동일계열카드로 매월 할인받을 수 있는 최대금액을 의미하며, 월간 잔여 할인한도는 다음 달로 이월되지 않습니다.
 - KB국민 노리체크카드 및 노리체크 동일계열카드의 최초 발급 후 사용등록일로부터 60일까지는 전월 이용실적이 없는 경우에도 월간 통합할인한도 1만원 이내에서 할인 적용됩니다.(대중교통 할인, 통신요금 할인 및 금융수수료면제서비스 제외)
 - KB국민 노리체크카드 및 노리체크 동일계열카드 중복 소지 시 최초 발급된 카드의 발급일을 기준으로 합니다.
-- KB국민 노리체크 동일계열카드: KB국민 노리체크카드, KB국민 락스타체크카드, KB국민 울랄라노리체크카드(구 슈퍼스타 KB국민 노리체크카드), KB국민 해피노리체크카드, KB국민 해피락스타체크카드, 삼성증권 CMA+KB국민 노리체크카드 등', 'https://api.card-gorilla.com:8080/storage/card/348/card_img/20581/348card.png', 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01664&solicitorcode=7030084000', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 0, '직장인보너스체크카드', 0, 200000, '카드발급
+- KB국민 노리체크 동일계열카드: KB국민 노리체크카드, KB국민 락스타체크카드, KB국민 울랄라노리체크카드(구 슈퍼스타 KB국민 노리체크카드), KB국민 해피노리체크카드, KB국민 해피락스타체크카드, 삼성증권 CMA+KB국민 노리체크카드 등', 'https://api.card-gorilla.com:8080/storage/card/348/card_img/20581/348card.png', 0, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01664&solicitorcode=7030084000', 0),
+
+(1, 0, '직장인보너스체크카드', 0, 200000, '카드발급
 - 인터넷을 통한 체크카드 발급은 만 17세 이상으로 KB국민은행 요구불 계좌를 보유한 고객이면 신청 가능 합니다. (단, 후불교통카드는 만 18세 이상만 가능)
 - 만 14세 이상~만 17세 미만 고객은 KB국민카드 영업점 방문 시 비교통카드에 한해 발급 가능합니다.
 - 특수채권 잔액 보유 또는 은행연합회 신용관리 대상 등 일부 고객은 후불교통기능이 탑재된 KB국민 체크카드의 발급이 제한 될 수 있습니다.
@@ -136,8 +126,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 카드 이용시 제공되는 포인트 및 할인 혜택 등의 부가서비스는 카드 신규 출시(2012년8월6일) 이후 1년 이상 축소∙ 폐지 없이 유지 됩니다.
   다만, 부가서비스 제공과 관련된 제휴업체의 일방적인 제휴 조건 변경, 도산, 천재지변, 금융환경의 급변, 카드업자의 경영 위기 및 그밖에 준하는 사유에 따른 불가피한 변경의 경우 즉시 홈페이지에 게시하고, 개별 고지해드립니다.
   카드 신규 출시 이후 1년 이상 경과했고, 해당 카드의 수익성 유지가 어려워 부가서비스를 변경하는 경우는 홈페이지에 게시하고 6개월 전부터 매월 개별 고지해드립니다.
-- 개별 고지 방법 : 이용대금명세서, 우편, 이메일, 휴대폰 문자메시지 중 하나', 'https://api.card-gorilla.com:8080/storage/card/350/card_img/20594/350card.png', 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01690&solicitorcode=7030084000', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 0, '청춘대로 싱글 체크카드', 0, 300000, '카드발급
+- 개별 고지 방법 : 이용대금명세서, 우편, 이메일, 휴대폰 문자메시지 중 하나', 'https://api.card-gorilla.com:8080/storage/card/350/card_img/20594/350card.png', 0, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01690&solicitorcode=7030084000', 0),
+
+(1, 0, '청춘대로 싱글 체크카드', 0, 300000, '카드발급
 - 인터넷을 통한 체크카드 발급은 만 17세 이상이면 신청 가능합니다.
  (단, 후불교통카드는 만 18세 이상만 가능)
 - 만 12세 이상~만 17세 미만 고객은 KB국민카드 영업점 방문 시 비교통카드에 한해 발급 가능합니다.
@@ -193,8 +184,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
   * 카드사의 노력에도 제휴업체가 일방적으로 서비스 변경을 통보 (단, 다른 제휴업체를 통해 동종의 유사한 서비스 제공이 가능한 경우 제외)
   * 카드 신규 출시 이후 3년 이상 경과했고, 해당 카드의 수익성 유지가 어려운 경우
 - 카드사가 서비스를 변경하는 경우에는 서비스 변경 사유, 변경 내용 등을 사유 발생 즉시 홈페이지에 게시하고, 개별 고지해드립니다. 특히 카드 신규 출시 이후 3년 이상 경과했고, 해당 카드의 수익성 유지가 어려워 서비스를 변경하는 경우에는 6개월 전부터 매월 개별 고지해 드립니다.
-- 개별 고지 방법 : 카드대금청구서, 우편, 이메일, 휴대폰 문자메시지 중 하나', 'https://api.card-gorilla.com:8080/storage/card/335/card_img/20579/335card.png', 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01988&solicitorcode=7030084000', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 0, '나라사랑체크카드', 0, 100000, '통합할인한도
+- 개별 고지 방법 : 카드대금청구서, 우편, 이메일, 휴대폰 문자메시지 중 하나', 'https://api.card-gorilla.com:8080/storage/card/335/card_img/20579/335card.png', 0, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01988&solicitorcode=7030084000', 0),
+
+(1, 0, '나라사랑체크카드', 0, 100000, '통합할인한도
 - KB국민 나라사랑카드(체크)는 월간통합할인한도가 적용됩니다.(동일계열카드 포함)
 전월이용실적 10만원 이상~ 20만원 이상~ 30만원 이상~ 50만원 이상~ 100만원 이상~
 통합할인한도 최대 5천원 최대 1만원 최대 2만원 최대 3만원 최대 5만원
@@ -209,8 +201,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 
 안내사항
 - KB국민 나라사랑카드(체크) 발급신청 대상은 만 18세 이상 남자로 2007년 1월 29일 이후 징병검사를 받은 고객님입니다.
-- 세부 발급대상 기준은 가까운 KB국민은행 영업점이나 KB국민카드 고객센터(1588-1688)로 문의하시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/739/card_img/22213/739card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 0, '민 체크카드', 0, 300000, '카드발급
+- 세부 발급대상 기준은 가까운 KB국민은행 영업점이나 KB국민카드 고객센터(1588-1688)로 문의하시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/739/card_img/22213/739card.png', 0, 0, '', 0),
+
+(1, 0, '민 체크카드', 0, 300000, '카드발급
 - 인터넷을 통한 체크카드 발급은 만 17세 이상으로 KB국민은행 요구불 계좌를 보유한 고객이면 신청 가능 합니다. (단, 후불교통카드는 만 18세 이상만 가능)
 - 만 14세 이상~만 17세 미만 고객은 KB국민카드 영업점 방문 시 비교통카드에 한해 발급 가능합니다.
   * 특수채권 잔액 보유 또는 은행연합회 신용관리 대상 등 일부 고객은 후불교통기능이 탑재된 KB국민 체크카드의 발급이 제한 될 수 있습니다.
@@ -260,8 +253,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 카드 이용시 제공되는 포인트 및 할인혜택 등의 부가 서비스는 카드 신규출시 (2013년 12월 17일) 이후 1년 이상 축소·폐지없이 유지됩니다.
   다만, 부가서비스 제공과 관련된 제휴업체의 일방적인 제휴조건 변경, 도산, 천재지변, 금융환경 급변, 카드업자의 경영 위기 및 그 밖에 준하는 사유에 따른 불가피한 변경의 경우 특시 홈페이지에 게시하고, 개별고지 해드립니다.
   카드 신규출시 이후 1년 이상 경과했고, 해당 카드의 수익성 유지가 어려워 부가서비스를 변경하는 경우에는 홈페이지에 게시하고 6개월 전부터 매월 개별 고지해 드립니다.
-- 개별 고지 방법 : 카드대금청구서, 우편, 이메일, 휴대폰 문자메시지 중 하나', 'https://api.card-gorilla.com:8080/storage/card/346/card_img/20591/346card.png', 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01560&solicitorcode=7030084000', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 0, '위글위글 첵첵 체크카드', 0, 300000, '9개 영역에서 건당 최대 2천원, 영역별 최대 4천원 할인
+- 개별 고지 방법 : 카드대금청구서, 우편, 이메일, 휴대폰 문자메시지 중 하나', 'https://api.card-gorilla.com:8080/storage/card/346/card_img/20591/346card.png', 0, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01560&solicitorcode=7030084000', 0),
+
+(1, 0, '위글위글 첵첵 체크카드', 0, 300000, '9개 영역에서 건당 최대 2천원, 영역별 최대 4천원 할인
 영역 서비스 구분 전월이용실적별 할인금액
 할인금액
 제공기준
@@ -307,8 +301,9 @@ YES24, 교보문고
 - 60만원 이상 : 4천원
 
 이용실적 제외 대상
-- 후불교통요금, 무승인금액(자판기, 터널통행료, 유료도로, 기차/고속버스 취소 반환수수료 등), 정부지원금 이용금액(보육료, 유치원보조비, 바우처 이용금액 등), 포인트리 충전금액, 대학(대학원)등록금, 상품권 및 선불카드 구입(충전)금액, 연체료, 지방세(지방세, 상하수도, 세외수입), 취소금액, 각종 수수료 및 이자', 'https://api.card-gorilla.com:8080/storage/card/614/card_img/21381/614card.png', 1, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01918&solicitorcode=7030084000', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 0, '펭수 노리 체크카드(펭카)', 0, 200000, '카드발급
+- 후불교통요금, 무승인금액(자판기, 터널통행료, 유료도로, 기차/고속버스 취소 반환수수료 등), 정부지원금 이용금액(보육료, 유치원보조비, 바우처 이용금액 등), 포인트리 충전금액, 대학(대학원)등록금, 상품권 및 선불카드 구입(충전)금액, 연체료, 지방세(지방세, 상하수도, 세외수입), 취소금액, 각종 수수료 및 이자', 'https://api.card-gorilla.com:8080/storage/card/614/card_img/21381/614card.png', 1, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01918&solicitorcode=7030084000', 0),
+
+(1, 0, '펭수 노리 체크카드(펭카)', 0, 200000, '카드발급
 - 인터넷을 통한 체크카드 발급은 만 17세 이상이면 신청 가능합니다.
   (단, 후불교통카드는 만 18세 이상만 가능)
 - 만 12세 이상~만 17세 미만 고객은 KB국민카드 영업점 방문 시 비교통카드에 한해 발급 가능합니다.
@@ -357,8 +352,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 
 부가서비스 변경 안내
 - 카드 이용시 제공되는 포인트 및 할인혜택 등의 부가 서비스는 카드 신규출시 (2010년 12월 23일) 이후 1년 이상 축소·폐지없이 유지됩니다. 다만, 부가서비스 제공과 관련된 제휴업체의 일방적인 제휴조건 변경, 도산, 천재지변, 금융환경 급변, 카드업자의 경영 위기 및 그 밖에 준하는 사유에 따른 불가피한 변경의 경우 특시 홈페이지에 게시하고, 개별고지 해드립니다. 카드 신규출시 이후 1년 이상 경과했고, 해당 카드의 수익성 유지가 어려워 부가서비스를 변경하는 경우에는 홈페이지에 게시하고 6개월 전부터 매월 개별 고지해 드립니다.
-- 개별 고지 방법 : 카드대금청구서, 우편, 이메일, 휴대폰 문자메시지 중 하나', 'https://api.card-gorilla.com:8080/storage/card/559/card_img/21264/559card.png', 1, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01900&solicitorcode=7030084000', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 0, '가온 올포인트 체크카드', 0, 100000, '카드발급
+- 개별 고지 방법 : 카드대금청구서, 우편, 이메일, 휴대폰 문자메시지 중 하나', 'https://api.card-gorilla.com:8080/storage/card/559/card_img/21264/559card.png', 1, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01900&solicitorcode=7030084000', 0),
+
+(1, 0, '가온 올포인트 체크카드', 0, 100000, '카드발급
 - 인터넷을 통한 체크카드 발급은 만 17세 이상이면 신청 가능합니다.
  (단, 후불교통카드는 만 18세 이상만 가능)
 - 만 12세 이상~만 17세 미만 고객은 KB국민카드 영업점 방문 시 비교통카드에 한해 발급 가능합니다.
@@ -413,8 +409,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
   1. 전신환매도율 : 접수일의 KB국민은행 최초 고시 전신환매도율
   2. 국제브랜드 수수료 = (거래미화금액 x 국제브랜드 이용수수료율 ) x 전신환매도율
   3. 해외서비스 수수료 = (거래미화금액 x 해외서비스 수수료율 ) x 전신환매도율
-  *해당 내용은 해외원화결제서비스(DCC) 수수료가 없는 경우이며, 해외원화결제서비스(DCC)이용 시 추가 수수료가 발생할 수 있으니 유의하시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/454/card_img/20970/454card.png', 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01998&solicitorcode=7030084000', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 0, '스타플러스 체크카드', 0, 0, '카드발급
+  *해당 내용은 해외원화결제서비스(DCC) 수수료가 없는 경우이며, 해외원화결제서비스(DCC)이용 시 추가 수수료가 발생할 수 있으니 유의하시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/454/card_img/20970/454card.png', 0, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01998&solicitorcode=7030084000', 0),
+
+(1, 0, '스타플러스 체크카드', 0, 0, '카드발급
 - 만 17세 이상이면 인터넷을 통한 체크카드 발급 신청을 하실 수 있습니다. (단, 후불교통카드는 만 18세 이상만 가능)
 - 만 12세 이상 인터넷 발급 제한 연령 고객은 영업점에 방문하시면 발급받으실 수 있습니다.
 - 법정 대리인 동의 필수 고객 : 만 12세~만 13세(후불교통카드로 신청 시 만 12세~만 17세) 일부 상품만 발급 가능
@@ -444,8 +441,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 단, 공통 서비스만 제공되며 발급사 선택서비스는 제공되지 않습니다.
 - 별도의 국제브랜드사 서비스 안내장을 참조하시기 바랍니다.
 - 플래티늄(Platinum) 서비스에 대한 세부내용 및 유의사항은 각 국제브랜드사 홈페이지를 통해 확인하실 수 있습니다.
-- Master : www.mastercard.co.kr', 'https://api.card-gorilla.com:8080/storage/card/2588/card_img/30834/2588card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 0, '포인트리체크카드', 0, 200000, '카드발급
+- Master : www.mastercard.co.kr', 'https://api.card-gorilla.com:8080/storage/card/2588/card_img/30834/2588card.png', 1, 0, '', 0),
+
+(1, 0, '포인트리체크카드', 0, 200000, '카드발급
 - 인터넷을 통한 체크카드 발급은 만 17세 이상이면 신청 가능합니다.
  (단, 후불교통카드는 만 18세 이상만 가능)
 - 만 12세 이상~만 17세 미만 고객은 KB국민카드 영업점 방문 시 비교통카드에 한해 발급 가능합니다.
@@ -473,8 +471,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 
 부가서비스 변경 안내
 - KB국민 포인트리체크카드의 서비스는 신규 출시(2007.03.08) 이후 1년 이상 축소ㆍ폐지없이 유지되고, 서비스 변경 시에는 변경사유, 변경내용 등에 대하여 변경일 6개월 이전에 홈페이지, 이용대금명세서, 우편서신, 전자우편(E-MAIL)중 2가지 이상의 방법으로 고지하여 드립니다.
-  다만, 서비스 제공과 관련된 제휴업체의 일방적인 제휴조건변경, 도산, 천재지변, 금융환경의 급변, 신용카드업자의 경영위기 및 그 밖에 이에 준하는 사유에 따른 불가피한 변경시에도 사전에 고지하되, 사전고지가 어려운 경우에는 사후에 고지하여 드립니다. ', 'https://api.card-gorilla.com:8080/storage/card/343/card_img/20588/343card.png', 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01556&solicitorcode=7030084000', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 0, 'ONE 체크카드', 0, 100000, 'KB국민 ONE체크카드 서비스
+  다만, 서비스 제공과 관련된 제휴업체의 일방적인 제휴조건변경, 도산, 천재지변, 금융환경의 급변, 신용카드업자의 경영위기 및 그 밖에 이에 준하는 사유에 따른 불가피한 변경시에도 사전에 고지하되, 사전고지가 어려운 경우에는 사후에 고지하여 드립니다. ', 'https://api.card-gorilla.com:8080/storage/card/343/card_img/20588/343card.png', 0, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01556&solicitorcode=7030084000', 0),
+
+(1, 0, 'ONE 체크카드', 0, 100000, 'KB국민 ONE체크카드 서비스
 - KB국민ONE체크카드는 최초 카드발급 후 사용등록일로부터 다음달 말일까지 이용실적이 없는 경우에도 KB국민ONE체크카드 추가 포인트리 적립서비스 (주말/공휴일, 음식/커피 업종, 대중교통/택시, 이동통신요금)가 제공됩니다.
 - 단, KB국민ONE체크카드 기본적립서비스는 제외됩니다. (실적유예불가)
 - 포인트리 적립제외 대상: 지방세, 정부지원금, 대학(대학원) 등록금, 각종 수수료 및 이자, 연체료, 상품권 및 선불카드 구입∙충전금액, 취소금액
@@ -531,8 +530,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
   ③ 카드 신규출시 이후 3년 이상 경과했고, 해당 카드의 수익성 유지가 어려운 경우
 - 카드사가 서비스를 변경하는 경우에는 서비스 변경사유, 변경내용 등을 사유발생 즉시 홈페이지에 게시하고, 개별고지 해드립니다.
   특히 카드 신규출시 이후 3년 이상 경과했고, 해당 카드의 수익성 유지가 어려워져 부가서비스를 변경하는 경우에는 6개월 전부터 매월 개별 고지해 드립니다. •
-- 개별 고지 방법 : 이용대금명세서, 우편, 이메일, 휴대폰 문자메시지 중 하나', 'https://api.card-gorilla.com:8080/storage/card/337/card_img/20582/337card.png', 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01946&solicitorcode=7030084000', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 0, '알뜰교통플러스 체크카드', 0, 200000, '카드발급
+- 개별 고지 방법 : 이용대금명세서, 우편, 이메일, 휴대폰 문자메시지 중 하나', 'https://api.card-gorilla.com:8080/storage/card/337/card_img/20582/337card.png', 0, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01946&solicitorcode=7030084000', 0),
+
+(1, 0, '알뜰교통플러스 체크카드', 0, 200000, '카드발급
 - 후불교통 체크카드 인터넷 신청은 만 18세 이상부터 가능합니다.
 - 만 12세 이상~만 17세 미만의 인터넷 체크카드 발급 제한 연령 고객은 법정대리인을 통해 영업점에서 체크카드 신청이 가능합니다.
 - 외국인 고객은 고객센터(1588-1688)로 확인하여 주시기 바랍니다.
@@ -553,8 +553,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 업종에 따른 적립 서비스는 대상 가맹점이 KB국민카드의 업종분류기준 상 해당 업종에 한하여 제공합니다.
 - 별도 전용 가맹점번호로 승인되는 PG(결제대행)업체 또는 일부 간편결제(Pay) 이용 시 적립대상에서 제외될 수 있으며, 대행사이트를 통한 결제 및 호텔, 백화점, 대형마트, 철도/역사 등에 입점한 가맹점이나 상품권 구매 시 적립 대상에서 제외될 수 있습니다.
 - 상품권 및 선불카드(선불전자지급수단 포함) 구입·충전금액, 연체료, 취소금액의 경우 적립에서 제외됩니다.
-- 적립서비스는 제휴업체 정책에 따라 타 적립카드와 중복적립이 제한될 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2556/card_img/29633/2556card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 0, '아시아나 체크카드', 0, 300000, '카드발급
+- 적립서비스는 제휴업체 정책에 따라 타 적립카드와 중복적립이 제한될 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2556/card_img/29633/2556card.png', 1, 0, '', 0),
+
+(1, 0, '아시아나 체크카드', 0, 300000, '카드발급
 - 인터넷을 통한 체크카드 발급은 만 17세 이상으로 KB국민은행 요구불 계좌를 보유한 고객이면 신청 가능 합니다. (단, 후불교통카드는 만 18세 이상만 가능)
 - 만 14세 이상~만 17세 미만 고객은 KB국민카드 영업점 방문 시 비교통카드에 한해 발급 가능합니다.
 - 특수채권 잔액 보유 또는 은행연합회 신용관리 대상 등 일부 고객은 후불교통기능이 탑재된 KB국민 체크카드의 발급이 제한 될 수 있습니다.
@@ -606,8 +607,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
   ③ 카드 신규출시 이후 3년 이상 경과했고, 해당 카드의 수익성 유지가 어려운 경우
 - 카드사가 서비스를 변경하는 경우에는 서비스 변경사유, 변경내용 등을 사유발생 즉시 홈페이지에 게시하고, 개별고지 해드립니다.
   특히 카드 신규출시 이후 3년 이상 경과했고, 해당 카드의 수익성 유지가 어려워져 부가서비스를 변경하는 경우에는 6개월 전부터 매월 개별 고지해 드립니다. •
-- 개별 고지 방법 : 이용대금명세서, 우편, 이메일, 휴대폰 문자메시지 중 하나', 'https://api.card-gorilla.com:8080/storage/card/334/card_img/20578/334card.png', 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01974&solicitorcode=7030084000', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 0, '훈 체크카드', 0, 300000, 'KB국민 훈체크카드 서비스
+- 개별 고지 방법 : 이용대금명세서, 우편, 이메일, 휴대폰 문자메시지 중 하나', 'https://api.card-gorilla.com:8080/storage/card/334/card_img/20578/334card.png', 0, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01974&solicitorcode=7030084000', 0),
+
+(1, 0, '훈 체크카드', 0, 300000, 'KB국민 훈체크카드 서비스
 - KB국민 훈체크카드는 해당 가맹점이 KB국민카드 가맹점 업종 코드상 할인 대상 가맹점 업종으로 등록된 경우에 한하여 제공됩니다.
 - KB국민 훈체크카드는 최초 카드 발급 후 사용등록일로부터 다음달 말일까지 이용실적이 없는 경우에도 학원, 서점, 동물병원에서 1구간 서비스가 제공됩니다. (단, 약국, 대중교통 제외)
 
@@ -662,8 +664,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 카드 이용시 제공되는 KB국민 훈체크카드의 서비스는 신규 출시 (2014년7월14일) 이후 1년 이상 축소∙ 폐지 없이 유지 됩니다.
   다만, 부가서비스 제공과 관련된 제휴업체의 일방적인 제휴 조건 변경, 도산, 천재지변, 금융환경의 급변, 카드업자의 경영 위기 및 그밖에 준하는 사유에 따른 불가피한 변경의 경우 즉시 홈페이지에 게시하고, 개별 고지해드립니다.
   카드 신규출시 이후 1년 이상 경과했고, 해당 카드의 수익성 유지가 어려워 부가서비스를 변경하는 경우에는 홈페이지에 게시하고 6개월 전부터 매월 개별 고지해 드립니다.
-- 개별 고지 방법 : 카드대금청구서, 우편, 이메일, 휴대폰 문자메시지 중 하나', 'https://api.card-gorilla.com:8080/storage/card/341/card_img/20586/341card.png', 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01930&solicitorcode=7030084000', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 0, '해피노리체크카드', 0, 200000, '카드발급
+- 개별 고지 방법 : 카드대금청구서, 우편, 이메일, 휴대폰 문자메시지 중 하나', 'https://api.card-gorilla.com:8080/storage/card/341/card_img/20586/341card.png', 0, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01930&solicitorcode=7030084000', 0),
+
+(1, 0, '해피노리체크카드', 0, 200000, '카드발급
 - 인터넷을 통한 체크카드 발급은 만 17세 이상으로 KB국민은행 요구불 계좌를 보유한 고객이면 신청가능합니다.
  (단, 후불교통카드는 만 18세 이상만 가능)
 - 만 14세 이상 ~ 만 17세 미만 고객은 KB국민카드 영업점 방문 시 비교통 카드에 한해 발급 가능합니다.
@@ -713,8 +716,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 부가서비스 변경 안내
 - 카드 이용시 제공되는 포인트 및 할인 혜택 등의 부가서비스는 카드 신규 출시(2011년10월28일) 이후 1년 이상 축소∙ 폐지 없이 유지 됩니다. 다만, 부가서비스 제공과 관련된 제휴업체의 일방적인 제휴 조건 변경, 도산, 천재지변, 금융환경의 급변, 카드업자의 경영 위기 및 그밖에 준하는 사유에 따른 불가피한 변경의 경우 즉시 홈페이지 에 게시하고, 개별 고지해드립니다.
   카드 신규 출시 이후 1년 이상 경과했고, 해당 카드의 수익성 유지가 어려워 부가서비스를 변경하는 경우는 홈페이지에 게시하고 6개월 전부터 매월 개별 고지해드립니다.
-- 개별 고지 방법 : 카드대금청구서, 우편, 이메일, 휴대폰 문자메시지 중 하나', 'https://api.card-gorilla.com:8080/storage/card/342/card_img/20587/342card.png', 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01670&solicitorcode=7030084000', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 0, '토심이 첵첵 체크카드', 0, 300000, '카드발급
+- 개별 고지 방법 : 카드대금청구서, 우편, 이메일, 휴대폰 문자메시지 중 하나', 'https://api.card-gorilla.com:8080/storage/card/342/card_img/20587/342card.png', 0, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01670&solicitorcode=7030084000', 0),
+
+(1, 0, '토심이 첵첵 체크카드', 0, 300000, '카드발급
 - 만 17세 이상이면 인터넷을 통한 체크카드 발급 신청을 하실 수 있습니다. (단, 후불교통카드는 만 18세 이상만 가능)
 - 만 12세 이상 인터넷 발급 제한 연령 고객은 영업점에 방문하시면 발급받으실 수 있습니다.
   *법정 대리인 동의 필수 고객 : 만 12세~만 13세(후불교통카드로 신청 시 만 12세~만 17세)
@@ -739,8 +743,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 각 할인서비스는 해당가맹점이 KB국민카드의 가맹점 업종코드 상 할인대상 가맹점 업종으로 등록된 경우에 한하여 제공됩니다. PG(결제대행) 업체 또는 할인서비스롤 제공하지 않는 타 간편결제를 통한 결제 및 호텔, 백화점, 대형마트, 철도역사 등에 입점한 가맹점이나 상품권 구매 시 할인대상에서 제외 될 수 있습니다.
 - 상품권 및 선불카드 구입·충전 금액의 경우 할인에서 제외될 수 있습니다.
 - KB국민 토심이 첵첵 체크카드 서비스는 KB국민카드 업종 분류 기준, 지정 업종에 한하여 제공됩니다.
-- 할인서비스는 제휴업체 정책에 따라 타 할인카드와 중복 할인이 제한될 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2604/card_img/31223/2604card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 0, 'KB국민 우리동네 체크카드', 0, 200000, '※ 실적유예기간 적용: 해당 카드 최초 사용등록일로부터 다음달 말일까지 [우리동네 정육점] 서비스 제공
+- 할인서비스는 제휴업체 정책에 따라 타 할인카드와 중복 할인이 제한될 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2604/card_img/31223/2604card.png', 1, 0, '', 0),
+
+(1, 0, 'KB국민 우리동네 체크카드', 0, 200000, '※ 실적유예기간 적용: 해당 카드 최초 사용등록일로부터 다음달 말일까지 [우리동네 정육점] 서비스 제공
 ※ 실적산정 제외기준: 후불교통요금, 무승인금액(자판기, 터널통행료, 유료도로, 기차/고속버스 취소 반환수수료 등), 정부지원금 이용금액(보육료, 유치원보조비, 바우처 이용금액 등), 포인트리 충전금액, 대학(대학원)등록금, 상품권 및 선불카드(선불전자지급수단 포함) 구입(충전)금액, 연체료, 지방세(지방세, 상하수도, 세외수입), 취소금액 각종 수수료 및 이자는 제외
 ※ KB국민카드 업종 분류 기준에 따라 서비스 제공 (예: ‘식품류 제조/도매’ 업종으로 등록 된 반찬가게 가맹점 및 ‘일반잡화판매점’으로 등록된 야채과일가게 할인 제외 등)
 ※ 상품권·선불카드 구매/충전 금액, 백화점/마트/역사/철도 등 입점 매장, 전자상거래(PG)/타 간편결제 이용은 할인 제외
@@ -769,8 +774,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 취소금액은 취소전표가 당사에 접수된 월의 실적에서 차감
 
 전월 이용실적 제외 대상
-∙ 후불교통요금, 무승인 금액 (자판기, 터널통행료, 유료도로, 기차/고속버스 취소 반환수수료 등), 정부지원금 이용금액 (보육료, 유치원보조비, 바우처 이용금액 등), 포인트리 충전금액, 대학(대학원)등록금, 상품권 및 선불카드(선불전자지급수단 포함) 구입(충전)금액, 연체료, 지방세(지방세, 상하수도, 세외수입), 취소금액, 각종 수수료 및 이자', 'https://api.card-gorilla.com:8080/storage/card/2332/card_img/24588/2332card.png', 1, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?mainCC=a&cooperationcode=09652&solicitorcode=7030084002', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 0, '노리2 체크카드(Play)', 0, 200000, '- 일상혜택은 전월실적 20만원 이상 시 제공(단, 커피 할인은 전월 이용실적 조건 없음)
+∙ 후불교통요금, 무승인 금액 (자판기, 터널통행료, 유료도로, 기차/고속버스 취소 반환수수료 등), 정부지원금 이용금액 (보육료, 유치원보조비, 바우처 이용금액 등), 포인트리 충전금액, 대학(대학원)등록금, 상품권 및 선불카드(선불전자지급수단 포함) 구입(충전)금액, 연체료, 지방세(지방세, 상하수도, 세외수입), 취소금액, 각종 수수료 및 이자', 'https://api.card-gorilla.com:8080/storage/card/2332/card_img/24588/2332card.png', 1, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?mainCC=a&cooperationcode=09652&solicitorcode=7030084002', 0),
+
+(1, 0, '노리2 체크카드(Play)', 0, 200000, '- 일상혜택은 전월실적 20만원 이상 시 제공(단, 커피 할인은 전월 이용실적 조건 없음)
 - Play 혜택은 전월 이용실적 30만원 이상 시 제공
 - 본인 회원기준으로 월간 통합할인한도 내에서 혜택 제공되며, 할인한도는 매월 1일 ~ 말일(승인시점 기준) 이용금액으로 적용
 전월 이용실적 구간 20만원 이상 40만원 이상 60만원 이상 80만원 이상
@@ -799,8 +805,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 본 상품을 국내외겸용(Master, Visa)으로 발급 시 해당 국제브랜드사의 플래티늄(Platinum) 서비스가 제공됩니다.
 - 단, 공통 서비스만 제공되며 발급사 선택서비스는 제공되지 않습니다.
 - 별도의 국제브랜드사 서비스 안내장을 참조하시기 바랍니다.
-- 플래티늄(Platinum) 서비스에 대한 세부내용 및 유의사항은 각 국제브랜드사 홈페이지를 통해 확인하실 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2550/card_img/29586/2550card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 0, 'KB국민 국민행복체크', 0, 300000, '이용실적 기준
+- 플래티늄(Platinum) 서비스에 대한 세부내용 및 유의사항은 각 국제브랜드사 홈페이지를 통해 확인하실 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2550/card_img/29586/2550card.png', 1, 0, '', 0),
+
+(1, 0, 'KB국민 국민행복체크', 0, 300000, '이용실적 기준
 - 전월 1일 ~ 말일(승인시점 기준) 각 상품별(동일계열 카드 이용금액합산) 승인(이용)금액 기준
 
 이용실적 제외 대상
@@ -811,8 +818,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 
 실적 유예기간 적용
 - 해당 카드 최초 카드 사용등록일로부터 다음달 말일까지 ‘KB국민행복체크카드’ 이용실적이 30만원 미만 시에도 할인서비스가 제공됩니다.
-(단, 30만원 이상 구간 적용)', 'https://api.card-gorilla.com:8080/storage/card/752/card_img/22226/752card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 0, '스타체크카드', 0, 200000, '카드발급
+(단, 30만원 이상 구간 적용)', 'https://api.card-gorilla.com:8080/storage/card/752/card_img/22226/752card.png', 0, 0, '', 0),
+
+(1, 0, '스타체크카드', 0, 200000, '카드발급
 - 인터넷을 통한 체크카드 발급은 만 17세 이상이면 신청 가능합니다.
  (단, 후불교통카드는 만 18세 이상만 가능)
 - 만 12세 이상~만 17세 미만 고객은 KB국민카드 영업점 방문 시 비교통카드에 한해 발급 가능합니다.
@@ -853,8 +861,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 
 부가서비스 변경 안내
 - KB국민 스타체크카드의 서비스는 신규 출시(2007년 3월 8일) 이후 1년 이상 축소ㆍ폐지없이 유지되고, 서비스 변경 시에는 변경사유, 변경내용 등에 대하여 변경일 6개월 이전에 홈페이지, 이용대금명세서, 우편서신, 전자 우편(E- MAIL) 중 2가지 이상의 방법으로 고지하여 드립니다.
-  다만, 서비스 제공과 관련된 제휴업체의 일방적인 제휴조건변경, 도산, 천재지변, 금융환경의 급변, 신용카드업자의 경영위기 및 그 밖에 이에 준하는 사유에 따른 불가피한 변경시에도 사전에 고지하되, 사전고지가 어려운 경우에는 사후에 고지하여 드립니다. ', 'https://api.card-gorilla.com:8080/storage/card/351/card_img/20595/351card.png', 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01552&solicitorcode=7030084000', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 0, 'LG U+ 체크카드', 0, 300000, '카드발급
+  다만, 서비스 제공과 관련된 제휴업체의 일방적인 제휴조건변경, 도산, 천재지변, 금융환경의 급변, 신용카드업자의 경영위기 및 그 밖에 이에 준하는 사유에 따른 불가피한 변경시에도 사전에 고지하되, 사전고지가 어려운 경우에는 사후에 고지하여 드립니다. ', 'https://api.card-gorilla.com:8080/storage/card/351/card_img/20595/351card.png', 0, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01552&solicitorcode=7030084000', 0),
+
+(1, 0, 'LG U+ 체크카드', 0, 300000, '카드발급
 - 인터넷을 통한 체크카드 발급은 만 17세 이상이면 신청 가능합니다.
  (단, 후불교통카드는 만 18세 이상만 가능)
 - 만 12세 이상~만 17세 미만 고객은 KB국민카드 영업점 방문 시 비교통카드에 한해 발급 가능합니다.
@@ -893,8 +902,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
   1. 전신환매도율 : 접수일의 KB국민은행 최초 고시 전신환매도율
   2. 국제브랜드 수수료 = (거래미화금액 x 국제브랜드 이용수수료율 ) x 전신환매도율
   3. 해외서비스 수수료 = (거래미화금액 x 해외서비스 수수료율 ) x 전신환매도율
-  *해당 내용은 해외원화결제서비스(DCC) 수수료가 없는 경우이며, 해외원화결제서비스(DCC)이용 시 추가 수수료가 발생할 수 있으니 유의하시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/354/card_img/20597/354card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 0, 'TMAP & LOGI 행복 체크카드', 0, 0, '통합할인한도
+  *해당 내용은 해외원화결제서비스(DCC) 수수료가 없는 경우이며, 해외원화결제서비스(DCC)이용 시 추가 수수료가 발생할 수 있으니 유의하시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/354/card_img/20597/354card.png', 0, 0, '', 0),
+
+(1, 0, 'TMAP & LOGI 행복 체크카드', 0, 0, '통합할인한도
 전월이용실적
 20만원이상
 30만원이상 50만원이상 100만원이상
@@ -931,8 +941,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 각 할인서비스는 해당가맹점이 KB국민카드의 가맹점 업종코드 상 할인대상 가맹점 업종으로 등록된 경우에 한하여 제공됩니다. PG(결제대행) 업체 또는 할인서비스를 제공하지 않는 타 간편결제를 통한 결제 및 호텔, 백화점, 대형마트, 철도역사 등에 입점한 가맹점이나 상품권 구매 시 할인대상에서 제외 될 수 있습니다.
 - 상품권 및 선불카드 구입·충전 금액의 경우 할인에서 제외될 수 있습니다.
 - TMAP & LOGI 행복 체크카드 서비스는 KB국민카드 업종 분류 기준, 지정 업종에 한하여 제공됩니다.
-- 할인서비스는 제휴업체 정책에 따라 타 할인카드와 중복 할인이 제한될 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2568/card_img/29903/2568card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 0, '카카오페이 KB국민 체크카드', 0, 300000, '카카오페이머니 적립서비스 월간 할인한도
+- 할인서비스는 제휴업체 정책에 따라 타 할인카드와 중복 할인이 제한될 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2568/card_img/29903/2568card.png', 1, 0, '', 0),
+
+(1, 0, '카카오페이 KB국민 체크카드', 0, 300000, '카카오페이머니 적립서비스 월간 할인한도
 - 카카오페이 간편결제: 1만p
 * 카카오페이머니 적립서비스는 카카오페이 KB국민 체크카드로 30만원 이상 시 제공됩니다.
 - 커피 전문점 업종, 제과아이스크림 업종, CU편의점, 대중교통: 1만p
@@ -942,8 +953,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
   (취소금액은 취소전표가 KB국민카드에 접수된 월의 실적에서 차감됩니다)
 
 전월 이용실적 제외 대상
-- 교통이용금액, 무승인 금액 (자판기, 터널통행료, 기차/고속버스 취소 반환수수료 등), 정부지원금 이용금액, 포인트리 충전금액, 대학(대학원)등록금, 상품권 및 선불카드 구입 (충전)금액, 연체료, 지방세(지방세, 상하수도, 세외수입), 취소금액, 각종 수수료 및 이자', 'https://api.card-gorilla.com:8080/storage/card/332/card_img/20576/332card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 0, '비트윈체크카드', 0, 200000, '카드발급
+- 교통이용금액, 무승인 금액 (자판기, 터널통행료, 기차/고속버스 취소 반환수수료 등), 정부지원금 이용금액, 포인트리 충전금액, 대학(대학원)등록금, 상품권 및 선불카드 구입 (충전)금액, 연체료, 지방세(지방세, 상하수도, 세외수입), 취소금액, 각종 수수료 및 이자', 'https://api.card-gorilla.com:8080/storage/card/332/card_img/20576/332card.png', 1, 0, '', 0),
+
+(1, 0, '비트윈체크카드', 0, 200000, '카드발급
 - 인터넷을 통한 체크카드 발급은 만 17세 이상이면 신청 가능합니다.
  (단, 후불교통카드는 만 18세 이상만 가능)
 - 만 12세 이상~만 17세 미만 고객은 KB국민카드 영업점 방문 시 비교통카드에 한해 발급 가능합니다.
@@ -995,8 +1007,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 카드 이용시 제공되는 포인트 및 할인혜택 등의 부가 서비스는 카드 신규출시 (2010년 5월 19일) 이후 1년 이상 축소·폐지없이 유지됩니다.
   다만, 부가서비스 제공과 관련된 제휴업체의 일방적인 제휴조건 변경, 도산, 천재지변, 금융환경 급변, 카드업자의 경영 위기 및 그 밖에 준하는 사유에 따른 불가피한 변경의 경우 특시 홈페이지에 게시하고, 개별고지 해드립니다.
   카드 신규출시 이후 1년 이상 경과했고, 해당 카드의 수익성 유지가 어려워 부가서비스를 변경하는 경우에는 홈페이지에 게시하고 6개월 전부터 매월 개별 고지해 드립니다.
-- 개별 고지 방법 : 카드대금청구서, 우편, 이메일, 휴대폰 문자메시지 중 하나', 'https://api.card-gorilla.com:8080/storage/card/347/card_img/20592/347card.png', 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01680&solicitorcode=7030084000', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 0, '쏘영 체크카드', 0, 50000, '유의사항
+- 개별 고지 방법 : 카드대금청구서, 우편, 이메일, 휴대폰 문자메시지 중 하나', 'https://api.card-gorilla.com:8080/storage/card/347/card_img/20592/347card.png', 0, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=01680&solicitorcode=7030084000', 0),
+
+(1, 0, '쏘영 체크카드', 0, 50000, '유의사항
 - 전월 이용실적 조건: KB국민 쏘영 체크카드로 전월 5만원 이상 이용 시 제공(세부내용 뒷면 참조)
 - 실적 유예기간 적용: 해당 카드 최초 사용등록일로부터 다음달 말일까지 #내맘대로다꾸, #오늘도빡공, #편스토랑한끼 서비스 제공
 - 실적산정 제외기준: 후불교통요금, 무승인금액(자판기, 터널통행료, 유료도로, 기차/고속버스 취소 반환수수료 등), 정부지원금 이용금액(보육료, 유치원보조비, 바우처 이용금액 등), 포인트리 충전금액, 대학(대학원)등록금, 상품권 및 선불카드(선불전자지급수단 포함)구입(충전)금액, 연체료, 지방세(지방세, 상하수도, 세외수입), 취소금액 각종 수수료 및 이자는 제외
@@ -1024,8 +1037,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 후불교통요금, 무승인 금액 (자판기, 터널통행료, 유료도로, 기차/고속버스 취소 반환수수료 등), 정부지원금 이용금액(보육료, 유치원보조비, 바우처 이용금액 등), 포인트리 충전금액, 대학(대학원)등록금, 상품권 및 선불카드(선불전자지급수단 포함) 구입(충전)금액, 연체료, 지방세(지방세, 상하수도, 세외수입), 취소금액, 각종 수수료 및 이자
 
 월간 통합할인한도
-체크카드별(동일계열 카드 포함)로 월간 할인 받을 수 있는 최대 금액으로 잔여한도는 다음달로 이월되지 않으며 전표가 매입되는 순서대로 월간 통합할인한도 내에서 차감됩니다.', 'https://api.card-gorilla.com:8080/storage/card/680/card_img/21445/680card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 0, '토스 USS NEXT 체크카드', 0, 200000, '서비스 가맹점 할인금액 할인한도 제공조건
+체크카드별(동일계열 카드 포함)로 월간 할인 받을 수 있는 최대 금액으로 잔여한도는 다음달로 이월되지 않으며 전표가 매입되는 순서대로 월간 통합할인한도 내에서 차감됩니다.', 'https://api.card-gorilla.com:8080/storage/card/680/card_img/21445/680card.png', 0, 0, '', 0),
+
+(1, 0, '토스 USS NEXT 체크카드', 0, 200000, '서비스 가맹점 할인금액 할인한도 제공조건
 커피 커피업종 100원 일 1회, 월 30회 건당 3천원 이상 시
 편의점 CU, GS25 200원 일 1회, 월 5회 건당 5천원 이상 시
 모바일 구글플레이스토어, 앱스토어 200원 일 1회, 월 15회 건당 5천원 이상 시
@@ -1035,8 +1049,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 서비스 제공조건 및 확인사항을 혜택별 탭(tab)과 상품설명서 및 약관을 통해 반드시 확인하시기 바랍니다.
 - 생애 최초 발급받는 \'토스 USS NEXT 체크카드\'는 사용등록일(KB Pay 등 간편결제 등록 포함)로부터 다음달 말일까지 이용 실적이 없더라도 할인이 제공됩니다.
 - 실적산정 제외기준: 후불교통요금, 무승인금액(자판기, 터널통행표, 유료도로, 기차/고속버스 취소 반환수수료 등), 정부지원금 이용금액(보육료, 유치원보조비, 바우처 이용금액 등), 포인트리 충전금액, 대학(대학원)등록금, 상품권 및 선불카드(선불전자지급수단 포함) 구입(충전)금액, 연체료, 지방세비잔세, 상하수도, 세외수입), 취소금액, 각종 수수료 및 이자는 제외됩니다.
-- \'토스 USS NEXT 체크카드\' 서비스는 해당 가맹점이 KB국민카드의 가맹점 업종코드(제휴가맹점) 상 할인 대상 가맹점으로 등록 된 경우에 한하여 제공됩니다.', 'https://api.card-gorilla.com:8080/storage/card/2625/card_img/31642/2625card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 0, 'KB국민 티머니노리학생증 체크카드(블루_세로형)', 0, 200000, '통합할인한도
+- \'토스 USS NEXT 체크카드\' 서비스는 해당 가맹점이 KB국민카드의 가맹점 업종코드(제휴가맹점) 상 할인 대상 가맹점으로 등록 된 경우에 한하여 제공됩니다.', 'https://api.card-gorilla.com:8080/storage/card/2625/card_img/31642/2625card.png', 1, 0, '', 0),
+
+(1, 0, 'KB국민 티머니노리학생증 체크카드(블루_세로형)', 0, 200000, '통합할인한도
 전월이용실적 20만원이상 30만원이상 50만원이상 100만원이상
 월간 통합할인한도 1만원 2만원 3만원 5만원
 - 노리체크카드 서비스는 전월 이용실적 20만원 이상 시 제공됩니다.(단, \'대중교통/통신 \' 30만원 이상 시 제공되며, 금융수수료 면제 서비스는 별도 기준에 따라 적용됩니다.)
@@ -1062,8 +1077,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 취소금액은 취소한 해당월의 이용실적에서 차감(취소시점 기준)
 - 노리 체크카드는 본인회원 기준으로 월간 할인한도가 제공되며, 적용기간은 매월1일~말일까지입니다.
 - 이용한 달의 월간 할인한도 내에서 적용되며, 할인 잔여한도는 이월되지 않습니다.
-- 할인 받은 매출 취소 후 동일한 할인 서비스 제공 업체를 이용한 경우 취소전표가 실시간 접수되지 않아 할인 한도가 즉시 복원되지 않을 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/1616/card_img/22580/1616card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 0, '누리체크카드', 0, 300000, 'KB국민 누리체크카드 서비스
+- 할인 받은 매출 취소 후 동일한 할인 서비스 제공 업체를 이용한 경우 취소전표가 실시간 접수되지 않아 할인 한도가 즉시 복원되지 않을 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/1616/card_img/22580/1616card.png', 1, 0, '', 0),
+
+(1, 0, '누리체크카드', 0, 300000, 'KB국민 누리체크카드 서비스
 - KB국민 누리체크카드는 최초 카드발급 후 사용등록일로부터 다음 달 말일까지 이용실적이 없는 경우에도 누리체크 추가 환급할인 서비스(주말/공휴일, 음식/커피업종, 대중교통/택시, 이동통신)가 제공됩니다.
   단, 누리체크 기본 환급할인 서비스 및 해외할인 캐시백 서비스는 제외됩니다.
 - KB국민 누리체크카드는 전월이용실적 산정 시 교통이용금액 및 무승인, 해외이용금액은 제외됩니다.
@@ -1119,8 +1135,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 
 부가서비스 변경 안내
 - KB국민 누리체크카드의 서비스는 신규출시(2014년12월 24일) 이후 1년 이상 축소∙폐지 없이 유지되고, 서비스 변경 시 에는 변경사유, 변경내용 등에 대하여 변경일 6개월 이전에 홈페이지, 이용대금명세서, 우편, 서신, 전자우편(E-MAIL) 중 2가지 이상의 방법으로 고지하여 드립니다.
-  다만, 서비스 제공과 관련된 제휴업체의 일방적인 제휴조건 변경, 도산, 천재지변, 금융환경의 급변, 신용카드업자의 경영위기 및 그 밖에 이에 준하는 사유에 따른 불가피한 변경 시에도 사전에 고지하되, 사전고지가 어려운 경우에는 사후에 고지하여 드립 니다.', 'https://api.card-gorilla.com:8080/storage/card/338/card_img/20583/338card.png', 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=09166&solicitorcode=7030084000', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (3, 0, 'NH20해봄체크카드', 0, 200000, '서비스 이용조건
+  다만, 서비스 제공과 관련된 제휴업체의 일방적인 제휴조건 변경, 도산, 천재지변, 금융환경의 급변, 신용카드업자의 경영위기 및 그 밖에 이에 준하는 사유에 따른 불가피한 변경 시에도 사전에 고지하되, 사전고지가 어려운 경우에는 사후에 고지하여 드립 니다.', 'https://api.card-gorilla.com:8080/storage/card/338/card_img/20583/338card.png', 0, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0137?cooperationcode=09166&solicitorcode=7030084000', 0),
+
+(3, 0, 'NH20해봄체크카드', 0, 200000, '서비스 이용조건
 - 특정한 제한조건이 없는 경우 카드사용등록일로부터 다음 달 말일까지는 전월실적 미달시에도 최저한도 기준으로 서비스를 제공하며, 전월실적 조건 달성시해당 구간의 할인한도를 제공합니다.
 - 전월실적은 해당카드로 전월(1일~말일) 국내·외 일시불/할부 이용금액을의미합니다.
 - 대학(대학원)등록금, 각종 세금 및 공과금, 우체국 우편요금, 사회보험(국민건강,국민연금,고용/산재), 아파트관리비, 도시가스요금, 전기요금, 상품권및 선불카드류구매(충전 포함), 각종 수수료 및 이자, 연체료, 거래 취소금액,포인트(전부/일부) 결제 시 포인트 사용분 등의 이용금액은 제외됩니다.
@@ -1130,8 +1147,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 교통카드 이용금액 및 통신료 자동이체금액은 매출표 접수일 기준으로 이용금액에 합산 적용됩니다.
 - 월간 할인한도가 제한된 서비스는 매월별(1일~말일) 카드 이용순서 기준으로적용됩니다.
 - 가족카드의 경우 본인카드 이용실적과 합산되지 않으며, 카드별 이용실적을각각 체크하여 서비스가 제공됩니다.
-- 카드서비스 적용은 NH농협카드 전산상 등록된 해당 가맹점·업종 이용액에한합니다.', 'https://api.card-gorilla.com:8080/storage/card/362/card_img/20603/362card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (3, 0, '올바른POINT체크카드', 0, 0, '서비스 이용조건
+- 카드서비스 적용은 NH농협카드 전산상 등록된 해당 가맹점·업종 이용액에한합니다.', 'https://api.card-gorilla.com:8080/storage/card/362/card_img/20603/362card.png', 0, 0, '', 0),
+
+(3, 0, '올바른POINT체크카드', 0, 0, '서비스 이용조건
 - 전월실적을 충족해야하는 서비스는 사용등록하신 달에는 제공되지 않으며, 그 다음 달부터 서비스 조건 충족 시 서비스가 제공됩니다.
 - 전월실적은 해당카드로 전월(1일~말일) 국내·외 일시불/할부(전액) 이용금액을 의미 합니다.
 - 이용금액은 승인일 기준 이용금액을 의미합니다.
@@ -1159,16 +1177,18 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 카드사가 부가서비스를 변경하는 경우에는 부가서비스 변경 사유, 변경 내용 등을 사유발생 즉시 홈페이지에 게시하고, 사전 또는 사후 개별 고지해 드립니다. 특히 카드 신규 출시 이후 3년 이상 경과했고, 해당카드의 수익성 유지가 어려워 부가서비스를 변경하는 경우에는 6개월 전부터 매월 개별고지 해 드립니다.
 - 개별고지방법 : 이용대금명세서, 우편, 전자우편(e-mail), 휴대폰문자메시지 중 하나
 - 필요 이상으로 신용카드를 발급 및 이용하실 경우 신용등급 또는 개인신용평점이나 이용한도 등에 영향을 미칠 수 있습니다.
-- 카드신청 전 카드상품 안내장 및 약관의 내용을 반드시 읽어보시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/360/card_img/25852/360card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (3, 0, 'NH 무럭이 체크카드', 0, 0, '국제공항 라운지 무료이용
+- 카드신청 전 카드상품 안내장 및 약관의 내용을 반드시 읽어보시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/360/card_img/25852/360card.png', 0, 0, '', 0),
+
+(3, 0, 'NH 무럭이 체크카드', 0, 0, '국제공항 라운지 무료이용
 제공 횟수
 연 1회 제공
 대상라운지
 인천국제공항 마티나 일반, 스카이허브, SPC라운지, 롯데라운지L
 김포/김해국제공항 스카이허브
 - 전월실적 50만원 이상 시 제공됩니다.
-- 본 서비스는 카드 사용등록월에는 제공되지 않으며, 그 다음 달부터 서비스 조건 충족 시 제공됩니다.', 'https://api.card-gorilla.com:8080/storage/card/2620/card_img/31489/2620card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (3, 0, '어피치 스윗 체크카드', 0, 300000, '월 통합 할인한도 및 제공 횟수
+- 본 서비스는 카드 사용등록월에는 제공되지 않으며, 그 다음 달부터 서비스 조건 충족 시 제공됩니다.', 'https://api.card-gorilla.com:8080/storage/card/2620/card_img/31489/2620card.png', 1, 0, '', 0),
+
+(3, 0, '어피치 스윗 체크카드', 0, 300000, '월 통합 할인한도 및 제공 횟수
 구분 전월실적 및 할인한도
 30만원 이상
 50만원 이상
@@ -1177,8 +1197,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 재밌는 Sweet 서비스 2천원
 국제공항 라운지 무료이용 서비스 - 연 1회 제공
 - 카드사용등록일로부터 다음달 말일까지는 전월실적 미달 시에도 최소 실적 구간 서비스 제공
-- 국제공항 라운지 무료이용 서비스는 카드 사용등록 월에는 제공되지 않으며 익월부터 조건 충족 시 제공', 'https://api.card-gorilla.com:8080/storage/card/586/card_img/21342/586card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (3, 0, '알뜰교통카드(체크)', 0, 200000, '- 체크카드 캐시백 금액은 결제일에 일괄 입금
+- 국제공항 라운지 무료이용 서비스는 카드 사용등록 월에는 제공되지 않으며 익월부터 조건 충족 시 제공', 'https://api.card-gorilla.com:8080/storage/card/586/card_img/21342/586card.png', 1, 0, '', 0),
+
+(3, 0, '알뜰교통카드(체크)', 0, 200000, '- 체크카드 캐시백 금액은 결제일에 일괄 입금
 - 라이프 서비스는 이용 건당 1만원 이상 결제 시 캐시백 제공
 - 라이프 서비스는 전월실적 20만원 이상 결제 시 캐시백 제공
 - 라이프 서비스의 이동통신요금 할인, 커피전문점 할인과 편의점 캐시백은 개별 할인 한도 적용
@@ -1201,8 +1222,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 백화점, 대형마트, 할인점(아울렛), 역사 등에 입점한 매장은 전산상 해당 가맹점으로 구분이 불가하여 할인 서비스가 제외될 수 있습니다.
 - 별도 가맹점번호로 승인 처리되는 PG결제(결제대행업체) 및 간편결제(Pay) 이용 건은 서비스적용이 제외될 수 있습니다.
 - 해외 가상화폐 관련 업종 및 가맹점에서 카드 사용이 제한될 수 있습니다.
-- 할인 서비스 제외 대상 : 대학(대학원)등록금, 교육비(학부모부담금), 임대료, 각종 세금 및 공과금, 상하수도요금, 과태료(범칙금), 우체국 우편요금, 사회보험(국민건강/국민연금/고용/산재), 아파트 관리비, 도시가스요금, 전기요금, 선불카드류(기프트카드, 선불전자지급수단 등) 구매 및 충전, 상품권 구매(모바일상품권/쿠폰 포함), 가상화폐 거래소 이용금액, 단기카드대출(현금서비스), 장기 카드대출(카드론), 각종 수수료 및 이자, 연체로, 연회비, 거래취소금액, 포인트(전부/일부) 결제 시 포인트 사용분 등의 이용금액, 무이자할부(무이자할부 행사 및 우수고객 무이자 할부 지원 포함) 등의 이용금액', 'https://api.card-gorilla.com:8080/storage/card/2561/card_img/29919/2561card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (9, 0, '롯데 국민행복 체크카드', 0, 300000, '이용 전 반드시 확인하세요!
+- 할인 서비스 제외 대상 : 대학(대학원)등록금, 교육비(학부모부담금), 임대료, 각종 세금 및 공과금, 상하수도요금, 과태료(범칙금), 우체국 우편요금, 사회보험(국민건강/국민연금/고용/산재), 아파트 관리비, 도시가스요금, 전기요금, 선불카드류(기프트카드, 선불전자지급수단 등) 구매 및 충전, 상품권 구매(모바일상품권/쿠폰 포함), 가상화폐 거래소 이용금액, 단기카드대출(현금서비스), 장기 카드대출(카드론), 각종 수수료 및 이자, 연체로, 연회비, 거래취소금액, 포인트(전부/일부) 결제 시 포인트 사용분 등의 이용금액, 무이자할부(무이자할부 행사 및 우수고객 무이자 할부 지원 포함) 등의 이용금액', 'https://api.card-gorilla.com:8080/storage/card/2561/card_img/29919/2561card.png', 0, 0, '', 0),
+
+(9, 0, '롯데 국민행복 체크카드', 0, 300000, '이용 전 반드시 확인하세요!
 - 추가적인 혜택(포인트 및 할인혜택 등)에는 제공조건 및 한도 등이 적용됩니다. 상세한 안내는 롯데카드 홈페이지(www.lottecard.co.kr)를 참조하시기 바랍니다.
 - 카드 이용시 제공되는 추가적인 혜택은 카드 신규 출시 이후 3년 이상 축소 · 폐지없이 유지됩니다.
 - 상기에도 불구하고, 다음과 같은 사유가 발생한 경우 카드사는 추가적인 혜택을 변경할 수 있습니다.
@@ -1215,21 +1237,24 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 카드를 해지한 후에도 관련 법령 및 내부 지침에 의거하여 회원의 정보가 일정기간 보존됩니다.
 - 결제일 카드대금 납부 : 결제계좌 개설기관의 영업 마감시간(16시) 이후 결제계좌에 입금된 금액은 개설기관의 사정에 따라 당일 출금되지 못하여 연체로 처리될 수 있으니 유의하시기 바랍니다. 자동납부 업무 마감시간 이후 무통장, 가상계좌 입금을 통해 당일 결제가 가능합니다.(세부내용 홈페이지/모바일 앱 참조)
 - 다수의 신용카드 발급은 개인 신용등급 또는 개인신용평점, 이용한도 등에 영향을 미칠 수 있습니다.
-- 카드 신청전 상품안내장 및 약관의 내용을 읽어보시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/404/card_img/20902/404card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (9, 0, '롯데 플래티넘 체크카드', 1000, 100000, '이용 전 반드시 확인하세요!
+- 카드 신청전 상품안내장 및 약관의 내용을 읽어보시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/404/card_img/20902/404card.png', 0, 0, '', 0),
+
+(9, 0, '롯데 플래티넘 체크카드', 1000, 100000, '이용 전 반드시 확인하세요!
 - 서비스에는 제공조건 및 한도 등이 적용됩니다. 자세한 사항은 홈페이지(www.lottecard.co.kr)에 안내되어 있습니다.
 - 부가서비스는 신용카드의 신규 출시 이후 1년 이상 축소/폐지 없이 유지되고, 부가서비스 변경 시에는 변경사유, 변경내용 등에 대하여 변경일 6개월 이전에 홈페이지, 이용대금명세서, 우편서신, 전자우편(E-MAIL) 중 2가지 이상의 방법으로 고지하여 드립니다. 다만, 부가서비스 제공과 관련된 제휴업체의 일방적인 제휴조건의 변경/도산, 천재지변, 금융환경의 급변, 신용카드업자의 경영위기 및 그밖에 이에 준하는 사유에 따른 불가피한 변경의 경우에는 사전고지 하고 불가능할 경우 사후고지 합니다.
 - 회원이 유효기간이 도래하기 전에 카드를 해지하는 경우, 연회비 반환 금액은 회원이 카드사와 계약을 해지한 날부터 일할 계산하여 산정합니다. 단, 카드의 발행, 배송 등 카드발급에 소요된 비용(신규 가입년도에 해당)은 반환금액에서 제외되며, 제휴연회비가 있는 경우에는 카드 이용 시 제공되는 추가적인 혜택 등 부가서비스 제공에 소요된 비용이 추가적으로 반환금액에서 제외됩니다. 연회비 반환은 계약을 해지한 날부터 영업일 기준 10일 이내 반환하여 드립니다.단, 부가서비스 제공내역 확인에 시간이 소요되는 등의 불가피한 사유 시에는 계약 해지 날부터 3개월 이내 반환할 수 있습니다.
 - 다수의 신용카드 발급은 개인 신용등급 또는 개인신용평점, 이용한도 등에 영향을 미칠 수 있습니다.
 - 카드를 해지한 후에도 관련 법령 및 내부 지침에 의거하여 회원의 정보가 일정 기간 보존됩니다.
-- 카드 신청 전 카드상품 안내장 및 약관의 내용을 반드시 읽어보시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/402/card_img/20900/402card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (9, 0, '롯데체크카드', 0, 0, '이용 전 반드시 확인하세요!
+- 카드 신청 전 카드상품 안내장 및 약관의 내용을 반드시 읽어보시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/402/card_img/20900/402card.png', 0, 0, '', 0),
+
+(9, 0, '롯데체크카드', 0, 0, '이용 전 반드시 확인하세요!
 - 회원이 유효기간이 도래하기 전에 카드를 해지하는 경우, 연회비 반환 금액은 회원이 카드사와 계약을 해지한 날부터 일할 계산하여 산정합니다. 단 카드의 발행, 배송 등 카드발급에 소요된 비용(신규 가입년도에 해당)은 반환금액에서 제외되며 제휴연회비가 있는 경우에는 카드 이용시 제공되는 추가적인 혜택 등 부가서비스 제공에 소요된 비용이 추가적으로 반환금액에서 제외됩니다. 연회비 반환은 계약을 해지한 날부터 10영업일 이내 반환하여 드립니다. 단, 부가서비스 제공내역 확인에 시간이 소요되는 등의 불가피한 사유 시에는 계약 해지날부터 3개월 이내 반환할 수 있습니다.
 - 서비스에는 제공조건 및 한도 등이 적용됩니다. 자세한 사항은 홈페이지(www.lottecard.co.kr)에 안내되어 있습니다.
 - 카드 신청 전 카드상품 안내장 및 약관의 내용을 반드시 읽어보시기 바랍니다.
 - 카드 이용 시 제공되는 포인트 및 할인혜택 등의 부가서비스는 카드 신규출시 이후 1년이상 축소 폐지없이 유지되고, 부가서비스 변경시에는 변경사유, 변경내용에 대하여 변경일 6개월 이전부터 대금청구서, 우편서신, 이메일, 문자메시지 중 어느 하나의 방법으로 매월 고지하여 드립니다. 다만, 부가서비스 제공과 관련된 제휴업체 또는 신용카드업자의 휴업·도산·경영위기, 천재지변, 금융환경의 급변 또는 그밖에 이에 준하는 사유에 따른 불가피한 변경의 경우에는 사유 발생 즉시 인터넷 홈페이지, 대금청구서, 우편서신, 이메일 중 2가지 이상의 방법으로 고지하여 드립니다.
-- 다수의 신용카드 발급은 개인 신용등급 또는 개인신용평점, 이용한도 등에 영향을 미칠 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/403/card_img/20901/403card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (9, 0, 'LIKIT all 체크카드', 0, 0, 'L.POINT 적립/사용카드로 이용
+- 다수의 신용카드 발급은 개인 신용등급 또는 개인신용평점, 이용한도 등에 영향을 미칠 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/403/card_img/20901/403card.png', 0, 0, '', 0),
+
+(9, 0, 'LIKIT all 체크카드', 0, 0, 'L.POINT 적립/사용카드로 이용
 - 롯데멤버스㈜ 고객정보 제공에 동의하신 회원에 한하여 L.POINT 회원가입이 가능합니다.
 - L.POINT는 L.POINT 제휴사 이용 시 결제금액에 따라 적립받고 현금처럼 사용가능한 포인트 입니다.
 - LIKIT all 체크카드로 결제 시 롯데카드가 제공하는 L.POINT 적립서비스가 제공되지 않습니다.
@@ -1248,16 +1273,18 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 결제 취소 건 접수 여부는 롯데카드 홈페이지(www.lottecard.co.kr)에서 회원가입 후 MY ▶ 카드이용내역 ▶ 정상·취소구분 ▶ 취소 선택 후 조회 시 확인할 수 있습니다.
 - 지난달 이용금액 중 실적에 포함된 매출을 취소하는 경우 지난달 이용실적이 변경될 수 있습니다.
 - 롯데카드에 등록된 가맹점 및 업종을 기준으로 혜택이 제공됩니다.
-- 롯데카드의 다른 캐시백 혜택과 중복 적용되지 않으며, 금액이 큰 혜택으로 적용됩니다.', 'https://api.card-gorilla.com:8080/storage/card/756/card_img/22230/756card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (9, 0, '롯데포인트플러스 체크카드', 0, 0, '이용 전 반드시 확인하세요!
+- 롯데카드의 다른 캐시백 혜택과 중복 적용되지 않으며, 금액이 큰 혜택으로 적용됩니다.', 'https://api.card-gorilla.com:8080/storage/card/756/card_img/22230/756card.png', 1, 0, '', 0),
+
+(9, 0, '롯데포인트플러스 체크카드', 0, 0, '이용 전 반드시 확인하세요!
 - 서비스에는 제공조건 및 한도 등이 적용됩니다. 자세한 사항은 홈페이지(www.lottecard.co.kr)에 안내되어 있습니다.
 - 부가서비스는 신용카드의 신규 출시 이후 5년(2014.12.24일 이전 출시 카드는 1년) 이상 축소/폐지 없이 유지되고, 부가서비스 변경시에는 변경사유, 변경내용에 대하여 변경일 6개월 이전부터 대금청구서, 우편서신, 이메일, 문자메시지(SMS, MMS) 중 어느 하나의 방법으로 매월 고지하여 드립니다.
 다만, 부가서비스 제공과 관련된 제휴업체 또는 신용카드업자의 휴업·도산·경영위기, 천재지변, 금융환경의 급변 또는 그 밖에 이에 준하는 사유에 따른 불가피한 변경의 경우에는 사유 발생 즉시 인터넷 홈페이지, 대금청구서, 우편서신, 이메일 중 2가지 이상의 방법으로 고지하여 드립니다.
 - 회원이 유효기간이 도래하기 전에 카드를 해지하는 경우, 연회비 반환 금액은 회원이 카드사와 계약을 해지한 날부터 일할 계산하여 산정합니다. 단, 카드의 발행, 배송 등 카드발급에 소요된 비용은 반환금액에서 제외되며 제휴연회비가 있는 경우에는(신규 가입년도에 해당) 카드 이용 시 제공되는 추가적인 혜택 등 부가서비스 제공에 소요된 비용이 추가적으로 반환금액 에서 제외됩니다. 연회비 반환은 계약을 해지한 날부터 영업일 기준 10일 이내 반환하여 드립니다. 단, 부가서비스 제공내역 확인에 시간이 소요되는 등의 불가피한 사유 시에는 계약 해지 날부터 3개월 이내 반환할 수 있습니다.
 - 카드를 해지한 후에도 관련 법령 및 내부 지침에 의거하여 회원의 정보가 일정기간 보존됩니다.
 - 다수의 신용카드 발급은 개인 신용등급 또는 개인신용평점, 이용한도 등에 영향을 미칠 수 있습니다.
-- 카드 신청전 카드상품 안내장 및 약관의 내용을 반드시 읽어보시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/400/card_img/20899/400card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (9, 0, 'E1 LPG 롯데 체크카드', 0, 200000, '이용 전 반드시 확인하세요!
+- 카드 신청전 카드상품 안내장 및 약관의 내용을 반드시 읽어보시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/400/card_img/20899/400card.png', 0, 0, '', 0),
+
+(9, 0, 'E1 LPG 롯데 체크카드', 0, 200000, '이용 전 반드시 확인하세요!
 - 추가적인 혜택(포인트 및 할인혜택 등)에는 제공조건 및 한도 등이 적용됩니다. 자세한 내용은 롯데카드 홈페이지(www.lottecard.co.kr)를 참고하시기 바랍니다.
 - 카드 이용시 제공되는 추가적인 혜택은 카드 신규 출시 이후 3년 이상 축소 · 폐지없이 유지됩니다.
 - 상기에도 불구하고, 다음과 같은 사유가 발생한 경우 카드사는 추가적인 혜택을 변경할 수 있습니다.
@@ -1267,14 +1294,16 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 카드사가 추가적인 혜택을 변경하는 경우에는 변경 사유, 변경 내용 등을 사유발생 즉시 홈페이지에 게시하고 개별 고지해드립니다. 특히 해당카드의 수익성 유지가 어려워 변경하는 경우에는 6개월 전부터 매월 개별 고지해 드립니다.
 - 개별고지 방법 : 카드대금청구서, 우편, 이메일, 문자메세지 중 하나
 - 결제일 카드대금 납부 : 결제계좌 개설기관의 영업 마감시간(16시) 이후 결제계좌에 입금된 금액은 개설기관의 사정에 따라 당일 출금되지 못하여 연체로 처리될 수 있으니 유의하시기 바랍니다. 자동납부 업무 마감시간 이후 무통장, 가상계좌 입금을 통해 당일 결제가 가능합니다.(세부내용 홈페이지/모바일 앱 참조)
-- 카드 신청 전 상품설명서 및 약관의 내용을 읽어보시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/1932/card_img/22066/1932card.jpg', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (9, 0, '위클리 VISA 롯데체크카드', 0, 0, '유의사항
+- 카드 신청 전 상품설명서 및 약관의 내용을 읽어보시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/1932/card_img/22066/1932card.jpg', 0, 0, '', 0),
+
+(9, 0, '위클리 VISA 롯데체크카드', 0, 0, '유의사항
 - 서비스에는 제공조건 및 한도 등이 적용됩니다. 자세한 사항은 홈페이지(www.lottecard.co.kr)에 안내되어 있습니다.
 - 부가서비스는 신용카드의 신규 출시 이후 1년 이상 축소/폐지 없이 유지되고, 부가서비스 변경시에는 변경사유, 변경내용에 대하여 변경일 6개월 이전부터 대금청구서, 우편서신, 이메일, 문자메시지(SMS,MMS) 중 어느 하나의 방법으로 매월 고지하여 드립니다.
 - 다만, 부가서비스 제공과 관련된 제휴업체 또는 신용카드업자의 휴업·도산·경영위기, 천재지변, 금융환경의 급변 또는 그 밖에 이에 준하는 사유에 따른 불가피한 변경의 경우에는 사유 발생 즉시 인터넷 홈페이지, 대금청구서, 우편서신, 이메일 중 2가지 이상의 방법으로 고지하여 드립니다.
 - 카드를 해지한 후에도 관련 법령 및 내부 지침에 의거하여 회원의 정보가 일정기간 보존됩니다.
-- 카드 신청 전 상품설명서 및 약관의 내용을 반드시 읽어보시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/2147/card_img/21829/2147card.jpg', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (9, 0, 'LIKIT on 체크카드', 0, 300000, 'L.POINT 적립/사용카드로 이용
+- 카드 신청 전 상품설명서 및 약관의 내용을 반드시 읽어보시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/2147/card_img/21829/2147card.jpg', 0, 0, '', 0),
+
+(9, 0, 'LIKIT on 체크카드', 0, 300000, 'L.POINT 적립/사용카드로 이용
 - 롯데멤버스㈜ 고객정보 제공에 동의하신 회원에 한하여 L.POINT 회원가입이 가능합니다.
 - L.POINT는 L.POINT 제휴사 이용 시 결제금액에 따라 적립받고 현금처럼 사용가능한 포인트 입니다.
 - LIKIT fun 체크카드로 결제 시 롯데카드가 제공하는 L.POINT 적립서비스가 제공되지 않습니다.
@@ -1295,8 +1324,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 결제 취소 건 접수 여부는 롯데카드 홈페이지(www.lottecard.co.kr)에서 회원가입 후 MY ▶ 카드이용내역 ▶ 정상·취소구분 ▶ 취소 선택 후 조회 시 확인할 수 있습니다.
 - 지난달 이용금액 중 실적에 포함된 매출을 취소하는 경우 지난달 이용실적 및 이번달 캐시백 한도가 변경될 수 있습니다.
 - 롯데카드에 등록된 가맹점 및 업종을 기준으로 혜택이 제공됩니다.
-- 롯데카드의 다른 캐시백 혜택과 중복 적용되지 않으며, 금액이 큰 혜택으로 적용됩니다.', 'https://api.card-gorilla.com:8080/storage/card/757/card_img/22231/757card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (9, 0, 'LIKIT fun 체크카드', 0, 300000, 'L.POINT 적립/사용카드로 이용
+- 롯데카드의 다른 캐시백 혜택과 중복 적용되지 않으며, 금액이 큰 혜택으로 적용됩니다.', 'https://api.card-gorilla.com:8080/storage/card/757/card_img/22231/757card.png', 1, 0, '', 0),
+
+(9, 0, 'LIKIT fun 체크카드', 0, 300000, 'L.POINT 적립/사용카드로 이용
 - 롯데멤버스㈜ 고객정보 제공에 동의하신 회원에 한하여 L.POINT 회원가입이 가능합니다.
 - L.POINT는 L.POINT 제휴사 이용 시 결제금액에 따라 적립받고 현금처럼 사용가능한 포인트 입니다.
 - LIKIT fun 체크카드로 결제 시 롯데카드가 제공하는 L.POINT 적립서비스가 제공되지 않습니다.
@@ -1317,8 +1347,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 결제 건을 취소하시는 경우 취소 건이 롯데카드에 접수된 후 환불됩니다. 캐시백이 적용된 결제 건을 취소하는 경우 캐시백 금액을 제외한 이용금액이 환불됩니다.
 - 결제 취소 건 접수 여부는 롯데카드 홈페이지(www.lottecard.co.kr)에서 회원가입 후 MY ▶ 카드이용내역 ▶ 정상·취소구분 ▶ 취소 선택 후 조회 시 확인할 수 있습니다.
 - 롯데카드에 등록된 가맹점 및 업종을 기준으로 혜택이 제공됩니다.
-- 롯데카드의 다른 캐시백 혜택과 중복 적용되지 않으며, 금액이 큰 혜택으로 적용됩니다.', 'https://api.card-gorilla.com:8080/storage/card/755/card_img/22229/755card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (9, 0, '쇼퍼홀릭 롯데홈쇼핑 롯데체크카드', 0, 0, '유의사항
+- 롯데카드의 다른 캐시백 혜택과 중복 적용되지 않으며, 금액이 큰 혜택으로 적용됩니다.', 'https://api.card-gorilla.com:8080/storage/card/755/card_img/22229/755card.png', 1, 0, '', 0),
+
+(9, 0, '쇼퍼홀릭 롯데홈쇼핑 롯데체크카드', 0, 0, '유의사항
 - 추가적인 혜택(포인트 및 할인혜택 등)에는 제공조건 및 한도 등이 적용됩니다. 자세한 내용은 롯데카드 홈페이지(www.lottecard.co.kr)를 참고하시기 바랍니다.
 - 카드 이용시 제공되는 추가적인 혜택은 카드 신규 출시 이후 3년 이상 축소 · 폐지없이 유지됩니다.
 - 상기에도 불구하고, 다음과 같은 사유가 발생한 경우 카드사는 추가적인 혜택을 변경할 수 있습니다.
@@ -1329,8 +1360,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 카드사가 추가적인 혜택을 변경하는 경우에는 변경 사유, 변경 내용 등을 사유발생 즉시 홈페이지에 게시하고 개별 고지해드립니다. 특히 해당카드의 수익성 유지가 어려워 변경하는 경우에는 6개월 전부터 매월 개별 고지해 드립니다.
 - 개별고지 방법 : 카드대금청구서, 우편, 이메일, 문자메세지 중 하나
 - 결제일 카드대금 납부 : 결제계좌 개설기관의 영업 마감시간(16시) 이후 결제계좌에 입금된 금액은 개설기관의 사정에 따라 당일 출금되지 못하여 연체로 처리될 수 있으니 유의하시기 바랍니다. 자동납부 업무 마감시간 이후 무통장, 가상계좌 입금을 통해 당일 결제가 가능합니다.(세부내용 홈페이지/모바일 앱 참조)
-- 카드 신청 전 상품설명서 및 약관의 내용을 읽어보시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/2140/card_img/21874/2140card.jpg', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (9, 0, '티니패스 카드', 0, 0, '- 구매 대상: 롯데 개인신용카드 회원
+- 카드 신청 전 상품설명서 및 약관의 내용을 읽어보시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/2140/card_img/21874/2140card.jpg', 0, 0, '', 0),
+
+(9, 0, '티니패스 카드', 0, 0, '- 구매 대상: 롯데 개인신용카드 회원
   *구매 불가 카드: 텔로SKT카드, LG전자 스페셜 롯데카드 (구매불가 카드는 추후 변경될 수 있습니다)
 - 구매처: 홈페이지, \'롯데카드 라이프\' 앱 카드센터
 *홈페이지에서 구매 시 원클릭 간편결제를 통해 구매가능
@@ -1340,8 +1372,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 
 이용 가맹점 안내
 - 전국 롯데카드 가맹점 및 온라인 쇼핑몰에서 이용 가능합니다 (일부 이용제한 가맹점 제외)
-*교통은 전국 버스 / 지하철에서 이용 가능합니다.', 'https://api.card-gorilla.com:8080/storage/card/2322/card_img/23851/2322card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (9, 0, '세븐일레븐 멤버십롯데체크카드', 0, 200000, '- 추가적인 혜택(포인트 및 할인혜택 등)에는 제공조건 및 한도 등이 적용됩니다. 자세한 내용은 롯데카드 홈페이지(www.lottecard.co.kr)를 참고하시기 바랍니다.
+*교통은 전국 버스 / 지하철에서 이용 가능합니다.', 'https://api.card-gorilla.com:8080/storage/card/2322/card_img/23851/2322card.png', 0, 0, '', 0),
+
+(9, 0, '세븐일레븐 멤버십롯데체크카드', 0, 200000, '- 추가적인 혜택(포인트 및 할인혜택 등)에는 제공조건 및 한도 등이 적용됩니다. 자세한 내용은 롯데카드 홈페이지(www.lottecard.co.kr)를 참고하시기 바랍니다.
 - 카드 이용시 제공되는 추가적인 혜택은 카드 신규 출시 이후 3년 이상 축소 · 폐지없이 유지됩니다.
 - 상기에도 불구하고, 다음과 같은 사유가 발생한 경우 카드사는 추가적인 혜택을 변경할 수 있습니다.
   ① 카드사 또는 부가서비스 관련 제휴업체의 휴업 ·도산 ·경영위기, 천재지변, 금융환경의 급변 또는 그 밖에 이에 준하는 사유의 발생
@@ -1352,8 +1385,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 개별고지 방법 : 카드대금청구서, 우편, 이메일, 문자메세지 중 하나
 - 카드를 해지한 후에도 관련 법령 및 내부 지침에 의거하여 회원의 정보가 일정기간 보존됩니다.
 - 결제일 카드대금 납부 : 결제계좌 개설기관의 영업 마감시간(16시) 이후 결제계좌에 입금된 금액은 개설기관의 사정에 따라 당일 출금되지 못하여 연체로 처리될 수 있으니 유의하시기 바랍니다. 자동납부 업무 마감시간 이후 무통장, 가상계좌 입금을 통해 당일 결제가 가능합니다.(세부내용 홈페이지/모바일 앱 참조)
-- 카드 신청 전 상품설명서 및 약관의 내용을 읽어보시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/1714/card_img/22410/1714card.jpg', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (9, 0, 'AIA생명 롯데 리얼체크카드', 0, 300000, '이용 전 반드시 확인하세요!
+- 카드 신청 전 상품설명서 및 약관의 내용을 읽어보시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/1714/card_img/22410/1714card.jpg', 0, 0, '', 0),
+
+(9, 0, 'AIA생명 롯데 리얼체크카드', 0, 300000, '이용 전 반드시 확인하세요!
 - 추가적인 혜택(포인트 및 할인혜택 등)에는 제공조건 및 한도 등이 적용됩니다. 자세한 내용은 롯데카드 홈페이지(www.lottecard.co.kr)를 참고하시기 바랍니다.
 - 카드 이용시 제공되는 추가적인 혜택은 카드 신규 출시 이후 3년 이상 축소 · 폐지없이 유지됩니다.
 - 상기에도 불구하고, 다음과 같은 사유가 발생한 경우 카드사는 추가적인 혜택을 변경할 수 있습니다.
@@ -1363,8 +1397,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 카드사가 추가적인 혜택을 변경하는 경우에는 변경 사유, 변경 내용 등을 사유발생 즉시 홈페이지에 게시하고 개별 고지해드립니다. 특히 해당카드의 수익성 유지가 어려워 변경하는 경우에는 6개월 전부터 매월 개별 고지해 드립니다.
 - 개별고지 방법 : 카드대금청구서, 우편, 이메일, 문자메세지 중 하나
 - 결제일 카드대금 납부 : 결제계좌 개설기관의 영업 마감시간(16시) 이후 결제계좌에 입금된 금액은 개설기관의 사정에 따라 당일 출금되지 못하여 연체로 처리될 수 있으니 유의하시기 바랍니다. 자동납부 업무 마감시간 이후 무통장, 가상계좌 입금을 통해 당일 결제가 가능합니다.(세부내용 홈페이지/모바일 앱 참조)
-- 카드 신청 전 상품설명서 및 약관의 내용을 읽어보시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/1839/card_img/22132/1839card.jpg', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (9, 0, '교보문고 롯데체크카드', 0, 0, '유의사항
+- 카드 신청 전 상품설명서 및 약관의 내용을 읽어보시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/1839/card_img/22132/1839card.jpg', 0, 0, '', 0),
+
+(9, 0, '교보문고 롯데체크카드', 0, 0, '유의사항
 - 추가적인 혜택(포인트 및 할인혜택 등)에는 제공조건 및 한도 등이 적용됩니다. 자세한 내용은 롯데카드 홈페이지(www.lottecard.co.kr)를 참고하시기 바랍니다.
 - 카드 이용시 제공되는 추가적인 혜택은 카드 신규 출시 이후 3년 이상 축소 · 폐지없이 유지됩니다.
 - 상기에도 불구하고, 다음과 같은 사유가 발생한 경우 카드사는 추가적인 혜택을 변경할 수 있습니다.
@@ -1377,8 +1412,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 카드를 해지한 후에도 관련 법령 및 내부 지침에 의거하여 회원의 정보가 일정기간 보존됩니다.
 - 결제일 카드대금 납부 : 결제계좌 개설기관의 영업 마감시간(16시) 이후 결제계좌에 입금된 금액은 개설기관의 사정에 따라 당일 출금되지 못하여 연체로 처리될 수 있으니 유의하시기 바랍니다. 자동납부 업무 마감시간 이후 무통장, 가상계좌 입금을 통해 당일 결제가 가능합니다.
   * 세부내용 홈페이지/모바일 앱 참조
-- 카드 신청 전 상품설명서 및 약관의 내용을 읽어보시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/1169/card_img/21139/1169card.jpg', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (9, 0, 'L.PAY by 롤라카드(체크)', 0, 100000, '이용 전 반드시 확인하세요!
+- 카드 신청 전 상품설명서 및 약관의 내용을 읽어보시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/1169/card_img/21139/1169card.jpg', 0, 0, '', 0),
+
+(9, 0, 'L.PAY by 롤라카드(체크)', 0, 100000, '이용 전 반드시 확인하세요!
 - 추가적인 혜택(포인트 및 할인혜택 등)에는 제공조건 및 한도 등이 적용됩니다. 자세한 내용은 롯데카드 홈페이지(www.lottecard.co.kr)를 참고하시기 바랍니다.
 - 카드 이용시 제공되는 추가적인 혜택은 카드 신규 출시 이후 3년 이상 축소 · 폐지없이 유지됩니다.
 - 상기에도 불구하고, 다음과 같은 사유가 발생한 경우 카드사는 추가적인 혜택을 변경할 수 있습니다.
@@ -1389,8 +1425,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 카드사가 부가서비스를 변경하는 경우에는 변경 사유, 변경 내용 등을 사유 발생 즉시 아래의 고지 방법 중 2가지 이상으로 고지하여 드립니다. 다만, 상품의 수익성이 현저히 낮아져 부가서비스를 변경하는 경우에는 6개월 이전부터 아래의 고지방법 중 2가지 이상으로 매월 고지하여 드립니다.
   * 고지방법: 서면교부, 우편 또는 전자우편,전화 또는 팩스, 휴대폰 메시지 또는 이에 준하는 전자적 의사표시 방법
 - 결제일 카드대금 납부 : 결제계좌 개설기관의 영업 마감시간(16시) 이후 결제계좌에 입금된 금액은 개설기관의 사정에 따라 당일 출금되지 못하여 연체로 처리될 수 있으니 유의하시기 바랍니다. 자동납부 업무 마감시간 이후 무통장, 가상계좌 입금을 통해 당일 결제가 가능합니다.(세부내용 홈페이지/모바일 앱 참조)
-- 계약체결 전 금융상품설명서와 약관을 확인하시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/2307/card_img/23707/2307card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (2, 0, '알뜰교통플러스 삼성체크카드', 0, 300000, '본인 연회비
+- 계약체결 전 금융상품설명서와 약관을 확인하시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/2307/card_img/23707/2307card.png', 1, 0, '', 0),
+
+(2, 0, '알뜰교통플러스 삼성체크카드', 0, 300000, '본인 연회비
 구 분
 해외겸용
 (Master)
@@ -1408,8 +1445,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 해외 이용 시 청구금액 산출방법 : 해외 이용 시 청구금액 = (거래미화금액 × 전신환매도율①)+ 브랜드사수수료② + 해외이용수수료③
   ①전신환매도율 : 접수일의 우리은행 최초 고시 전신환매도율
   ②브랜드사수수료 = [거래미화금액 × 국제브랜드 이용 수수료율 (Mastercard 1%, UnionPay 0.8%)] × 전신환매도율
-  ③해외이용수수료 = (거래미화금액 × 해외서비스 수수료율 0.2%) × 전신환매도율', 'https://api.card-gorilla.com:8080/storage/card/2563/card_img/29688/2563card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (2, 0, '삼성체크카드 & CASHBACK', 0, 0, '현금 입출금 기능 : KB국민은행, 신한은행, 우리은행
+  ③해외이용수수료 = (거래미화금액 × 해외서비스 수수료율 0.2%) × 전신환매도율', 'https://api.card-gorilla.com:8080/storage/card/2563/card_img/29688/2563card.png', 1, 0, '', 0),
+
+(2, 0, '삼성체크카드 & CASHBACK', 0, 0, '현금 입출금 기능 : KB국민은행, 신한은행, 우리은행
 - 현금 입출금 기능 선택 시 해당 은행 계좌만 결제계좌로 등록 가능
 
 부가 서비스 변경 가능 사유
@@ -1419,8 +1457,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 개별고지방법 : 이용대금 명세서, 우편, 이메일, 휴대전화 문자메시지 중 하나
 
 - 카드 이용 전에 상품설명서, 약관을 통해 이용조건을 확인해 주시기 바랍니다.
-- 필요 이상으로 신용카드를 발급 및 이용하실 경우 신용등급 또는 개인신용평점이나 이용한도 등에 영향을 미칠 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/394/card_img/28057/394card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (2, 0, '삼성체크카드 & POINT', 0, 0, '현금 입출금 기능 : KB국민은행, 신한은행, 우리은행
+- 필요 이상으로 신용카드를 발급 및 이용하실 경우 신용등급 또는 개인신용평점이나 이용한도 등에 영향을 미칠 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/394/card_img/28057/394card.png', 0, 0, '', 0),
+
+(2, 0, '삼성체크카드 & POINT', 0, 0, '현금 입출금 기능 : KB국민은행, 신한은행, 우리은행
 - 현금 입출금 기능 선택 시 해당 은행 계좌만 결제계좌로 등록 가능
 
 부가 서비스 변경 가능 사유
@@ -1430,13 +1469,15 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 개별고지방법 : 이용대금 명세서, 우편, 이메일, 휴대전화 문자메시지 중 하나
 
 - 카드 이용 전에 상품설명서, 약관을 통해 이용조건을 확인해 주시기 바랍니다.
-- 필요 이상으로 신용카드를 발급 및 이용하실 경우 신용등급 또는 개인신용평점이나 이용한도 등에 영향을 미칠 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/393/card_img/28056/393card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (2, 0, '삼성빅보너스체크카드', 0, 300000, '부가서비스 변경 가능 사유
+- 필요 이상으로 신용카드를 발급 및 이용하실 경우 신용등급 또는 개인신용평점이나 이용한도 등에 영향을 미칠 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/393/card_img/28056/393card.png', 0, 0, '', 0),
+
+(2, 0, '삼성빅보너스체크카드', 0, 300000, '부가서비스 변경 가능 사유
 - 카드 이용 시 제공되는 포인트 및 할인 혜택 등의 부가 서비스는 카드 신규 출시 이후 1년 이상 축소, 폐지 없이 유지됩니다.
 - 부가 서비스 제공과 관련된 제휴 업체의 일방적인 제휴 조건 변경·도산, 천재지변, 금융환경의 급변, 카드 업자의 경영위기 및 그 밖에 이에 준하는 사유에 따른 불가피한 변경의 경우 즉시 홈페이지에 게시하고, 개별 고지해 드립니다.
 - 카드 신규 출시 이후 1년 이상 경과했고, 해당 카드의 수익성 유지가 어려워 부가 서비스를 변경하는 경우는 홈페이지에 게시하고, 6- 개월 전부터 매월 개별 고지해 드립니다.
-  * 개별고지방법 : 이용대금 명세서, 우편, 이메일, 휴대전화 문자메시지 중 하나', 'https://api.card-gorilla.com:8080/storage/card/1623/card_img/22573/1623card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (2, 0, '국민행복 삼성체크카드', 0, 0, '부가 서비스 변경 가능 사유
+  * 개별고지방법 : 이용대금 명세서, 우편, 이메일, 휴대전화 문자메시지 중 하나', 'https://api.card-gorilla.com:8080/storage/card/1623/card_img/22573/1623card.png', 0, 0, '', 0),
+
+(2, 0, '국민행복 삼성체크카드', 0, 0, '부가 서비스 변경 가능 사유
 - 카드 이용 시 제공되는 포인트 및 할인 혜택 등의 부가 서비스는 카드 신규 출시 이후 5년 이상 축소, 폐지 없이 유지됩니다. 상기에도 불구하고, 다음과 같은 사유가 발생한 경우 카드사는 부가 서비스를 변경할 수 있습니다.
   ① 카드사 또는 부가 서비스 관련 제휴 업체의 휴업, 도산, 경영위기, 천재지변, 금융환경 급변 또는 그 밖에 이에 준하는 사유의 발생
   ② 카드사의 노력에도 제휴 업체가 일방적으로 부가 서비스 변경을 통보(단, 다른 제휴 업체를 통해 동종의 유사한 부가 서비스 제공이 가능한 경우 제외)
@@ -1445,8 +1486,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 개별고지방법 : 이용대금 명세서, 우편, 이메일, 휴대전화 문자메시지 중 하나
 
 - 카드 이용 전에 상품설명서, 약관을 통해 이용조건을 확인해 주시기 바랍니다.
-- 필요 이상으로 신용카드를 발급 및 이용하실 경우 신용등급 또는 개인신용평점이나 이용한도 등에 영향을 미칠 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/392/card_img/28055/392card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (4, 0, '신한카드 Mr.Life', 15000, 300000, '- 계약 체결 전 상품에 관한 사항은 상품설명서 및 약관을 읽어보시기 바랍니다.
+- 필요 이상으로 신용카드를 발급 및 이용하실 경우 신용등급 또는 개인신용평점이나 이용한도 등에 영향을 미칠 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/392/card_img/28055/392card.png', 0, 0, '', 0),
+
+(4, 0, '신한카드 Mr.Life', 15000, 300000, '- 계약 체결 전 상품에 관한 사항은 상품설명서 및 약관을 읽어보시기 바랍니다.
 ※ 카드이용시 제공되는 포인트 및 할인혜택 등의 부가서비스는 카드 신규출시(2015.07.30) 이후 3년 이상 축소, 폐지 없이 유지됩니다.
 ※ 상기에도 불구하고, 다음과 같은 사유가 발생한 경우 카드사는 부가서비스를 변경할 수 있습니다.
      ① 카드사의 휴업·파산·경영상의 위기 등에 따른 불가피한 경우
@@ -1454,8 +1496,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
      ③ 제휴업체가 카드사의 의사에 반하여 해당 부가서비스를 축소하거나 변경 시, 당초 부가서비스에 상응하는 다른 부가서비스를 제공하는 경우
      ④ 부가서비스를 3년 이상 제공한 상태에서 해당 부가서비스로 인해 카드의 수익성이 현저히 낮아진 경우
 ※ 카드사가 부가서비스를 변경하는 경우에는 부가서비스 변경 사유, 변경 내용 등을 사유발생 즉시 아래 고지방법 중 2가지 이상의 방법으로 고지해 드립니다. 특히 부가서비스를 3년 이상 제공한 상태에서 해당 부가서비스로 인해 카드의 수익성이 현저히 낮아져 부가서비스를 변경하는 경우에는 6개월 전부터 아래 고지방법 중2가지 이상의 방법으로 매월 고지해 드립니다.
-- 고지 방법 : 서면 교부, 우편 또는 전자우편, 전화 또는 팩스, 휴대폰 메시지 또는 이에 준하는 전자적 의사표시', 'https://api.card-gorilla.com:8080/storage/card/13/card_img/28201/13card.png', 1, 'https://www.shinhancard.com/pconts/html/card/apply/credit/1187937_2207.html?EntryLoc1=TM3161&EntryLoc2=2774&empSeq=10&btnApp=K1L3', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (4, 0, '신한카드 Deep Dream', 8000, 0, '포인트 적립 관련 유의 사항
+- 고지 방법 : 서면 교부, 우편 또는 전자우편, 전화 또는 팩스, 휴대폰 메시지 또는 이에 준하는 전자적 의사표시', 'https://api.card-gorilla.com:8080/storage/card/13/card_img/28201/13card.png', 1, 0, 'https://www.shinhancard.com/pconts/html/card/apply/credit/1187937_2207.html?EntryLoc1=TM3161&EntryLoc2=2774&empSeq=10&btnApp=K1L3', 0),
+
+(4, 0, '신한카드 Deep Dream', 8000, 0, '포인트 적립 관련 유의 사항
 - 모두드림 서비스는 전월 이용금액 조건/적립 한도 없이 적립되고, 더해드림과 챙겨드림 서비스는 전월 30만원 이상 이용 시 서비스 제공되며, 월 통합 적립한도 내 적립됩니다.
 - 마이신한포인트 사용/소멸 등 기본정책은 포인트 운영기준을 따릅니다.
 
@@ -1481,8 +1524,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
      ③ 제휴업체가 카드사의 의사에 반하여 해당 부가서비스를 축소하거나 변경 시, 당초 부가서비스에 상응하는 다른 부가서비스를 제공하는 경우
      ④ 부가서비스를 3년 이상 제공한 상태에서 해당 부가서비스로 인해 카드의 수익성이 현저히 낮아진 경우
 ※ 카드사가 부가서비스를 변경하는 경우에는 부가서비스 변경 사유, 변경 내용 등을 사유발생 즉시 아래 고지방법 중 2가지 이상의 방법으로 고지해 드립니다. 특히 부가서비스를 3년 이상 제공한 상태에서 해당 부가서비스로 인해 카드의 수익성이 현저히 낮아져 부가서비스를 변경하는 경우에는 6개월 전부터 아래 고지방법 중2가지 이상의 방법으로 매월 고지해 드립니다.
-- 고지 방법 : 서면 교부, 우편 또는 전자우편, 전화 또는 팩스, 휴대폰 메시지 또는 이에 준하는 전자적 의사표시', 'https://api.card-gorilla.com:8080/storage/card/32/card_img/20114/32card.png', 0, 'https://www.shinhancard.com/pconts/html/card/apply/credit/1188220_2207.html?EntryLoc1=TM3222&EntryLoc2=2872&empSeq=4&btnApp=K1L3', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (4, 0, '신한카드 Deep Oil', 10000, 300000, '할인서비스 별 월 이용금액 한도 및 월 제공횟수 한도
+- 고지 방법 : 서면 교부, 우편 또는 전자우편, 전화 또는 팩스, 휴대폰 메시지 또는 이에 준하는 전자적 의사표시', 'https://api.card-gorilla.com:8080/storage/card/32/card_img/20114/32card.png', 0, 0, 'https://www.shinhancard.com/pconts/html/card/apply/credit/1188220_2207.html?EntryLoc1=TM3222&EntryLoc2=2872&empSeq=4&btnApp=K1L3', 0),
+
+(4, 0, '신한카드 Deep Oil', 10000, 300000, '할인서비스 별 월 이용금액 한도 및 월 제공횟수 한도
 구분 전월 이용 금액
 30만원 이상~70만원 미만 70만원 이상
 주유서비스 월 이용금액 한도 15만원 30만원
@@ -1515,8 +1559,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
      ③ 제휴업체가 카드사의 의사에 반하여 해당 부가서비스를 축소하거나 변경 시, 당초 부가서비스에 상응하는 다른 부가서비스를 제공하는 경우
      ④ 부가서비스를 3년 이상 제공한 상태에서 해당 부가서비스로 인해 카드의 수익성이 현저히 낮아진 경우
 ※ 카드사가 부가서비스를 변경하는 경우에는 부가서비스 변경 사유, 변경 내용 등을 사유발생 즉시 아래 고지방법 중 2가지 이상의 방법으로 고지해 드립니다. 특히 부가서비스를 3년 이상 제공한 상태에서 해당 부가서비스로 인해 카드의 수익성이 현저히 낮아져 부가서비스를 변경하는 경우에는 6개월 전부터 아래 고지방법 중2가지 이상의 방법으로 매월 고지해 드립니다.
-- 고지 방법 : 서면 교부, 우편 또는 전자우편, 전화 또는 팩스, 휴대폰 메시지 또는 이에 준하는 전자적 의사표시', 'https://api.card-gorilla.com:8080/storage/card/39/card_img/31864/39card.png', 1, 'https://www.shinhancard.com/pconts/html/card/apply/credit/1188274_2207.html?EntryLoc1=TM4213&EntryLoc2=2871&empSeq=15&btnApp=K1L3', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (4, 0, '신한카드 Deep Dream Platinum+', 30000, 300000, '포인트 적립 관련 유의 사항
+- 고지 방법 : 서면 교부, 우편 또는 전자우편, 전화 또는 팩스, 휴대폰 메시지 또는 이에 준하는 전자적 의사표시', 'https://api.card-gorilla.com:8080/storage/card/39/card_img/31864/39card.png', 1, 0, 'https://www.shinhancard.com/pconts/html/card/apply/credit/1188274_2207.html?EntryLoc1=TM4213&EntryLoc2=2871&empSeq=15&btnApp=K1L3', 0),
+
+(4, 0, '신한카드 Deep Dream Platinum+', 30000, 300000, '포인트 적립 관련 유의 사항
 - 모두드림 서비스는 적립 한도 없이 적립됩니다.
 - 더해드림과 챙겨드림 서비스는 전월 50만원 이상 이용 시 서비스 제공되며, 월 통합 적립한도 내 적립됩니다.
   * 마이신한포인트 사용/소멸 등 기본정책은 포인트 운영기준을 따릅니다.
@@ -1541,8 +1586,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
      ③ 제휴업체가 카드사의 의사에 반하여 해당 부가서비스를 축소하거나 변경 시, 당초 부가서비스에 상응하는 다른 부가서비스를 제공하는 경우
      ④ 부가서비스를 3년 이상 제공한 상태에서 해당 부가서비스로 인해 카드의 수익성이 현저히 낮아진 경우
 ※ 카드사가 부가서비스를 변경하는 경우에는 부가서비스 변경 사유, 변경 내용 등을 사유발생 즉시 아래 고지방법 중 2가지 이상의 방법으로 고지해 드립니다. 특히 부가서비스를 3년 이상 제공한 상태에서 해당 부가서비스로 인해 카드의 수익성이 현저히 낮아져 부가서비스를 변경하는 경우에는 6개월 전부터 아래 고지방법 중2가지 이상의 방법으로 매월 고지해 드립니다.
-- 고지 방법 : 서면 교부, 우편 또는 전자우편, 전화 또는 팩스, 휴대폰 메시지 또는 이에 준하는 전자적 의사표시', 'https://api.card-gorilla.com:8080/storage/card/40/card_img/20121/40card.png', 0, 'https://www.shinhancard.com/pconts/html/card/apply/credit/1188277_2207.html?EntryLoc2=2897&empSeq=10&btnApp=L1J3&btnApp=K1L3', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (4, 0, '티머니 Pay & GO 신한카드', 15000, 300000, '할인서비스 적용 기준
+- 고지 방법 : 서면 교부, 우편 또는 전자우편, 전화 또는 팩스, 휴대폰 메시지 또는 이에 준하는 전자적 의사표시', 'https://api.card-gorilla.com:8080/storage/card/40/card_img/20121/40card.png', 0, 0, 'https://www.shinhancard.com/pconts/html/card/apply/credit/1188277_2207.html?EntryLoc2=2897&empSeq=10&btnApp=L1J3&btnApp=K1L3', 0),
+
+(4, 0, '티머니 Pay & GO 신한카드', 15000, 300000, '할인서비스 적용 기준
 - 할인서비스는 티머니 Pay & GO 신한카드의 전월(1일~말일) 이용금액에 따른 월간 통합 할인한도 내에서 당월(1일~말일) 기준으로 적용됩니다.
 - 할인 서비스는 서비스 영역별 고객님이 이용하신 거래 순서대로 결제일 할인이 적용됩니다.
 - 할인 서비스 이용 후 할인 적용된 거래 건이 해당월에 취소된 경우 할인 서비스 횟수 및 한도가 복원됩니다.
@@ -1566,13 +1612,15 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 * 기프트카드/선불카드 구매·충전금액, 모바일티머니 앱 "충전형 교통카드" 충전 금액, "페이머니" 충전 금액
 * 상품권/선불전자지급수단 구매·충전금액
 * 국세/지방세/수도요금/거래 취소금액
-  * 아파트관리비/도시가스/전기료/4대보험/스쿨뱅킹/대학등록금', 'https://api.card-gorilla.com:8080/storage/card/2386/card_img/25534/2386card.png', 1, 'https://www.shinhancard.com/pconts/html/card/apply/credit/1216792_2207.html?empSeq=503', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (4, 0, '알뜰교통카드', 12000, 300000, '유의사항
+  * 아파트관리비/도시가스/전기료/4대보험/스쿨뱅킹/대학등록금', 'https://api.card-gorilla.com:8080/storage/card/2386/card_img/25534/2386card.png', 1, 0, 'https://www.shinhancard.com/pconts/html/card/apply/credit/1216792_2207.html?empSeq=503', 0),
+
+(4, 0, '알뜰교통카드', 12000, 300000, '유의사항
 - 단기카드대출(현금서비스)/장기카드대출(카드론)/연회비/각종수수료/이자/포인트 사용금액/기프트카드구매금액/선불카드 충전금액/거래 취소금액은 전월이용금액에서 제외됩니다.
 - 전월 이용금액은 거래일자(승인일)기준으로 전월 1일~말일까지의 금액으로 산정되며, 교통카드 이용금액은 전전월 이용금액 기준이며, 해외 이용금액은 매입일자를 기준으로 적용됩니다.
 - 편의점, 병원, 약국은 신한카드 가맹점 업종 기준으로 제공됩니다.
-- 신규발급 고객은 카드사용 등록월의 익월말(등록월+1개월)까지 최저 실적 구간의 할인한도가 적용됩니다.(해당 기간 중 최저실적 구간을 초과하여 이용시엔 다음 달에 해당 테이블에 상응하는 할인 한도 적용)', 'https://api.card-gorilla.com:8080/storage/card/742/card_img/28951/742card.png', 1, 'https://www.shinhancard.com/pconts/html/card/apply/credit/1188458_2207.html?EntryLoc2=4336&empSeq=513&btnApp=dp1', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (4, 0, '신한카드 The CLASSIC+', 120000, 300000, '- 계약 체결 전 상품에 관한 사항은 상품설명서 및 약관을 읽어보시기 바랍니다.
+- 신규발급 고객은 카드사용 등록월의 익월말(등록월+1개월)까지 최저 실적 구간의 할인한도가 적용됩니다.(해당 기간 중 최저실적 구간을 초과하여 이용시엔 다음 달에 해당 테이블에 상응하는 할인 한도 적용)', 'https://api.card-gorilla.com:8080/storage/card/742/card_img/28951/742card.png', 1, 0, 'https://www.shinhancard.com/pconts/html/card/apply/credit/1188458_2207.html?EntryLoc2=4336&empSeq=513&btnApp=dp1', 0),
+
+(4, 0, '신한카드 The CLASSIC+', 120000, 300000, '- 계약 체결 전 상품에 관한 사항은 상품설명서 및 약관을 읽어보시기 바랍니다.
 - 카드 이용 시 제공되는 포인트 및 할인혜택 등의 부가서비스는 카드 신규출시(2015.07.30) 이후 5년 이상 축소·폐지 없이 유지 됩니다.
 - 상기에도 불구하고, 다음과 같은 사유가 발생한 경우 카드사는 부가서비스를 변경할 수 있습니다.
 ① 카드사 또는 부가서비스 관련 제휴업체의 휴업·도산·경영위기, 천재지변, 금융환경 급변 또는 그 밖에 이에 준하는 사유의 발생
@@ -1580,8 +1628,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 ③ 카드 신규출시 이후 5년 이상 경과했고, 해당 카드의 수익성 유지가 어려운 경우
 - 카드사가 부가서비스를 변경하는 경우에는 부가서비스 변경 사유, 변경 내용 등을 사유발생 즉시 홈페이지에 게시하고, 개별 고지해 드립니다.
 - 특히 카드 신규 출시 이후 5년 이상 경과했고, 해당 카드의 수익성 유지가 어려워져 부가서비스를 변경하는 경우에는 6개월 전부터 매월 개별고지 해 드립니다.
-- 개별고지 방법 : 카드대금청구서, 우편, 이메일, 휴대폰 문자메세지 중 하나', 'https://api.card-gorilla.com:8080/storage/card/15/card_img/20097/15card.png', 0, 'https://www.shinhancard.com/pconts/html/card/apply/premium/1187949_2205.html', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (4, 0, '신한카드 B.Big(삑)', 10000, 300000, '- 본 카드의 서비스 내용은 당사 및 제휴사 사정에 따라 사전 고지 후 변경 또는 중단될 수 있으며, 카드 이용금액에 따라 제한될 수 있습니다.
+- 개별고지 방법 : 카드대금청구서, 우편, 이메일, 휴대폰 문자메세지 중 하나', 'https://api.card-gorilla.com:8080/storage/card/15/card_img/20097/15card.png', 0, 0, 'https://www.shinhancard.com/pconts/html/card/apply/premium/1187949_2205.html', 0),
+
+(4, 0, '신한카드 B.Big(삑)', 10000, 300000, '- 본 카드의 서비스 내용은 당사 및 제휴사 사정에 따라 사전 고지 후 변경 또는 중단될 수 있으며, 카드 이용금액에 따라 제한될 수 있습니다.
 - 별도의 이벤트를 진행하지 않는 한 타 쿠폰 및 타 카드(신용카드, 통신계 카드 등) 타 할인혜택의 중복 사용은 불가합니다.
 
 - 계약 체결 전 상품에 관한 사항은 상품설명서 및 약관을 읽어보시기 바랍니다.
@@ -1592,8 +1641,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
      ③ 제휴업체가 카드사의 의사에 반하여 해당 부가서비스를 축소하거나 변경 시, 당초 부가서비스에 상응하는 다른 부가서비스를 제공하는 경우
      ④ 부가서비스를 3년 이상 제공한 상태에서 해당 부가서비스로 인해 카드의 수익성이 현저히 낮아진 경우
 ※ 카드사가 부가서비스를 변경하는 경우에는 부가서비스 변경 사유, 변경 내용 등을 사유발생 즉시 아래 고지방법 중 2가지 이상의 방법으로 고지해 드립니다. 특히 부가서비스를 3년 이상 제공한 상태에서 해당 부가서비스로 인해 카드의 수익성이 현저히 낮아져 부가서비스를 변경하는 경우에는 6개월 전부터 아래 고지방법 중2가지 이상의 방법으로 매월 고지해 드립니다.
-- 고지 방법 : 서면 교부, 우편 또는 전자우편, 전화 또는 팩스, 휴대폰 메시지 또는 이에 준하는 전자적 의사표시', 'https://api.card-gorilla.com:8080/storage/card/10/card_img/24226/10card.png', 0, 'https://www.shinhancard.com/pconts/html/card/apply/credit/1187938_2207.html?EntryLoc1=TM3165&EntryLoc2=2739&empSeq=5&btnApp=K1L3', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (4, 0, '신한카드 Edu', 20000, 500000, '캐시백 유의사항
+- 고지 방법 : 서면 교부, 우편 또는 전자우편, 전화 또는 팩스, 휴대폰 메시지 또는 이에 준하는 전자적 의사표시', 'https://api.card-gorilla.com:8080/storage/card/10/card_img/24226/10card.png', 0, 0, 'https://www.shinhancard.com/pconts/html/card/apply/credit/1187938_2207.html?EntryLoc1=TM3165&EntryLoc2=2739&empSeq=5&btnApp=K1L3', 0),
+
+(4, 0, '신한카드 Edu', 20000, 500000, '캐시백 유의사항
 - 캐시백 시점은 회원님의 결제일자와 적용 서비스에 따라 상이할 수 있으며, 거래일자 기준으로 익월 또는 익익월 결제일+2일 이내에 (휴일제외) 결제계좌로 입금됩니다.
 - 선결제 및 중도상환시에도 캐시백 시점이 변경되지 않습니다.
 
@@ -1606,8 +1656,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
      ③ 제휴업체가 카드사의 의사에 반하여 해당 부가서비스를 축소하거나 변경 시, 당초 부가서비스에 상응하는 다른 부가서비스를 제공하는 경우
      ④ 부가서비스를 3년 이상 제공한 상태에서 해당 부가서비스로 인해 카드의 수익성이 현저히 낮아진 경우
 ※ 카드사가 부가서비스를 변경하는 경우에는 부가서비스 변경 사유, 변경 내용 등을 사유발생 즉시 아래 고지방법 중 2가지 이상의 방법으로 고지해 드립니다. 특히 부가서비스를 3년 이상 제공한 상태에서 해당 부가서비스로 인해 카드의 수익성이 현저히 낮아져 부가서비스를 변경하는 경우에는 6개월 전부터 아래 고지방법 중2가지 이상의 방법으로 매월 고지해 드립니다.
-- 고지 방법 : 서면 교부, 우편 또는 전자우편, 전화 또는 팩스, 휴대폰 메시지 또는 이에 준하는 전자적 의사표시', 'https://api.card-gorilla.com:8080/storage/card/26/card_img/20108/26card.png', 0, 'https://www.shinhancard.com/pconts/html/card/apply/credit/1188281_2207.html?EntryLoc1=TM3146&EntryLoc2=2845&empSeq=3&btnApp=K1L3', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (4, 0, '신한카드 국민행복', 0, 300000, '신한카드 국민행복(신용) 통합할인한도
+- 고지 방법 : 서면 교부, 우편 또는 전자우편, 전화 또는 팩스, 휴대폰 메시지 또는 이에 준하는 전자적 의사표시', 'https://api.card-gorilla.com:8080/storage/card/26/card_img/20108/26card.png', 0, 0, 'https://www.shinhancard.com/pconts/html/card/apply/credit/1188281_2207.html?EntryLoc1=TM3146&EntryLoc2=2845&empSeq=3&btnApp=K1L3', 0),
+
+(4, 0, '신한카드 국민행복', 0, 300000, '신한카드 국민행복(신용) 통합할인한도
 전월
 이용금액
 30만원 이상
@@ -1643,8 +1694,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
      ③ 제휴업체가 카드사의 의사에 반하여 해당 부가서비스를 축소하거나 변경 시, 당초 부가서비스에 상응하는 다른 부가서비스를 제공하는 경우
      ④ 부가서비스를 3년 이상 제공한 상태에서 해당 부가서비스로 인해 카드의 수익성이 현저히 낮아진 경우
 ※ 카드사가 부가서비스를 변경하는 경우에는 부가서비스 변경 사유, 변경 내용 등을 사유발생 즉시 아래 고지방법 중 2가지 이상의 방법으로 고지해 드립니다. 특히 부가서비스를 3년 이상 제공한 상태에서 해당 부가서비스로 인해 카드의 수익성이 현저히 낮아져 부가서비스를 변경하는 경우에는 6개월 전부터 아래 고지방법 중2가지 이상의 방법으로 매월 고지해 드립니다.
-- 고지 방법 : 서면 교부, 우편 또는 전자우편, 전화 또는 팩스, 휴대폰 메시지 또는 이에 준하는 전자적 의사표시', 'https://api.card-gorilla.com:8080/storage/card/712/card_img/22186/712card.png', 0, 'https://www.shinhancard.com/pconts/html/card/apply/credit/1200235_2207.html?EntryLoc2=3040&empSeq=7&btnApp=dp1&btnApp=K1L3', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (7, 0, '카드의정석 오하CHECK', 0, 200000, '실적 산정 방법 안내
+- 고지 방법 : 서면 교부, 우편 또는 전자우편, 전화 또는 팩스, 휴대폰 메시지 또는 이에 준하는 전자적 의사표시', 'https://api.card-gorilla.com:8080/storage/card/712/card_img/22186/712card.png', 0, 0, 'https://www.shinhancard.com/pconts/html/card/apply/credit/1200235_2207.html?EntryLoc2=3040&empSeq=7&btnApp=dp1&btnApp=K1L3', 0),
+
+(7, 0, '카드의정석 오하CHECK', 0, 200000, '실적 산정 방법 안내
 - 전월 실적은 전월 1일부터 말일(매출승인일 기준)까지 카드별 국내 가맹점이용실적이며, 교통카드 이용금액 및 통신료 자동이체 금액은 매출표 접수일 기준으로 해당월 이용금액에 합산 적용됩니다.
 -아파트관리비(임대료), 정부지원금(보육료, 유치원보조비, 바우처 이용금액 등), 대학(대학원)등록금, 국세, 지방세, 공공요(공과금), 상품권/선불카드/기프트 카드 충전 및 구매 금액, 교통카드(모바일 포함) 구매 및 충전금액, 각종 수수료 및 이자,무이자 할부금액, 해외가맹점 이용금액은 전월 실적에 포함되지 않습니다.
 ※ 공공요금(공과금) 내역 : 4대보험(건강보험국민연금/고용보험/산재보험), 전기요금, 우편요금, 도시가스요금, 상하수도요금, 과태료·범칙금·벌금, 여권발급비용,국가·공공기관·공공단체(지방자치단체 등)로 개설된 가맹점 이용금액
@@ -1686,8 +1738,9 @@ LIFE 9천원
   ③ 제휴업체가카드사의 의사에 반하여 해당 부가서비스를 축소하거나 변경 시, 당초 부가서비스에 상응하는 다른 부가서비스를 제공하는 경우
  ④ 부가서비스를 3년 이상 제공한 상태에서 해당 부가서비스로 인해 상품의 수익성이 현저히 낮아진 경우
 - 카드사가 부가서비스를변경하는 경우 변경 사유, 변경 내용 등을 아래와 같은 방법으로 사유 발생 즉시 고지하여 드립니다. 다만, 위 ④번 사유로부가서비스를 변경하는 경우 변경일 6개월 이전부터 매월 고지하여 드립니다.
-- 고지 방법 :  서면 교부, 우편 또는 전자우편,전화 또는 팩스, 휴대폰 메시지 또는 이에 준하는 전자적 의사표시 중 2가지 이상의 방법', 'https://api.card-gorilla.com:8080/storage/card/2570/card_img/29938/762card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (7, 0, '알뜰교통카드 COOKIE CHECK', 0, 200000, '상품 출시일 및 부가서비스 변경 안내
+- 고지 방법 :  서면 교부, 우편 또는 전자우편,전화 또는 팩스, 휴대폰 메시지 또는 이에 준하는 전자적 의사표시 중 2가지 이상의 방법', 'https://api.card-gorilla.com:8080/storage/card/2570/card_img/29938/762card.png', 1, 0, '', 0),
+
+(7, 0, '알뜰교통카드 COOKIE CHECK', 0, 200000, '상품 출시일 및 부가서비스 변경 안내
 - 상품 출시일 : 2020년 2월 21일
 - 카드 이용 시 제공되는 포인트 및할인혜택 등의 부가서비스는 카드 신규 출시 이후 3년 이상 축소·폐지 없이 유지됩니다.
 - 상기에도 불구하고, 다음과 같은사유가 발생한 경우 카드사는 부가서비스를 변경할 수 있습니다.
@@ -1721,8 +1774,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
   ② 국제브랜드 수수료 = (거래미화금액 × 국제브랜드 이용수수료율 1%) × 전신환매도율
   ③ 해외서비스 수수료(면제) = 거래미화건수 × 해외이용 서비스 수수료 건당 $0.5(면제)) × 전신환 매도율
 - 일부해외 가맹점 거래 시 IC칩 비밀번호(PIN)를 요구하는 경우가 있으므로 출국 전 반드시 IC칩 비밀번호(PIN) 등록 여부를확인하시기 바랍니다.
-- 일부 비표준화된 해외 가맹점 및 ATM은 비밀번호(PIN) 입력시 6자리를 요구할 수도 있습니다.‘카드비밀번호 4자리 + 00’을 입력하여 사용하시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/584/card_img/31096/584card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (7, 0, '카드의정석 UniMile CHECK', 0, 300000, '부가서비스 안내
+- 일부 비표준화된 해외 가맹점 및 ATM은 비밀번호(PIN) 입력시 6자리를 요구할 수도 있습니다.‘카드비밀번호 4자리 + 00’을 입력하여 사용하시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/584/card_img/31096/584card.png', 0, 0, '', 0),
+
+(7, 0, '카드의정석 UniMile CHECK', 0, 300000, '부가서비스 안내
 - 카드 이용 시 제공되는 포인트 및 할인혜택 등의 부가서비스는 카드 신규출시(2019년 07월19일) 이후 3년 이상 축소·폐지 없이 유지됩니다.
 - 상기에도 불구하고, 다음과 같은 사유가 발생한 경우 카드사는 부가서비스를변경할 수 있습니다.
   * 카드사 또는 부가서비스 관련 제휴업체의 휴업·도산·경영위기, 천재지변, 금융환경 급변 또는 그 밖에이에 준하는 사유의 발생
@@ -1770,8 +1824,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 결제계좌 개설기관의 영업 마감시간(16시) 이후결제계좌에 입금된 금액에 대해서는 결제계좌 개설 기관의 사정에 따라 당일 출금되지 못하여 연체로 처리 될 수 있으므로유의하시기 바랍니다.
 - 자동납부 업무 마감시간 이후 당사 홈페이지/모바일 등에서 즉시결제 또는 가상계좌 입금(송금납부)을통해 당일 결제가 가능합니다.
   (세부내용은 홈페이지 내 ‘MY > 이용 금액결제 > 즉시결제/가상계좌조회’ 참조)
-- 발급된카드는 서명된 회원만이 사용하실 수 있으며, 타인에게 양도·대여 하실 수 없습니다.', 'https://api.card-gorilla.com:8080/storage/card/1809/card_img/22300/1809card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (7, 0, '카드의정석 COOKIE CHECK', 0, 200000, '체크카드 점검시간 (한국시간 기준)
+- 발급된카드는 서명된 회원만이 사용하실 수 있으며, 타인에게 양도·대여 하실 수 없습니다.', 'https://api.card-gorilla.com:8080/storage/card/1809/card_img/22300/1809card.png', 0, 0, '', 0),
+
+(7, 0, '카드의정석 COOKIE CHECK', 0, 200000, '체크카드 점검시간 (한국시간 기준)
 - 매월 2주차 일요일 02:00 ~ 06:00 (4시간 중단)
 ※ 우리은행 외 계좌 이용 시 매일 자정 전후 20분 및 해당은행 정기점검시간 동안 이용이 제한됩니다.
 ※ 점검시간은 전산시스템 사정에 의해 변동될 수 있습니다.
@@ -1796,8 +1851,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 취소 매출은 취소매출표 접수월 이용실적에서 차감합니다. 단, 취소매출이 매월 1~2일 사이에 접수된 경우 전월 이용실적에서 차감합니다.
   예) 1월 31일 이용건 취소시 2월 2일까지 취소매출표가 카드사에 접수된 경우에는 1월 이용실적에서 차감, 이후 접수된 경우는 2월 이용실적에서 차감
 - 카드수령 등록일로부터 다음달 말일까지는 이용실적 조건없이 20만원 실적구간 서비스를 제공하며, 20만원이 넘는 경우 다음달 부터 해당 실적구간 서비스가 제공됩니다.
- (단, 공항라운지 무료 이용은 카드수령 등록일로부터 다음달 말일까지 국내 가맹점30만원 이상 이용 시 그 다음날부터 서비스 제공)', 'https://api.card-gorilla.com:8080/storage/card/312/card_img/20557/312card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (7, 0, '그랑블루 체크카드', 95000, 300000, '부가서비스 안내
+ (단, 공항라운지 무료 이용은 카드수령 등록일로부터 다음달 말일까지 국내 가맹점30만원 이상 이용 시 그 다음날부터 서비스 제공)', 'https://api.card-gorilla.com:8080/storage/card/312/card_img/20557/312card.png', 0, 0, '', 0),
+
+(7, 0, '그랑블루 체크카드', 95000, 300000, '부가서비스 안내
 - 카드 이용 시 제공되는 포인트 및 캐시백 혜택 등의 부가서비스는 카드 신규출시(2015년 12월 14일) 이후 5년 이상 축소·폐지 없이 유지됩니다.
 - 상기에도 불구하고, 다음과 같은 사유가 발생한 경우 카드사는 부가서비스를 변경할 수 있습니다.
   * 카드사 또는 부가서비스 관련 제휴업체의 휴업·도산·경영위기, 천재지변, 금융환경 급변 또는 그 밖에 이에 준하는 사유의 발생
@@ -1820,8 +1876,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 매월 2주차 일요일 02:00 ~ 06:00 (4시간 중단)
 ※ 우리은행 외 계좌 이용 시 매일 자정 전후 20분 및 해당은행 정기점검시간 동안 이용이 제한됩니다.
 ※ 점검시간은 전산시스템 사정에 의해 변동될 수 있습니다.
-※ 소액 신용결제 서비스 신청 시 점검 시간 중 사용은 전액 지정한 소액 신용 한도범위 내 신용승인됩니다.', 'https://api.card-gorilla.com:8080/storage/card/325/card_img/20570/325card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (7, 0, 'CJ ONE 우리카드 체크', 0, 200000, '통합 캐시백 한도
+※ 소액 신용결제 서비스 신청 시 점검 시간 중 사용은 전액 지정한 소액 신용 한도범위 내 신용승인됩니다.', 'https://api.card-gorilla.com:8080/storage/card/325/card_img/20570/325card.png', 0, 0, '', 0),
+
+(7, 0, 'CJ ONE 우리카드 체크', 0, 200000, '통합 캐시백 한도
 전월 국내 가맹점
 이용금액
 20만원 이상
@@ -1875,8 +1932,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
    ② 국제브랜드수수료 = (거래미화금액 × 국제브랜드 이용수수료율 1%) × 전신환 매도율
    ③ 해외서비스수수료 = (거래미화건수 × 해외이용 서비스 수수료 건당 $0.5) × 전신환 매도율
 - 일부 해외 가맹점 거래 시 IC칩 비밀번호(PIN)를 요구하는 경우가 있으므로 출국 전 반드시 IC칩 비밀번호(PIN) 등록 여부를 확인하시기 바랍니다.
-- 일부 비표준화된 해외 가맹점 및 ATM은 비밀번호(PIN) 입력시 6자리를 요구할 수도 있습니다. \'카드비밀번호 4자리 + 00\'을 입력하여 사용하시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/486/card_img/21176/486card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (7, 0, 'NU 오하쳌(오늘하루체크)', 0, 200000, '카드 플레이트 선택가능
+- 일부 비표준화된 해외 가맹점 및 ATM은 비밀번호(PIN) 입력시 6자리를 요구할 수도 있습니다. \'카드비밀번호 4자리 + 00\'을 입력하여 사용하시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/486/card_img/21176/486card.png', 1, 0, '', 0),
+
+(7, 0, 'NU 오하쳌(오늘하루체크)', 0, 200000, '카드 플레이트 선택가능
 
 실적 산정 방법 안내
 - 전월 실적은 전월 1일부터 말일(매출승인일 기준)까지 카드별 국내 가맹점 이용실적이며, 교통카드 이용금액 및 통신료 자동이체 금액은 매출표 접수일 기준으로 해당월 이용금액에 합산 적용됩니다.
@@ -1914,8 +1972,9 @@ LIFE 3천원 6천원 9천원
   ① 카드사 또는 제휴업체의 휴업·파산·경영상의 위기 또는 천재지변이 발생한 경우
   ② 제휴업체가 카드사의 의사에 반하여 해당 부가서비스를 축소하거나 변경 시, 당초 부가서비스에 상응하는 다른 부가서비스를 제공하는 경우
   ③ 부가서비스가 3년 이상 제공한 상태에서 해당 부가서비스로 인해 상품의 수익성이 현저히 낮아진 경우
-- 카드사가 부가서비스를 변경하는 경우 변경사유, 변경내용 등을 사유 발생 즉시 서면, 우편 또는 팩스에 따른 서신전달, 전화, 전자우편 또는 이에 준하는 전자적 의사표시, 그 밖에 상대방에 의사를 표시하였다는 사실을 객관적으로 입증할 수 있는 방법 중 2가지 이상의 방법으로 고지하여 드립니다. 다만, 위 ③번 사유로 부가서비스를 변경하는 경우에는 변경일 6개월 이전부터 위 고지방법 중 어느 하나의 방법으로 매월 고지하여 드립니다.', 'https://api.card-gorilla.com:8080/storage/card/762/card_img/26507/762card.png', 1, 'https://www.card-gorilla.com/', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (7, 0, '카드의정석 DON CHECK', 0, 50000, '통합 월 적립한도
+- 카드사가 부가서비스를 변경하는 경우 변경사유, 변경내용 등을 사유 발생 즉시 서면, 우편 또는 팩스에 따른 서신전달, 전화, 전자우편 또는 이에 준하는 전자적 의사표시, 그 밖에 상대방에 의사를 표시하였다는 사실을 객관적으로 입증할 수 있는 방법 중 2가지 이상의 방법으로 고지하여 드립니다. 다만, 위 ③번 사유로 부가서비스를 변경하는 경우에는 변경일 6개월 이전부터 위 고지방법 중 어느 하나의 방법으로 매월 고지하여 드립니다.', 'https://api.card-gorilla.com:8080/storage/card/762/card_img/26507/762card.png', 1, 0, 'https://www.card-gorilla.com/', 0),
+
+(7, 0, '카드의정석 DON CHECK', 0, 50000, '통합 월 적립한도
 전월 국내가맹점 이용실적 50,000원 이상
 통합 월 적립한도
 3,000포인트
@@ -1945,8 +2004,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 국내전용, 해외겸용(MasterCard) : 연회비 없음 (가족카드 발급 불가)
 - 발급대상 : 만 12세 ~ 만 18세 (만 18세 이후 유효기간 만료 도래 시 갱신/재발급 불가)
 - 만 12세 ~ 만 13세 : 기본 결제 한도 설정(일 3만원, 월 30만원)
-- 청소년(만 12세~ 만 17세) 후불교통 이용한도 : 월 5만원', 'https://api.card-gorilla.com:8080/storage/card/2639/card_img/31958/2639card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (7, 0, '카드의정석 APT CHECK', 9000, 300000, '캐시백 제공 시 유의사항
+- 청소년(만 12세~ 만 17세) 후불교통 이용한도 : 월 5만원', 'https://api.card-gorilla.com:8080/storage/card/2639/card_img/31958/2639card.png', 1, 0, '', 0),
+
+(7, 0, '카드의정석 APT CHECK', 9000, 300000, '캐시백 제공 시 유의사항
 - 캐시백 및 제외 업종/가맹점은 우리카드 전산상 등록 기준임
 - 전월 실적 30만원 이상 시 캐시백 제공
 
@@ -1980,8 +2040,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
   ② 국제브랜드수수료 = (거래미화금액Ｘ국제브랜드 이용수수료율 1%)Ｘ전신환 매도율
   ③ 해외서비스 수수료 = (거래미화건수Ｘ해외이용 서비스 수수료 건당 $0.5) X 전신환 매도율
 - 일부 해외 가맹점 거래 시 IC칩 비밀번호(PIN)를 요구하는 경우가 있으므로 출국 전 반드시 IC칩 비밀번호(PIN) 등록 여부를 확인하시기 바랍니다.
-- 일부 비표준화된 해외 가맹점 및 ATM은 비밀번호(PIN) 입력시 6자리를 요구할 수도 있습니다. ‘카드비밀번호 4자리 + 00’을 입력하여 사용하시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/545/card_img/21251/545card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (7, 0, 'OK캐쉬백 썸(SUM)타는 우리체크카드', 0, 250000, '전월실적조건 및 국내서비스 월간 통합할인한도
+- 일부 비표준화된 해외 가맹점 및 ATM은 비밀번호(PIN) 입력시 6자리를 요구할 수도 있습니다. ‘카드비밀번호 4자리 + 00’을 입력하여 사용하시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/545/card_img/21251/545card.png', 1, 0, '', 0),
+
+(7, 0, 'OK캐쉬백 썸(SUM)타는 우리체크카드', 0, 250000, '전월실적조건 및 국내서비스 월간 통합할인한도
 전월 국내가맹점 이용금액 25만원 이상~
 50만원 미만 50만원 이상~
 70만원 미만 70만원 이상
@@ -2014,15 +2075,23 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
   2. 카드사의 노력에도 제휴업체가 일방적으로 부가서비스 변경을 통보 (단, 다른 제휴업체를 통해 동종의 유사한 부가서비스 제공이 가능한 경우 제외)
   3. 카드 신규출시 이후 3년 이상 경과했고, 해당 카드의 수익성 유지가 어려운 경우
 - 카드사가 부가서비스를 변경하는 경우에는 부가서비스 변경 사유, 변경 내용 등을 사유 발생 즉시 홈페이지에 게시하고, 대금청구서, 우편서신, 이메일, 휴대폰 문자메시지 서비스 중 1가지 이상의 방법으로 고지하여 드립니다. 특히 카드 신규 출시 이후 3년 이상 경과했고, 해당 카드의 수익성 유지가 어려워져 부가서비스를 변경하는 경우에는 6개월 전부터 매월 개별고지 해드립니다.
-  ※ 개별고지 방법 :카드대금청구서, 우편, 이메일, 휴대폰 문자메시지 서비스 중 하나', 'https://api.card-gorilla.com:8080/storage/card/1258/card_img/21049/1258card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (5, 0, '현대카드M CHECK', 2000, 0, '유의사항 - 체크카드 개인회원 약관 제5조, 현대카드 개인회원 약관 제15조 제3항에 따라 회원에게 제공되는 M포인트 적립/사용 서비스는 당사의 영업정책이나 제휴사의 사정에 따라 변경 또는 중단될 수 있으며 그 내용은 사전에 고지하여 드립니다. 다만, 부가서비스 제공과 관련된 제휴업체의 일방적인 제휴조건 변경 · 도산, 천재지변, 금융환경의 급변, 신용카드업자의 경영위기 및 그 밖에 이에 준하는 사유에 따른 불가피한 변경 시에도 사전에 고지하되, 사전 고지가 어려운 경우에는 사후에 고지하여 드립니다. 이용 안내 - 현대카드는 상품안내서의 내용을 준수합니다. - 동일 기간 내 다수의 신용카드를 신청할 경우 개인 신용도 또는 개인신용평점에 영향을 미칠 수 있습니다. - 카드 이용 시 제공되는 부가서비스는 카드의 신규 출시(2009년 1월 1일) 이후 1년 이상 축소·폐지 없이 유지됩니다. - 다만, 부가서비스 관련 제휴업체의 일방적인 제휴조건 변경·도산, 천재지변, 금융환경 급변, 신용카드 업자의 경영위기 및 그 밖에 이에 준하는 사유에 따른 불가피한 경우, 신규 출시 이후 부가서비스의 축소·변경 없이 1년 이상 경과한 카드의 수익성 유지가 어려운 경우 부가서비스가 변경될 수 있습니다. - 부가서비스 변경 시에는 변경사유, 변경내용 등에 대해 변경일 6개월 이전에 홈페이지, 이용대금명세서, 우편서신, 이메일 중 2가지 이상의 방법으로 고지해 드리며, 사전 고지가 어려운 경우에는 사후에 고지해 드립니다. - 연회비는 카드 발급 시 선청구됩니다. 초년도 300만원 이상 이용 시 2,000캐시백이 결제계좌로 입금되며, 연간 300만원 이상 이용 시 차년도 연회비는 면제됩니다. - 금융상품(장기카드대출/단기카드대출) 이용금액을 제외한 체크결제/신용결제 일시불 이용금액 기준', 'https://api.card-gorilla.com:8080/storage/card/407/card_img/28394/407card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (5, 0, '현대카드X HYBRID', 2000, 0, '이용 안내 - 현대카드는 상품안내서의 내용을 준수합니다. - 동일 기간 내 다수의 신용카드를 신청할 경우 개인 신용도 또는 개인신용평점에 영향을 미칠 수 있습니다. - 카드 이용 시 제공되는 부가서비스는 카드의 신규 출시(2009년 1월 1일) 이후 1년 이상 축소·폐지 없이 유지됩니다. - 다만, 부가서비스 관련 제휴업체의 일방적인 제휴조건 변경·도산, 천재지변, 금융환경 급변, 신용카드 업자의 경영위기 및 그 밖에 이에 준하는 사유에 따른 불가피한 경우, 신규 출시 이후 부가서비스의 축소·변경 없이 1년 이상 경과한 카드의 수익성 유지가 어려운 경우 부가서비스가 변경될 수 있습니다. - 부가서비스 변경 시에는 변경사유, 변경내용 등에 대해 변경일 6개월 이전에 홈페이지, 이용대금명세서, 우편서신, 이메일 중 2가지 이상의 방법으로 고지해 드리며, 사전 고지가 어려운 경우에는 사후에 고지해 드립니다. - 연회비는 카드 발급 시 선청구됩니다. 초년도 300만원 이상 이용 시 2,000캐시백이 결제계좌로 입금되며, 연간 300만원 이상 이용 시 차년도 연회비는 면제됩니다. - 금융상품(장기카드대출/단기카드대출) 이용금액을 제외한 체크결제/신용결제 일시불 이용금액 기준  유의사항 - 체크카드 개인회원 약관 제5조, 현대카드 개인회원 약관 제15조 제3항에 따라 회원에게 제공되는 M포인트 적립/사용 서비스는 당사의 영업정책이나 제휴사의 사정에 따라 변경 또는 중단될 수 있으며 그 내용은 사전에 고지하여 드립니다. 다만, 부가서비스 제공과 관련된 제휴업체의 일방적인 제휴조건 변경 · 도산, 천재지변, 금융환경의 급변, 신용카드업자의 경영위기 및 그 밖에 이에 준하는 사유에 따른 불가피한 변경 시에도 사전에 고지하되, 사전 고지가 어려운 경우에는 사후에 고지하여 드립니다.', 'https://api.card-gorilla.com:8080/storage/card/415/card_img/28397/415card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (5, 0, '현대카드M HYBRID', 0, 0, '이용 안내 - 현대카드는 상품안내서의 내용을 준수합니다. - 동일 기간 내 다수의 신용카드를 신청할 경우 개인 신용도 또는 개인신용평점에 영향을 미칠 수 있습니다. - 카드 이용 시 제공되는 부가서비스는 카드의 신규 출시(2009년 1월 1일) 이후 1년 이상 축소·폐지 없이 유지됩니다. - 다만, 부가서비스 관련 제휴업체의 일방적인 제휴조건 변경·도산, 천재지변, 금융환경 급변, 신용카드 업자의 경영위기 및 그 밖에 이에 준하는 사유에 따른 불가피한 경우, 신규 출시 이후 부가서비스의 축소·변경 없이 1년 이상 경과한 카드의 수익성 유지가 어려운 경우 부가서비스가 변경될 수 있습니다. - 부가서비스 변경 시에는 변경사유, 변경내용 등에 대해 변경일 6개월 이전에 홈페이지, 이용대금명세서, 우편서신, 이메일 중 2가지 이상의 방법으로 고지해 드리며, 사전 고지가 어려운 경우에는 사후에 고지해 드립니다. - 연회비는 카드 발급 시 선청구됩니다. 초년도 300만원 이상 이용 시 2,000캐시백이 결제계좌로 입금되며, 연간 300만원 이상 이용 시 차년도 연회비는 면제됩니다. - 금융상품(장기카드대출/단기카드대출) 이용금액을 제외한 체크결제/신용결제 일시불 이용금액 기준  유의사항 - 체크카드 개인회원 약관 제5조, 현대카드 개인회원 약관 제15조 제3항에 따라 회원에게 제공되는 M포인트 적립/사용 서비스는 당사의 영업정책이나 제휴사의 사정에 따라 변경 또는 중단될 수 있으며 그 내용은 사전에 고지하여 드립니다. 다만, 부가서비스 제공과 관련된 제휴업체의 일방적인 제휴조건 변경 · 도산, 천재지변, 금융환경의 급변, 신용카드업자의 경영위기 및 그 밖에 이에 준하는 사유에 따른 불가피한 변경 시에도 사전에 고지하되, 사전 고지가 어려운 경우에는 사후에 고지하여 드립니다.', 'https://api.card-gorilla.com:8080/storage/card/414/card_img/28396/414card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (5, 0, '현대카드M CHECK-경차전용카드(유류세 환급)', 0, 0, '발급 기준  - 만 18세 이상으로 당사 체크카드 발급에 적합한 고객  - 본인카드만 발급 가능하며 동일카드 중복 발급 및 가족카드 발급 불가  신청 가능 은행  - 제휴은행 계좌를 보유한 경우에 카드 신청 가능   * 제휴은행 : NH농협은행, 지역 농·축협, 우리은행, KEB하나은행  - 신청 가능 은행은 변경 가능  이용 안내  - 현대카드 가맹점에서 신용카드와 동일하게 사용 가능, 단 할부 거래 제외  - 체크카드 결제는 일 600만원/월 2,000만원 한도 내에서 가능   * 2013년 11월 1일 이전 카드를 발급 받은 경우 별도 증액신청이 없을 경우 기존 한도 유지(일 300만원/월 1,000만원)  - 한도증액 요청 시 일 1,000만원/월 3,000만원까지 가능  - 한도증액 요청은 당사 고객센터(1577-6000) 및 현대카드 홈페이지에서 가능  - 결제금액이 계좌에서 즉시 출금되는 상품으로 계좌 잔액 부족 시 승인 거절 가능  이용 불가 가맹점  - 실시간 승인이 안되는 가맹점은 이용이 불가하니 사용 전 확인  - 항공사 기내 판매, 금강산 판매 및 선상 판매  이용 제한 시간  - NH농협은행/지역 농·축협   * 매일 오후 11시 59분 ~ 익일 오전 12시 30분   * 매매월 3주차 월요일 오후 11시 59분 ~ 익일 오전 4시  - 우리은행   * 매일 오전 12시 ~ 12시 20분(단, 매주 금요일은 오전 12시 30분까지)   * 매월 2주차 토요일 오후 11시 50분 ~ 익일 오전 6시  - KEB하나은행   * 매일 오전 12시 ~ 12시 10분  ※ 전산 시스템 점검시간 중 체크카드 사용이 제한될 수 있으며, 이용 제한 시간은 해당 은행 사정에 따라 조정될 수 있음  청구  - 체크카드 이용시점에 이용대금이 즉시 결제계좌에서 인출됨  - 후불교통요금 등 후불 청구되는 금액은 매월 15일 인출됨  연말 소득공제  - 체크카드 이용금액은 관련 법률에서 정한 체크카드 소득공제 기준에 따라 가능  - 후불교통 이용금액은 대중교통 소득공제 요건에 따라 소득공제 받을 수 있음  현금인출 기능  - NH농협은행/지역 농·축협 : NH농협은행 창구에서 카드 제시하여 현금카드 등록 후 이용 가능   * 현금카드 기능은 NH농협은혱 계좌로 발급 받은 카드만 가능(지역 농·축협 불가)   * NH농협은행과 지역 농·축협 구분은 농협 고객센터(1588-2100)로 문의  - 우리은행 : 우리은행 창구에서 카드 제시하여 현금카드 등록 후 이용 가능   * 2013년 11월 19일 이전에 신청 및 발급 받은 카드는 현금카드 이용이 불가하므로 재발급 받은 후 이용 가능  - KEB하나은행 : KEB하나은행 창구에서 카드 제시하여 현금카드 등록 후 이용 가능   * 2014년 4월 4일 이전에 신청 및 발급 받은 카드는 현금카드 이용이 불가하므로 재발급 받은 후 이용 가능  도난/분실신고  - 도난·분실 시 체크카드기능 정지는 현대카드 고객센터(1577-6000)로, 현금인출 기능 정지는 해당 은행으로 신고   * NH농협은행/지역농·축협 1588-2100   * 우리은행 1588-5000   * KEB하나은행 1599-1111  교통카드(선택 사항)  - 이용 대상   * 버스·공항리무진, 지하철·공항철도, 택시, 혼잡통행료, 주차장을 편리하게 결제   * 서울 및 수도권 지역, 충남(대전, 천안, 아산 등), 전남, 경북, 부산, 울산, 포항, 김해 경전철, 원주, 제주 등  - 청구   * 후불교통요금 등 후불 이용금액은 매월 15일 인출됨   * 택시·주차장 요금은 즉시 출금  - 유의사항   * 후불교통 기능은 신청고객에 한하여 부여되며, 심사결과에 따라 일부 고객의 경우 카드발급이 거절될 수 있습니다.   * 후불교통 이용금액은 대중교통 소득공제 요건에 따라 연말 소득공제를 받을 수 있습니다.   * 연체 시 후불교통 기능 및 신용카드 이용이 제한될 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2197/card_img/21811/2197card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (5, 0, 'SC제일은행-현대카드 M CHECK', 0, 0, 'M포인트 적립 및 관리 기준 전월 이용금액 산정 기준 - 전월 이용 금액은 전월 1일~말일까지 SC제일은행-현대카드M CHECK의 이용 금액임 - 전월 이용 금액 100만원 이상 시 당월 1일~말일까지 1% M포인트 적립 적용 - 전표 매입 지연, 매출 취소의 경우 이용 금액이 달라질 수 있음 - 결제 취소 시, 취소 발생월이 아닌 승인월 이용 금액에서 제외되며, 취소 금액으로 전월 이용 금액 미충족 시 당월 혜택 미제공 - 대중교통, 하이패스, 도시가스 등 사후 승인 가맹점 이용 금액은 매출전표 접수일 기준으로 해당월의 이용 금액에 포함  전월 이용 금액 합산 제외 - 장기카드대출(카드론), 단기카드대출(현금서비스), 연회비, 제수수료, 이자 - SC제일은행-현대카드M CHECK 이용 금액만 인정되며, 그 외 모든 카드 이용 금액은 합산 제외  적립 대상 - 국내외에서 이용한 모든 물품 구매 및 서비스 이용 대금의 입금액 (매출 건별로 소수점 이하 반올림 후 적립)  적립 제외 - 장기카드대출(카드론), 단기카드대출(현금서비스), 연회비, 제수수료, 이자, 공과금 납부액(국세, 관세, 지방세, 지방세외수입, 상하수도 요금, 벌과금, 과태료, 인지세, 송달료, 민원 발급 수수료 등 국가 또는 공공단체가 부과하는 부담금), 전기 요금, 도시가스 요금, 아파트 관리비, 초·중·고교 학교 납입금, 대학·대학원 등록금 납부 결제건, 자동납부 서비스 이용 수수료, 상품권 등 현금성 유가증권 구매 및 선불카드 구매·충전 금액, 건강보험, 국민연금, 고용보험, 산재보험 및 장애인 고용 부담금, 고속도로 통행 요금, 고속버스(차내 단말기 및 고속버스 앱 결제 포함), 당사의 모든 할인 서비스 및 무이자 할부 이용 금액  적립한도 - 연간 적립 한도 제한 없음  유효기간 - 최초 M포인트 적립월로부터 60개월(5년)간 유효 - 미사용한 M포인트는 적립 60개월 경과 후 첫 일요일에 선입선출에 의거 월 단위로 자동 소멸 - 유효 기간은 이용 대금 명세서 및 현대카드 홈페이지 내 명시  M포인트 조회 - 홈페이지>혜택>나만의 혜택>포인트 - SC제일은행-현대카드 고객센터 1600-4410', 'https://api.card-gorilla.com:8080/storage/card/2430/card_img/27293/2430card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (5, 0, '현대카드X CHECK', 2000, 0, '이용 안내 - 현대카드는 상품안내서의 내용을 준수합니다. - 동일 기간 내 다수의 신용카드를 신청할 경우 개인 신용도 또는 개인신용평점에 영향을 미칠 수 있습니다. - 카드 이용 시 제공되는 부가서비스는 카드의 신규 출시(2009년 1월 1일) 이후 1년 이상 축소·폐지 없이 유지됩니다. - 다만, 부가서비스 관련 제휴업체의 일방적인 제휴조건 변경·도산, 천재지변, 금융환경 급변, 신용카드 업자의 경영위기 및 그 밖에 이에 준하는 사유에 따른 불가피한 경우, 신규 출시 이후 부가서비스의 축소·변경 없이 1년 이상 경과한 카드의 수익성 유지가 어려운 경우 부가서비스가 변경될 수 있습니다. - 부가서비스 변경 시에는 변경사유, 변경내용 등에 대해 변경일 6개월 이전에 홈페이지, 이용대금명세서, 우편서신, 이메일 중 2가지 이상의 방법으로 고지해 드리며, 사전 고지가 어려운 경우에는 사후에 고지해 드립니다. 연회비는 카드 발급 시 선청구됩니다. - 초년도 300만원 이상 이용 시 2,000 캐시백이 결제계좌로 입금되며, 연간 300만원 이상 이용 시 차년도 연회비는 면제됩니다. - 금융상품(장기카드대출/단기카드대출) 이용금액을 제외한 체크결제/신용결제 일시불 이용금액 기준', 'https://api.card-gorilla.com:8080/storage/card/408/card_img/28395/408card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (5, 0, '인플카 현대카드 CHECK', 5000, 0, '- 생활 필수 영역 적립 실적 조건 및 적립 한도 없음 - 생활 필수영역별 통합 1일 1회 적립 적용되며 결제 순서가 아닌 현대카드 매출전표 접수 순서 기준으로 혜택 제공 예시) 같은 날에 배달 앱 두 개 또는 한 배달 앱에서 두 번 이상 이용 시 현대카드 매출전표 접수 순서를 기준으로 한 건에만 혜택 적용 - 모든 가맹점은 현대카드 가맹점 등록 및 업종 분류 기준  M포인트 적립 기준 적립시기 - 매출전표 매입 시점 기준으로 즉시 적립 예시) 15일 결제한 건의 매출전표가 16일 매입된 경우, M포인트는 16일에 적립  적립대상 - 생활 필수 영역에서 이용한 모든 물품 구매 및 서비스 이용 대금의 입금액 (매출 건별로 소수점 이하 반올림 후 적립)  유효기간 - 최초 M포인트 적립월로부터 60개월(5년)간 유효  적립 제외 - 장기카드대출(카드론), 단기카드대출(현금서비스), 연회비, 제수수료, 이자, 매출 취소 금액, 당사의 모든 할인서비스 및 무이자 할부 이용 금액, 생활 필수 영역 외 카드 이용 금액  M포인트 조회 - 현대카드 홈페이지 > 혜택 > 나만의 혜택 > 포인트 - 현대카드 고객센터 1577-6000', 'https://api.card-gorilla.com:8080/storage/card/2417/card_img/26967/2417card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (5, 0, '넥슨 현대카드Check', 5000, 0, '적립 시기
+  ※ 개별고지 방법 :카드대금청구서, 우편, 이메일, 휴대폰 문자메시지 서비스 중 하나', 'https://api.card-gorilla.com:8080/storage/card/1258/card_img/21049/1258card.png', 0, 0, '', 0),
+
+(5, 0, '현대카드M CHECK', 2000, 0, '유의사항 - 체크카드 개인회원 약관 제5조, 현대카드 개인회원 약관 제15조 제3항에 따라 회원에게 제공되는 M포인트 적립/사용 서비스는 당사의 영업정책이나 제휴사의 사정에 따라 변경 또는 중단될 수 있으며 그 내용은 사전에 고지하여 드립니다. 다만, 부가서비스 제공과 관련된 제휴업체의 일방적인 제휴조건 변경 · 도산, 천재지변, 금융환경의 급변, 신용카드업자의 경영위기 및 그 밖에 이에 준하는 사유에 따른 불가피한 변경 시에도 사전에 고지하되, 사전 고지가 어려운 경우에는 사후에 고지하여 드립니다. 이용 안내 - 현대카드는 상품안내서의 내용을 준수합니다. - 동일 기간 내 다수의 신용카드를 신청할 경우 개인 신용도 또는 개인신용평점에 영향을 미칠 수 있습니다. - 카드 이용 시 제공되는 부가서비스는 카드의 신규 출시(2009년 1월 1일) 이후 1년 이상 축소·폐지 없이 유지됩니다. - 다만, 부가서비스 관련 제휴업체의 일방적인 제휴조건 변경·도산, 천재지변, 금융환경 급변, 신용카드 업자의 경영위기 및 그 밖에 이에 준하는 사유에 따른 불가피한 경우, 신규 출시 이후 부가서비스의 축소·변경 없이 1년 이상 경과한 카드의 수익성 유지가 어려운 경우 부가서비스가 변경될 수 있습니다. - 부가서비스 변경 시에는 변경사유, 변경내용 등에 대해 변경일 6개월 이전에 홈페이지, 이용대금명세서, 우편서신, 이메일 중 2가지 이상의 방법으로 고지해 드리며, 사전 고지가 어려운 경우에는 사후에 고지해 드립니다. - 연회비는 카드 발급 시 선청구됩니다. 초년도 300만원 이상 이용 시 2,000캐시백이 결제계좌로 입금되며, 연간 300만원 이상 이용 시 차년도 연회비는 면제됩니다. - 금융상품(장기카드대출/단기카드대출) 이용금액을 제외한 체크결제/신용결제 일시불 이용금액 기준', 'https://api.card-gorilla.com:8080/storage/card/407/card_img/28394/407card.png', 1, 0, '', 0),
+
+(5, 0, '현대카드X HYBRID', 2000, 0, '이용 안내 - 현대카드는 상품안내서의 내용을 준수합니다. - 동일 기간 내 다수의 신용카드를 신청할 경우 개인 신용도 또는 개인신용평점에 영향을 미칠 수 있습니다. - 카드 이용 시 제공되는 부가서비스는 카드의 신규 출시(2009년 1월 1일) 이후 1년 이상 축소·폐지 없이 유지됩니다. - 다만, 부가서비스 관련 제휴업체의 일방적인 제휴조건 변경·도산, 천재지변, 금융환경 급변, 신용카드 업자의 경영위기 및 그 밖에 이에 준하는 사유에 따른 불가피한 경우, 신규 출시 이후 부가서비스의 축소·변경 없이 1년 이상 경과한 카드의 수익성 유지가 어려운 경우 부가서비스가 변경될 수 있습니다. - 부가서비스 변경 시에는 변경사유, 변경내용 등에 대해 변경일 6개월 이전에 홈페이지, 이용대금명세서, 우편서신, 이메일 중 2가지 이상의 방법으로 고지해 드리며, 사전 고지가 어려운 경우에는 사후에 고지해 드립니다. - 연회비는 카드 발급 시 선청구됩니다. 초년도 300만원 이상 이용 시 2,000캐시백이 결제계좌로 입금되며, 연간 300만원 이상 이용 시 차년도 연회비는 면제됩니다. - 금융상품(장기카드대출/단기카드대출) 이용금액을 제외한 체크결제/신용결제 일시불 이용금액 기준  유의사항 - 체크카드 개인회원 약관 제5조, 현대카드 개인회원 약관 제15조 제3항에 따라 회원에게 제공되는 M포인트 적립/사용 서비스는 당사의 영업정책이나 제휴사의 사정에 따라 변경 또는 중단될 수 있으며 그 내용은 사전에 고지하여 드립니다. 다만, 부가서비스 제공과 관련된 제휴업체의 일방적인 제휴조건 변경 · 도산, 천재지변, 금융환경의 급변, 신용카드업자의 경영위기 및 그 밖에 이에 준하는 사유에 따른 불가피한 변경 시에도 사전에 고지하되, 사전 고지가 어려운 경우에는 사후에 고지하여 드립니다.', 'https://api.card-gorilla.com:8080/storage/card/415/card_img/28397/415card.png', 1, 0, '', 0),
+
+(5, 0, '현대카드M HYBRID', 0, 0, '이용 안내 - 현대카드는 상품안내서의 내용을 준수합니다. - 동일 기간 내 다수의 신용카드를 신청할 경우 개인 신용도 또는 개인신용평점에 영향을 미칠 수 있습니다. - 카드 이용 시 제공되는 부가서비스는 카드의 신규 출시(2009년 1월 1일) 이후 1년 이상 축소·폐지 없이 유지됩니다. - 다만, 부가서비스 관련 제휴업체의 일방적인 제휴조건 변경·도산, 천재지변, 금융환경 급변, 신용카드 업자의 경영위기 및 그 밖에 이에 준하는 사유에 따른 불가피한 경우, 신규 출시 이후 부가서비스의 축소·변경 없이 1년 이상 경과한 카드의 수익성 유지가 어려운 경우 부가서비스가 변경될 수 있습니다. - 부가서비스 변경 시에는 변경사유, 변경내용 등에 대해 변경일 6개월 이전에 홈페이지, 이용대금명세서, 우편서신, 이메일 중 2가지 이상의 방법으로 고지해 드리며, 사전 고지가 어려운 경우에는 사후에 고지해 드립니다. - 연회비는 카드 발급 시 선청구됩니다. 초년도 300만원 이상 이용 시 2,000캐시백이 결제계좌로 입금되며, 연간 300만원 이상 이용 시 차년도 연회비는 면제됩니다. - 금융상품(장기카드대출/단기카드대출) 이용금액을 제외한 체크결제/신용결제 일시불 이용금액 기준  유의사항 - 체크카드 개인회원 약관 제5조, 현대카드 개인회원 약관 제15조 제3항에 따라 회원에게 제공되는 M포인트 적립/사용 서비스는 당사의 영업정책이나 제휴사의 사정에 따라 변경 또는 중단될 수 있으며 그 내용은 사전에 고지하여 드립니다. 다만, 부가서비스 제공과 관련된 제휴업체의 일방적인 제휴조건 변경 · 도산, 천재지변, 금융환경의 급변, 신용카드업자의 경영위기 및 그 밖에 이에 준하는 사유에 따른 불가피한 변경 시에도 사전에 고지하되, 사전 고지가 어려운 경우에는 사후에 고지하여 드립니다.', 'https://api.card-gorilla.com:8080/storage/card/414/card_img/28396/414card.png', 1, 0, '', 0),
+
+(5, 0, '현대카드M CHECK-경차전용카드(유류세 환급)', 0, 0, '발급 기준  - 만 18세 이상으로 당사 체크카드 발급에 적합한 고객  - 본인카드만 발급 가능하며 동일카드 중복 발급 및 가족카드 발급 불가  신청 가능 은행  - 제휴은행 계좌를 보유한 경우에 카드 신청 가능   * 제휴은행 : NH농협은행, 지역 농·축협, 우리은행, KEB하나은행  - 신청 가능 은행은 변경 가능  이용 안내  - 현대카드 가맹점에서 신용카드와 동일하게 사용 가능, 단 할부 거래 제외  - 체크카드 결제는 일 600만원/월 2,000만원 한도 내에서 가능   * 2013년 11월 1일 이전 카드를 발급 받은 경우 별도 증액신청이 없을 경우 기존 한도 유지(일 300만원/월 1,000만원)  - 한도증액 요청 시 일 1,000만원/월 3,000만원까지 가능  - 한도증액 요청은 당사 고객센터(1577-6000) 및 현대카드 홈페이지에서 가능  - 결제금액이 계좌에서 즉시 출금되는 상품으로 계좌 잔액 부족 시 승인 거절 가능  이용 불가 가맹점  - 실시간 승인이 안되는 가맹점은 이용이 불가하니 사용 전 확인  - 항공사 기내 판매, 금강산 판매 및 선상 판매  이용 제한 시간  - NH농협은행/지역 농·축협   * 매일 오후 11시 59분 ~ 익일 오전 12시 30분   * 매매월 3주차 월요일 오후 11시 59분 ~ 익일 오전 4시  - 우리은행   * 매일 오전 12시 ~ 12시 20분(단, 매주 금요일은 오전 12시 30분까지)   * 매월 2주차 토요일 오후 11시 50분 ~ 익일 오전 6시  - KEB하나은행   * 매일 오전 12시 ~ 12시 10분  ※ 전산 시스템 점검시간 중 체크카드 사용이 제한될 수 있으며, 이용 제한 시간은 해당 은행 사정에 따라 조정될 수 있음  청구  - 체크카드 이용시점에 이용대금이 즉시 결제계좌에서 인출됨  - 후불교통요금 등 후불 청구되는 금액은 매월 15일 인출됨  연말 소득공제  - 체크카드 이용금액은 관련 법률에서 정한 체크카드 소득공제 기준에 따라 가능  - 후불교통 이용금액은 대중교통 소득공제 요건에 따라 소득공제 받을 수 있음  현금인출 기능  - NH농협은행/지역 농·축협 : NH농협은행 창구에서 카드 제시하여 현금카드 등록 후 이용 가능   * 현금카드 기능은 NH농협은혱 계좌로 발급 받은 카드만 가능(지역 농·축협 불가)   * NH농협은행과 지역 농·축협 구분은 농협 고객센터(1588-2100)로 문의  - 우리은행 : 우리은행 창구에서 카드 제시하여 현금카드 등록 후 이용 가능   * 2013년 11월 19일 이전에 신청 및 발급 받은 카드는 현금카드 이용이 불가하므로 재발급 받은 후 이용 가능  - KEB하나은행 : KEB하나은행 창구에서 카드 제시하여 현금카드 등록 후 이용 가능   * 2014년 4월 4일 이전에 신청 및 발급 받은 카드는 현금카드 이용이 불가하므로 재발급 받은 후 이용 가능  도난/분실신고  - 도난·분실 시 체크카드기능 정지는 현대카드 고객센터(1577-6000)로, 현금인출 기능 정지는 해당 은행으로 신고   * NH농협은행/지역농·축협 1588-2100   * 우리은행 1588-5000   * KEB하나은행 1599-1111  교통카드(선택 사항)  - 이용 대상   * 버스·공항리무진, 지하철·공항철도, 택시, 혼잡통행료, 주차장을 편리하게 결제   * 서울 및 수도권 지역, 충남(대전, 천안, 아산 등), 전남, 경북, 부산, 울산, 포항, 김해 경전철, 원주, 제주 등  - 청구   * 후불교통요금 등 후불 이용금액은 매월 15일 인출됨   * 택시·주차장 요금은 즉시 출금  - 유의사항   * 후불교통 기능은 신청고객에 한하여 부여되며, 심사결과에 따라 일부 고객의 경우 카드발급이 거절될 수 있습니다.   * 후불교통 이용금액은 대중교통 소득공제 요건에 따라 연말 소득공제를 받을 수 있습니다.   * 연체 시 후불교통 기능 및 신용카드 이용이 제한될 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2197/card_img/21811/2197card.png', 0, 0, '', 0),
+
+(5, 0, 'SC제일은행-현대카드 M CHECK', 0, 0, 'M포인트 적립 및 관리 기준 전월 이용금액 산정 기준 - 전월 이용 금액은 전월 1일~말일까지 SC제일은행-현대카드M CHECK의 이용 금액임 - 전월 이용 금액 100만원 이상 시 당월 1일~말일까지 1% M포인트 적립 적용 - 전표 매입 지연, 매출 취소의 경우 이용 금액이 달라질 수 있음 - 결제 취소 시, 취소 발생월이 아닌 승인월 이용 금액에서 제외되며, 취소 금액으로 전월 이용 금액 미충족 시 당월 혜택 미제공 - 대중교통, 하이패스, 도시가스 등 사후 승인 가맹점 이용 금액은 매출전표 접수일 기준으로 해당월의 이용 금액에 포함  전월 이용 금액 합산 제외 - 장기카드대출(카드론), 단기카드대출(현금서비스), 연회비, 제수수료, 이자 - SC제일은행-현대카드M CHECK 이용 금액만 인정되며, 그 외 모든 카드 이용 금액은 합산 제외  적립 대상 - 국내외에서 이용한 모든 물품 구매 및 서비스 이용 대금의 입금액 (매출 건별로 소수점 이하 반올림 후 적립)  적립 제외 - 장기카드대출(카드론), 단기카드대출(현금서비스), 연회비, 제수수료, 이자, 공과금 납부액(국세, 관세, 지방세, 지방세외수입, 상하수도 요금, 벌과금, 과태료, 인지세, 송달료, 민원 발급 수수료 등 국가 또는 공공단체가 부과하는 부담금), 전기 요금, 도시가스 요금, 아파트 관리비, 초·중·고교 학교 납입금, 대학·대학원 등록금 납부 결제건, 자동납부 서비스 이용 수수료, 상품권 등 현금성 유가증권 구매 및 선불카드 구매·충전 금액, 건강보험, 국민연금, 고용보험, 산재보험 및 장애인 고용 부담금, 고속도로 통행 요금, 고속버스(차내 단말기 및 고속버스 앱 결제 포함), 당사의 모든 할인 서비스 및 무이자 할부 이용 금액  적립한도 - 연간 적립 한도 제한 없음  유효기간 - 최초 M포인트 적립월로부터 60개월(5년)간 유효 - 미사용한 M포인트는 적립 60개월 경과 후 첫 일요일에 선입선출에 의거 월 단위로 자동 소멸 - 유효 기간은 이용 대금 명세서 및 현대카드 홈페이지 내 명시  M포인트 조회 - 홈페이지>혜택>나만의 혜택>포인트 - SC제일은행-현대카드 고객센터 1600-4410', 'https://api.card-gorilla.com:8080/storage/card/2430/card_img/27293/2430card.png', 1, 0, '', 0),
+
+(5, 0, '현대카드X CHECK', 2000, 0, '이용 안내 - 현대카드는 상품안내서의 내용을 준수합니다. - 동일 기간 내 다수의 신용카드를 신청할 경우 개인 신용도 또는 개인신용평점에 영향을 미칠 수 있습니다. - 카드 이용 시 제공되는 부가서비스는 카드의 신규 출시(2009년 1월 1일) 이후 1년 이상 축소·폐지 없이 유지됩니다. - 다만, 부가서비스 관련 제휴업체의 일방적인 제휴조건 변경·도산, 천재지변, 금융환경 급변, 신용카드 업자의 경영위기 및 그 밖에 이에 준하는 사유에 따른 불가피한 경우, 신규 출시 이후 부가서비스의 축소·변경 없이 1년 이상 경과한 카드의 수익성 유지가 어려운 경우 부가서비스가 변경될 수 있습니다. - 부가서비스 변경 시에는 변경사유, 변경내용 등에 대해 변경일 6개월 이전에 홈페이지, 이용대금명세서, 우편서신, 이메일 중 2가지 이상의 방법으로 고지해 드리며, 사전 고지가 어려운 경우에는 사후에 고지해 드립니다. 연회비는 카드 발급 시 선청구됩니다. - 초년도 300만원 이상 이용 시 2,000 캐시백이 결제계좌로 입금되며, 연간 300만원 이상 이용 시 차년도 연회비는 면제됩니다. - 금융상품(장기카드대출/단기카드대출) 이용금액을 제외한 체크결제/신용결제 일시불 이용금액 기준', 'https://api.card-gorilla.com:8080/storage/card/408/card_img/28395/408card.png', 1, 0, '', 0),
+
+(5, 0, '인플카 현대카드 CHECK', 5000, 0, '- 생활 필수 영역 적립 실적 조건 및 적립 한도 없음 - 생활 필수영역별 통합 1일 1회 적립 적용되며 결제 순서가 아닌 현대카드 매출전표 접수 순서 기준으로 혜택 제공 예시) 같은 날에 배달 앱 두 개 또는 한 배달 앱에서 두 번 이상 이용 시 현대카드 매출전표 접수 순서를 기준으로 한 건에만 혜택 적용 - 모든 가맹점은 현대카드 가맹점 등록 및 업종 분류 기준  M포인트 적립 기준 적립시기 - 매출전표 매입 시점 기준으로 즉시 적립 예시) 15일 결제한 건의 매출전표가 16일 매입된 경우, M포인트는 16일에 적립  적립대상 - 생활 필수 영역에서 이용한 모든 물품 구매 및 서비스 이용 대금의 입금액 (매출 건별로 소수점 이하 반올림 후 적립)  유효기간 - 최초 M포인트 적립월로부터 60개월(5년)간 유효  적립 제외 - 장기카드대출(카드론), 단기카드대출(현금서비스), 연회비, 제수수료, 이자, 매출 취소 금액, 당사의 모든 할인서비스 및 무이자 할부 이용 금액, 생활 필수 영역 외 카드 이용 금액  M포인트 조회 - 현대카드 홈페이지 > 혜택 > 나만의 혜택 > 포인트 - 현대카드 고객센터 1577-6000', 'https://api.card-gorilla.com:8080/storage/card/2417/card_img/26967/2417card.png', 1, 0, '', 0),
+
+(5, 0, '넥슨 현대카드Check', 5000, 0, '적립 시기
 매출전표 매입 시점 기준으로 1~2영업일 후 적립
 예시) 15일 결제한 건의 매출전표가 16일 매입된 경우, 넥슨 현대카드 포인트는 17일에 적립
 
@@ -2044,8 +2113,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 적립 혜택은 결제 순서가 아닌 현대카드 매출전표 접수 순서에 따라 적용
 적립 혜택이 적용된 결제 건을 취소하더라도 당사에 해당 매출 취소가 접수되기 전에는 월 적립한도 초과분 혜택 제외(매출 취소 접수 후 월 적립한도 복원 가능
 넥슨 현대카드 포인트 적립·사용 조회 및 유효기간 확인은 넥슨 PLCC 홈페이지(card.nexon.com) 참고
-상품 및 서비스 관련 자세한 내용은 현대카드 홈페이지(www.hyundaicard.com) 참고', 'https://api.card-gorilla.com:8080/storage/card/2390/card_img/25822/2390card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (5, 0, 'SC제일은행-현대카드 X CHECK', 0, 0, 'X포인트 적립 및 관리 기준
+상품 및 서비스 관련 자세한 내용은 현대카드 홈페이지(www.hyundaicard.com) 참고', 'https://api.card-gorilla.com:8080/storage/card/2390/card_img/25822/2390card.png', 1, 0, '', 0),
+
+(5, 0, 'SC제일은행-현대카드 X CHECK', 0, 0, 'X포인트 적립 및 관리 기준
 전월 이용 금액 산정 기준
 - 전월 이용 금액은 전월 1일~말일까지 SC제일은행-현대카드X CHECK의 이용 금액임
 - 전월 이용 금액 100만원 이상 시 당월 1일~말일까지 0.6% 적립 적용
@@ -2086,8 +2156,9 @@ X캐시백 조회
 정지(연체 등)·해지·탈회 회원
 - 정지(연체 등)ㆍ해지ㆍ탈회 등 카드 이용 계약 종료 시 회원의 잔여 X캐시백 사용은 제한되나, 잔여 X캐시백은 기존에 부여된 유효 기간까지 유지됨
 - 잔여 X캐시백 유효 기간 내 회원이 재가입하여 X캐시백이 적립되는 카드 보유 시, 해당 잔여 X캐시백도 사용 가능
-- 기타 포인트 소멸과 관련된 내용은 현대카드 개인회원 약관 제15조에 따름', 'https://api.card-gorilla.com:8080/storage/card/2431/card_img/27294/2431card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (6, 0, '네이버페이 머니 하나 체크카드', 0, 250000, '- 본 체크카드 상품은 발급 시 하나은행의 ‘네이버페이 머니 하나 통장’ 계좌 연결이 필수이며, 이용 중 하나은행 이외의 계좌로 변경 시 적립률은 0.6%가 제공됩니다.
+- 기타 포인트 소멸과 관련된 내용은 현대카드 개인회원 약관 제15조에 따름', 'https://api.card-gorilla.com:8080/storage/card/2431/card_img/27294/2431card.png', 1, 0, '', 0),
+
+(6, 0, '네이버페이 머니 하나 체크카드', 0, 250000, '- 본 체크카드 상품은 발급 시 하나은행의 ‘네이버페이 머니 하나 통장’ 계좌 연결이 필수이며, 이용 중 하나은행 이외의 계좌로 변경 시 적립률은 0.6%가 제공됩니다.
 - 서비스 제공 조건
 
 실적 산정 기준
@@ -2106,8 +2177,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 * 카드 발급 신청 시 상품설명서 및 상품 약관을 반드시 확인하시기 바랍니다.
 * 신용카드 발급이 부적정한 경우(개인신용평점 낮음 등) 카드발급이 제한될 수 있습니다.
 * 카드이용대금과 이에 수반되는 모든 수수료를 지정된 대금 결제일에 상환하여야 합니다.
-* 금융소비자는 해당 상품 또는 서비스에 대하여 설명을 받을 권리가 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2432/card_img/27295/2432card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (6, 0, '트래블로그 체크카드', 0, 0, '트래블로그 체크카드란?
+* 금융소비자는 해당 상품 또는 서비스에 대하여 설명을 받을 권리가 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2432/card_img/27295/2432card.png', 1, 0, '', 0),
+
+(6, 0, '트래블로그 체크카드', 0, 0, '트래블로그 체크카드란?
 - 하나머니 잔액으로 모든 신용카드 가맹점에서 결제할 수 있는 하나머니 전용 체크카드입니다.
 - 하나머니 회원 가입 필수로,하나머니에 가입되어 있는 회원이라면 트래블로그 체크카드 신청이 가능합니다.
 - 하나머니 잔액 내에서 결제 가능하며, 잔액 부족 시 충전을 통하여 결제 가능합니다.
@@ -2138,8 +2210,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 승인취소(매입되기 전)의 경우 승인시점에 결제한 해당 통화로 즉시 환불됩니다. 단, 매입 후 취소가 발생된 경우에는 취소전표가 카드사로 접수된 다음 영업일에 환불됩니다.
 - 해외 이용금액이 하나머니(KRW)로 출금 또는 환불 시 적용 환율 및 출금ㆍ환불 시기
 - 달러(USD)로 이용한 경우 매입일(이용대금이 카드사로 접수된 날짜)의 하나은행 최초고시 전신환매도율을 적용하여 매입일 다음 영업일에 출금 또는 환불됩니다.
-- 달러(USD) 외 통화로 이용한 경우 국제브랜드사가 정한 환율에 따라 달러(USD)로 환산 후 매입일(이용대금이 카드사로 접수된 날짜)의 하나은행 최초고시 전신환매도율을 적용하여 매입일 다음 영업일에 출금 또는 환불됩니다.', 'https://api.card-gorilla.com:8080/storage/card/2394/card_img/25975/2394card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (6, 0, '알뜰교통 비바 e 플래티늄 체크카드', 0, 250000, '캐시백 서비스 제공 조건
+- 달러(USD) 외 통화로 이용한 경우 국제브랜드사가 정한 환율에 따라 달러(USD)로 환산 후 매입일(이용대금이 카드사로 접수된 날짜)의 하나은행 최초고시 전신환매도율을 적용하여 매입일 다음 영업일에 출금 또는 환불됩니다.', 'https://api.card-gorilla.com:8080/storage/card/2394/card_img/25975/2394card.png', 1, 0, '', 0),
+
+(6, 0, '알뜰교통 비바 e 플래티늄 체크카드', 0, 250000, '캐시백 서비스 제공 조건
 - 전월 1일 ~ 말일까지 국내 가맹점 사용금액이 25만원 이상 이용 시
 - 최초 카드 사용 등록 후 다음 월 말일까지는 전월 사용금액 25만원 미만 시에도 전월 카드 사용금액 25만원 기준으로 서비스 제공
 - 캐시백 방법 : 1일부터 말일까지 사용한 금액에 대하여 사용 월 다음 월 5영업일 이내 일괄 입금
@@ -2167,8 +2240,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
   * 통장 잔액이 3만원이고 하이브리드 잔여 신용한도가 2만원일 때에 5만원 사용 승인을 요청할 경우 승인 거절 처리
   * 하이브리드 결제 시에는 별도 SMS 발송
   * 본인 결제일에 신용카드 이용대금 및 하이브리드 이용대금 일괄 청구
-  * 하이브리드 이용금액은 연말 소득공제 시, 신용카드 실적으로 산정됩니다.', 'https://api.card-gorilla.com:8080/storage/card/746/card_img/27830/746card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (6, 0, '카카오페이 체크카드', 0, 250000, '부가서비스 유지 및 변경안내
+  * 하이브리드 이용금액은 연말 소득공제 시, 신용카드 실적으로 산정됩니다.', 'https://api.card-gorilla.com:8080/storage/card/746/card_img/27830/746card.png', 1, 0, '', 0),
+
+(6, 0, '카카오페이 체크카드', 0, 250000, '부가서비스 유지 및 변경안내
 - 카드이용시 제공되는 포인트 및 할인혜택 등의 부가서비스는 카드 신규출시 (2015년 6월 3일) 이후 5년 이상 축소·폐지 없이 유지됩니다.
 - 다만, 다음과 같은 사유가 발생한 경우 카드사는 부가서비스를 변경할 수 있습니다.
   * 카드사 또는 부가서비스 관련 제휴업체의 휴업 · 도산 · 경영위기, 천재지변, 금융환경 급변 또는 그 밖에 이에 준하는 사유에 따른 불가피한 경우
@@ -2177,8 +2251,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
   * 신규출시 후 부가서비스 축소 변경 없이 5년 이상 경과했고, 현재의 부가서비스를 유지할 경우 해당 카드의 수익성 유지가 어려운 경우
 - 카드사가 부가서비스를 변경하는 경우에는 부가서비스 변경 사유, 변경 내용 등을 사유발생 즉시 홈페이지에 게시하고, 개별 고지해 드립니다.
 - 특히 카드 신규 출시 이후 5년 이상 경과했고, 해당 카드의 수익성 유지가 어려워져 부가서비스를 변경하는 경우에는 6개월 전부터 매월 개별고지 해 드립니다.
-  * 개별고지방법 : 이용대금명세서, 우편서신, 전자우편(E-MAIL), 휴대폰 문자메시지 서비스 중 한가지', 'https://api.card-gorilla.com:8080/storage/card/382/card_img/20882/382card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (6, 0, 'MULTI Any 체크카드', 0, 0, '하나머니 적립 서비스 유의사항
+  * 개별고지방법 : 이용대금명세서, 우편서신, 전자우편(E-MAIL), 휴대폰 문자메시지 서비스 중 한가지', 'https://api.card-gorilla.com:8080/storage/card/382/card_img/20882/382card.png', 0, 0, '', 0),
+
+(6, 0, 'MULTI Any 체크카드', 0, 0, '하나머니 적립 서비스 유의사항
 - 해외 결제 시 수수료가 발생할 수 있으니 [해외결제 및 기타안내] 참조하시기 바랍니다.
 - 대중교통 적립 대상 : 시내버스, 마을버스, 광역버스, 공항버스, 지하철, 철도(KTX/SRT 포함), 공항철도철도(KTX/SRT포함) : 한국철도공사(코레일) / SRT 현장 및 공식 홈페이지, App.을 통한 결제 시 할인. 승차권 판매대리점(여행사, 편의점)을 통한 결제 시 할인 제외
 - 대중교통 적립 제외 대상 : 시외버스, 고속버스
@@ -2253,8 +2328,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 카드사가 부가서비스를 변경하는 경우 변경 사유, 변경 내용 등을 다음 각 호에서 정하는 기간에 따라 서면, 우편, 또는 팩스에 따른 서신전달, 전화, 전자우편 또는 이에 준하는 전자적 의사표시, 그 밖에 상대방에 의사를 표시하였다는 사실을 객관적으로 입증할 수 있는 방법 중 2가지 이상의 방법으로 고지하여 드립니다.
 - 다만, 제2호의 경우 부가서비스 변경일 6개월 이전부터는 서면, 우편 또는 팩스에 따른 서신전달, 전화, 전자우편 또는 이에 준하는 전자적 의사표시, 그 밖에 상대방에 의사를 표시하였다는 사실을 객관적으로 입증할 수 있는 방법 중 어느 하나의 방법으로 매월 고지하여 드립니다.
   1. ①,② : 사유발생 즉시
-  2. ③ : 부가서비스 변경일 6개월 이전', 'https://api.card-gorilla.com:8080/storage/card/2643/card_img/32063/2643card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (6, 0, '모두의 일상 체크카드', 0, 0, '부가서비스 유지 및 변경 안내
+  2. ③ : 부가서비스 변경일 6개월 이전', 'https://api.card-gorilla.com:8080/storage/card/2643/card_img/32063/2643card.png', 1, 0, '', 0),
+
+(6, 0, '모두의 일상 체크카드', 0, 0, '부가서비스 유지 및 변경 안내
 - 카드이용시 제공되는 포인트 및 할인혜택 등의 부가서비스는 카드 신규출시(2020년 10월 13일) 이후 3년 이상 축소·폐지 없이 유지됩니다.
 - 다만, 다음과 같은 사유가 발생한 경우 카드사는 부가서비스를 변경할 수 있습니다.
   * 카드사 또는 부가서비스 관련 제휴업체의 휴업· 도산· 경영위기, 천재지변, 금융환경 급변 또는 그 밖에 이에 준하는 사유에 따른 불가피한 경우
@@ -2262,8 +2338,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
   * 신규출시 후 부가서비스 축소 변경 없이 3년 이상 경과했고, 현재의 부가서비스를 유지할 경우 해당 카드의 수익성 유지가 어려운 경우
 - 카드사가 부가서비스를 변경하는 경우에는 부가서비스 변경 사유, 변경 내용 등을 사유발생 즉시 홈페이지에 게시하고, 개별 고지해 드립니다.
 - 특히 카드 신규 출시 이후 3년 이상 경과했고, 해당 카드의 수익성 유지가 어려워져 부가서비스를 변경하는 경우에는 부가서비스 변경일 6개월 전부터 매월 개별고지 해 드립니다.
-  * 개별고지방법 : 이용대금명세서, 우편서신, 전자우편(E-MAIL), 휴대폰 문자메시지 서비스 중 한가지', 'https://api.card-gorilla.com:8080/storage/card/690/card_img/22163/690card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (6, 0, 'VIVA+ 체크카드', 0, 0, '부가서비스 유지 및 변경안내
+  * 개별고지방법 : 이용대금명세서, 우편서신, 전자우편(E-MAIL), 휴대폰 문자메시지 서비스 중 한가지', 'https://api.card-gorilla.com:8080/storage/card/690/card_img/22163/690card.png', 0, 0, '', 0),
+
+(6, 0, 'VIVA+ 체크카드', 0, 0, '부가서비스 유지 및 변경안내
 - 카드이용시 제공되는 포인트 및 할인혜택 등의 부가서비스는 카드 신규출시 (2018년 6월 15일) 이후 3년 이상 축소·폐지 없이 유지됩니다.
 - 다만, 다음과 같은 사유가 발생한 경우 카드사는 부가서비스를 변경할 수 있습니다.
   * 카드사 또는 부가서비스 관련 제휴업체의 휴업 · 도산 · 경영위기, 천재지변, 금융환경 급변 또는 그 밖에 이에 준하는 사유에 따른 불가피한 경우
@@ -2316,8 +2393,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 하이브리드 서비스는 해외 사용불가합니다.
 - 하이브리드 서비스는 계좌잔액이 부족한 경우에 한해서만 일시불로 결제 가능하며,할부/단기카드대출(현금서비스) 이용은 불가합니다.
 - 하이브리드 서비스는 개인신용정보조회 동의가 필수입니다.
-- 신청/해지 : 하나카드 고객센터 1800-1111, 하나카드 홈페이지 www.hanacard.co.kr', 'https://api.card-gorilla.com:8080/storage/card/378/card_img/20878/378card.jpg', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (6, 0, 'VIVA X 체크카드', 0, 0, '부가서비스 유지 및 변경안내
+- 신청/해지 : 하나카드 고객센터 1800-1111, 하나카드 홈페이지 www.hanacard.co.kr', 'https://api.card-gorilla.com:8080/storage/card/378/card_img/20878/378card.jpg', 0, 0, '', 0),
+
+(6, 0, 'VIVA X 체크카드', 0, 0, '부가서비스 유지 및 변경안내
 - 카드이용시 제공되는 포인트 및 할인혜택 등의 부가서비스는 카드 신규출시(2020년 6월 10일) 이후 3년 이상 축소·폐지 없이 유지됩니다.
 - 다만, 다음과 같은 사유가 발생한 경우 카드사는 부가서비스를 변경할 수 있습니다.
   * 카드사 또는 부가서비스 관련 제휴업체의 휴업· 도산· 경영위기, 천재지변, 금융환경 급변 또는 그 밖에 이에 준하는 사유에 따른 불가피한 경우
@@ -2342,10 +2420,13 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 일부 해외 거래 시 IC칩 비밀번호(PIN)를 요구하는 경우가 있으므로 출국 전 반드시 IC칩 비밀번호(PIN) 등록여부를 확인하시기 바랍니다.
 - 결제 계좌 개설기관의 영업 마감시간(16시) 이후 결제계좌에 입금된 금액에 대해서는 결제계좌 개설 기관의 사정에 따라 당일 출금되지 못하여 연체로 처리될 수 있으므로 유의하시기 바랍니다. 자동납부 업무 마감시간 이후 당사 홈페이지 / 모바일 등에서 즉시결제 또는 가상계좌 입금(송금납부)을 통해 당일 결제가 가능합니다.
   * 세부사항은 하나카드 홈페이지[고객센터 → 카드이용안내 → 결제안내] 및 모바일 앱[고객센터 탭] 참조
-- 결제은행에 따라 안정적인 서비스 제공을 위한 전산 시스템 점검시에는 23:00~06:00 중 체크카드 이용이 일시적으로 제한될 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/749/card_img/22223/749card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (6, 0, 'L.PAY 하나 체크카드', 0, 0, '', 'https://api.card-gorilla.com:8080/storage/card/1523/card_img/20209/1523card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (6, 0, 'K리그 축덕 Young Hana 체크카드 with OKcashbag', 0, 200000, '', 'https://api.card-gorilla.com:8080/storage/card/1526/card_img/32519/1526card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (6, 0, '하나멤버스 Mega 체크카드', 0, 250000, '부가서비스 유지 및 변경 안내
+- 결제은행에 따라 안정적인 서비스 제공을 위한 전산 시스템 점검시에는 23:00~06:00 중 체크카드 이용이 일시적으로 제한될 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/749/card_img/22223/749card.png', 0, 0, '', 0),
+
+(6, 0, 'L.PAY 하나 체크카드', 0, 0, '', 'https://api.card-gorilla.com:8080/storage/card/1523/card_img/20209/1523card.png', 0, 0, '', 0),
+
+(6, 0, 'K리그 축덕 Young Hana 체크카드 with OKcashbag', 0, 200000, '', 'https://api.card-gorilla.com:8080/storage/card/1526/card_img/32519/1526card.png', 1, 0, '', 0),
+
+(6, 0, '하나멤버스 Mega 체크카드', 0, 250000, '부가서비스 유지 및 변경 안내
 - 카드이용시 제공되는 포인트 및 할인혜택 등의 부가서비스는 카드 신규출시 (2016년 2월 5일) 이후 3년 이상 축소·폐지 없이 유지됩니다.
 - 다만, 다음과 같은 사유가 발생한 경우 카드사는 부가서비스를 변경할 수 있습니다.
   * 카드사 또는 부가서비스 관련 제휴업체의 휴업 · 도산 · 경영위기, 천재지변, 금융환경 급변 또는 그 밖에 이에 준하는 사유에 따른 불가피한 경우
@@ -2354,8 +2435,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
   * 신규출시 후 부가서비스 축소 변경 없이 3년 이상 경과했고, 현재의 부가서비스를 유지할 경우 해당 카드의 수익성 유지가 어려운 경우
 - 카드사가 부가서비스를 변경하는 경우에는 부가서비스 변경 사유, 변경 내용 등을 사유발생 즉시 홈페이지에 게시하고, 개별 고지해 드립니다.
 - 특히 카드 신규 출시 이후 3년 이상 경과했고, 해당 카드의 수익성 유지가 어려워져 부가서비스를 변경하는 경우에는 6개월 전부터 매월 개별고지 해 드립니다.
-  * 개별고지방법 : 이용대금명세서, 우편서신, 전자우편(E-MAIL), 휴대폰 문자메시지 서비스 중 한가지', 'https://api.card-gorilla.com:8080/storage/card/388/card_img/20887/388card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 1, 'KB국민 My WE:SH 카드', 15000, 400000, '나한테 진심 서비스 월 할인한도
+  * 개별고지방법 : 이용대금명세서, 우편서신, 전자우편(E-MAIL), 휴대폰 문자메시지 서비스 중 한가지', 'https://api.card-gorilla.com:8080/storage/card/388/card_img/20887/388card.png', 0, 0, '', 0),
+
+(1, 1, 'KB국민 My WE:SH 카드', 15000, 400000, '나한테 진심 서비스 월 할인한도
 구분 할인율 월 할인한도
 KB Pay 10% 5천원(건당 2,500원 한도)
 음식점, 편의점
@@ -2401,8 +2483,9 @@ OTT 30%
 
 가족카드 발급 관련 안내
 - KB국민 My WE:SH 카드는 가족카드 발급 불가
-- 본인 카드만 발급 가능', 'https://api.card-gorilla.com:8080/storage/card/2441/card_img/28283/2441card.png', 1, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?cooperationcode=09123&mainCC=a&solicitorcode=7030084000', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 1, '다담카드', 15000, 300000, '기본 할인 서비스 및 선택 적립 서비스 제외 대상
+- 본인 카드만 발급 가능', 'https://api.card-gorilla.com:8080/storage/card/2441/card_img/28283/2441card.png', 1, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?cooperationcode=09123&mainCC=a&solicitorcode=7030084000', 0),
+
+(1, 1, '다담카드', 15000, 300000, '기본 할인 서비스 및 선택 적립 서비스 제외 대상
 - (부분)무이자할부 이용금액, 상품권 및 선불카드 구입·충전금액
 
 이용실적기준
@@ -2439,8 +2522,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 필요 이상의 신용카드 발급 및 사용은 개인신용평점이나 이용한도 등에 영향을 미칠 수 있습니다.
 - 금융소비자는 금소법 제19조 제1항에 따라 해당상품 또는 서비스에 대하여 설명을 받을 권리가 있으며, 그 설명을 듣고 내용을 충분히 이해한 후 거래하시기 바랍니다.
 - 신용카드 발급이 부적정한 경우(개인신용평점 낮음, 연체금 보유 등) 카드발급이 제한 될 수 있습니다.
-- 카드이용대금과 이에 수반되는 모든 수수료를 지정된 대금 결제일에 상환합니다.', 'https://api.card-gorilla.com:8080/storage/card/121/card_img/20353/121card.png', 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?cooperationcode=09169&mainCC=a&solicitorcode=7030084000', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 1, 'Easy all 티타늄카드', 30000, 500000, '전월 이용실적 제외 대상
+- 카드이용대금과 이에 수반되는 모든 수수료를 지정된 대금 결제일에 상환합니다.', 'https://api.card-gorilla.com:8080/storage/card/121/card_img/20353/121card.png', 0, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?cooperationcode=09169&mainCC=a&solicitorcode=7030084000', 0),
+
+(1, 1, 'Easy all 티타늄카드', 30000, 500000, '전월 이용실적 제외 대상
 - 취소금액, 단기카드대출(현금서비스), 장기카드대출(카드론), 국세, 지방세, 공과금(전기/수도), 아파트관리비, 정부지원금(보육료/유치원 보조비/바우처 이용금액 등), 초·중·고등학교 납입금 전체(수업료/교육비/현장학습비/급식비), 대학(대학원) 등록금, 4대 사회보험료(건강/연금/고용/산재), 각종 수수료 및 이자, 연체료, 연회비, 상품권 및 선불카드 구입·충전 금액
 
 Easy all 선택 서비스 실적 유예기간
@@ -2481,8 +2565,9 @@ Easy all 선택 서비스 제외 대상
   ② 카드사의 노력에도 제휴업체가 일방적으로 서비스 변경을 통보 (단, 다른 제휴업체를 통해 동종의 유사한 부가서비스 제공이 가능한 경우 제외)
   ③ 카드 신규 출시 이후 3년 이상 경과했고, 해당 카드의 수익성 유지가 어려운 경우
 - 부가서비스 변경 시에는 부가서비스 변경 사유, 변경 내용 등을 사유발생 즉시 홈페이지에 게시하고, 개별 고지해드립니다. 특히, 카드 신규 출시 이후 3년 이상 경과했고, 해당 카드의 수익성 유지가 어려워져 부가서비스를 변경하는 경우에는 6개월 전부터 매월 개별 고지해드립니다.
-  * 개별고지방법: 이용대금명세서, 우편, 이메일, 휴대폰 문자메시지 중 하나', 'https://api.card-gorilla.com:8080/storage/card/634/card_img/21400/634card.png', 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?cooperationcode=09256&mainCC=a&solicitorcode=7030084000', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 1, 'BeV V카드(스카이패스형)', 295000, 500000, '이용 전 확인사항
+  * 개별고지방법: 이용대금명세서, 우편, 이메일, 휴대폰 문자메시지 중 하나', 'https://api.card-gorilla.com:8080/storage/card/634/card_img/21400/634card.png', 0, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?cooperationcode=09256&mainCC=a&solicitorcode=7030084000', 0),
+
+(1, 1, 'BeV V카드(스카이패스형)', 295000, 500000, '이용 전 확인사항
 - KB국민 BeV Ⅴ카드(스카이패스형) (2017.01.16출시)를 이용하는 경우 제공되는 포인트 및 할인혜택 등 부가서비스는 다음 각 호를 제외하고는 변경할 수 없습니다.(단, 회원의 권익을 증진하거나 부담을 완화하는 경우는 제외)
   ①-⑴ 카드사의 휴업,파산,경영상의 위기 등에 따른 불가피한 경우
   ①-⑵ 제휴업체의 휴업,파산,경영상의 위기로 인해 불가피하게 부가서비스를 축소, 변경하는 경우로서 다른 제휴업체를 통해 동종의 유사한 부가서비스 제공이 불가한 경우
@@ -2493,8 +2578,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 필요 이상의 신용카드 발급 및 사용은 개인신용평점이나 이용한도 등에 영향을 미칠 수 있습니다.
 - 금융소비자는 금소법 제19조 제1항에 따라 해당상품 또는 서비스에 대하여 설명을 받을 권리가 있으며, 그 설명을 듣고 내용을 충분히 이해한 후 거래하시기 바랍니다.
 - 신용카드 발급이 부적정한 경우(개인신용평점 낮음, 연체금 보유 등) 카드발급이 제한 될 수 있습니다.
-- 카드이용대금과 이에 수반되는 모든 수수료를 지정된 대금 결제일에 상환합니다.', 'https://api.card-gorilla.com:8080/storage/card/131/card_img/20360/131card.png', 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?cooperationcode=09306&mainCC=a&solicitorcode=7030084000', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 1, '굿데이올림카드', 15000, 300000, 'KB국민 굿데이올림카드 할인서비스
+- 카드이용대금과 이에 수반되는 모든 수수료를 지정된 대금 결제일에 상환합니다.', 'https://api.card-gorilla.com:8080/storage/card/131/card_img/20360/131card.png', 0, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?cooperationcode=09306&mainCC=a&solicitorcode=7030084000', 0),
+
+(1, 1, '굿데이올림카드', 15000, 300000, 'KB국민 굿데이올림카드 할인서비스
 서비스 구분 할인율
 KB국민 굿데이올림카드
 전월 이용실적 구간에 따른 월 할인 제공 이용금액 주1)
@@ -2543,8 +2629,9 @@ KB국민 굿데이올림카드
      (단, 다른 제휴업체를 통해 동종의 유사한 서비스 제공이 가능한 경우 제외)
   3. 카드 신규출시 이후 5년 이상 경과했고, 해당 카드의 수익성 유지가 어려운 경우
 - 카드사가 서비스를 변경하는 경우에는 서비스 변경 사유, 변경 내용 등을 사유발생 즉시 홈페이지에 게시하고, 개별 고지해 드립니다. 특히 카드 신규출시 이후 5년 이상 경과했고, 해당 카드의 수익성 유지가 어려워져 부가서비스를 변경하는 경우에는 6개월 전부터 매월 개별 고지해 드립니다.
-- 개별 고지 방법 : 카드대금청구서, 우편, 이메일, 휴대폰 문자메시지 중 하나', 'https://api.card-gorilla.com:8080/storage/card/115/card_img/20273/115card.png', 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?cooperationcode=09063&mainCC=a&solicitorcode=7030084000', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 1, '청춘대로 톡톡카드', 10000, 300000, 'KB국민 청춘대로 톡톡카드 할인서비스
+- 개별 고지 방법 : 카드대금청구서, 우편, 이메일, 휴대폰 문자메시지 중 하나', 'https://api.card-gorilla.com:8080/storage/card/115/card_img/20273/115card.png', 0, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?cooperationcode=09063&mainCC=a&solicitorcode=7030084000', 0),
+
+(1, 1, '청춘대로 톡톡카드', 10000, 300000, 'KB국민 청춘대로 톡톡카드 할인서비스
 - 할인서비스는 전월 이용실적 30만원 이상 시 제공됩니다.
 - 최초 카드 사용등록일로부터 다음 달 말일까지 KB국민 청춘대로 톡톡카드 이용실적이 없는 경우에도 해당서비스가 제공됩니다.
 
@@ -2582,8 +2669,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 카드사가 서비스를 변경하는 경우에는 서비스 변경 사유, 변경 내용 등을 사유발생 즉시 홈페이지에 게시하고, 개별 고지해 드립니다. 특히 카드 신규출시 이후 3년 이상 경과했고, 해당 카드의 수익성 유지가 어려워져 부가서비스를 변경하는 경우에는 6개월 전부터 매월 개별 고지해 드립니다.
 - 개별 고지 방법 : 카드대금청구서, 우편, 이메일, 휴대폰 문자메시지 중 하나
 - 결제계좌 개설기관의 영업 마감시간(16시) 이후 결제계좌에 입금된 금액에 대해서는 결제계좌 개설 기관의 사정에 따라 당일 출금되지 못하여 연체로 처리 될 수 있으므로 유의하시기 바랍니다. 자동납부 업무 마감시간 이후 KB국민카드 홈페이지/모바일* 등에서 바로출금(즉시결제) 또는 가상계좌 입금(송금납부)을 통해 당일 결제가 가능합니다.
-  * 세부내용은 KB국민카드 홈페이지 > MY KB > 바로출금 또는 가상계좌 참조', 'https://api.card-gorilla.com:8080/storage/card/129/card_img/20358/129card.png', 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?cooperationcode=09174&mainCC=a&solicitorcode=7030084000', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 1, 'American Express Rose Gold KB Kookmin Card', 19000, 300000, '이용 전 확인 사항
+  * 세부내용은 KB국민카드 홈페이지 > MY KB > 바로출금 또는 가상계좌 참조', 'https://api.card-gorilla.com:8080/storage/card/129/card_img/20358/129card.png', 0, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?cooperationcode=09174&mainCC=a&solicitorcode=7030084000', 0),
+
+(1, 1, 'American Express Rose Gold KB Kookmin Card', 19000, 300000, '이용 전 확인 사항
 상품 서비스 할인 제외 대상
 - 무이자할부 이용금액, 상품권 및 선불카드(선불전자지급수단 포함) 구입·충전 금액 및 KB Pay 외 다른 결제수단 이용 건
 
@@ -2656,8 +2744,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 금융소비자는 금소법 제19조 제 1항에 따라 해당상품 또는 서비스에 대하여 설명을 받을 권리가 있으며, 그 설명을 듣고 내용을 충분히 이해한 후 거래하시기 바랍니다.
 - 신용카드 발급이 부정적한 경우(신용평점 낮음, 연체금 보유 등) 카드발급이 제한 될 수 있습니다.
 - 카드 이용대금과 이에 수반되는 모든 수수료를 지정된 대금 결제일에 상환합니다.
-- 상품 관련 세부 문의: 고객센터(1588-1688) 또는 홈페이지(www.kbcard.com)', 'https://api.card-gorilla.com:8080/storage/card/2623/card_img/31558/2623card.png', 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?cooperationcode=09116&mainCC=a&solicitorcode=7030084000', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 1, 'FINETECH카드(대한항공)', 20000, 0, '할인서비스를 제공하는 KB국민 FINETECH카드와 마일리지 적립서비스를 제공하는 KB국민 FINETECH(마일리지 대한항공), KB국민 FINETECH(마일리지 아시아나)의 상품서비스는 중복 제공되지 않으며, 카드 신청 시 상품별 세부 이용조건을 각각 확인 후 이용하시기 바랍니다.
+- 상품 관련 세부 문의: 고객센터(1588-1688) 또는 홈페이지(www.kbcard.com)', 'https://api.card-gorilla.com:8080/storage/card/2623/card_img/31558/2623card.png', 0, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?cooperationcode=09116&mainCC=a&solicitorcode=7030084000', 0),
+
+(1, 1, 'FINETECH카드(대한항공)', 20000, 0, '할인서비스를 제공하는 KB국민 FINETECH카드와 마일리지 적립서비스를 제공하는 KB국민 FINETECH(마일리지 대한항공), KB국민 FINETECH(마일리지 아시아나)의 상품서비스는 중복 제공되지 않으며, 카드 신청 시 상품별 세부 이용조건을 각각 확인 후 이용하시기 바랍니다.
 
 마일리지 적립 기준
 - 일시불/할부/일부결제금액이월약정일시불(리볼빙일시불) 건별 이용금액 기준 건별 완제금액에 대해 적립
@@ -2689,8 +2778,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
     (단, 다른 제휴업체를 통해 동종의 유사한 서비스 제공이 가능한 경우 제외)
   * 카드 신규출시 이후 5년 이상 경과했고, 해당 카드의 수익성 유지가 어려운 경우
 - 카드사가 서비스를 변경하는 경우에는 서비스 변경 사유, 변경 내용 등을 사유발생 즉시 홈페이지에 게시하고, 개별 고지해 드립니다. 특히 카드 신규출시 이후 5년 이상 경과했고, 해당 카드의 수익성 유지가 어려워져 부가서비스를 변경하는 경우에는 6개월 전부터 매월 개별 고지해 드립니다.
-- 개별 고지 방법 : 이용대금명세서, 우편, 이메일, 휴대폰 문자메시지 중 하나', 'https://api.card-gorilla.com:8080/storage/card/119/card_img/24263/119card.png', 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?cooperationcode=04581&mainCC=a&solicitorcode=7030084000', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 1, 'BeV V카드(포인트형)', 295000, 500000, '이용 전 확인사항
+- 개별 고지 방법 : 이용대금명세서, 우편, 이메일, 휴대폰 문자메시지 중 하나', 'https://api.card-gorilla.com:8080/storage/card/119/card_img/24263/119card.png', 0, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?cooperationcode=04581&mainCC=a&solicitorcode=7030084000', 0),
+
+(1, 1, 'BeV V카드(포인트형)', 295000, 500000, '이용 전 확인사항
 - KB국민 BeV Ⅴ카드(포인트형) (2017.01.16출시)를 이용하는 경우 제공되는 포인트 및 할인혜택 등 부가서비스는 다음 각 호를 제외하고는 변경할 수 없습니다.(단, 회원의 권익을 증진하거나 부담을 완화하는 경우는 제외)
   ①-⑴ 카드사의 휴업,파산,경영상의 위기 등에 따른 불가피한 경우
   ①-⑵ 제휴업체의 휴업,파산,경영상의 위기로 인해 불가피하게 부가서비스를 축소, 변경하는 경우로서 다른 제휴업체를 통해 동종의 유사한 부가서비스 제공이 불가한 경우
@@ -2701,8 +2791,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 필요 이상의 신용카드 발급 및 사용은 개인신용평점이나 이용한도 등에 영향을 미칠 수 있습니다.
 - 금융소비자는 금소법 제19조 제1항에 따라 해당상품 또는 서비스에 대하여 설명을 받을 권리가 있으며, 그 설명을 듣고 내용을 충분히 이해한 후 거래하시기 바랍니다.
 - 신용카드 발급이 부적정한 경우(개인신용평점 낮음, 연체금 보유 등) 카드발급이 제한 될 수 있습니다.
-- 카드이용대금과 이에 수반되는 모든 수수료를 지정된 대금 결제일에 상환합니다.', 'https://api.card-gorilla.com:8080/storage/card/130/card_img/20359/130card.png', 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?cooperationcode=09305&mainCC=a&solicitorcode=7030084000', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 1, '가온글로벌카드', 15000, 0, '[필수 확인 사항]
+- 카드이용대금과 이에 수반되는 모든 수수료를 지정된 대금 결제일에 상환합니다.', 'https://api.card-gorilla.com:8080/storage/card/130/card_img/20359/130card.png', 0, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?cooperationcode=09305&mainCC=a&solicitorcode=7030084000', 0),
+
+(1, 1, '가온글로벌카드', 15000, 0, '[필수 확인 사항]
 [포인트리 기본/추가 적립서비스 제외 대상]
 - (부분) 무이자 할부 이용금액, 단기카드대출(현금서비스), 장기카드대출(카드론), 지방세, 정부지원금, 대학(대학원)등록금, 각종 수수료 및 이자, 연체료, 연회비, 상품권 및 선불카드 구입ㆍ충전금액, 취소금액
 
@@ -2732,8 +2823,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 금융소비자는 금소법 제19조 제1항에 따라 해당상품 또는 서비스에 대하여 설명을 받을 권리가 있으며, 그 설명을 듣고 내용을 충분히 이해한 후 거래하시기 바랍니다.
 - 신용카드 발급이 부적정한 경우(개인신용평점 낮음, 연체금 보유 등) 카드발급이 제한 될 수 있습니다.
 - 카드이용대금과 이에 수반되는 모든 수수료를 지정된 대금 결제일에 상환합니다.
-- KB국민카드 상품기획부 kkgc20037@kbfg.com', 'https://api.card-gorilla.com:8080/storage/card/1309/card_img/20960/1309card.png', 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?cooperationcode=09167&mainCC=a&solicitorcode=7030084000', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 1, 'Easy pick 티타늄 카드', 30000, 500000, '[Easy 서비스] 주요 생활 영역 5% 포인트리 적립
+- KB국민카드 상품기획부 kkgc20037@kbfg.com', 'https://api.card-gorilla.com:8080/storage/card/1309/card_img/20960/1309card.png', 0, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?cooperationcode=09167&mainCC=a&solicitorcode=7030084000', 0),
+
+(1, 1, 'Easy pick 티타늄 카드', 30000, 500000, '[Easy 서비스] 주요 생활 영역 5% 포인트리 적립
 구분
 포인트리
 적립률
@@ -2799,8 +2891,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 · 적립받은 이용건을 취소할 경우 취소전표가 실시간 접수되지 않아 적립한도가 즉시 복원되지 않을 수 있습니다.
 · 결제계좌 개설기관의 영업 마감시간(16시) 이후 입금된 금액에 대해서는 당일 출금되지 못하여 연체 처리될 수 있으니 유의하시기 바랍니다.
 · 자동이체 업무 마감시간 이후 당사 홈페이지/모바일* 등에서 바로출금 (즉시결제) 또는 가상계좌 입금(송금납부)을 통해 당일 결제가 가능합니다.
- * 세부내용 : KB국민카드 홈페이지 > My KB > 바로출금 또는 가상계좌 참조', 'https://api.card-gorilla.com:8080/storage/card/580/card_img/21321/580card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 1, 'The Easy카드', 15000, 0, '적립과 할인을 자유롭게 바꿔 쓸 수 있는 선택형
+ * 세부내용 : KB국민카드 홈페이지 > My KB > 바로출금 또는 가상계좌 참조', 'https://api.card-gorilla.com:8080/storage/card/580/card_img/21321/580card.png', 0, 0, '', 0),
+
+(1, 1, 'The Easy카드', 15000, 0, '적립과 할인을 자유롭게 바꿔 쓸 수 있는 선택형
 - 적립, 할인형 선택은 KB국민카드 모바일앱, 홈페이지 www.kbcard.com, 고객센터 1588-1688을 통해서 변경 가능합니다.
 - 최초 카드사용 등록일 기준 다음달 부터 월 단위로 변경신청 가능하며, 변경 신청일 기준 다음달 1일부터 서비스가 제공됩니다.
 - 적립,할인형은 중복 선택이 불가합니다.
@@ -2849,8 +2942,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
   1. 카드사 또는 제휴업체의 휴업·도산·경영위기, 천재지변, 금융환경 급변 또는 그 밖에 이에 준하는 사유의 발생
   2. 카드사의 노력에도 제휴업체가 일방적으로 서비스 변경을 통보 (단, 다른 제휴업체를 통해 동종의 유사한 부가서비스 제공이 가능한 경우 제외)
   3. 카드 신규 출시 이후 3년 이상 경과했고, 해당 카드의 수익성 유지가 어려운 경우 부가서비스 변경 시에는 부가서비스 변경 사유, 변경 내용 등을 사유 발생 즉시 홈페이지에 게시하고, 개별 고지해드립니다. 특히, 카드 출시 이후 3년 이상 경과했고, 해당 카드의 수익성 유지가 어려워져 부가서비스를 변경하는 경우에는 6개월 전부터 매월 개별 고지해드립니다.
-  * 개별 고지 방법:이용대금명세서, 우편, 이메일, 휴대폰 문자메시지 중 하나', 'https://api.card-gorilla.com:8080/storage/card/146/card_img/20372/146card.png', 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?cooperationcode=09250&mainCC=a&solicitorcode=7030084000', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 1, '금융포인트리카드', 5000, 0, '이용 전 확인사항
+  * 개별 고지 방법:이용대금명세서, 우편, 이메일, 휴대폰 문자메시지 중 하나', 'https://api.card-gorilla.com:8080/storage/card/146/card_img/20372/146card.png', 0, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?cooperationcode=09250&mainCC=a&solicitorcode=7030084000', 0),
+
+(1, 1, '금융포인트리카드', 5000, 0, '이용 전 확인사항
 - 월간 할인(적립)한도의 적용기간은 매월 1일 ~ 말일까지이며, 전표가 매입되는 순서대로 할인(적립)되며, 잔여 할인(적립) 한도는 이월되지 않습니다. 상품 중복소지(브랜드, 등급 등) 시에도 회원별로 합산 적용됩니다.
 - 할인(적립)받은 매출 취소 후 이용한 매출의 경우 취소전표가 실시간 접수되지 않아 할인(적립) 한도가 즉시 복원되지 않으며, 할인(적립)한도가 복원되지 않은 상태에서 매출 거래가 있을 경우 할인(적립)이 적용되지 않습니다. 또한 한도 복원 후에도 이전 매출에 대해서는 소급하여 할인(적립) 적용되지 않는 점을 유의하시기 바랍니다.
 - KB국민 금융포인트리카드 할인(적립)서비스는 해당 가맹점이 KB국민카드 가맹점 업종코드상 할인(적립)대상 업종으로 등록된 경우에 한하며, PG(인터넷)업체를 통한 결제 및 호텔, 백화점, 대형마트, 철도역사 등에 입점한 가맹점의 경우 할인(적립) 대상에서 제외될 수 있습니다.
@@ -2881,8 +2975,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
   ② 카드사의 노력에도 제휴업체가 일방적으로 부가서비스 변경을 통보 (단, 다른 제휴업체를 통해 동종의 유사한 서비스 제공이 가능한 경우 제외)
   ③ 카드 신규 출시 이후 1년 이상 경과했고, 해당 카드 수익성 유지가 어려운 경우
 - 카드사가 부가서비스를 변경하는 경우에는 부가서비스 변경 사유, 변경 내용 등을 사유 발생 즉시 홈페이지에 게시하고, 개별 고지해드립니다. 특히, 카드 신규 출시 이후 1년 이상 경과했고, 해당 카드의 수익성 유지가 어려워져 부가서비스를 변경하는 경우에는 6개월 전부터 매월 개별 고지해 드립니다.
-   * 개별고지 방법 : 카드대금청구서, 우편, 이메일, 휴대폰 문자메시지 중 하나', 'https://api.card-gorilla.com:8080/storage/card/578/card_img/21317/578card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 1, 'BeV Ⅲ 카드', 200000, 500000, '전월 이용실적 산정 기준
+   * 개별고지 방법 : 카드대금청구서, 우편, 이메일, 휴대폰 문자메시지 중 하나', 'https://api.card-gorilla.com:8080/storage/card/578/card_img/21317/578card.png', 0, 0, '', 0),
+
+(1, 1, 'BeV Ⅲ 카드', 200000, 500000, '전월 이용실적 산정 기준
 - 전월 1일~말일(승인시점 기준) BeV Ⅲ카드 일시불 및 할부 승인(이용)금액 기준 50만원 이상일 경우에만 할인 및 적립 서비스를 제공합니다. (해외 이용금액은 전월 1일~말일까지 일시불 매입완료 기준)
 - 단, 최초 카드 사용 등록일로부터 다음 달 말일까지는 전월 이용실적이 50만원 미만인 경우에도 서비스를 제공합니다.
 - 취소 시에는 취소 월 실적에서 차감됩니다.
@@ -2921,8 +3016,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 필요 이상의 신용카드 발급 및 사용은 개인신용평점이나 이용한도 등에 영향을 미칠 수 있습니다.
 - 금융소비자는 금소법 제19조 제1항에 따라 해당상품 또는 서비스에 대하여 설명을 받을 권리가 있으며, 그 설명을 듣고 내용을 충분히 이해한 후 거래하시기 바랍니다
 - 신용카드 발급이 부적정한 경우(개인신용평점 낮음, 연체금 보유 등) 카드발급이 제한 될 수 있습니다.
-- 카드이용대금과 이에 수반되는 모든 수수료를 지정된 대금 결제일에 상환합니다.', 'https://api.card-gorilla.com:8080/storage/card/133/card_img/20362/133card.png', 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?cooperationcode=09310&mainCC=a&solicitorcode=7030084000', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 1, 'HERITAGE Smart [대한항공 마일리지형]', 200000, 500000, '쿠폰 서비스 이용안내
+- 카드이용대금과 이에 수반되는 모든 수수료를 지정된 대금 결제일에 상환합니다.', 'https://api.card-gorilla.com:8080/storage/card/133/card_img/20362/133card.png', 0, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?cooperationcode=09310&mainCC=a&solicitorcode=7030084000', 0),
+
+(1, 1, 'HERITAGE Smart [대한항공 마일리지형]', 200000, 500000, '쿠폰 서비스 이용안내
 서비스 이용 조건
 - 연 1회 제공, 쿠폰 서비스 3개 중 1개 선택
 - 카드 발급 첫해 : 연회비 납부 및 해당 카드로 50만원 이상 이용 시
@@ -2959,8 +3055,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 
 할인(적립)서비스 제외 매출
 - 할인(적립) 서비스 제외매출은 다음과 같으며, 카드별 별도 조건은 해당 카드 안내를 참조하시기 바랍니다.
-- 무이자할부 이용금액, 단기카드대출(현금서비스), 장기카드대출(카드론), 지방세, 정부지원금, 대학(대학원)등록금, 각종 수수료 및 이자, 연체료, 연회비, 상품권 및 선불카드(선불전자지급수단 포함) 구입/충전금액, 취소금액', 'https://api.card-gorilla.com:8080/storage/card/2451/card_img/27738/2451card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 1, '스카이패스 티타늄 카드', 0, 0, '대한항공 마일리지 적립 및 적립 한도
+- 무이자할부 이용금액, 단기카드대출(현금서비스), 장기카드대출(카드론), 지방세, 정부지원금, 대학(대학원)등록금, 각종 수수료 및 이자, 연체료, 연회비, 상품권 및 선불카드(선불전자지급수단 포함) 구입/충전금액, 취소금액', 'https://api.card-gorilla.com:8080/storage/card/2451/card_img/27738/2451card.png', 1, 0, '', 0),
+
+(1, 1, '스카이패스 티타늄 카드', 0, 0, '대한항공 마일리지 적립 및 적립 한도
 구 분 적립 마일리지 적립 한도 비 고
 국내 및 해외 가맹점 1마일 기본 적립 월별 5천마일
 건별 이용금액
@@ -2992,8 +3089,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 국내외 겸용(마스터) 카드의 경우에만 해외가맹점 이용이 가능합니다.
 - 결제계좌 개설기관의 영업마감 시간 (16시) 이후 입금된 금액은 결제계좌 개설 기관의 사정에 따라 당일 출금되지 못하여 연체로 처리될 수 있으므로 유의하시기 바랍니다.
 - 자동이체 업무 마감시간 이후 KB국민카드 홈페이지/모바일 앱에서 바로 출금(즉시결제) 또는 가상계좌입금(송금납부) 으로 당일 결제 할 수 있습니다
-* 세부내용 : KB국민카드 홈페이지 > MY KB > 바로 출금결제 또는 가상계좌 결제 참조', 'https://api.card-gorilla.com:8080/storage/card/2327/card_img/24806/2327card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 1, 'KB국민 WE:SH All카드', 20000, 400000, '서비스 제공 공통 기준
+* 세부내용 : KB국민카드 홈페이지 > MY KB > 바로 출금결제 또는 가상계좌 결제 참조', 'https://api.card-gorilla.com:8080/storage/card/2327/card_img/24806/2327card.png', 0, 0, '', 0),
+
+(1, 1, 'KB국민 WE:SH All카드', 20000, 400000, '서비스 제공 공통 기준
 할인 제외 대상
 - 무이자할부 이용금액, 단기카드대출(현금서비스), 장기카드대출(카드론), 상품권 및 선불카드(선불전자지급수단 포함) 구입·충전금액, 아파트관리비, 초·중·고 학교 납입금 전체, 정부지원금(보육료/유치원보조비/바우처 이용금액 등), 대학(원)등록금, 국세, 지방세, 공과금(전기/수도 등), 4대 사회보험료(건강/연금/고용/산재), 각종 수수료 및 이자, 연체료, 연회비, 신차구매청구(환급) 할인 전표 전체, 취소금액
 
@@ -3003,8 +3101,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 취소금액은 취소전표가 KB국민카드에 접수된 월의 실적에서 차감
 
 전월 이용실적 제외 대상
-· WE:SH All 카드 자동납부(쇼핑멤버십/OTT/이동통신) 할인 받은 이용건(해당 이용금액 전체), 단기카드대출(현금서비스), 장기카드대출(카드론), 상품권 및 선불카드(선불전자지급수단 포함) 구입·충전금액, 아파트관리비, 초· 중·고 학교 납입금 전체, 정부지원금(보육료/유치원보조비/바우처 이용금액등), 대학(원)등록금, 국세, 지방세, 공과금(전기/수도 등), 4대 사회보험료 (건강/연금/고용/산재), 각종 수수료 및 이자, 연체료, 연회비, 무승인전표(교통요금/자판기/터널통행료/항공기내 이용 등), 취소금액', 'https://api.card-gorilla.com:8080/storage/card/2440/card_img/28282/2440card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 1, '쿠팡 와우 카드', 20000, 0, '- 쿠팡 와우 카드 발급을 위해 쿠팡 와우 멤버십 가입이 필요합니다.
+· WE:SH All 카드 자동납부(쇼핑멤버십/OTT/이동통신) 할인 받은 이용건(해당 이용금액 전체), 단기카드대출(현금서비스), 장기카드대출(카드론), 상품권 및 선불카드(선불전자지급수단 포함) 구입·충전금액, 아파트관리비, 초· 중·고 학교 납입금 전체, 정부지원금(보육료/유치원보조비/바우처 이용금액등), 대학(원)등록금, 국세, 지방세, 공과금(전기/수도 등), 4대 사회보험료 (건강/연금/고용/산재), 각종 수수료 및 이자, 연체료, 연회비, 무승인전표(교통요금/자판기/터널통행료/항공기내 이용 등), 취소금액', 'https://api.card-gorilla.com:8080/storage/card/2440/card_img/28282/2440card.png', 1, 0, '', 0),
+
+(1, 1, '쿠팡 와우 카드', 20000, 0, '- 쿠팡 와우 카드 발급을 위해 쿠팡 와우 멤버십 가입이 필요합니다.
 - 가족카드 발급은 불가합니다.
 - 해외 이용 시 별도의 수수료가 부과되며, 자세한 사항은 ‘이용 전 확인사항’ > ‘해외 이용 확인사항’ 참고 부탁드립니다.
 
@@ -3026,8 +3125,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 연회비 반환 기준
 - 회원이 유효기간이 도래하기 전에 카드를 해지한 경우 연회비 반환금액은 계약을 해지한 날부터 일 단위로 계산하여 산정하며, 10영업일 이내에 반환 처리됩니다. 부가서비스 제공 내역 확인에 시간이 소요되는 등의 불가피한 사유로 10영업일 이내에 반환하기 어려운 경우 계약 해지일부터 3개월 이내에 반환할 수 있습니다. 이 경우 회원이 이미 납부한 연회비에 반영된 다음의 비용은 금액 산정에서 제외됩니다.
   ①카드의 발행·배송 등 카드발급(신규발급)에 소요된 비용
-  ②카드 이용 시 제공되는 추가적인 혜택 (기프트 제공 비용) 등 부가서비스 제공에 소요된 비용', 'https://api.card-gorilla.com:8080/storage/card/2609/card_img/31241/2609card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 1, '가온올림카드(실속형)', 15000, 0, '가온올림카드(실속형) 서비스 예시
+  ②카드 이용 시 제공되는 추가적인 혜택 (기프트 제공 비용) 등 부가서비스 제공에 소요된 비용', 'https://api.card-gorilla.com:8080/storage/card/2609/card_img/31241/2609card.png', 1, 0, '', 0),
+
+(1, 1, '가온올림카드(실속형)', 15000, 0, '가온올림카드(실속형) 서비스 예시
 - 가족들과 주말에 외식하면
 이용금액의 1.7% 적립 = 0.7%(기본적립: 국내 가맹점) + 0.5%(추가 적립: 주말) + 0.5%(추가 적립:음식)
 
@@ -3077,8 +3177,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 금융소비자는 금소법 제19조 제1항에 따라 해당상품 또는 서비스에 대하여 설명을 받을 권리가 있으며, 그 설명을 듣고 내용을 충분히 이해한 후 거래하시기 바랍니다.
 - 신용카드 발급이 부적정한 경우(개인신용평점 낮음, 연체금 보유 등) 카드발급이 제한 될 수 있습니다.
 - 카드이용대금과 이에 수반되는 모든 수수료를 지정된 대금 결제일에 상환합니다.
- KB국민카드상품기획부 kkgc20037@kbfg.com', 'https://api.card-gorilla.com:8080/storage/card/769/card_img/22243/769card.png', 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?cooperationcode=09157&mainCC=a&solicitorcode=7030084000', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 1, 'KB국민 Our WE:SH 카드', 15000, 400000, '* KB국민 Our WE:SH 카드 할인서비스는 전월이용실적 40만원 이상 시 월단위로 제공되며, 전월이용실적에 따라 월간 할인한도가 제공됩니다.
+ KB국민카드상품기획부 kkgc20037@kbfg.com', 'https://api.card-gorilla.com:8080/storage/card/769/card_img/22243/769card.png', 0, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?cooperationcode=09157&mainCC=a&solicitorcode=7030084000', 0),
+
+(1, 1, 'KB국민 Our WE:SH 카드', 15000, 400000, '* KB국민 Our WE:SH 카드 할인서비스는 전월이용실적 40만원 이상 시 월단위로 제공되며, 전월이용실적에 따라 월간 할인한도가 제공됩니다.
 * 최초 발급받은 Our WE:SH 카드 사용등록일(KB Pay 등 간편결제 등록 포함)로 부터 다음달 말일(실적유예기간)까지 실적이 없는 경우에도 ‘1구간’ 서비스가 제공됩니다.
 
 서비스명 상품서비스 요약 할인율 월간할인한도(전월이용실적)
@@ -3138,8 +3239,9 @@ Month
 전월이용실적 부족으로 할인서비스가 제공되지 않는 고객에 한하여 연 2회 전월실적을 ‘1구간’으로 채워드립니다.
 ※ 자세한 내용은 ‘전월실적 채워드림’ 서비스 안내를 확인하세요
 
-할인서비스 제외 대상: 무이자할부 이용금액, 상품권 및 선불카드(선불전자지급수단 포함) 구입·충전금액', 'https://api.card-gorilla.com:8080/storage/card/2442/card_img/28284/2442card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 1, 'Easy all 카드', 20000, 500000, '전월 이용실적 제외 대상
+할인서비스 제외 대상: 무이자할부 이용금액, 상품권 및 선불카드(선불전자지급수단 포함) 구입·충전금액', 'https://api.card-gorilla.com:8080/storage/card/2442/card_img/28284/2442card.png', 1, 0, '', 0),
+
+(1, 1, 'Easy all 카드', 20000, 500000, '전월 이용실적 제외 대상
 - 취소금액, 단기카드대출(현금서비스), 장기카드대출(카드론), 국세, 지방세, 공과금(전기/수도), 아파트관리비, 정부지원금(보육료/유치원 보조비/바우처 이용금액 등), 초·중·고등학교 납입금 전체(수업료/교육비/현장학습비/급식비), 대학(대학원) 등록금, 4대 사회보험료(건강/연금/고용/산재), 각종 수수료 및 이자, 연체료, 연회비, 상품권 및 선불카드 구입·충전 금액
 
 Easy all 선택 서비스 실적 유예기간
@@ -3181,8 +3283,9 @@ Easy all 선택 서비스 제외 대상
   ③ 카드 신규 출시 이후 3년 이상 경과했고, 해당 카드의 수익성 유지가 어려운 경우
 - 부가서비스 변경 시에는 부가서비스 변경 사유, 변경 내용 등을 사유발생
 즉시 홈페이지에 게시하고, 개별 고지해드립니다. 특히, 카드 신규 출시 이후 3년 이상 경과했고, 해당 카드의 수익성 유지가 어려워져 부가서비스를 변경하는 경우에는 6개월 전부터 매월 개별 고지해드립니다.
-  * 개별고지방법: 이용대금명세서, 우편, 이메일, 휴대폰 문자메시지 중 하나', 'https://api.card-gorilla.com:8080/storage/card/630/card_img/21396/630card.png', 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?cooperationcode=09255&mainCC=a&solicitorcode=7030084000', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 1, 'American Express Blue KB Kookmin Card', 19000, 300000, '이용 전 확인 사항
+  * 개별고지방법: 이용대금명세서, 우편, 이메일, 휴대폰 문자메시지 중 하나', 'https://api.card-gorilla.com:8080/storage/card/630/card_img/21396/630card.png', 0, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?cooperationcode=09255&mainCC=a&solicitorcode=7030084000', 0),
+
+(1, 1, 'American Express Blue KB Kookmin Card', 19000, 300000, '이용 전 확인 사항
 상품 서비스 할인 제외 대상
 - 무이자할부 이용금액, 상품권 및 선불카드(선불전자지급수단 포함) 구입·충전 금액
 
@@ -3255,13 +3358,15 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 금융소비자는 금소법 제19조 제 1항에 따라 해당상품 또는 서비스에 대하여 설명을 받을 권리가 있으며, 그 설명을 듣고 내용을 충분히 이해한 후 거래하시기 바랍니다.
 - 신용카드 발급이 부정적한 경우(신용평점 낮음, 연체금 보유 등) 카드발급이 제한 될 수 있습니다.
 - 카드 이용대금과 이에 수반되는 모든 수수료를 지정된 대금 결제일에 상환합니다.
-- 상품 관련 세부 문의: 고객센터(1588-1688) 또는 홈페이지(www.kbcard.com)', 'https://api.card-gorilla.com:8080/storage/card/2624/card_img/31557/2624card.png', 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?cooperationcode=09115&mainCC=a&solicitorcode=7030084000', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 1, '와이즈카드', 5000, 0, '- 2013년 6월 1일부터 기본 포인트리 실적기준 신설, 특별 포인트리 실적구간 인상 및 단기카드대출(현금서비스)포함 실적구간 폐지, 실적산정 제외 이용금액 추가, 생일축하 보너스 포인트리 폐지 등 KB국민 와이즈카드의 서비스가 변경되었습니다.
+- 상품 관련 세부 문의: 고객센터(1588-1688) 또는 홈페이지(www.kbcard.com)', 'https://api.card-gorilla.com:8080/storage/card/2624/card_img/31557/2624card.png', 0, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?cooperationcode=09115&mainCC=a&solicitorcode=7030084000', 0),
+
+(1, 1, '와이즈카드', 5000, 0, '- 2013년 6월 1일부터 기본 포인트리 실적기준 신설, 특별 포인트리 실적구간 인상 및 단기카드대출(현금서비스)포함 실적구간 폐지, 실적산정 제외 이용금액 추가, 생일축하 보너스 포인트리 폐지 등 KB국민 와이즈카드의 서비스가 변경되었습니다.
 - 본 카드의 서비스는 신규 출시 이후 1년 이상 축소, 폐지 없이 유지되고 서비스 변경 시에는 변경사유, 변경내용 등에 대하여 변경일 6개월 이전에 홈페이지, 이용대금명세서, 우편서신, 전자우편(이메일) 중 2가지 이상의 방법으로 고지하여 드립니다.
 - 다만, 서비스 제공과 관련된 제휴업체의 일방적인 제휴조건 변경, 도산, 천재지변, 금융환경 급변, 신용 카드업자의 경영위기 및 그 밖에 이에 준하는 사유에 따른 불가피한 변경 시에도 사전에 고지하되, 사전고지가 어려운 경우에는 사후에 고지하여 드립니다.
 - 필요 이상으로 신용카드를 발급 받으신 경우 회원님의 신용등급이나 이용한도 등에 영향을 미칠 수 있습니다.
-- 카드 신청 시 상품설명서 및 약관을 반드시 확인하시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/108/card_img/20266/108card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 1, '탄탄대로 Biz 카드', 15000, 400000, 'Biz Favorite 서비스(선택형 서비스) 유의사항
+- 카드 신청 시 상품설명서 및 약관을 반드시 확인하시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/108/card_img/20266/108card.png', 0, 0, '', 0),
+
+(1, 1, '탄탄대로 Biz 카드', 15000, 400000, 'Biz Favorite 서비스(선택형 서비스) 유의사항
 - Biz Favorite 서비스는 전월 이용실적 40만원 이상 시 제공됩니다.
   * 최초 카드 사용등록일로부터 다음 달 말일까지 KB국민 탄탄대로 Biz카드 이용실적이 없는 경우에도 Biz Favorite 서비스 월 통합 적립 한도 1구간(40만원 이상)에 해당하는 서비스가 제공됩니다.
 - Biz Favorite 서비스는 이용 건당 1만원 이상 시 적립 제공됩니다.
@@ -3288,8 +3393,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 월간 적립한도 적용기간은 매월 1일~말일까지 입니다.
 - KB국민 탄탄대로 Biz카드는 본인회원 기준으로 월간 서비스한도가 제공되며, 월간 잔여 서비스 한도는 이월되지 않습니다.
 - 적립 받은 매출 취소 후 이용한 매출의 경우 취소전표가 실시간 매입되지 않아 적립한도가 즉시 복원되지 않으며, 적립한도가 복원되지 않은 상태에서 매출 거래가 있을 경우 적립이 적용되지 않습니다.
-- 해외 이용 시(해외사이트 거래 포함) 미화(USD)기준 거래미화금액에 접수일의(KB국민은행)최초고시 전신환 매도율을 적용한 후, 국제브랜드사가 부과하는 국제브랜드 수수료(K-WORLD(JCB타입) 1.0%, Master 1.0%)와 KB국민카드가 부과하는 해외서비스 수수료(0.25%)를 포함하여 원화로 청구됩니다. 이 경우 KB국민카드의 해외서비스 수수료는 국제브랜드 수수료를 제외하고 산정됩니다.', 'https://api.card-gorilla.com:8080/storage/card/697/card_img/22171/697card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 1, '굿데이카드', 5000, 300000, 'KB국민 굿데이카드 할인서비스
+- 해외 이용 시(해외사이트 거래 포함) 미화(USD)기준 거래미화금액에 접수일의(KB국민은행)최초고시 전신환 매도율을 적용한 후, 국제브랜드사가 부과하는 국제브랜드 수수료(K-WORLD(JCB타입) 1.0%, Master 1.0%)와 KB국민카드가 부과하는 해외서비스 수수료(0.25%)를 포함하여 원화로 청구됩니다. 이 경우 KB국민카드의 해외서비스 수수료는 국제브랜드 수수료를 제외하고 산정됩니다.', 'https://api.card-gorilla.com:8080/storage/card/697/card_img/22171/697card.png', 0, 0, '', 0),
+
+(1, 1, '굿데이카드', 5000, 300000, 'KB국민 굿데이카드 할인서비스
 서비스 구분 할인율
 KB국민 굿데이카드
 전월 결제회수실적 구간에 따른 월 할인 제공 이용금액 주1)
@@ -3329,8 +3435,9 @@ KB국민 굿데이카드
 
 부가서비스 변경 안내
 - KB국민 굿데이카드 이용시 제공되는 포인트 및 할인혜택 등의 부가서비스는 카드 신규출시 (2010년 08월 26일) 이후 1년 이상 축소·폐지없이 유지됩니다. 다만, 부가서비스 제공과 관련된 제휴업체의 일방적인 제휴조건 변경, 도산, 천재지변, 금융환경의 급변, 카드업자의 경영위기 및 그 밖에 준하는 사유에 따른 불가피한 변경의 경우 즉시 홈페이지에 게시하고, 개별 고지해 드립니다. 카드 신규출시 이후 1년 이상 경과했고, 해당 카드의 수익성 유지가 어려워 부가서비스를 변경하는 경우에는 홈페이지에 게시하고 6개월 전부터 매월 개별 고지해 드립니다.
-  * 개별 고지 방법 : 카드대금청구서, 우편, 이메일, 휴대폰 문자메시지 중 하나', 'https://api.card-gorilla.com:8080/storage/card/106/card_img/20264/106card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 1, '알뜰교통플러스 카드', 8000, 300000, '청구 할인 서비스
+  * 개별 고지 방법 : 카드대금청구서, 우편, 이메일, 휴대폰 문자메시지 중 하나', 'https://api.card-gorilla.com:8080/storage/card/106/card_img/20264/106card.png', 0, 0, '', 0),
+
+(1, 1, '알뜰교통플러스 카드', 8000, 300000, '청구 할인 서비스
 구분 세부 영역 할인율 월 할인한도 전월 실적
 대중교통 할인 버스, 지하철 10% 5천원 30만원
 생활서비스 할인 이동통신요금 자동납부 (SK, KT, LG, LiivM) 건당 1만원 이상 이용 시 5% 5천원
@@ -3389,8 +3496,9 @@ KB Pay 추가할인 \'생활서비스 할인\' 영역에서 KB Pay 이용 시 �
 - 할인 받은 이용 건을 취소할 경우 취소전표가 실시간 접수되지 않아 할인 한도가 즉시 복원되지 않을 수 있습니다.
 - 결제계좌 개설 기관의 영업 마감시간(16시) 이후 결제계좌에 입금된 금액에 대해서는 결제계좌 개설 기관의 사정에 따라 당일 출금하지 못하여 연체로 처리될 수 있으므로 유의하시기 바랍니다. 자동이체 업무 마감시간 이후 당사 홈페이지/모바일* 등에서 바로출금(즉시결제) 또는 가상계좌 입금(송금납부)을 통해 당일 결제가 가능합니다.
 - 세부내용 : KB국민카드 홈페이지 > MY KB > 바로출금결제 또는 가상계좌결제 참조
-- KB국민 알뜰교통플러스카드는 기본 포인트리가 적립되지 않습니다. 단, KB국민카드 스타샵 가맹점에서 제공해드리는 포인트는 적립됩니다.', 'https://api.card-gorilla.com:8080/storage/card/2555/card_img/29620/2555card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 1, '톡톡 Pay카드', 20000, 400000, 'KB국민 톡톡 Pay카드 할인서비스
+- KB국민 알뜰교통플러스카드는 기본 포인트리가 적립되지 않습니다. 단, KB국민카드 스타샵 가맹점에서 제공해드리는 포인트는 적립됩니다.', 'https://api.card-gorilla.com:8080/storage/card/2555/card_img/29620/2555card.png', 1, 0, '', 0),
+
+(1, 1, '톡톡 Pay카드', 20000, 400000, 'KB국민 톡톡 Pay카드 할인서비스
 - KB국민 톡톡 Pay카드 할인서비스는 전월 이용실적 40만원 이상 시 제공됩니다.
 - 최초 카드 사용등록일로부터 다음 달 말일(실적유예기간)까지 톡톡 Pay카드 이용 실적이 없는 경우에도 1구간(40만원 이상)에 해당하는 서비스가 제공됩니다.
 
@@ -3427,8 +3535,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 부가서비스 변경 시에는 부가서비스 변경 사유, 변경 내용 등을 사유 발생 즉시 홈페이지에 게시하고, 개별 고지해 드립니다. 특히, 카드 신규 출시 이후 3년 이상 경과했고, 해당 카드의 수익성 유지가 어려워져 부가서비스를 변경하는 경우에는 6개월 전부터 매월 개별 고지해 드립니다.
   * 개별고지방법 : 이용대금명세서, 우편, 이메일, 휴대폰 문자메시지 중 하나
 - 결제계좌 개설기관의 영업 마감시간(16시) 이후 결제계좌에 입금된 금액에 대해서는 결제계좌 개설 기관의 사정에 따라 당일 출금되지 못하여 연체로 처리 될 수 있으므로 유의하시기 바랍니다. 자동납부 업무 마감시간 이후 KB국민카드 홈페이지/모바일* 등에서 바로출금(즉시결제) 또는 가상계좌 입금(송금납부)을 통해 당일 결제가 가능합니다.
-  * 세부내용은 KB국민카드 홈페이지 > MY KB > 바로출금 또는 가상계좌 참조', 'https://api.card-gorilla.com:8080/storage/card/142/card_img/20370/142card.png', 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?cooperationcode=09231&mainCC=a&solicitorcode=7030084000', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 1, 'Easy link 티타늄카드', 30000, 500000, '자동납부 캐시백 서비스, Easy link+ 서비스, Easy link 선택서비스 제외 대상
+  * 세부내용은 KB국민카드 홈페이지 > MY KB > 바로출금 또는 가상계좌 참조', 'https://api.card-gorilla.com:8080/storage/card/142/card_img/20370/142card.png', 0, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?cooperationcode=09231&mainCC=a&solicitorcode=7030084000', 0),
+
+(1, 1, 'Easy link 티타늄카드', 30000, 500000, '자동납부 캐시백 서비스, Easy link+ 서비스, Easy link 선택서비스 제외 대상
 - 무이자할부 이용금액, 상품권 및 선불카드 구입·충전금액
 
 Easy link+ 서비스, Easy link 선택서비스 실적유예기간
@@ -3466,8 +3575,9 @@ Easy link+ 서비스, Easy link 선택서비스 실적유예기간
   ①카드사 또는 제휴업체의 휴업·도산·경영위기, 천재지변, 금융환경 급변 또는 그 밖에 이에 준하는 사유의 발생
   ②카드사의 노력에도 제휴업체가 일방적으로 서비스 변경을 통보(단, 다른 제휴업체를 통해 동종의 유사한 부가서비스 제공이 가능한 경우 제외)
   ③카드 신규 출시 이후 3년 이상 경과했고, 해당 카드의 수익성 유지가 어려운 경우 부가서비스 변경 시에는 부가서비스 변경 사유, 변경 내용 등을 사유발생 즉시 홈페이지에 게시하고, 개별 고지해드립니다. 특히, 카드 신규 출시 이후 3년 이상 경과했고, 해당 카드의 수익성 유지가 어려워져 부가서비스를 변경하는 경우에는 6개월 전부터 매월 개별 고지해드립니다.
-  * 개별고지방법: 이용대금명세서, 우편, 이메일, 휴대폰 문자메시지 중 하나', 'https://api.card-gorilla.com:8080/storage/card/551/card_img/21256/551card.png', 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?cooperationcode=09252&mainCC=a&solicitorcode=7030084000', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 1, 'Easy on카드', 20000, 500000, '할인 서비스 제외 대상
+  * 개별고지방법: 이용대금명세서, 우편, 이메일, 휴대폰 문자메시지 중 하나', 'https://api.card-gorilla.com:8080/storage/card/551/card_img/21256/551card.png', 0, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?cooperationcode=09252&mainCC=a&solicitorcode=7030084000', 0),
+
+(1, 1, 'Easy on카드', 20000, 500000, '할인 서비스 제외 대상
 · 무이자할부 이용금액, 상품권 및 선불카드 구입·충전금액
 
 전월 이용실적 기준
@@ -3520,8 +3630,9 @@ Easy on Plus 서비스 한도
    2. 국제브랜드수수료 = (거래미화금액 * 국제브랜드 이용수수료율) * 전신환매도율
    3. 해외서비스수수료 = (거래미화금액 * 해외서비스 수수료율) * 전신환매도율
  * K-WORLD(UPI) 브랜드는 2019.12.31까지 해외에서 일시불 및 할부 이용 시 국제브랜드 수수료가 면제됩니다. (단, 해외 이용 단기카드 대출(현금서비스)는 할인 제외)
- * 해당 내용은 해외원화결제서비스(DCC)수수료가 없는 경우이며, 해외원화 결제서비스(DCC) 이용 시 추가 수수료가 발생할 수 있으니 유의하시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/470/card_img/21160/470card.png', 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?cooperationcode=09244&mainCC=a&solicitorcode=7030084000', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (1, 1, 'The CJ KB국민카드', 5000, 0, '이용실적 기준
+ * 해당 내용은 해외원화결제서비스(DCC)수수료가 없는 경우이며, 해외원화 결제서비스(DCC) 이용 시 추가 수수료가 발생할 수 있으니 유의하시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/470/card_img/21160/470card.png', 0, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?cooperationcode=09244&mainCC=a&solicitorcode=7030084000', 0),
+
+(1, 1, 'The CJ KB국민카드', 5000, 0, '이용실적 기준
 - 직전 3개월 회원이 소지한 KB국민카드(비씨카드, 체크카드, 가족카드 포함)합산액의 월평균 결제회수금액(선결제 포함)(해외 이용금액은 전월 1일 ~ 말일까지 매입완료 기준)
 
 결제납부실적 제외대상
@@ -3557,8 +3668,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 
 할인(적립)서비스 제외 매출
 - 할인(적립) 서비스 제외 매출은 다음과 같으며, 카드별 별도 조건은 해당 카드 안내를 참조하시기 바랍니다.
-* 무이자 할부 이용금액, 단기카드대출(현금서비스), 장기카드대출(카드론), 지방세, 정부지원금, 대학(대학원)등록금, 각종 수수료 및 이자, 연체료, 연회비, 상품권 및 선불카드(선불전자지급수단 포함) 구입/충전금액, 취소금액', 'https://api.card-gorilla.com:8080/storage/card/1286/card_img/21020/1286card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (3, 1, '올바른 FLEX 카드', 10000, 300000, '유의사항
+* 무이자 할부 이용금액, 단기카드대출(현금서비스), 장기카드대출(카드론), 지방세, 정부지원금, 대학(대학원)등록금, 각종 수수료 및 이자, 연체료, 연회비, 상품권 및 선불카드(선불전자지급수단 포함) 구입/충전금액, 취소금액', 'https://api.card-gorilla.com:8080/storage/card/1286/card_img/21020/1286card.png', 0, 0, '', 0),
+
+(3, 1, '올바른 FLEX 카드', 10000, 300000, '유의사항
 - 전월실적 30만원 이상 시 서비스 제공(※ 할인 적용된 이용금액(전체)은 전월실적 산정 시 제외)
 - 카드사용등록일로부터 다음달 말일까지는 전월실적 미달 시에도 서비스 제공(※ 국제공항라운지 무료이용 서비스 제외)
 - 일 또는 월 할인 제공횟수가 제한된 서비스는 결제 순서대로 할인 적용됨(예시 참조)
@@ -3584,8 +3696,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 해당 가맹점이 아닌 별도 가맹점번호로 승인처리되는 일부 간편결제(Pay) 이용 건은 서비스 적용이 제외될 수 있습니다.
 - 카드서비스 적용은 NH농협카드 전산상 등록된 해당 가맹점(업종) 이용금액에 한합니다.
   * NH농협카드 가맹점(업종)은 카드고객상담센터(1644-4000)를 통해 확인 가능합니다.
-- 할인서비스 제외 대상 : 대학(대학원)등록금, 교육비(학부모부담금), 임대료, 각종 세금 및 공과금, 상하수도요금, 과태료(범칙금), 우체국 우편요금, 사회보험(국민건강/국민연금/고용/산재), 아파트 관리비, 도시가스요금, 전기요금, 상품권 및 선불카드류구매(충전포함), 단기카드대출(현금서비스), 장기카드대출(카드론), 각종 수수료 및 이자, 연체료, 연회비, 거래취소금액, 포인트(전부/일부) 결제 시 포인트 사용분, 무이자 할부(무이자 할부 행사 및 우수고객 무이자 할부 지원 포함) 이용금액', 'https://api.card-gorilla.com:8080/storage/card/666/card_img/21431/666card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (3, 1, 'zgm.the pay카드', 12000, 0, '카드발급 안내
+- 할인서비스 제외 대상 : 대학(대학원)등록금, 교육비(학부모부담금), 임대료, 각종 세금 및 공과금, 상하수도요금, 과태료(범칙금), 우체국 우편요금, 사회보험(국민건강/국민연금/고용/산재), 아파트 관리비, 도시가스요금, 전기요금, 상품권 및 선불카드류구매(충전포함), 단기카드대출(현금서비스), 장기카드대출(카드론), 각종 수수료 및 이자, 연체료, 연회비, 거래취소금액, 포인트(전부/일부) 결제 시 포인트 사용분, 무이자 할부(무이자 할부 행사 및 우수고객 무이자 할부 지원 포함) 이용금액', 'https://api.card-gorilla.com:8080/storage/card/666/card_img/21431/666card.png', 0, 0, '', 0),
+
+(3, 1, 'zgm.the pay카드', 12000, 0, '카드발급 안내
 ※ 본 상품은 NH농협카드 인터넷 홈페이지, 앱을 통해서만 신청 가능합니다.
 
 공통 유의사항
@@ -3614,8 +3727,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 • 해외 가상화폐 관련 업종 및 가맹점에서 카드 사용이 제한될 수 있습니다.
 
 할인서비스 제외대상
-대학(대학원)등록금, 교육비(학부모부담금), 임대료, 각종 세금 및 공과금, 상하수도요금, 과태료(범칙금), 우체국 우편요금, 사회보험(국민건강/국민연금/고용/산재), 아파트관리비, 도시가스요금, 전기요금, 상품권 및 선불카드류 구매(충전 포함), 가상화폐 거래소 이용금액, 단기카드대출(현금서비스), 장기카드대출(카드론), 각종 수수료 및 이자, 연체료, 연회비, 거래 취소금액, 포인트(전부/일부) 결제 시 포인트 사용분 등의 이용금액, 무이자 할부(무이자 할부 행사 및 우수고객 무이자 할부 지원 포함) 등의 이용금액', 'https://api.card-gorilla.com:8080/storage/card/2427/card_img/27201/2427card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (3, 1, '별다줄카드', 12000, 300000, '공통 확인사항
+대학(대학원)등록금, 교육비(학부모부담금), 임대료, 각종 세금 및 공과금, 상하수도요금, 과태료(범칙금), 우체국 우편요금, 사회보험(국민건강/국민연금/고용/산재), 아파트관리비, 도시가스요금, 전기요금, 상품권 및 선불카드류 구매(충전 포함), 가상화폐 거래소 이용금액, 단기카드대출(현금서비스), 장기카드대출(카드론), 각종 수수료 및 이자, 연체료, 연회비, 거래 취소금액, 포인트(전부/일부) 결제 시 포인트 사용분 등의 이용금액, 무이자 할부(무이자 할부 행사 및 우수고객 무이자 할부 지원 포함) 등의 이용금액', 'https://api.card-gorilla.com:8080/storage/card/2427/card_img/27201/2427card.png', 1, 0, '', 0),
+
+(3, 1, '별다줄카드', 12000, 300000, '공통 확인사항
 - 카드이용 시 제공되는 포인트 및 할인혜택 등의 부가서비스는 카드 신규출시 (2022 01월 17일) 이후 3년 이상 축소·폐지 없이 유지됩니다.
 - 상기에도 불구하고, 다음과 같은 사유가 발생한 경우 카드사는 부가서비스를 변경할 수 있습니다.
   * 카드사의 휴업, 파산, 경영상의 위기 등에 따른 불가피한 경우
@@ -3639,8 +3753,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 본 카드의 할인서비스가 적용되는 가맹점 중 백화점/할인점/쇼핑몰 내 임대매장은 전산상 해당 가맹점으로 구분이 불가하여 할인서비스가 제외됩니다.
 - 무이자 할부 이용 시, 무이자 할부(무이자 할부 행사 및 우수고객 서비스에 의한 무이자 할부 포함) 혜택이 제공되므로 할인서비스는 제공되지 않습니다.
 - 해당 가맹점이 아닌 별도 가맹점번호로 승인처리되는 일부 간편결제(Pay) 이용 건은 서비스 적용이 제외될 수 있습니다.
-- 해외 가상화폐 관련 업종 및 가맹점에서 카드 사용이 제한 될 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2305/card_img/23590/2305card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (3, 1, 'NH20 해봄카드', 0, 300000, '할인한도
+- 해외 가상화폐 관련 업종 및 가맹점에서 카드 사용이 제한 될 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2305/card_img/23590/2305card.png', 1, 0, '', 0),
+
+(3, 1, 'NH20 해봄카드', 0, 300000, '할인한도
 전월실적 30만원 이상~50만원 미만 50만원 이상~70만원 미만 70만원 이상~120만원 미만 120만원 이상
 On-Line 6천원 9천원 1만 5천원 2만 5천원
 Off-Line 4천원 6천원 1만원 1만 5천원
@@ -3666,8 +3781,9 @@ Off-Line 4천원 6천원 1만원 1만 5천원
 - 월간 할인한도가 제한된 서비스는 매월별(1일~말일) 카드 이용순서 기준으로 적용됩니다.
 - 가족카드의 경우 본인카드 이용실적과 합산되지 않으며, 카드별 이용실적을 각각 체크하여 서비스가 제공됩니다.
 - 카드서비스 적용은 NH농협카드 전산상 등록된 해당 가맹점·업종 이용액에 한합니다.
-- 즉시결제 서비스는 제공되지 않습니다.', 'https://api.card-gorilla.com:8080/storage/card/184/card_img/20401/184card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (3, 1, '쇼핑조아카드', 13000, 400000, '(페이+온/오프라인 쇼핑) 월 통합할인한도
+- 즉시결제 서비스는 제공되지 않습니다.', 'https://api.card-gorilla.com:8080/storage/card/184/card_img/20401/184card.png', 0, 0, '', 0),
+
+(3, 1, '쇼핑조아카드', 13000, 400000, '(페이+온/오프라인 쇼핑) 월 통합할인한도
 전월실적
 40만원 이상
 80만원 미만
@@ -3719,8 +3835,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 
 연회비 반환기준
 - 유효기간이 도래하기 전에 카드를 해지하는 경우 연회비 반환금액은 고객님이 NH농협카드와 계약을 해지한 날부터 일할 계산하여 산정됩니다. 단, 카드의 발행·배송 등 카드 발급(신규 가입년도에 한함)에 소요된 비용, 카드이용시 제공되는 추가적인 혜택 등 부가서비스 제공에 소요된 비용은 반환 금액에서 제외됩니다.
-- 연회비 반환은 계약을 해지한 날부터 10영업일 이내 반환하여 드립니다. 단, 부가서비스 제공내역 확인에 시간이 소요되는 등의 불가피한 사유시에는 계약을 해지한 날부터 3개월 이내 반환할 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/507/card_img/21196/507card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (9, 1, 'LOCA 365 카드', 0, 300000, 'L.POINT
+- 연회비 반환은 계약을 해지한 날부터 10영업일 이내 반환하여 드립니다. 단, 부가서비스 제공내역 확인에 시간이 소요되는 등의 불가피한 사유시에는 계약을 해지한 날부터 3개월 이내 반환할 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/507/card_img/21196/507card.png', 0, 0, '', 0),
+
+(9, 1, 'LOCA 365 카드', 0, 300000, 'L.POINT
 - 롯데멤버스㈜ 고객정보 제공에 동의하신 회원만 L.POINT 회원가입이 가능합니다.
 - L.POINT는 L.POINT 제휴사 이용 시 결제금액에 따라 적립받고 현금처럼 사용가능한 포인트 입니다.
 - LOCA 365 카드로 결제 시 롯데카드가 제공하는 L.POINT 적립서비스가 제공되지 않습니다.
@@ -3737,8 +3854,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 ③ 제휴업체가 카드사의 의사에 반하여 해당 부가서비스를 축소하거나 변경 시, 당초 부가서비스에상응하는 다른 부가서비스를 제공하는 경우
 ④ 부가서비스를 3년 이상 제공한 상태에서 해당 부가서비스로 인해 상품의 수익성이 현저히 낮아진 경우
 - 카드사가 부가서비스를 변경하는 경우에는 변경 사유, 변경 내용 등을 사유발생 즉시 아래의 고지 방법 중 2가지 이상으로 고지하여 드립니다. 다만, 부가서비스를 3년 이상 제공한 상태에서 해당 부가서비스로 인해 상품의 수익성이 현저히 낮아져 부가서비스를 변경하는 경우에는 6개월 이전부터 아래의 고지방법 중 2가지 이상으로 매월 고지하여 드립니다.고지방법: 서면교부, 우편 또는 전자우편,전화 또는 팩스, 휴대폰 메시지 또는 이에 준하는 전자적 의사표시 방법
-- 결제일 카드대금 납부: 결제계좌 개설기관의 영업 마감시간(16시) 이후 결제계좌에 입금된 금액은 개설기관의 사정에 따라 당일 출금되지 못하여 연체로 처리될 수 있으니 유의하시기 바랍니다. 자동납부 업무 마감시간 이후 무통장, 가상계좌 입금을 통해 당일 결제가 가능 합니다.', 'https://api.card-gorilla.com:8080/storage/card/2330/card_img/24131/2330card.png', 0, 'https://www.lottecard.co.kr/app/LPBOHAA_V100.lc?bId=92953&vtCdKndC=P14028-A14028', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (9, 1, 'LOCA LIKIT 1.2', 10000, 0, '할인 공통기준
+- 결제일 카드대금 납부: 결제계좌 개설기관의 영업 마감시간(16시) 이후 결제계좌에 입금된 금액은 개설기관의 사정에 따라 당일 출금되지 못하여 연체로 처리될 수 있으니 유의하시기 바랍니다. 자동납부 업무 마감시간 이후 무통장, 가상계좌 입금을 통해 당일 결제가 가능 합니다.', 'https://api.card-gorilla.com:8080/storage/card/2330/card_img/24131/2330card.png', 0, 0, 'https://www.lottecard.co.kr/app/LPBOHAA_V100.lc?bId=92953&vtCdKndC=P14028-A14028', 0),
+
+(9, 1, 'LOCA LIKIT 1.2', 10000, 0, '할인 공통기준
 - 롯데카드 가맹점 및 업종 분류 기준으로 혜택을 제공합니다.
 - 모든 가맹점 할인과 온라인 할인은 중복으로 적용되지 않으며, 할인이 큰 혜택으로 적용됩니다.
 - 해외 이용 시 별도의 수수료가 부과되오니, 상품설명서 뒷면을 확인해주세요.
@@ -3756,8 +3874,9 @@ L.POINT
 - L.POINT는 L.POINT 제휴사 이용 시 결제금액에 따라 적립받고 현금처럼 사용 가능한 포인트 입니다.
 - LOCA LIKIT 1.2 카드로 결제 시 롯데카드가 제공하는 L.POINT 적립서비스가 제공되지 않습니다.
 - 다른 L.POINT 제휴사가 제공하는 L.POINT는 적립 가능합니다.
-  * L.POINT의 사용과 적립에 관한 자세한 내용은 L.POINT홈페이지(www.lpoint.com)에서 확인할 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2261/card_img/21011/2261card.png', 1, 'https://www.lottecard.co.kr/app/LPBOHAA_V100.lc?bId=69657&vtCdKndC=P13937-A13937&utm_source=cardgorilla&utm_medium=affiliate&utm_campaign=%EC%97%B0%ED%9A%8C%EB%B9%84%EC%BA%90%EC%8B%9C%EB%B0%B1', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (9, 1, '디지로카 London', 20000, 0, '디지로카 London 카드 캐시백 공통기준
+  * L.POINT의 사용과 적립에 관한 자세한 내용은 L.POINT홈페이지(www.lpoint.com)에서 확인할 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2261/card_img/21011/2261card.png', 1, 0, 'https://www.lottecard.co.kr/app/LPBOHAA_V100.lc?bId=69657&vtCdKndC=P13937-A13937&utm_source=cardgorilla&utm_medium=affiliate&utm_campaign=%EC%97%B0%ED%9A%8C%EB%B9%84%EC%BA%90%EC%8B%9C%EB%B0%B1', 0),
+
+(9, 1, '디지로카 London', 20000, 0, '디지로카 London 카드 캐시백 공통기준
 - 캐시백 혜택은 매달 1일-말일 카드 이용대금에 대해 다음 달 25일(휴일인 경우 다음 영업일)에 제공되며, 롯데카드에 등록된 자동납부 계좌로 지급됩니다.
 - 캐시백 지급 후 혜택이 제공된 결제 건 취소 시 지급된 캐시백은 다음 캐시백 제공시점에 차감됩니다. 다음 캐시백 제공 시점에 차감되는 금액이 지급되는 금액보다 큰 경우 모자란 금액은 별도로 청구됩니다.
 - 해외 이용금액은 롯데카드에 접수되는 현지 매출일자를 기준으로 혜택이 제공됩니다.
@@ -3787,8 +3906,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 카드사가 부가서비스를 변경하는 경우에는 변경 사유, 변경 내용 등을 사유 발생 즉시 아래의 고지 방법 중 2가지 이상으로 고지하여 드립니다. 다만, 부가서비스를 3년 이상 제공한 상태에서 해당 부가서비스로 인해 상품의 수익성이 현저히 낮아져 부가서비스를 변경하는 경우에는 6개월 이전부터 아래의 고지방법 중 2가지 이상으로 매월 고지하여 드립니다.
 - 고지방법: 서면교부, 우편 또는 전자우편, 전화 또는 팩스, 휴대폰 메시지 또는 이에 준하는 전자적 의사표시 방법
 - 결제일 카드대금 납부 : 결제계좌 개설기관의 영업 마감시간(16시) 이후 결제계좌에 입금된 금액은 개설기관의 사정에 따라 당일 출금되지 못하여 연체로 처리될 수 있으니 유의하시기 바랍니다. 자동납부 업무 마감시간 이후 무통장, 가상계좌 입금을 통해당일 결제가 가능합니다.(세부내용 홈페이지/모바일 앱 참조)
-- 다수의 신용카드 발급은 개인 신용등급 또는 신용평점, 이용한도 등에 영향을 미칠 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2632/card_img/31797/2362card.png', 1, 'https://www.lottecard.co.kr/app/LPBOHAA_V100.lc?bId=92610&vtCdKndC=P14718-A14718', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (9, 1, '디지로카 Paris', 20000, 0, '결제일 할인 제공 기준
+- 다수의 신용카드 발급은 개인 신용등급 또는 신용평점, 이용한도 등에 영향을 미칠 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2632/card_img/31797/2362card.png', 1, 0, 'https://www.lottecard.co.kr/app/LPBOHAA_V100.lc?bId=92610&vtCdKndC=P14718-A14718', 0),
+
+(9, 1, '디지로카 Paris', 20000, 0, '결제일 할인 제공 기준
 - 결제일 할인은 중복 적용되지 않으며, 할인금액이 큰 혜택이 적용됩니다.
 - 결제금액이 서비스 대상 가맹점의 잔여 이용금액 한도보다 큰 경우, 잔여 이용 금액만큼만 혜택이 적용됩니다. 단, 결제금액의 0.7%에 해당하는 할인금액이 더 큰 경우에는 서비스 대상 가맹점 혜택이 아닌 ‘모든 가맹점 할인’이 적용*됩니다.
 예) 온라인 쇼핑 월 이용금액 한도가 10만원 남은 회원이 쿠팡 (온라인 쇼핑 업종)에서 100만원을 일시불로 결제하면, 할인금액이 큰 ‘모든 가맹점 할인’ 적용
@@ -3835,8 +3955,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 고지방법: 서면교부, 우편 또는 전자우편, 전화 또는 팩스, 휴대폰 메시지 또는 이에 준하는 전자적 의사표시 방법
 - 결제일 카드대금 납부 : 결제계좌 개설기관의 영업 마감시간(16시) 이후 결제계좌에 입금된 금액은 개설기관의 사정에 따라 당일 출금되지 못하여 연체로 처리될 수 있으니 유의하시기 바랍니다. 자동납부 업무 마감시간 이후 무통장, 가상계좌 입금을 통해 당일 결제가 가능합니다.(세부내용 홈페이지/모바일 앱 참조)
 - 다수의 신용카드 발급은 개인 신용등급 또는 신용평점, 이용한도 등에 영향을 미칠 수 있습니다.
- ', 'https://api.card-gorilla.com:8080/storage/card/2633/card_img/31798/2633card.png', 1, 'https://www.lottecard.co.kr/app/LPBOHAA_V100.lc?bId=92611&vtCdKndC=P14728-A14728', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (9, 1, 'LOCA LIKIT Eat', 10000, 400000, '할인 공통기준
+ ', 'https://api.card-gorilla.com:8080/storage/card/2633/card_img/31798/2633card.png', 1, 0, 'https://www.lottecard.co.kr/app/LPBOHAA_V100.lc?bId=92611&vtCdKndC=P14728-A14728', 0),
+
+(9, 1, 'LOCA LIKIT Eat', 10000, 400000, '할인 공통기준
 - 지난달 1일~말일까지 LOCA LIKIT Eat 카드로 40만원 이상 이용 시 혜택이 제공됩니다.
 - 할인한도는 모든 혜택 통합 월 1만 3천원 한도 내에서 제공합니다.
 - 할인 적용 제외 대상: 모든 무이자할부 이용금액, 포인트 충전, 기프트·선불카드 충전 및 구매, 상품권(모바일 상품권 포함) 구매
@@ -3864,8 +3985,9 @@ L.POINT
 - 롯데멤버스㈜ 고객정보 제공에 동의하신 회원만 L.POINT 회원가입이 가능합니다.
 - L.POINT는 L.POINT 제휴사 이용 시 결제금액에 따라 적립받고 현금처럼 사용 가능한 포인트 입니다.
 - LOCA LIKIT Eat카드로 결제 시 롯데카드가 제공하는 L.POINT 적립서비스가 제공되지 않습니다. 다른 L.POINT 제휴사가 제공하는 L.POINT는 적립 가능합니다.
-  * L.POINT의 사용과 적립에 관한 자세한 내용은 L.POINT홈페이지(www.lpoint.com)에서 확인할 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2262/card_img/20704/2262card.png', 1, 'https://www.lottecard.co.kr/app/LPBOHAA_V100.lc?bId=69658&vtCdKndC=P13943-A13943&utm_source=cardgorilla&utm_medium=affiliate&utm_campaign=%EC%97%B0%ED%9A%8C%EB%B9%84%EC%BA%90%EC%8B%9C%EB%B0%B1', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (9, 1, 'SKYPASS 롯데 아멕스카드', 20000, 0, '이용 전 반드시 확인하세요!
+  * L.POINT의 사용과 적립에 관한 자세한 내용은 L.POINT홈페이지(www.lpoint.com)에서 확인할 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2262/card_img/20704/2262card.png', 1, 0, 'https://www.lottecard.co.kr/app/LPBOHAA_V100.lc?bId=69658&vtCdKndC=P13943-A13943&utm_source=cardgorilla&utm_medium=affiliate&utm_campaign=%EC%97%B0%ED%9A%8C%EB%B9%84%EC%BA%90%EC%8B%9C%EB%B0%B1', 0),
+
+(9, 1, 'SKYPASS 롯데 아멕스카드', 20000, 0, '이용 전 반드시 확인하세요!
 - 추가적인 혜택(포인트 및 할인혜택 등)에는 제공조건 및 한도 등이 적용됩니다. 상세한 안내는 롯데카드 홈페이지(www.lottecard.co.kr)를 참조하시기 바랍니다.
 - 카드 이용시 제공되는 추가적인 혜택은 카드 신규 출시 이후 3년 이상 축소 · 폐지없이 유지됩니다.
 - 상기에도 불구하고, 다음과 같은 사유가 발생한 경우 카드사는 추가적인 혜택을 변경할 수 있습니다.
@@ -3878,8 +4000,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 카드를 해지한 후에도 관련 법령 및 내부 지침에 의거하여 회원의 정보가 일정기간 보존됩니다.
 - 결제일 카드대금 납부 : 결제계좌 개설기관의 영업 마감시간(16시) 이후 결제계좌에 입금된 금액은 개설기관의 사정에 따라 당일 출금되지 못하여 연체로 처리될 수 있으니 유의하시기 바랍니다. 자동납부 업무 마감시간 이후 무통장, 가상계좌 입금을 통해 당일 결제가 가능합니다.(세부내용 홈페이지/모바일 앱 참조)
 - 다수의 신용카드 발급은 개인 신용등급 또는 개인신용평점, 이용한도 등에 영향을 미칠 수 있습니다.
-- 카드 신청전 상품안내장 및 약관의 내용을 읽어보시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/432/card_img/30755/432card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (9, 1, '롯데백화점 롯데카드', 10000, 300000, '브랜드 안내
+- 카드 신청전 상품안내장 및 약관의 내용을 읽어보시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/432/card_img/30755/432card.png', 1, 0, '', 0),
+
+(9, 1, '롯데백화점 롯데카드', 10000, 300000, '브랜드 안내
 [L.GLOBAL]
 - 롯데카드가 UnionPay와 제휴하여 개발한 신개념 브랜드로, 국내전용 연회비 납부만으로 해외 UnionPay 가맹점에서 이용하실 수 있습니다.
 
@@ -3898,8 +4021,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 ③ 제휴업체가 카드사의 의사에 반하여 해당 부가서비스를 축소하거나 변경 시, 당초 부가서비스 에 상응하는 다른 부가서비스를 제공하는 경우
 ④ 부가서비스를 3년 이상 제공한 상태에서 해당 부가서비스로 인해 상품의 수익성이 현저히 낮아진 경우
 - 카드사가 부가서비스를 변경하는 경우에는 변경 사유, 변경 내용 등을 사유 발생 즉시 아래의 고지 방법 중 2가지 이상으로 고지하여 드립니다. 다만, 상품의 수익성이 현저히 낮아져 부가서비스를 변경하는 경우에는 6개월 이전부터 아래의 고지방법 중 2가지 이상으로 매월 고지하여 드립니다.
-- 고지방법 : 서면교부, 우편 또는 전자우편,전화 또는 팩스, 휴대폰 메시지 또는 이에 준하는 전자적 의사표시 방법', 'https://api.card-gorilla.com:8080/storage/card/201/card_img/20421/201card.png', 0, 'https://www.lottecard.co.kr/app/LPBOHAA_V100.lc?vtCdKndC=P11714-A11714&bId=30870&utm_source=cardgorilla&utm_medium=affiliate&utm_campaign=%EC%97%B0%ED%9A%8C%EB%B9%84%EC%BA%90%EC%8B%9C%EB%B0%B1', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (9, 1, 'LOCA LIKIT Shop', 10000, 400000, '할인 공통기준
+- 고지방법 : 서면교부, 우편 또는 전자우편,전화 또는 팩스, 휴대폰 메시지 또는 이에 준하는 전자적 의사표시 방법', 'https://api.card-gorilla.com:8080/storage/card/201/card_img/20421/201card.png', 0, 0, 'https://www.lottecard.co.kr/app/LPBOHAA_V100.lc?vtCdKndC=P11714-A11714&bId=30870&utm_source=cardgorilla&utm_medium=affiliate&utm_campaign=%EC%97%B0%ED%9A%8C%EB%B9%84%EC%BA%90%EC%8B%9C%EB%B0%B1', 0),
+
+(9, 1, 'LOCA LIKIT Shop', 10000, 400000, '할인 공통기준
 - 지난달 1일~말일까지 LOCA LIKIT Shop 카드로 40만원 이상 이용 시 혜택이 제공됩니다.
 - 할인한도는 모든 혜택 통합 월 1만 3천원 한도 내에서 제공합니다.
 - 할인 적용 제외 대상: 모든 무이자할부 이용금액, 포인트 충전, 기프트·선불카드 충전 및 구매, 상품권(모바일 상품권 포함) 구매
@@ -3927,8 +4051,9 @@ L.POINT
 - 롯데멤버스㈜ 고객정보 제공에 동의하신 회원만 L.POINT 회원가입이 가능합니다.
 - L.POINT는 L.POINT제휴사 이용 시 결제금액에 따라 적립받고 현금처럼 사용가능한 포인트입니다.
 - LOCA LIKIT Shop 카드로 결제 시 롯데카드가 제공하는 L.POINT적립서비스가 제공되지 않습니다. 다른 L.POINT 제휴사가 제공하는 L.POINT는 적립 가능합니다.
-* L.POINT의 사용과 적립에 관한 자세한 내용은 L.POINT홈페이지(www.lpoint.com)에서 확인할 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2264/card_img/20702/2264card.png', 1, 'https://www.lottecard.co.kr/app/LPBOHAA_V100.lc?bId=69660&vtCdKndC=P13955-A13955&utm_source=cardgorilla&utm_medium=affiliate&utm_campaign=%EC%97%B0%ED%9A%8C%EB%B9%84%EC%BA%90%EC%8B%9C%EB%B0%B1', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (9, 1, 'LOCA LIKIT', 10000, 400000, 'LOCA LIKIT 할인 공통기준
+* L.POINT의 사용과 적립에 관한 자세한 내용은 L.POINT홈페이지(www.lpoint.com)에서 확인할 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2264/card_img/20702/2264card.png', 1, 0, 'https://www.lottecard.co.kr/app/LPBOHAA_V100.lc?bId=69660&vtCdKndC=P13955-A13955&utm_source=cardgorilla&utm_medium=affiliate&utm_campaign=%EC%97%B0%ED%9A%8C%EB%B9%84%EC%BA%90%EC%8B%9C%EB%B0%B1', 0),
+
+(9, 1, 'LOCA LIKIT', 10000, 400000, 'LOCA LIKIT 할인 공통기준
 - 지난달 1일 ~ 말일까지 LOCA LIKIT 카드로 40만원 이상 이용 시 할인 혜택이 제공됩니다.
 - 할인 혜택은 결제일 할인(청구할인)으로 제공되며, 무이자 할부가 적용된 매출은 할인 혜택이 제공되지 않습니다.
 
@@ -3954,8 +4079,9 @@ L.POINT 안내
 - 롯데멤버스㈜ 고객정보 제공에 동의하신 회원만 L.POINT 회원가입이 가능합니다.
 - L.POINT는 L.POINT 제휴사 이용 시 결제금액에 따라 적립받고 현금처럼 사용가능한 포인트 입니다.
 - LOCA LIKIT 카드로 결제 시 롯데카드가 제공하는 L.POINT 적립서비스가 제공되지 않습니다. 다른 L.POINT 제휴사가 제공하는 L.POINT는 적립 가능합니다.
-- L.POINT의 사용과 적립에 관한 자세한 내용은 L.POINT홈페이지(www.lpoint.com)에서 확인할 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2228/card_img/21353/2228card.png', 1, 'https://www.lottecard.co.kr/app/LPBOHAA_V100.lc?bId=70089&vtCdKndC=P13746-A13746', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (9, 1, 'LOCA LIKIT Play', 10000, 400000, '할인 공통기준
+- L.POINT의 사용과 적립에 관한 자세한 내용은 L.POINT홈페이지(www.lpoint.com)에서 확인할 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2228/card_img/21353/2228card.png', 1, 0, 'https://www.lottecard.co.kr/app/LPBOHAA_V100.lc?bId=70089&vtCdKndC=P13746-A13746', 0),
+
+(9, 1, 'LOCA LIKIT Play', 10000, 400000, '할인 공통기준
 - 지난달 1일~말일까지 LOCA LIKIT Play 카드로 40만원 이상 이용 시 혜택이 제공됩니다.
 - 할인한도는 모든 혜택 통합 월 1만 3천원 한도 내에서 제공합니다.
 - 할인 적용 제외 대상: 모든 무이자할부 이용금액, 포인트 충전, 기프트·선불카드 충전 및 구매, 상품권(모바일 상품권 포함) 구매
@@ -3983,12 +4109,14 @@ L.POINT
 - 롯데멤버스㈜ 고객정보 제공에 동의하신 회원만 L.POINT 회원가입이 가능합니다.
 - L.POINT는 L.POINT제휴사 이용 시 결제금액에 따라 적립받고 현금처럼 사용가능한 포인트입니다.
 - LOCA LIKIT Play 카드로 결제 시 롯데카드가 제공하는 L.POINT적립서비스가 제공되지 않습니다. 다른 L.POINT 제휴사가 제공하는 L.POINT는 적립 가능합니다.
-* L.POINT의 사용과 적립에 관한 자세한 내용은 L.POINT홈페이지(www.lpoint.com)에서 확인할 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2263/card_img/20703/2263card.png', 1, 'https://www.lottecard.co.kr/app/LPBOHAA_V100.lc?bId=69659&vtCdKndC=P13949-A13949&utm_source=cardgorilla&utm_medium=affiliate&utm_campaign=%EC%97%B0%ED%9A%8C%EB%B9%84%EC%BA%90%EC%8B%9C%EB%B0%B1', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (9, 1, '롯데 국민행복카드', 0, 300000, 'L.POINT
+* L.POINT의 사용과 적립에 관한 자세한 내용은 L.POINT홈페이지(www.lpoint.com)에서 확인할 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2263/card_img/20703/2263card.png', 1, 0, 'https://www.lottecard.co.kr/app/LPBOHAA_V100.lc?bId=69659&vtCdKndC=P13949-A13949&utm_source=cardgorilla&utm_medium=affiliate&utm_campaign=%EC%97%B0%ED%9A%8C%EB%B9%84%EC%BA%90%EC%8B%9C%EB%B0%B1', 0),
+
+(9, 1, '롯데 국민행복카드', 0, 300000, 'L.POINT
 - 롯데멤버스(주) 고객정보 제공에 동의하신 회원만 L.POINT 회원가입이 가능합니다.
 - 롯데카드 제공 L.POINT 및 SK주유포인트는 제공되지 않습니다.
-- L.POINT의 사용과 적립에 관한 자세한 내용은 L.POINT 홈페이지(www.lpoint.com)에서 확인할 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/455/card_img/20971/455card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (9, 1, 'I’m YOLO 플래티넘', 48000, 500000, '실적기준
+- L.POINT의 사용과 적립에 관한 자세한 내용은 L.POINT 홈페이지(www.lpoint.com)에서 확인할 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/455/card_img/20971/455card.png', 0, 0, '', 0),
+
+(9, 1, 'I’m YOLO 플래티넘', 48000, 500000, '실적기준
 - 지난달 1일~말일까지 I’m YOLO 플래티넘 카드로 일시불·할부 이용금액(가족카드 이용금액 포함) 50만원 이상 이용해야 혜택이 제공됩니다.
 - 롯데카드 I’m YOLO 플래티넘 적립 혜택을 적용 받은 이용금액도 지난달 이용실적에 포함됩니다.
 - 할부 이용금액은 이용일을 기준으로 총 금액이 이용실적에 합산됩니다.
@@ -4016,14 +4144,16 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 카드사가 추가적인 혜택을 변경하는 경우에는 변경 사유, 변경 내용 등을 사유발생 즉시 홈페이지에 게시하고 개별 고지해 드립니다. 특히, 해당카드의 수익성 유지가 어려워 변경하는 경우에는 6개월 전부터 매월 개별 고지해 드립니다.
   * 개별고지방법: 카드대금 청구서, 우편, 이메일, 문자메시지 중 하나
 - 카드를 해지한 후에도 관련 법령 및 내부지침에 따라 회원의 정보가 일정기간 보존됩니다.
-- 결제일 카드대금 납부: 결제계좌 개설기관의 영업 마감시간(16시) 이후 결제계좌에 입금된 금액은 개설기관의 사정에 따라 당일 출금되지 못하여 연체로 처리될 수 있으니 유의하시기 바랍니다. 자동납부 업무 마감시간 이후 무통장, 가상계좌 입금을 통해 당일 결제가 가능 합니다.(세부내용 홈페이지/모바일 앱 참조)', 'https://api.card-gorilla.com:8080/storage/card/579/card_img/21320/579card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (9, 1, '카카오뱅크 롯데카드', 15000, 0, 'L.POINT
+- 결제일 카드대금 납부: 결제계좌 개설기관의 영업 마감시간(16시) 이후 결제계좌에 입금된 금액은 개설기관의 사정에 따라 당일 출금되지 못하여 연체로 처리될 수 있으니 유의하시기 바랍니다. 자동납부 업무 마감시간 이후 무통장, 가상계좌 입금을 통해 당일 결제가 가능 합니다.(세부내용 홈페이지/모바일 앱 참조)', 'https://api.card-gorilla.com:8080/storage/card/579/card_img/21320/579card.png', 1, 0, '', 0),
+
+(9, 1, '카카오뱅크 롯데카드', 15000, 0, 'L.POINT
 - 롯데멤버스㈜ 고객정보 제공에 동의하신 회원만 L.POINT 회원가입이 가능합니다.
 - L.POINT는 L.POINT 제휴사 이용 시 결제금액에 따라 적립받고, 현금처럼 사용 가능한 포인트 입니다.
 - 카카오뱅크 롯데카드로 결제 시, 롯데카드가 제공하는 L.POINT 적립 서비스가 제공되지 않습니다.
 - 다른 L.POINT 제휴사가 제공하는 L.POINT는 적립 가능합니다.
-- L.POINT의 사용과 적립에 관한 자세한 내용은 L.POINT홈페이지(www.lpoint.com)에서 확인하실 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2226/card_img/21355/2226card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (9, 1, '네이버페이 플래티넘 롯데카드', 15000, 0, '실적 기준
+- L.POINT의 사용과 적립에 관한 자세한 내용은 L.POINT홈페이지(www.lpoint.com)에서 확인하실 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2226/card_img/21355/2226card.png', 0, 0, '', 0),
+
+(9, 1, '네이버페이 플래티넘 롯데카드', 15000, 0, '실적 기준
  - 이 카드의 이용금액은 일시불, 할부 이용금액을 합산하며, 적립한도는 이월되지 않습니다.
  - 할부 결제 건은 이용일을 기준으로 총 금액이 이용금액에 합산됩니다.
  - 해외 이용금액의 경우 롯데카드에 결제 건이 접수되는 일자를 기준으로 이용금액에 포함됩니다.
@@ -4058,8 +4188,9 @@ L.POINT
 - 이 카드로 결제 시 롯데카드가 제공하는 L.POINT 적립서비스가 제공되지 않습니다. 단, 다른 L.POINT제휴가 제공하는 L.POINT는 적립 가능합니다.
 - 롯데멤버스(주) 고객정보 제공에 동의하신 회원만 L.POINT 회원가입이 가능합니다.
 - L.POINT는 L.POINT 제휴사 이용 시 결제금액에 따라 적립받고 현금처럼 사용가능한 포인트 입니다.
-- L.POINT의 사용과 적립에 관한 자세한 내용은 L.POINT홈페이지(www.lpoint.com)에서 확인하실 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/502/card_img/21191/502card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (9, 1, '디지로카 Monaco', 125000, 0, '결제일 할인 제공 기준
+- L.POINT의 사용과 적립에 관한 자세한 내용은 L.POINT홈페이지(www.lpoint.com)에서 확인하실 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/502/card_img/21191/502card.png', 1, 0, '', 0),
+
+(9, 1, '디지로카 Monaco', 125000, 0, '결제일 할인 제공 기준
 - 결제일 할인은 중복 적용되지 않으며, 할인금액이 큰 혜택이 적용됩니다.
 - 결제금액이 서비스 대상 가맹점의 잔여 이용금액 한도보다 큰 경우, 잔여 이용 금액만큼만 혜택이 적용됩니다. 단, 결제금액의 1%에 해당하는 할인금액이 더 큰 경우에는 서비스 대상 가맹점 혜택이 아닌 ‘모든 가맹점 할인’이 적용*됩니다.
 예) 온라인 쇼핑 월 이용금액 한도가 10만원 남은 회원이 쿠팡 (온라인 쇼핑 업종)에서 70만원을 일시불로 결제하면, 할인금액이 큰 ‘모든 가맹점 할인’ 적용
@@ -4105,8 +4236,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 카드사가 부가서비스를 변경하는 경우에는 변경 사유, 변경 내용 등을 사유 발생 즉시 아래의 고지 방법 중 2가지 이상으로 고지하여 드립니다. 다만, 부가서비스를 3년 이상 제공한 상태에서 해당 부가서비스로 인해 상품의 수익성이 현저히 낮아져 부가서비스를 변경하는 경우에는 6개월 이전부터 아래의 고지방법 중 2가지 이상으로 매월 고지하여 드립니다.
 -고지방법: 서면교부, 우편 또는 전자우편, 전화 또는 팩스, 휴대폰 메시지 또는 이에 준하는 전자적 의사표시 방법
 - 결제일 카드대금 납부 : 결제계좌 개설기관의 영업 마감시간(16시) 이후 결제계좌에 입금된 금액은 개설기관의 사정에 따라 당일 출금되지 못하여 연체로 처리될 수 있으니 유의하시기 바랍니다. 자동납부 업무 마감시간 이후 무통장, 가상계좌 입금을 통해 당일 결제가 가능합니다.(세부내용 홈페이지/모바일 앱 참조)
-- 다수의 신용카드 발급은 개인 신용등급 또는 신용평점, 이용한도 등에 영향을 미칠 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2634/card_img/31799/2634card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (9, 1, '아멕스 플래티넘 아시아나클럽 롯데카드', 55000, 500000, 'L.POINT
+- 다수의 신용카드 발급은 개인 신용등급 또는 신용평점, 이용한도 등에 영향을 미칠 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2634/card_img/31799/2634card.png', 1, 0, '', 0),
+
+(9, 1, '아멕스 플래티넘 아시아나클럽 롯데카드', 55000, 500000, 'L.POINT
 - 롯데멤버스㈜ 고객정보 제공에 동의하신 회원만 L.POINT 회원가입이 가능합니다.
 - L.POINT는 L.POINT 제휴사 이용 시 결제금액에 따라 적립받고, 현금처럼 사용 가능한 포인트입니다.
 - 아멕스 플래티넘 아시아나클럽 롯데카드 결제 시 롯데카드가 제공하는 L.POINT 적립 서비스가 제공되지 않습니다.
@@ -4124,8 +4256,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 개별고지방법: 카드이용대금 명세서, 우편, 이메일, 휴대폰 문자메시지 또는 그밖에 이와 유사한 방법 중 하나
 - 결제일 카드대금 납부: 결제계좌 개설기관의 영업 마감시간(16시) 이후 결제계좌에 입금된 금액은 개설기관의 사정에 따라 당일 출금되지 못하여 연체로 처리될 수 있으니 유의하시기 바랍니다.
 - 자동납부 업무 마감시간 이후 무통장, 가상계좌 입금을 통해 당일 결제가 가능 합니다.
-(세부내용 홈페이지/모바일 앱 참조)', 'https://api.card-gorilla.com:8080/storage/card/2412/card_img/26720/2412card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (9, 1, 'LOCA 나누기 카드', 20000, 0, 'LOCA 나누기 혜택 제외 대상
+(세부내용 홈페이지/모바일 앱 참조)', 'https://api.card-gorilla.com:8080/storage/card/2412/card_img/26720/2412card.png', 0, 0, '', 0),
+
+(9, 1, 'LOCA 나누기 카드', 20000, 0, 'LOCA 나누기 혜택 제외 대상
 - 국세, 지방세, 건강보험, 국민연금, 고용보험, 산재보험, 초·중·고교납입금, 대학등록금, LH·SH 공사 공공임대료, 부동산 임대료, 장애인 고용부담금, 오토·스마트 캐시백 신청 이용금액, 기프트·선불카드 충전 및 구매, 포인트충전, 상품권(모바일 상품권 포함)구매, PC방, 귀금속, 대중교통(버스,지하철), 택시, 고속버스, 고속도로 통행요금, 무승인전표(자판기, 터널통행료, 항공 기내 이용), 벌금, 과태료, 민원 발급 수수료, 관세납부, 인지세, 송달료, 단기카드대출(현금서비스), 장기카드대출(카드론), 연회비, 이자 및 각종 수수료, 유이자할부·무이자할부·슬림할부·리볼빙·분할납부 적용된 결제 건, 선결제·부분입금·부분취소·포인트사용 등이 적용된 결제 건
 
 LOCA 나누기 혜택 기준 및 유의사항
@@ -4155,8 +4288,9 @@ LOCA 나누기 혜택 기준 및 유의사항
 - 카드사가 부가서비스를 변경하는 경우에는 변경 사유, 변경 내용 등을 사유발생 즉시 아래의 고지 방법 중 2가지 이상으로 고지하여 드립니다. 다만, 상품의 수익성이 현저히 낮아져 부가서비스를 변경하는 경우에는 6개월 이전부터 아래의 고지방법 중 2가지 이상으로 매월 고지하여 드립니다.
 - 고지방법: 서면교부, 우편 또는 전자우편,전화 또는 팩스, 휴대폰 메시지 또는 이에 준하는 전자적 의사표시 방법
 - 결제일 카드대금 납부: 결제계좌 개설기관의 영업 마감시간(16시) 이후 결제계좌에 입금된 금액은 개설기관의 사정에 따라 당일 출금되지 못하여 연체로 처리될 수 있으니 유의하시기 바랍니다. 자동납부 업무 마감시간 이후 무통장, 가상계좌 입금을 통해 당일 결제가 가능 합니다.
-(세부내용 홈페이지/모바일 앱 참조)', 'https://api.card-gorilla.com:8080/storage/card/2395/card_img/26085/2395card.png', 0, 'https://www.lottecard.co.kr/app/LPBOHAA_V100.lc?bId=70196&vtCdKndC=P14123-A14123', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (9, 1, 'Mobile x LOCA 롯데카드', 20000, 400000, '실적 제외매출
+(세부내용 홈페이지/모바일 앱 참조)', 'https://api.card-gorilla.com:8080/storage/card/2395/card_img/26085/2395card.png', 0, 0, 'https://www.lottecard.co.kr/app/LPBOHAA_V100.lc?bId=70196&vtCdKndC=P14123-A14123', 0),
+
+(9, 1, 'Mobile x LOCA 롯데카드', 20000, 400000, '실적 제외매출
 - 국세, 지방세, 도시가스비, 공과금, 건강보험, 국민연금, 고용보험, 산재보험, 초·중·고교납입금, 대학등록금, LH·SH공사 공공임대료, 부동산 임대료, 장애인 고용부담금, 아파트관리비, 오토·스마트 캐시백 신청 이용금액, 기프트·선불카드 충전 및 구매, 포인트 충전, 상품권 (모바일상품권 포함)구매, 대중교통(버스, 지하철), 택시, 고속도로 통행요금, 고속버스, 무승인전표(자판기, 터널통행료, 항공 기내 이용), 벌금, 과태료, 민원 발급 수수료, 관세 납부, 인지세, 송달료, 모든 무이자 할부 이용금액, 단기카드대출 (현금서비스), 장기카드대출(카드론), 연회비, 이자 및 각종 수수료
 
 실적 기준
@@ -4188,8 +4322,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 개별고지방법: 카드이용대금 명세서, 우편, 이메일, 휴대폰 문자메시지 또는 그 밖에 이와 유사한 방법 중 하나
 - 결제일 카드대금 납부 : 결제계좌 개설기관의 영업 마감시간(16시) 이후 결제계좌에 입금된 금액은 개설기관의 사정에 따라 당일 출금되지 못하여 연체로 처리될 수 있으니 유의하시기 바랍니다. 자동납부 업무 마감시간 이후 무통장, 가상계좌 입금을 통해 당일 결제가 가능합니다.
   * 세부내용 홈페이지/모바일 앱 참조
-- 카드 신청 전 상품설명서 및 약관의 내용을 읽어보시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/1002/card_img/21533/1002card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (9, 1, 'LOCA Mobility 반띵 카드', 17000, 400000, '실적기준
+- 카드 신청 전 상품설명서 및 약관의 내용을 읽어보시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/1002/card_img/21533/1002card.png', 0, 0, '', 0),
+
+(9, 1, 'LOCA Mobility 반띵 카드', 17000, 400000, '실적기준
 - LOCA Mobility 반띵 카드를 최초 발급 받은 경우 카드발급일 ~ 다음 달 말일 까지 지난달 이용실적에 관계없이 이용실적 40만원 이상~80만원 미만 구간별 할인율 및 할인한도가 적용됩니다.
   * 단 카드발급일~다음 달 말일 기간에도 지난달 1일~말일 LOCA Mobility 반띵 카드 이용실적이 80만원 이상인 경우, 해당 이용실적 구간별 할인율 및 할인 한도가 적용됩니다.
   * 예) 1월 5일 카드 발급 후, 1월 5일~31일까지 80만원을 이용한 경우: 2월의 대중교통 할인한도 2만원/생활 할인한도 각 5천원 적용
@@ -4219,8 +4354,9 @@ L.POINT
 - 롯데멤버스㈜ 고객정보 제공에 동의하신 회원만 L.POINT 회원가입이 가능합니다.
 - L.POINT는 L.POINT 제휴사 이용 시 결제금액에 따라 적립받고 현금처럼 사용가능한 포인트 입니다.
 - LOCA Mobility 카드로 결제 시 롯데카드가 제공하는 L.POINT 적립서비스가 제공되지 않습니다. 다른 L.POINT 제휴사가 제공하는 L.POINT는 적립 가능합니다.
-* L.POINT의 사용과 적립에 관한 자세한 내용은 L.POINT홈페이지(www.lpoint.com)에서 확인할 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2463/card_img/28157/2463card.png', 1, 'https://www.lottecard.co.kr/app/LPBOHAA_V100.lc?bId=86359&vtCdKndC=P14285-A14285', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (9, 1, '보험엔로카', 20000, 0, '이용실적 산정 시 제외 대상
+* L.POINT의 사용과 적립에 관한 자세한 내용은 L.POINT홈페이지(www.lpoint.com)에서 확인할 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2463/card_img/28157/2463card.png', 1, 0, 'https://www.lottecard.co.kr/app/LPBOHAA_V100.lc?bId=86359&vtCdKndC=P14285-A14285', 0),
+
+(9, 1, '보험엔로카', 20000, 0, '이용실적 산정 시 제외 대상
 - 보험엔로카가 아닌 롯데카드 이용금액, 보험료 할인받은 이용금액(보험료 전액), 모든 무이자할부 이용금액, 거래 취소금액, 국세, 지방세, 건강보험, 국민연금, 고용보험, 산재보험, 초·중·고교 납입금, 대학(대학원)등록금, 정부지원금(보육료,육아학비 등), LH·SH 공사 공공임대료, 월세, 부동산 임대료, 장애인 고용부담금,도시가스요금, 전기요금, 수도요금, 공과금, 아파트관리비, TV 수신료, 오토·스마트 캐시백 신청 이용금액, 기프트·선불카드 충전 및 구매, 포인트 충전, 상품권(모바일 상품권 포함)구매, 택시, 고속버스, 고속도로 통행요금, 대중교통(시내·광역·시외버스, 지하철), 무승인전표(자판기, 터널통행료, 항공 기내 이용 등), 관세납부, 벌금, 과태료, 민원 발급 수수료, 인지세, 송달료, 단기카드대출(현금서비스), 장기카드대출(카드론), 연회비, 이자 및 각종 수수료
 
 공통 유의사항
@@ -4258,14 +4394,16 @@ L.POINT
 - 롯데멤버스(주) 고객정보 제공에 동의하신 회원만 L.POINT 회원가입이 가능 합니다.
 - L.POINT 는 L.POINT 제휴사 이용 시 결제금액에 따라 적립받고 현금처럼 사용 가능한 포인트입니다.
 - 보험엔로카로 결제 시 롯데카드가 제공하는 L.POINT 적립서비스가 제공되지 않습니다. 단, 다른 L.POINT 제휴사가 제공하는 L.POINT는 적립 가능합니다.
-- L.POINT의 사용과 적립에 관한 자세한 내용은 L.POINT홈페이지 (www.lpoint.com)에서 확인할 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2659/card_img/32305/2659card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (2, 1, '삼성카드 taptap O', 10000, 300000, '* 삼성카드 taptap O 발급 회원에게는 모바일·이메일 명세서가 기본으로 제공됩니다.
+- L.POINT의 사용과 적립에 관한 자세한 내용은 L.POINT홈페이지 (www.lpoint.com)에서 확인할 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2659/card_img/32305/2659card.png', 1, 0, '', 0),
+
+(2, 1, '삼성카드 taptap O', 10000, 300000, '* 삼성카드 taptap O 발급 회원에게는 모바일·이메일 명세서가 기본으로 제공됩니다.
 * 카드를 이용하는 경우 제공되는 포인트 및 할인혜택 등의 부가서비스는 카드 신규 출시 이후 다음 사유 중 어느 하나에 해당하는 경우 외에는 변경할 수 없습니다.(단, 회원의 권익을 증진하거나 부담을 완화하는 경우는 제외) 카드사가 부가서비스를 변경하는 경우에는 변경사유, 변경 내용 등을 다음에서 정하는 기간에 따라 서면교부, 우편 또는 전자우편, 전화 또는 팩스, 휴대폰 메시지 또는 이에 준하는 전자적 의사표시 중 2가지 이상의 방법으로 고지하여 드립니다.
 ①카드사의 휴업·파산·경영상의 위기 등에 따른 불가피한 경우 : 사유발생 즉시
 ②제휴업체의 휴업·파산·경영상의 위기로 인해 불가피하게 부가서비스를 축소·변경하는 경우로서 다른 제휴업체를 통해 동종의 유사한 부가서비스 제공이 불가한 경우 : 사유발생 즉시
 ③제휴업체가 카드사의 의사에 반하여 해당 부가서비스를 축소하거나 변경 시, 당초 부가서비스에 상응하는 다른 부가서비스를 제공하는 경우 : 사유발생 즉시
-④부가서비스를 3년 이상 제공한 상태에서 해당 부가서비스로 인해 상품의 수익성이 현저히 낮아진 경우 : 부가서비스 변경일 6개월 전부터 매월', 'https://api.card-gorilla.com:8080/storage/card/51/card_img/27707/51card.png', 0, 'https://www.samsungcard.com/home/card/cardinfo/PGHPPCCCardCardinfoDetails001?code=AAP1483&alncmpC=QDCAGOVT&affcode=QDCAGOVT', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (2, 1, 'taptap DIGITAL', 10000, 300000, '* 카드를 이용하는 경우 제공되는 포인트 및 할인혜택 등의 부가서비스는 카드 신규 출시 이후 다음 사유 중 어느 하나에 해당하는 경우 외에는 변경할 수 없습니다.(단, 회원의 권익을 증진하거나 부담을 완화하는 경우는 제외) 카드사가 부가서비스를 변경하는 경우에는 변경사유, 변경 내용 등을 다음에서 정하는 기간에 따라 서면교부, 우편 또는 전자우편, 전화 또는 팩스, 휴대폰 메시지 또는 이에 준하는 전자적 의사표시 중 2가지 이상의 방법으로 고지하여 드립니다.
+④부가서비스를 3년 이상 제공한 상태에서 해당 부가서비스로 인해 상품의 수익성이 현저히 낮아진 경우 : 부가서비스 변경일 6개월 전부터 매월', 'https://api.card-gorilla.com:8080/storage/card/51/card_img/27707/51card.png', 0, 0, 'https://www.samsungcard.com/home/card/cardinfo/PGHPPCCCardCardinfoDetails001?code=AAP1483&alncmpC=QDCAGOVT&affcode=QDCAGOVT', 0),
+
+(2, 1, 'taptap DIGITAL', 10000, 300000, '* 카드를 이용하는 경우 제공되는 포인트 및 할인혜택 등의 부가서비스는 카드 신규 출시 이후 다음 사유 중 어느 하나에 해당하는 경우 외에는 변경할 수 없습니다.(단, 회원의 권익을 증진하거나 부담을 완화하는 경우는 제외) 카드사가 부가서비스를 변경하는 경우에는 변경사유, 변경 내용 등을 다음에서 정하는 기간에 따라 서면교부, 우편 또는 전자우편, 전화 또는 팩스, 휴대폰 메시지 또는 이에 준하는 전자적 의사표시 중 2가지 이상의 방법으로 고지하여 드립니다.
  ①카드사의 휴업·파산·경영상의 위기 등에 따른 불가피한 경우 : 사유발생 즉시
  ②제휴업체의 휴업·파산·경영상의 위기로 인해 불가피하게 부가서비스를 축소·변경하는 경우로서 다른 제휴업체를 통해 동종의 유사한 부가서비스 제공이 불가한 경우 : 사유발생 즉시
  ③제휴업체가 카드사의 의사에 반하여 해당 부가서비스를 축소하거나 변경 시, 당초 부가서비스에 상응하는 다른 부가서비스를 제공하는 경우 : 사유발생 즉시
@@ -4278,8 +4416,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 해외 이용 시 청구금액 = (거래미화금액 × 전신환매도율①) + 브랜드사수수료② + 해외이용수수료③
 ① 전신환매도율 : 접수일의 우리은행 최초 고시 전신환매도율
 ② 브랜드사수수료 = (거래미화금액 × 국제브랜드 이용 수수료율 1%) × 전신환매도율
-③ 해외이용수수료 = (거래미화금액 × 해외서비스 수수료율 0.2%) × 전신환매도율', 'https://api.card-gorilla.com:8080/storage/card/657/card_img/27715/657card.png', 0, 'https://www.samsungcard.com/home/card/cardinfo/PGHPPCCCardCardinfoDetails001?code=AAP1666&alncmpC=QDCAGOVT&affcode=QDCAGOVT&webViewFirstPage=true', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (2, 1, '삼성 iD SIMPLE 카드', 7000, 0, '서비스 제공 공통 기준
+③ 해외이용수수료 = (거래미화금액 × 해외서비스 수수료율 0.2%) × 전신환매도율', 'https://api.card-gorilla.com:8080/storage/card/657/card_img/27715/657card.png', 0, 0, 'https://www.samsungcard.com/home/card/cardinfo/PGHPPCCCardCardinfoDetails001?code=AAP1666&alncmpC=QDCAGOVT&affcode=QDCAGOVT&webViewFirstPage=true', 0),
+
+(2, 1, '삼성 iD SIMPLE 카드', 7000, 0, '서비스 제공 공통 기준
 
 전월 이용금액 기준
 -매월 1일부터 말일까지 이용한 일시불 및 할부 이용금액(단기카드 대출(현금서비스), 장기카드대출(카드론), 각종 수수료 및 이자(할부수수료, 카드대출 이자 등), 연체료, 연회비 납부 건은 일시불 및 할부 이용금액에 해당되지 않음)
@@ -4343,8 +4482,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 해외 이용 시 청구금액 = (거래미화금액 × 전신환매도율①) + 브랜드사수수료② + 해외이용수수료③
 ① 전신환매도율 : 접수일의 우리은행 최초 고시 전신환매도율
 ② 브랜드사수수료 = [거래미화금액 × 국제브랜드 이용 수수료율 (Mastercard 1%, UnionPay 0.8%)] × 전신환매도율
-③ 해외이용수수료 = (거래미화금액 × 해외서비스 수수료율 0.2%) × 전신환매도율', 'https://api.card-gorilla.com:8080/storage/card/2376/card_img/27725/2376card.png', 1, 'https://www.samsungcard.com/home/card/apply/PGHPPCPCardApplyNewGeneral001?affcode=cardgorilla&alncmpC=CYBERBR&bgdAlncPdC=AAP1767&cmpid=cardgorilla#apply_step01', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (2, 1, 'American Express Blue(아멕스블루)', 0, 300000, '- 결제계좌 개설 기관의 영업 마감시간(평일 16:00) 이후 결제대금 입금 시, 해당 기관의 사정에 따라 입금 당일에 출금되지 않으면 연체료가 발생할 수 있습니다.
+③ 해외이용수수료 = (거래미화금액 × 해외서비스 수수료율 0.2%) × 전신환매도율', 'https://api.card-gorilla.com:8080/storage/card/2376/card_img/27725/2376card.png', 1, 0, 'https://www.samsungcard.com/home/card/apply/PGHPPCPCardApplyNewGeneral001?affcode=cardgorilla&alncmpC=CYBERBR&bgdAlncPdC=AAP1767&cmpid=cardgorilla#apply_step01', 0),
+
+(2, 1, 'American Express Blue(아멕스블루)', 0, 300000, '- 결제계좌 개설 기관의 영업 마감시간(평일 16:00) 이후 결제대금 입금 시, 해당 기관의 사정에 따라 입금 당일에 출금되지 않으면 연체료가 발생할 수 있습니다.
 - 즉시결제, 가상계좌, 무통장입금을 이용하시면 위의 영업 마감시간 이후에도 당일 입출금이 가능합니다.
 - 이용방법 : 삼성카드 홈페이지(PC, 모바일) → 전체메뉴 → 마이 → 카드대금 결제 → 즉시결제 또는 가상계좌
 - 해외에서 카드 결제 시, 현지 통화가 아닌 원화로 결제하는 경우 해외원화결제 서비스(DCC) 수수료가 추가로 발생할 수 있으므로 유의하시기 바랍니다.
@@ -4371,8 +4511,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 연회비는 기본 연회비와 제휴 연회비로 구분
 - 해당 카드 연회비(기본 연회비+제휴 연회비)는 카드별로 청구
 - 카드 중도 해지 시, 연회비 반환 금액은 회원이 카드사와 계약을 해지한 날부터 일 단위로 나누어 계산(카드 이용이 가능하게 된 날을 기준으로 계산)하여 반환됨. 카드의 발행, 배송 등 카드 발급에 소요된 비용(신규 가입연도에 해당)은 반환 금액에서 제외되며, 제휴 연회비가 있는 경우에는 카드 이용 시 제공되는 추가적인 혜택 등 부가 서비스 제공에 소요된 비용이 추가적으로 반환 금액에서 제외됨
-- 연회비 반환 금액은 계약을 해지한 날로부터 10영업일 이내에 반환됨. 부가 서비스 제공 내역 확인에 시간이 소요되는 등 불가피한 사유가 있을 때에는 계약을 해지한 날로부터 3개월 이내에 반환됨', 'https://api.card-gorilla.com:8080/storage/card/45/card_img/27703/45card.png', 0, 'https://www.samsungcard.com/home/card/apply/PGHPPCPCardApplyNewGeneral001?affcode=cardgorilla&alncmpC=CYBERBR&bgdAlncPdC=AAP1671&cmpid=cardgorilla#apply_step01', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (2, 1, '삼성 iD ENERGY 카드', 20000, 500000, '전월 이용금액 기준
+- 연회비 반환 금액은 계약을 해지한 날로부터 10영업일 이내에 반환됨. 부가 서비스 제공 내역 확인에 시간이 소요되는 등 불가피한 사유가 있을 때에는 계약을 해지한 날로부터 3개월 이내에 반환됨', 'https://api.card-gorilla.com:8080/storage/card/45/card_img/27703/45card.png', 0, 0, 'https://www.samsungcard.com/home/card/apply/PGHPPCPCardApplyNewGeneral001?affcode=cardgorilla&alncmpC=CYBERBR&bgdAlncPdC=AAP1671&cmpid=cardgorilla#apply_step01', 0),
+
+(2, 1, '삼성 iD ENERGY 카드', 20000, 500000, '전월 이용금액 기준
 - 매월 1일부터 말일까지 이용한 일시불 및 할부 이용금액(단기카드 대출(현금서비스), 장기카드대출(카드론), 각종 수수료 및 이자(할부수수료, 카드대출 이자 등), 연체료, 연회비 납부건은 일시불 및 할부 이용금액에 해당되지 않음)
 
 전월 이용금액 제외 대상
@@ -4413,8 +4554,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 해외 이용 시 청구금액 = (거래미화금액 × 전신환매도율①) + 브랜드사수수료② + 해외이용수수료③
 ① 전신환매도율 : 접수일의 우리은행 최초 고시 전신환매도율
 ② 브랜드사수수료 = (거래미화금액 × 국제브랜드 이용 수수료율 1.1%) × 전신환매도율
-③ 해외이용수수료 = (거래미화금액 × 해외서비스 수수료율 0.2%) × 전신환매도율', 'https://api.card-gorilla.com:8080/storage/card/2290/card_img/27723/2290card.png', 1, 'https://www.samsungcard.com/home/card/apply/PGHPPCPCardApplyNewGeneral001?affcode=cardgorilla&alncmpC=CYBERBR&bgdAlncPdC=AAP1753&cmpid=cardgorilla#apply_step01', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (4, 1, '신한카드 Deep Dream 체크', 0, 0, '통합 적립한도 안내
+③ 해외이용수수료 = (거래미화금액 × 해외서비스 수수료율 0.2%) × 전신환매도율', 'https://api.card-gorilla.com:8080/storage/card/2290/card_img/27723/2290card.png', 1, 0, 'https://www.samsungcard.com/home/card/apply/PGHPPCPCardApplyNewGeneral001?affcode=cardgorilla&alncmpC=CYBERBR&bgdAlncPdC=AAP1753&cmpid=cardgorilla#apply_step01', 0),
+
+(4, 1, '신한카드 Deep Dream 체크', 0, 0, '통합 적립한도 안내
 - 모두드림 적립 한도: 무제한 적립
 - 더해드림+챙겨드림
   * 전월 이용금액(일시불+할부) 20만원 이상 40만원 미만: 5,000 포인트
@@ -4443,16 +4585,18 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 
 유의사항
 - 본 카드의 서비스 내용은 당사 및 제휴사 사정에 따라 사전 고지 후 변경 또는 중단될 수 있으며, 카드 이용금액에 따라 제한될 수 있습니다.
-- 별도의 이벤트를 진행하지 않는 한 타 쿠폰 및 타 카드(신용카드, 통신계 카드 등) 타 할인혜택의 중복 사용은 불가합니다.', 'https://api.card-gorilla.com:8080/storage/card/281/card_img/20503/281card.png', 0, 'https://www.shinhancard.com/pconts/html/card/apply/check/1188313_2206.html?EntryLoc2=2873&empSeq=5&btnApp=K0L1K3', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (4, 1, '쿠팡 신한카드 체크', 0, 200000, '유의사항
+- 별도의 이벤트를 진행하지 않는 한 타 쿠폰 및 타 카드(신용카드, 통신계 카드 등) 타 할인혜택의 중복 사용은 불가합니다.', 'https://api.card-gorilla.com:8080/storage/card/281/card_img/20503/281card.png', 0, 0, 'https://www.shinhancard.com/pconts/html/card/apply/check/1188313_2206.html?EntryLoc2=2873&empSeq=5&btnApp=K0L1K3', 0),
+
+(4, 1, '쿠팡 신한카드 체크', 0, 200000, '유의사항
 - 전월 이용금액 20만원 이상 시 서비스 제공됩니다.
 - 전월 이용금액은 전월 1일 ~ 말일까지의 거래시점 이용금액으로 반영됩니다.
 - 교통카드 이용금액은 전전월 이용금액이 반영됩니다.
 - 해외 이용금액은 매입일자 기준으로 이용금액이 반영됩니다.
 - 쿠팡 신한카드 체크 신규발급회원의 경우 카드 사용등록월의 익월 말(등록월 +1개월) 까지 전월실적 관계없이 서비스 제공 됩니다. 예시) ’16.10월 발급회원 → ‘16.11월 까지 쿠팡캐쉬 적립 / 스타벅스 캐시백 서비스 제공
 - 각종 수수료 / 이자 / 기프트카드 구매금액 / 선불카드 충전금액 / 거래취소금액은 전월 이용금액에서 제외됩니다.
-- 캐시백 금액은 체크카드 가결제일에 체크카드 대표계좌로 입급됩니다.', 'https://api.card-gorilla.com:8080/storage/card/283/card_img/20505/283card.png', 0, 'https://www.shinhancard.com/pconts/html/card/apply/check/1187966_2206.html?EntryLoc2=2833&empSeq=1&btnApp=ab0', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (4, 1, '신한카드 Hey Young 체크', 0, 200000, '전월 이용금액별 월간 통합 캐시백 한도
+- 캐시백 금액은 체크카드 가결제일에 체크카드 대표계좌로 입급됩니다.', 'https://api.card-gorilla.com:8080/storage/card/283/card_img/20505/283card.png', 0, 0, 'https://www.shinhancard.com/pconts/html/card/apply/check/1187966_2206.html?EntryLoc2=2833&empSeq=1&btnApp=ab0', 0),
+
+(4, 1, '신한카드 Hey Young 체크', 0, 200000, '전월 이용금액별 월간 통합 캐시백 한도
 전월 이용금액
 (일시불+할부)
 통합 월적립한도
@@ -4494,8 +4638,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
     - 단, 국제브랜드사 수수료는 국제브랜드사 정책에 따라 변경될 수 있습니다.
     - 해외 가맹점에서 원화로 거래시(DCC) 추가 수수료가 부과되므로 현지통화 또는 미화로 거래하시기 바랍니다.
     - 해외 가맹점 원화결제(DCC) 차단을 원하시는 경우 신한카드 고객센터(1544-7000) 및 신한카드 홈페이지/모바일앱 > 해외원화결제(DCC) 사전차단에서 신청 가능합니다.
-※ 일부 해외 가맹점 거래 시 IC칩 비밀번호(PIN)를 요구하는 경우가 있으므로 출국 전 반드시 IC칩 비밀번호(PIN) 등록 여부를 확인하시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/618/card_img/21385/618card.png', 1, 'https://www.shinhancard.com/pconts/html/card/apply/check/1196867_2206.html?EntryLoc2=2998&empSeq=514&btnApp=dp1', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (4, 1, '신한카드 SOL트래블 체크', 0, 300000, '전월 이용금액 산정 기준
+※ 일부 해외 가맹점 거래 시 IC칩 비밀번호(PIN)를 요구하는 경우가 있으므로 출국 전 반드시 IC칩 비밀번호(PIN) 등록 여부를 확인하시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/618/card_img/21385/618card.png', 1, 0, 'https://www.shinhancard.com/pconts/html/card/apply/check/1196867_2206.html?EntryLoc2=2998&empSeq=514&btnApp=dp1', 0),
+
+(4, 1, '신한카드 SOL트래블 체크', 0, 300000, '전월 이용금액 산정 기준
 - 더라운지 공항 라운지 본인 무료입장, 국내 4대 편의점 5% 할인, 국내 대중교통 1% 할인서비스는 신한카드 SOL트래블 체크의 전월(1일~말일) 국내 이용금액 30만원 이상 시 서비스가 제공됩니다.
 - 전월 이용금액은 신한카드 SOL트래블 체크의 전월(1일~말일)의 거래 시점 이용금액(일시불+할부)을 기준으로 반영됩니다.
   * 교통카드 이용금액은 전전월 이용금액이 전월 이용금액에 반영됩니다. (단, 모바일 후불 교통카드 이용금액은 전월 이용금액이 반영됨)
@@ -4519,8 +4664,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 각 카드 디자인의 최초 발급 시 부과되며 동일한 디자인의 상품을 재발급하는 경우에는 부과되지 않습니다.
 - 단, 카드 해지 후 재발급 시에는 발급수수료가 부과됩니다.
 - 연회비는 카드별로 기본 연회비와 서비스 연회비를 합산한 총 연회비가 청구됩니다.
-- 해외겸용(MASTERCARD)은 컨택리스 결제를 지원합니다', 'https://api.card-gorilla.com:8080/storage/card/2667/card_img/32473/2660card.png', 1, 'https://www.shinhancard.com/pconts/html/card/apply/check/1225714_2206.html', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (4, 1, '카카오페이 신한 체크카드', 0, 0, '적립 세부 안내
+- 해외겸용(MASTERCARD)은 컨택리스 결제를 지원합니다', 'https://api.card-gorilla.com:8080/storage/card/2667/card_img/32473/2660card.png', 1, 0, 'https://www.shinhancard.com/pconts/html/card/apply/check/1225714_2206.html', 0),
+
+(4, 1, '카카오페이 신한 체크카드', 0, 0, '적립 세부 안내
 - 해당 카드는 실물로 발급 되는 카드이며, 카카오페이에 가입되어 있는 경우 적립 서비스는 카카오페이머니로 우선 적립됩니다.
 단, 카카오페이 미가입, 신한카드와의 정보 불일치 등의 적립 불가사유가 발생되는 경우 마이신한포인트로 적립됩니다.
 - 카카오페이머니 적립 서비스는 고객님이 이용하신 거래 순서에 따라(1일~말일)까지 거래시점 이용금액 기준으로 다음달 15일 적립되며, 마이신한포인트 적립 대상자의 경우 카카오페이머니 적립일+1일뒤 적립됩니다.
@@ -4544,8 +4690,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 
 전월 한도 관련 안내
 - 신규 발급회원은 카드사용 등록월의 다음 달 말(등록월+1개월)까지 매월 5천원의 통합적립 한도가 제공됩니다.
-- 잔여 통합/월간 적립 한도는 이월되지 않습니다.', 'https://api.card-gorilla.com:8080/storage/card/286/card_img/20508/286card.png', 1, 'https://www.shinhancard.com/pconts/html/card/apply/check/1187963_2206.html?EntryLoc2=2940&empSeq=3', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (4, 1, '신한카드 플리 체크(산리오캐릭터즈)', 0, 0, '신한카드 플리(신용/체크) 공통 유의사항
+- 잔여 통합/월간 적립 한도는 이월되지 않습니다.', 'https://api.card-gorilla.com:8080/storage/card/286/card_img/20508/286card.png', 1, 0, 'https://www.shinhancard.com/pconts/html/card/apply/check/1187963_2206.html?EntryLoc2=2940&empSeq=3', 0),
+
+(4, 1, '신한카드 플리 체크(산리오캐릭터즈)', 0, 0, '신한카드 플리(신용/체크) 공통 유의사항
 ※ 신한카드 플리(신용/체크) 서비스 제공 기준은 다음과 같습니다.
 
 대상 서비스 구분 신용 체크
@@ -4584,8 +4731,9 @@ Monthly 단골 적립 서비스
 - 초중고 학교납입금(스쿨뱅킹), 대학등록금
 - 신한카드 플리(신용/체크)로 신한카드 할인서비스(이벤트 포함)를 적용받은 모든 거래 (해당 거래금액 전체)
 - 포인트 사용 거래 중 포인트 금액 - 무이자 할부 거래(슬림할부 등 부분 무이자, 일시불의 무이자 할부전환 거래 포함)
-- 거래 취소금액 - 신차판매/제약 회사 업종 이용 금액', 'https://api.card-gorilla.com:8080/storage/card/2492/card_img/28476/2492card.png', 1, 'https://www.shinhancard.com/pconts/html/card/apply/check/1220330_2206.html?empSeq=502', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (4, 1, '네이버페이 신한카드 체크 S2', 0, 0, '※ 네이버페이 신한카드 체크 S2 카드는 네이버페이에서 네이버페이 라인프렌즈 신한카드 신청 시 대안 발급 신청만 가능 합니다.
+- 거래 취소금액 - 신차판매/제약 회사 업종 이용 금액', 'https://api.card-gorilla.com:8080/storage/card/2492/card_img/28476/2492card.png', 1, 0, 'https://www.shinhancard.com/pconts/html/card/apply/check/1220330_2206.html?empSeq=502', 0),
+
+(4, 1, '네이버페이 신한카드 체크 S2', 0, 0, '※ 네이버페이 신한카드 체크 S2 카드는 네이버페이에서 네이버페이 라인프렌즈 신한카드 신청 시 대안 발급 신청만 가능 합니다.
 
 네이버 외 결제 시 0.1% 적립
 - 적립대상: 네이버를 제외한 국내/해외 가맹점 결제 금액
@@ -4600,8 +4748,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 
 포인트 적립 제외
 - 포인트 적립 제외 대상은 아래와 같습니다.
-  * 단기카드대출(현금서비스), 장기카드대출(카드론), 연회비, 각종 수수료/이자(할부수수료, SMS이용수수료, 연체이자 등), 오토리스 대금, 기프트카드/선불카드 구매·충전금액, 상품권/선불전자지급수단 구매·충전금액, 무이자할부 이용거래, 포인트 사용거래 중 포인트금액, 지방세, 수도요금, 국세, 4대보험(국민연금/고용보험/건강보험/산재보험), 초중고 학교납입금(스쿨뱅킹), 아파트관리비, 도시가스, 전기요금, 네이버페이 라인프렌즈 신한카드(신용)로 신한카드 할인서비스(이벤트 포함)를 적용받은 모든 거래(해당 거래금액 전체), 거래 취소금액', 'https://api.card-gorilla.com:8080/storage/card/2268/card_img/20698/2268card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (4, 1, '신한카드 Deep Dream 체크(미니언즈)', 0, 0, '통합 적립한도 안내
+  * 단기카드대출(현금서비스), 장기카드대출(카드론), 연회비, 각종 수수료/이자(할부수수료, SMS이용수수료, 연체이자 등), 오토리스 대금, 기프트카드/선불카드 구매·충전금액, 상품권/선불전자지급수단 구매·충전금액, 무이자할부 이용거래, 포인트 사용거래 중 포인트금액, 지방세, 수도요금, 국세, 4대보험(국민연금/고용보험/건강보험/산재보험), 초중고 학교납입금(스쿨뱅킹), 아파트관리비, 도시가스, 전기요금, 네이버페이 라인프렌즈 신한카드(신용)로 신한카드 할인서비스(이벤트 포함)를 적용받은 모든 거래(해당 거래금액 전체), 거래 취소금액', 'https://api.card-gorilla.com:8080/storage/card/2268/card_img/20698/2268card.png', 1, 0, '', 0),
+
+(4, 1, '신한카드 Deep Dream 체크(미니언즈)', 0, 0, '통합 적립한도 안내
 - 모두드림 적립 한도: 무제한 적립
 - 더해드림+챙겨드림
   * 전월 이용금액(일시불+할부) 20만원 이상 40만원 미만: 5,000 포인트
@@ -4630,8 +4779,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 
 유의사항
 - 본 카드의 서비스 내용은 당사 및 제휴사 사정에 따라 사전 고지 후 변경 또는 중단될 수 있으며, 카드 이용금액에 따라 제한될 수 있습니다.
-- 별도의 이벤트를 진행하지 않는 한 타 쿠폰 및 타 카드(신용카드, 통신계 카드 등) 타 할인혜택의 중복 사용은 불가합니다.', 'https://api.card-gorilla.com:8080/storage/card/646/card_img/21410/646card.png', 0, 'https://www.shinhancard.com/pconts/html/card/apply/check/1187959_2206.html?EntryLoc=2927&empSeq=558&btnApp=dp1', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (4, 1, '알뜰교통카드 S20 체크', 0, 200000, '월 통합 캐시백 한도 및 유의사항
+- 별도의 이벤트를 진행하지 않는 한 타 쿠폰 및 타 카드(신용카드, 통신계 카드 등) 타 할인혜택의 중복 사용은 불가합니다.', 'https://api.card-gorilla.com:8080/storage/card/646/card_img/21410/646card.png', 0, 0, 'https://www.shinhancard.com/pconts/html/card/apply/check/1187959_2206.html?EntryLoc=2927&empSeq=558&btnApp=dp1', 0),
+
+(4, 1, '알뜰교통카드 S20 체크', 0, 200000, '월 통합 캐시백 한도 및 유의사항
 전월 실적 규모
 20 ~ 30만원
 30 ~ 50만원
@@ -4646,8 +4796,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 통합캐시백한도는 매월 초 생성되고 매월 말 일에 소멸되며, 잔여 통합캐시백한도에 대해서는 이월되지 않습니다.
 - 해당 알뜰교통카드 S20이 유효한 경우에 서비스 적용이 가능합니다.(카드 해지 시에는 서비스 적용이 불가하니, 이점 참조하시기 바랍니다.)
 - 제수수료, 무승인 거래건, 충전카드 및 선불카드(pre-ⓘ카드 등) 충전 실적의 경우 실적 합산에서 제외됩니다.
-- 별도의 이벤트를 진행하지 않는 한 타 쿠폰 및 타 카드(신용카드, 체크카드, 통신계카드)와 중복 사용 불가합니다.', 'https://api.card-gorilla.com:8080/storage/card/743/card_img/28952/743card.png', 1, 'https://www.shinhancard.com/pconts/html/card/apply/check/1188370_2206.html', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (4, 1, '신한카드 On 체크(잔망루피)', 0, 200000, '월간 통합 할인한도
+- 별도의 이벤트를 진행하지 않는 한 타 쿠폰 및 타 카드(신용카드, 체크카드, 통신계카드)와 중복 사용 불가합니다.', 'https://api.card-gorilla.com:8080/storage/card/743/card_img/28952/743card.png', 1, 0, 'https://www.shinhancard.com/pconts/html/card/apply/check/1188370_2206.html', 0),
+
+(4, 1, '신한카드 On 체크(잔망루피)', 0, 200000, '월간 통합 할인한도
 - 신한카드 On 체크로 간편결제 이용시 적립+생활편의영역 이용 시 적립을 모두 합하여 월 최대 1만 6천 포인트까지 적립됩니다.
 
 포인트 적립서비스 적용기준
@@ -4662,11 +4813,13 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 교통카드 이용금액은 전전월 이용금액이 전월 이용금액에 반영됩니다.(단, 모바일 후불 교통카드 이용금액은 전월 이용금액이 반영됨)
 - 해외 이용금액은 매입일자를 기준으로 반영됩니다.
 - 신한카드 On 체크 신규발급 회원의 경우 카드 사용 등록 월의 익월 말(등록월+1개월)까지는 20만원 이상 50만원 미만 구간의 서비스가 적용됩니다. 단, 해당기간 중에라도 월 50만원 이상 이용할 경우 다음달에 해당 이용금액구간에 상응하는 서비스가 적용됩니다.
-- 전월 이용금액 제외 대상: 단기카드대출(현금서비스), 장기카드대출(카드론), 연회비, 각종 수수료/이자(할부수수료, 연체이자 등), 기프트카드/선불카드 구매·충전금액, 거래취소금액, 지방세, 수도요금, 국세, 4대보험(국민연금/고용보험/건강보험/산재보험), 초중고 학교납입금(스쿨뱅킹), 아파트관리비, 도시가스, 전기요금, 상품권/선불전자지급수단 구매·충전금액', 'https://api.card-gorilla.com:8080/storage/card/2379/card_img/25379/2379card.png', 1, 'https://www.shinhancard.com/pconts/html/card/apply/check/1216927_2206.html?EntryLoc2=3209&empSeq=507&btnApp=dp1', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (7, 1, 'DA카드의정석 Ⅱ', 12000, 0, '기본 및 추가 Discount 제외대상 안내
+- 전월 이용금액 제외 대상: 단기카드대출(현금서비스), 장기카드대출(카드론), 연회비, 각종 수수료/이자(할부수수료, 연체이자 등), 기프트카드/선불카드 구매·충전금액, 거래취소금액, 지방세, 수도요금, 국세, 4대보험(국민연금/고용보험/건강보험/산재보험), 초중고 학교납입금(스쿨뱅킹), 아파트관리비, 도시가스, 전기요금, 상품권/선불전자지급수단 구매·충전금액', 'https://api.card-gorilla.com:8080/storage/card/2379/card_img/25379/2379card.png', 1, 0, 'https://www.shinhancard.com/pconts/html/card/apply/check/1216927_2206.html?EntryLoc2=3209&empSeq=507&btnApp=dp1', 0),
+
+(7, 1, 'DA카드의정석 Ⅱ', 12000, 0, '기본 및 추가 Discount 제외대상 안내
 - 무이자 할부금액(부분 무이자 할부 포함), 국세, 지방세, 공과금, 아파트 관리비, 대학교 등록금, 정부지원금, 상품권 구매, 기프트카드 구매, 선불카드 충전, 신차 구매(국산차 및 외제차), 단기카드대출(현금서비스), 장기카드대출(카드론), 연회비, 각종 수수료, 이자, 매출취소금액
-* 청구할인 제외 대상은 우리카드 전산상 등록 기준(우리카드 홈페이지에서 확인 가능)', 'https://api.card-gorilla.com:8080/storage/card/2655/card_img/32217/2655card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (7, 1, '카드의정석 EVERY 1', 12000, 0, '할인 제공 시 유의사항
+* 청구할인 제외 대상은 우리카드 전산상 등록 기준(우리카드 홈페이지에서 확인 가능)', 'https://api.card-gorilla.com:8080/storage/card/2655/card_img/32217/2655card.png', 1, 0, '', 0),
+
+(7, 1, '카드의정석 EVERY 1', 12000, 0, '할인 제공 시 유의사항
 - 할인 제외 : 무이자할부금액, 정부지원금(보육료, 유치원보조비, 바우처 이용금액 등), 대학(대학원) 등록금, 국세 · 지방세 · 공공요금(공과금)*, 상품권 · 기프트카드 · 선불카드 구매 및 충전금액, 교통카드(모바일 포함) 구매 및 충전금액, 고속버스(차내 단발기 및 고속버스 APP 결제), 아파트관리비(임대료), 각종 수수료 및 이자, 연회비, 단기카드대출(현금서비스), 장기카드대출(카드론), 매출취소금액, 당사에서 제공하는 각종 이벤트의 혜택을 적용받은 매출(단, 이벤트 별로 다를 수 있으니 각 안내 문구 참고)
   * 공공요금(공과금)내역: 4대보험(건강보험/국민연금/고용보험/산재보험), 전기요금, 우편요금, 도시가스요금, 상하수도요금, 과태료 · 범칙금 · 벌금, 여권발급비용, 국가 · 공공기관 · 공공단체(지방자치단체 등)로 개설된 가맹점 이용금액
 ※  할인 및 제외 업종/가맹점은 우리카드 전산상 등록 기준임
@@ -4722,8 +4875,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
   ③ 제휴업체가 카드사의 의사에 반하여 해당 부가서비스를 축소하거나 변경 시 당초 부가서비스에 상응하는 다른 부가서비스를 제공하는 경우
   ④ 부가서비스를 3년 이상 제공한 상태에서 해당 부가서비스로 인해 상품의 수익성이 현저히 낮아진 경우
 - 카드사가 부가서비스를 변경하는 경우 변경사유, 변경내용 등을 아래와 같은 방법으로 사유 발생 즉시 고지하여 드립니다. 다만, 위 ④번 사유로 부가서비스를 변경하는 경우 변경일 6개월 이전부터 매월 고지하여 드립니다.
-- 고지방법: 서면 교부, 우편 또는 전자우편, 전화 또는 팩스, 휴대폰 메시지 또는 이에 준하는 전자적 의사표시 중 2가지 이상의 방법', 'https://api.card-gorilla.com:8080/storage/card/2551/card_img/29587/2551card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (7, 1, 'DA@카드의정석', 5000, 0, '상품출시일 및 부가서비스 변경 안내
+- 고지방법: 서면 교부, 우편 또는 전자우편, 전화 또는 팩스, 휴대폰 메시지 또는 이에 준하는 전자적 의사표시 중 2가지 이상의 방법', 'https://api.card-gorilla.com:8080/storage/card/2551/card_img/29587/2551card.png', 1, 0, '', 0),
+
+(7, 1, 'DA@카드의정석', 5000, 0, '상품출시일 및 부가서비스 변경 안내
 상품 출시일 : 2018 년 6 월 29 일
 카드 이용 시 제공되는 포인트 및 할인 혜택 등의 부가서비스는 카드 신규출시 이후 3 년 이상 축소 · 폐지 없이 유지됩니다.
 상기에도 불구하고 , 다음과 같은 사유가 발생한 경우 카드사는 부가서비스를 변경할 수 있습니다.
@@ -4732,8 +4886,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 ③ 제휴업체가 카드사의 의사에 반하여 해당 부가서비스를 축소하거나 변경 시 , 당초 부가서비스에 상응하는 다른 부가서비스를 제공하는 경우
 ④ 부가서비스를 3 년 이상 제공한 상태에서 해당 부가서비스로 인해 상품의 수익성이 현저히 낮아진 경우
 - 카드사가 부가서비스를 변경하는 경우 변경사유 , 변경내용 등을 아래와 같은 방법으로 사유 발생 즉시 고지하여 드립니다 . 다만 , 위 ④번 사유로 부가서비스를 변경하는 경우 변경일 6 개월 이전부터 매월 고지하여 드립니다.
-- 고지방법 : 서면 교부 , 우편 또는 전자우편 , 전화 또는 팩스 , 휴대폰 메시지 또는 이에 준하는 전자적 의사표시 중 2 가지 이상의 방법', 'https://api.card-gorilla.com:8080/storage/card/87/card_img/20239/87card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (7, 1, '카드의정석 NEW우리V카드', 2000, 300000, '상품출시일 및 부가서비스 변경 안내
+- 고지방법 : 서면 교부 , 우편 또는 전자우편 , 전화 또는 팩스 , 휴대폰 메시지 또는 이에 준하는 전자적 의사표시 중 2 가지 이상의 방법', 'https://api.card-gorilla.com:8080/storage/card/87/card_img/20239/87card.png', 1, 0, '', 0),
+
+(7, 1, '카드의정석 NEW우리V카드', 2000, 300000, '상품출시일 및 부가서비스 변경 안내
 - 상품출시일 : 2010년 4월 15일
 - 카드 이용 시 제공되는 포인트 및 할인혜택 등의 부가서비스는 카드 신규 출시 이후 3 년 이상 축소 · 폐지 없이 유지됩니다
 - 상기에도 불구하고 , 다음과 같은 사유가 발생한 경우 카드사는 부가서비스를 변경할 수 있습니다
@@ -4751,8 +4906,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 할인서비스 등 부가서비스의 월한도 횟수 제한은 전월 이용실적에 따라 당월 1 일 말일까지 적용됩니다.
 - 취소 매출은 취소매출표 접수월 이용실적에서 차감합니다.
 - 카드수령등록일로부터 다음달 말일까지는 이용실적 조건없이 30 만원 실적구간 서비스를 제공하며 , 30 만원이 넘는 경우 해당 실적구간 서비스가 제공됩니다.
-단, 16 일 이후 발급한 고객은 카드수령등록일로부터 2 개월 후 말일까지 전월 이용 실적을 30 만원으로 간주합니다.', 'https://api.card-gorilla.com:8080/storage/card/73/card_img/20155/73card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (7, 1, '카드의정석 POINT', 10000, 300000, '모아포인트 안내
+단, 16 일 이후 발급한 고객은 카드수령등록일로부터 2 개월 후 말일까지 전월 이용 실적을 30 만원으로 간주합니다.', 'https://api.card-gorilla.com:8080/storage/card/73/card_img/20155/73card.png', 0, 0, '', 0),
+
+(7, 1, '카드의정석 POINT', 10000, 300000, '모아포인트 안내
 - 적립/사용단위: 1포인트 = 1원
 - 가족카드 이용액은 본인회원에게 합산적립
 - 우리카드 ‘우리WON멤버스’ 가입 시 보유하신 모아포인트 잔액은 ‘우리WON꿀머니’로 전환되며, 가입이후 본 카드로 사용한 금액은 ‘우리WON꿀머니’로 적립
@@ -4783,8 +4939,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 ③ 제휴업체가 카드사의 의사에 반하여 해당 부가서비스를 축소하거나 변경 시, 당초 부가서비스에 상응하는 다른 부가서비스를 제공하는 경우
 ④ 부가서비스를 3년 이상 제공한 상태에서 해당 부가서비스로 인해 상품의 수익성이 현저히 낮아진 경우
 - 카드사가 부가서비스를 변경하는 경우 변경사유, 변경내용 등을 아래와 같은 방법으로 사유 발생 즉시 고지하여 드립니다. 다만 위 ④번 사유로 부가서비스를 변경하는 경우 변경일 6개월 이전부터 매월 고지하여 드립니다.
-* 고지방법 : 서면 교부, 우편 또는 전자우편, 전화 또는 팩스, 휴대폰 메시지 또는 이에 준하는 전자적 의사표시 중 2가지 이상의 방법', 'https://api.card-gorilla.com:8080/storage/card/84/card_img/20166/84card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (7, 1, 'SKT 우리카드', 0, 300000, '서비스 제공 조건
+* 고지방법 : 서면 교부, 우편 또는 전자우편, 전화 또는 팩스, 휴대폰 메시지 또는 이에 준하는 전자적 의사표시 중 2가지 이상의 방법', 'https://api.card-gorilla.com:8080/storage/card/84/card_img/20166/84card.png', 0, 0, '', 0),
+
+(7, 1, 'SKT 우리카드', 0, 300000, '서비스 제공 조건
 - 카드 이용 시 제공되는 포인트 및 할인혜택 등의 부가서비스는 카드신규출시(2015년 10월 1일) 이후 5년 이상 축소·폐지 없이 유지됩니다.
 - 상기에도 불구하고, 다음과 같은 사유가 발생한 경우 카드사는 부가서비스를 변경할 수있습니다.
   * 카드사 또는 부가서비스 관련 제휴업체의 휴업·도산·경영위기, 천재지변, 금융환경 급변 또는 그 밖에 이에 준하는사유의 발생
@@ -4803,8 +4960,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - SKT 할인서비스는 자동납부시에만 적용되며, 자동납부가 아닌일반 결제시에는 적용되지 않습니다.
 - 할인 받을 금액보다 통신요금 자동납부 승인된 금액 또는 T라이트할부 이용금액이 적을 경우 승인금액만할인이 적용됩니다.
 - 통신료 자동납부 건이 여러건인 경우에도, 합산하여 할인한도 내에서 할인이 적용됩니다.
-- 카드 거래정지(분실신고)등, 한도부족, 카드 재발급 후변경번호 자동이체 재등록 누락 등 자동결제 불가사유 발생 시 할인적용 불가합니다.', 'https://api.card-gorilla.com:8080/storage/card/1555/card_img/22679/1555card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (7, 1, '카드의정석 UNTACT AIR', 15000, 500000, '할인제공 시 유의사항
+- 카드 거래정지(분실신고)등, 한도부족, 카드 재발급 후변경번호 자동이체 재등록 누락 등 자동결제 불가사유 발생 시 할인적용 불가합니다.', 'https://api.card-gorilla.com:8080/storage/card/1555/card_img/22679/1555card.png', 0, 0, '', 0),
+
+(7, 1, '카드의정석 UNTACT AIR', 15000, 500000, '할인제공 시 유의사항
 - 아래는 할인이 제외됩니다.
 ※ 무이자할부 이용금액, 상품권 충전 및 구매금액, 매출취소금액, 당사에서 제공하는 각종 이벤트의 혜택을 적용받은 매출
 (단, 이벤트별로 다를 수 있으니 각 안내문구 참고)
@@ -4834,8 +4992,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 ③ 제휴업체가 카드사의 의사에 반하여 해당 부가서비스를 축소하거나 변경 시, 당초 부가서비스에 상응하는 다른 부가서비스를 제공하는 경우
 ④ 부가서비스를 3년 이상 제공한 상태에서 해당 부가서비스로 인해 상품의 수익성이 현저히 낮아진 경우
 - 카드사가 부가서비스를 변경하는 경우 변경사유, 변경내용 등을 아래와 같은 방법으로 사유 발생 즉시 고지하여 드립니다. 다만 위 ④번 사유로 부가서비스를 변경하는 경우 변경일 6개월 이전부터 매월 고지하여 드립니다.
-* 고지방법 : 서면 교부, 우편 또는 전자우편, 전화 또는 팩스, 휴대폰 메시지 또는 이에 준하는 전자적 의사표시 중 2가지 이상의 방법', 'https://api.card-gorilla.com:8080/storage/card/661/card_img/21424/661card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (7, 1, '카드의정석 APT Platinum', 29000, 400000, '할인 제공 시 유의사항
+* 고지방법 : 서면 교부, 우편 또는 전자우편, 전화 또는 팩스, 휴대폰 메시지 또는 이에 준하는 전자적 의사표시 중 2가지 이상의 방법', 'https://api.card-gorilla.com:8080/storage/card/661/card_img/21424/661card.png', 0, 0, '', 0),
+
+(7, 1, '카드의정석 APT Platinum', 29000, 400000, '할인 제공 시 유의사항
 - 무이자할부 이용금액 할인 제외
 - 할인 및 제외 업종/가맹점은 우리카드 전산상 등록 기준임
 - 전월 실적 40만원 이상 시 할인
@@ -4872,8 +5031,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 일부 비표준화된 해외 가맹점 및 ATM은 비밀번호(PIN) 입력시 6자리를 요구할 수도 있습니다. ‘카드비밀번호 4자리 + 00’을 입력하여 사용하시기 바랍니다.
 - 해외원화결제차단 서비스 설정 방법
   * 우리카드 홈페이지 : 나의카드 ▶ 해외사용등록/해제 ▶ 해외사용설정 ▶ 해외원화결제차단 등록 or 해제
-  * 우리카드 스마트앱 : 카드관리 ▶ 카드해외사용등록/해제 ▶ 해외사용설정 ▶ 해외원화결제 on 또는 off', 'https://api.card-gorilla.com:8080/storage/card/544/card_img/21249/544card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (7, 1, '카드의정석 댕댕냥이(강아지)', 10000, 300000, '할인 제공 시 유의사항
+  * 우리카드 스마트앱 : 카드관리 ▶ 카드해외사용등록/해제 ▶ 해외사용설정 ▶ 해외원화결제 on 또는 off', 'https://api.card-gorilla.com:8080/storage/card/544/card_img/21249/544card.png', 1, 0, '', 0),
+
+(7, 1, '카드의정석 댕댕냥이(강아지)', 10000, 300000, '할인 제공 시 유의사항
 - 무이자할부 이용금액, 각종 세금, 대학교등록금, 아파트관리비, 상품권/선불카드 구입금액 및 충전금액 할인 제외
   * 할인 및 제외 업종/가맹점은 우리카드 전산상 등록 기준임
 - 전월 국내 가맹점 이용금액 30만원 이상 시 할인
@@ -4923,8 +5083,9 @@ Two-in-One 결제서비스
                                          * MasterCard 1%, VISA 1%, UnionPay 0.6%
   ③ 해외서비스 수수료= (거래미화금액 × 해외서비스 수수료율 0.3%) × 전신환 매도율
 - 일부 해외 가맹점 거래 시 IC칩 비밀번호(PIN)를 요구하는 경우가 있으므로 출국 전 반드시 IC칩 비밀번호(PIN) 등록 여부를 확인하시기 바랍니다.
-- 일부 비표준화된 해외 가맹점 및 ATM은 비밀번호(PIN) 입력시 6자리를 요구할 수도 있습니다. ‘카드비밀번호 4자리 + 00’을 입력하여 사용하시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/481/card_img/21171/481card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (7, 1, 'OK캐쉬백 위비할인카드', 10000, 300000, '서비스 제공 조건
+- 일부 비표준화된 해외 가맹점 및 ATM은 비밀번호(PIN) 입력시 6자리를 요구할 수도 있습니다. ‘카드비밀번호 4자리 + 00’을 입력하여 사용하시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/481/card_img/21171/481card.png', 1, 0, '', 0),
+
+(7, 1, 'OK캐쉬백 위비할인카드', 10000, 300000, '서비스 제공 조건
 - 카드 이용 시 제공되는 포인트 혹은 마일리지 및 할인혜택 등의 부가서비스는 카드 신규출시 이후 3년 이상 축소·폐지 없이 유지됩니다.
 - 상기에도 불구하고, 다음과 같은 사유가 발생한 경우 카드사는 부가서비스를 변경할 수 있습니다.
   * 카드사 또는 부가서비스 관련 제휴업체의 휴업·도산·경영위기, 천재지변, 금융환경 급변 또는 그 밖에 이에 준하는 사유의 발생
@@ -4951,8 +5112,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 당사 카드를 이미 소지하신 회원이 본 카드를 추가로 발급받으시는 경우, 연회비는 카드별로 각각 청구됩니다.
 - 회원이 유효기간이 도래하기 전에 카드를 해지한 경우 연회비 반환금액은 계약을 해지한 날부터 일할 계산하여 산정하며, 10영업일 이내에 반환 처리 됩니다. 다만, 불가피한 사유로 10영업일 이내에 반환하기 어려운 경우 계약 해지날부터 3개월 이내에 반환할 수 있습니다. 이 경우 회원이 이미 납부한 연회비에 반영된 다음의 비용은 반환금액 산정에서 제외됩니다.
   ① 카드의 발행·배송 등 카드발급(신규발급)에 소요된 비용
-  ②카드 이용 시 제공되는 추가적인 혜택 등 부가서비스 제공에 소요된 비용', 'https://api.card-gorilla.com:8080/storage/card/1859/card_img/22152/1859card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (5, 1, '현대카드Z family', 10000, 400000, '디자인
+  ②카드 이용 시 제공되는 추가적인 혜택 등 부가서비스 제공에 소요된 비용', 'https://api.card-gorilla.com:8080/storage/card/1859/card_img/22152/1859card.png', 0, 0, '', 0),
+
+(5, 1, '현대카드Z family', 10000, 400000, '디자인
 - 7종의 디자인 중에서 하나를 선택해 발급 받으실 수 있습니다.
 
 
@@ -4976,8 +5138,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 영역별 할인한도 및 1일 1회 할인은 결제 순서가 아닌 현대카드 매출전표 접수 순서를 기준으로 적용
 - 할인 적용된 결제 건을 취소하더라도 해당 매출 취소 정보가 당사에 접수되기 전에는 월 할인한도 초과분은 혜택 적용 제외(매출 취소 접수 후 월 할인한도 복원 가능)
 - 현대카드의 다른 할인(청구 할인) 혜택과 중복될 경우 할인금액이 큰 혜택 적용
-- 자세한 내용은 현대카드 홈페이지(www.hyundaicard.com) 참고', 'https://api.card-gorilla.com:8080/storage/card/730/card_img/22204/730card.png', 1, 'https://www.hyundaicard.com/cpc/cr/CPCCR0201_01.hc?cardWcd=ZF&eventCode=CGE00&agentCode=L500102400000&airbridge_referrer=airbridge%3Dtrue%26event_uuid%3D9e49351f-f632-40b1-b613-26731627ec7d%26client_id%3D6fb00ac0-e90b-40a6-949a-a3b6d16d1e40%26short_id%3Dah7iti%26referrer_timestamp%3D1709882791955%26channel%3Dcardgorilla%26campaign%3DZ%26tracking_template_id%3Db726b149d3dc2326cd0094b239883a0b%26ad_group%3Dfintech%26og_tag_id%3D18015035%26routing_short_id%3Dkdlo8&utm_source=cardgorilla&utm_campaign=Z#cardDetailHash', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (5, 1, '현대카드ZERO Edition3(할인형)', 15000, 0, '이용 안내
+- 자세한 내용은 현대카드 홈페이지(www.hyundaicard.com) 참고', 'https://api.card-gorilla.com:8080/storage/card/730/card_img/22204/730card.png', 1, 0, 'https://www.hyundaicard.com/cpc/cr/CPCCR0201_01.hc?cardWcd=ZF&eventCode=CGE00&agentCode=L500102400000&airbridge_referrer=airbridge%3Dtrue%26event_uuid%3D9e49351f-f632-40b1-b613-26731627ec7d%26client_id%3D6fb00ac0-e90b-40a6-949a-a3b6d16d1e40%26short_id%3Dah7iti%26referrer_timestamp%3D1709882791955%26channel%3Dcardgorilla%26campaign%3DZ%26tracking_template_id%3Db726b149d3dc2326cd0094b239883a0b%26ad_group%3Dfintech%26og_tag_id%3D18015035%26routing_short_id%3Dkdlo8&utm_source=cardgorilla&utm_campaign=Z#cardDetailHash', 0),
+
+(5, 1, '현대카드ZERO Edition3(할인형)', 15000, 0, '이용 안내
 
 할인 제외 기준
 - 장기카드대출(카드론), 단기카드대출(현금서비스), 연회비, 제수수료, 이자
@@ -4993,8 +5156,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 기타 기준
 - 정상 금액 결제 후 할인 적용된 금액으로 회원별 카드 이용 대금 결제일에 청구
 - 모든 가맹점은 현대카드 가맹점 등록 기준
-- 자세한 내용은 현대카드 홈페이지 참고', 'https://api.card-gorilla.com:8080/storage/card/2646/card_img/32392/2646card.png', 1, 'https://www.hyundaicard.com/cpc/ca/CPCCA0101_01.hc?cardWcd=ZROE3&eventCode=ZEFRB&agentCode=L500102400000&airbridge_referrer=airbridge%3Dtrue%26event_uuid%3Dc3367a47-83c8-45b8-b3de-c68cb2f6c28d%26client_id%3D6fb00ac0-e90b-40a6-949a-a3b6d16d1e40%26short_id%3Dzamrqfm%26referrer_timestamp%3D1709882802267%26channel%3Dcardgorilla%26campaign%3DZERO%26tracking_template_id%3D9768ddd43a4f013f9011c6f18bc9820a%26ad_group%3Dfintech%26og_tag_id%3D44548236%26routing_short_id%3Do5p8ga&utm_source=cardgorilla&utm_campaign=ZERO#cardDetailHash', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (5, 1, '네이버 현대카드', 10000, 300000, '네이버 현대카드의 특별한 디자인을 소개합니다.
+- 자세한 내용은 현대카드 홈페이지 참고', 'https://api.card-gorilla.com:8080/storage/card/2646/card_img/32392/2646card.png', 1, 0, 'https://www.hyundaicard.com/cpc/ca/CPCCA0101_01.hc?cardWcd=ZROE3&eventCode=ZEFRB&agentCode=L500102400000&airbridge_referrer=airbridge%3Dtrue%26event_uuid%3Dc3367a47-83c8-45b8-b3de-c68cb2f6c28d%26client_id%3D6fb00ac0-e90b-40a6-949a-a3b6d16d1e40%26short_id%3Dzamrqfm%26referrer_timestamp%3D1709882802267%26channel%3Dcardgorilla%26campaign%3DZERO%26tracking_template_id%3D9768ddd43a4f013f9011c6f18bc9820a%26ad_group%3Dfintech%26og_tag_id%3D44548236%26routing_short_id%3Do5p8ga&utm_source=cardgorilla&utm_campaign=ZERO#cardDetailHash', 0),
+
+(5, 1, '네이버 현대카드', 10000, 300000, '네이버 현대카드의 특별한 디자인을 소개합니다.
 - 나만의 취향에 맞는 카드 디자인을 선택해서 발급 받으세요.
 
 전월 이용금액 산정 기준
@@ -5038,8 +5202,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 적립 혜택은 결제 순서가 아닌 현대카드 매출전표 접수 순서에 따라 적용
 - 결제 취소 시 매출취소 접수된 건에 한해 적립한도 복원 가능(미접수 시 적립한도 초과분 적립 제외)
 - 네이버페이 포인트 사용 및 관리 기준은 네이버 정책을 따름
-- 네이버페이 포인트 적립·사용 조회 및 유효기간 확인은 네이버 홈페이지 또는 앱 참고', 'https://api.card-gorilla.com:8080/storage/card/2233/card_img/20932/2233card.png', 1, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (5, 1, 'the Green Edition2', 150000, 500000, '[전 세계 공항라운지 무료 이용서비스]
+- 네이버페이 포인트 적립·사용 조회 및 유효기간 확인은 네이버 홈페이지 또는 앱 참고', 'https://api.card-gorilla.com:8080/storage/card/2233/card_img/20932/2233card.png', 1, 0, '', 0),
+
+(5, 1, 'the Green Edition2', 150000, 500000, '[전 세계 공항라운지 무료 이용서비스]
 혜택
 - The Lounge Members 무료 이용서비스(전 세계 1,000여 개)
 - The Lounge Members 앱 설치 후 이용 가능
@@ -5092,8 +5257,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 본 서비스에 대한 구체적 내용 및 적용 기준, 변동사항은 VISA/MasterCard 카드사의 내부 약관 및 서비스 규정을 따르며, VISA/MasterCard 카드사의 사정에 의해 사전 공지 없이 변경될 수 있습니다.
 - VISA/MasterCard 서비스의 발레파킹서비스는 제공되지 않으며, the Green Edition2에 제공되는 발레파킹서비스 이용이 가능합니다.
 - VISA 서비스의 라운지서비스는 제공되지 않으며, the Green Edition2로 공항라운지서비스 이용이 가능합니다.(공항라운지 무료 이용서비스 참고 : 홈페이지 > 카드안내·신청 > the Green > 트래블 > The Lounge Members 무료 이용서비스 제공)
-- VISA/MasterCard 서비스와 the Green Edition2 서비스가 상이할 경우, the Green Edition2 서비스가 우선합니다.', 'https://api.card-gorilla.com:8080/storage/card/2260/card_img/27660/2260card.png', 1, 'https://www.hyundaicard.com/cpc/cr/CPCCR0201_01.hc?cardWcd=TGE2&eventCode=CGE00&agentCode=L500102400000&airbridge_referrer=airbridge%3Dtrue%26event_uuid%3D01ac0054-0e43-49e0-8686-96abbeaef8ac%26client_id%3D6fb00ac0-e90b-40a6-949a-a3b6d16d1e40%26short_id%3Dlpv9la%26referrer_timestamp%3D1709882831414%26channel%3Dcardgorilla%26campaign%3DGREEN%26tracking_template_id%3D447a75b8e1d16eac26f585d66777b22f%26ad_group%3Dfintech%26og_tag_id%3D18015059%26routing_short_id%3Dl2p11&utm_source=cardgorilla&utm_campaign=GREEN#cardDetailHash', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (5, 1, '현대카드Z ontact', 10000, 400000, '디자인
+- VISA/MasterCard 서비스와 the Green Edition2 서비스가 상이할 경우, the Green Edition2 서비스가 우선합니다.', 'https://api.card-gorilla.com:8080/storage/card/2260/card_img/27660/2260card.png', 1, 0, 'https://www.hyundaicard.com/cpc/cr/CPCCR0201_01.hc?cardWcd=TGE2&eventCode=CGE00&agentCode=L500102400000&airbridge_referrer=airbridge%3Dtrue%26event_uuid%3D01ac0054-0e43-49e0-8686-96abbeaef8ac%26client_id%3D6fb00ac0-e90b-40a6-949a-a3b6d16d1e40%26short_id%3Dlpv9la%26referrer_timestamp%3D1709882831414%26channel%3Dcardgorilla%26campaign%3DGREEN%26tracking_template_id%3D447a75b8e1d16eac26f585d66777b22f%26ad_group%3Dfintech%26og_tag_id%3D18015059%26routing_short_id%3Dl2p11&utm_source=cardgorilla&utm_campaign=GREEN#cardDetailHash', 0),
+
+(5, 1, '현대카드Z ontact', 10000, 400000, '디자인
 - 7종의 디자인 중에서 하나를 선택해 발급 받으실 수 있습니다.
 
 전월 이용금액 산정 기준
@@ -5116,8 +5282,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 영역별 할인한도 및 1일 1회 할인은 결제 순서가 아닌 현대카드 매출전표 접수 순서를 기준으로 적용
 - 할인 적용된 결제 건을 취소하더라도 해당 매출 취소 정보가 당사에 접수되기 전에는 월 할인한도 초과분은 혜택 적용 제외(매출 취소 접수 후 월 할인한도 복원 가능)
 - 현대카드의 다른 할인(청구 할인) 혜택과 중복될 경우 할인금액이 큰 혜택 적용
-- 자세한 내용은 현대카드 홈페이지(www.hyundaicard.com) 참고', 'https://api.card-gorilla.com:8080/storage/card/732/card_img/22206/732card.png', 1, 'https://www.hyundaicard.com/cpc/cr/CPCCR0201_01.hc?cardWcd=ZO&eventCode=CGE00&agentCode=L500102400000&airbridge_referrer=airbridge%3Dtrue%26event_uuid%3D592e422c-4484-4800-954b-4ce18ed38f1f%26client_id%3D6fb00ac0-e90b-40a6-949a-a3b6d16d1e40%26short_id%3Dbqsriq%26referrer_timestamp%3D1709883101388%26channel%3Dcardgorilla%26campaign%3DZ%26tracking_template_id%3D2d3f0647c36f34f72eb0a5d22deff397%26ad_group%3Dfintech%26og_tag_id%3D18015082%26routing_short_id%3Dvmikp&utm_source=cardgorilla&utm_campaign=Z#cardDetailHash', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (5, 1, '현대카드 MY BUSINESS ZERO Retail&Service', 30000, 0, '이용 안내
+- 자세한 내용은 현대카드 홈페이지(www.hyundaicard.com) 참고', 'https://api.card-gorilla.com:8080/storage/card/732/card_img/22206/732card.png', 1, 0, 'https://www.hyundaicard.com/cpc/cr/CPCCR0201_01.hc?cardWcd=ZO&eventCode=CGE00&agentCode=L500102400000&airbridge_referrer=airbridge%3Dtrue%26event_uuid%3D592e422c-4484-4800-954b-4ce18ed38f1f%26client_id%3D6fb00ac0-e90b-40a6-949a-a3b6d16d1e40%26short_id%3Dbqsriq%26referrer_timestamp%3D1709883101388%26channel%3Dcardgorilla%26campaign%3DZ%26tracking_template_id%3D2d3f0647c36f34f72eb0a5d22deff397%26ad_group%3Dfintech%26og_tag_id%3D18015082%26routing_short_id%3Dvmikp&utm_source=cardgorilla&utm_campaign=Z#cardDetailHash', 0),
+
+(5, 1, '현대카드 MY BUSINESS ZERO Retail&Service', 30000, 0, '이용 안내
 - 모든 가맹점은 현대카드 가맹점 등록 및 업종 분류 기준입니다.
 - 당사는 상품설명서의 내용을 준수합니다.
 - 동일 기간 내 다수의 신용카드를 신청할 경우 신용등급 또는 개인신용평점, 이용한도 등에 영향을 미칠 수 있습니다.
@@ -5129,8 +5296,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 카드사가 부가서비스를 변경하는 경우에는 부가서비스 변경 사유, 변경 내용 등을 사유 발생 즉시 홈페이지에 게시하고, 개별 고지 방법 중 2가지 이상의 방법으로 고지하여 드립니다. 특히 카드 신규 출시 이후 3년 이상 경과했고, 해당 카드의 수익성 유지가 어려워져 부가서비스를 변경하는 경우에는 변경일 6개월 전부터 2가지 이상의 방법으로 매월 개별 고지해 드립니다.
   * 개별 고지 방법 : 서면 교부, 우편 또는 이메일, 전화 또는 팩스, 휴대폰 메시지 또는 이에 준하는 전자적 의사표시
 - 연회비는 카드 발급 시 선청구됩니다.
-- 카드 연회비(기본연회비 + 제휴연회비)는 보유 카드별로 청구됩니다.', 'https://api.card-gorilla.com:8080/storage/card/2293/card_img/23896/2293card.png', 1, 'https://www.hyundaicard.com/cpc/cr/CPCCR0201_01.hc?cardWcd=ZROMBR&eventCode=CGE00&agentCode=L500102400000', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (6, 1, '원더카드 Life', 19900, 0, '원더카드 안내
+- 카드 연회비(기본연회비 + 제휴연회비)는 보유 카드별로 청구됩니다.', 'https://api.card-gorilla.com:8080/storage/card/2293/card_img/23896/2293card.png', 1, 0, 'https://www.hyundaicard.com/cpc/cr/CPCCR0201_01.hc?cardWcd=ZROMBR&eventCode=CGE00&agentCode=L500102400000', 0),
+
+(6, 1, '원더카드 Life', 19900, 0, '원더카드 안내
 - 대상카드 : 원더카드
 - 맞춤혜택조합 : 원더 Life (국내전용/해외겸용(mastercard, VISA, AMEX) 19,900원)
 
@@ -5162,8 +5330,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 할부 이용 전체 금액은 할부 이용한 달의 이용금액으로 반영됩니다.
 
 서비스 제외 대상
-- 국세, 지방세, 공과금(인터넷/모바일앱을 통한 공과금 납부금액 포함), 국민연금/고용보험료/산재보험료/건강보험료 납부금액, 상품권 및 기프트카드 구매, 선불카드 및 선불전자지급수단(하나머니 등) 충전 금액, 수도요금, 대학등록금, 대학원등록금, 스쿨뱅킹, 부동산임대료, 초/중/고 학교납입금, 무이자할부 및 부분무이자할부 이용금액 전체', 'https://api.card-gorilla.com:8080/storage/card/2654/card_img/32266/2654card.png', 0, 'https://m.hanacard.co.kr/MKCDCM1010M.web?CD_PD_SEQ=17495', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (6, 1, '1Q Daily+[40주년 에디션]', 10000, 0, '유의사항
+- 국세, 지방세, 공과금(인터넷/모바일앱을 통한 공과금 납부금액 포함), 국민연금/고용보험료/산재보험료/건강보험료 납부금액, 상품권 및 기프트카드 구매, 선불카드 및 선불전자지급수단(하나머니 등) 충전 금액, 수도요금, 대학등록금, 대학원등록금, 스쿨뱅킹, 부동산임대료, 초/중/고 학교납입금, 무이자할부 및 부분무이자할부 이용금액 전체', 'https://api.card-gorilla.com:8080/storage/card/2654/card_img/32266/2654card.png', 0, 0, 'https://m.hanacard.co.kr/MKCDCM1010M.web?CD_PD_SEQ=17495', 0),
+
+(6, 1, '1Q Daily+[40주년 에디션]', 10000, 0, '유의사항
 - 1Q Daily+는 ‘하나멤버스 1Q카드 Daily’와는 다른 상품이며, 서비스 내용에 차이가 있으니 유의하시기 바랍니다.
 
 지난달 실적과 관계없이 서비스 제공하는 기간
@@ -5198,8 +5367,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
   * 신규출시 후 부가서비스 축소 변경 없이 3년 이상 경과했고, 현재의 부가서비스를 유지할 경우 해당 카드의 수익성 유지가 어려운 경우
 - 카드사가 부가서비스를 변경하는 경우에는 부가서비스 변경 사유, 변경 내용 등을 사유발생 즉시 홈페이지에 게시하고, 개별 고지해 드립니다.
 - 특히 카드 신규 출시 이후 3년 이상 경과했고, 해당 카드의 수익성 유지가 어려워져 부가서비스를 변경하는 경우에는 6개월 전부터 매월 개별고지 해 드립니다.
-  * 개별고지방법 : 이용대금명세서, 우편서신, 전자우편(E-MAIL), 휴대폰 문자메시지 서비스 중 한가지', 'https://api.card-gorilla.com:8080/storage/card/2232/card_img/20931/2232card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (6, 1, 'CLUB Premier (Travel 형)', 210000, 0, '유의사항
+  * 개별고지방법 : 이용대금명세서, 우편서신, 전자우편(E-MAIL), 휴대폰 문자메시지 서비스 중 한가지', 'https://api.card-gorilla.com:8080/storage/card/2232/card_img/20931/2232card.png', 0, 0, '', 0),
+
+(6, 1, 'CLUB Premier (Travel 형)', 210000, 0, '유의사항
 - Daily Service는 최초 카드 사용등록일부터 다음달 말일까지는 지난달 실적에 관계없이 서비스 제공 됩니다.
 - 공통안내의 서비스 제공 조건을 확인하시기 바랍니다.
 
@@ -5241,8 +5411,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 해외 가맹점에서 원화거래시(DCC) 추가 수수료가 부과되므로 현지통화 또는 미화로 거래하시기 바랍니다.
 - 결제 계좌 개설기관의 영업 마감시간(16시) 이후 결제 계좌에 입금된 금액에 대해서는 결제 계좌 개설 기관의 사정에 따라 당일 출금되지 못하여 연체로 처리 될 수 있으므로 유의하시기 바랍니다.
 - 자동납부 업무 마감시간 이후 당사 홈페이지 / 모바일 등에서 즉시결제 또는 가상계좌 입금(송금납부)을 통해 당일 결제가 가능합니다.
-- 세부내용은 하나카드 홈페이지[고객센터-카드이용안내-결제안내] 및 모바일 앱[고객센터 탭] 참고', 'https://api.card-gorilla.com:8080/storage/card/447/card_img/20955/447card.png', 0, 'https://www.hanacard.co.kr/OPI42000000D.web?_frame=no&CD_PD_SEQ=10806&bansrc=cardgorilla&ban_nm=clubpremiertravel', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (6, 1, '1Q Special+', 10000, 300000, '유의사항
+- 세부내용은 하나카드 홈페이지[고객센터-카드이용안내-결제안내] 및 모바일 앱[고객센터 탭] 참고', 'https://api.card-gorilla.com:8080/storage/card/447/card_img/20955/447card.png', 0, 0, 'https://www.hanacard.co.kr/OPI42000000D.web?_frame=no&CD_PD_SEQ=10806&bansrc=cardgorilla&ban_nm=clubpremiertravel', 0),
+
+(6, 1, '1Q Special+', 10000, 300000, '유의사항
 - 1Q Special+는 ‘하나멤버스 1Q카드 Special’과는 다른 상품이며, 서비스 내용에 차이가 있으니 유의하시기 바랍니다.
 
 지난달 실적과 관계없이 서비스 제공하는 기간
@@ -5296,8 +5467,9 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 해외 가맹점에서 원화거래 시(DCC)추가 수수료가 부과되므로 현지통화 또는 미화로 거래하시기 바랍니다.
 - 결제 계좌 개설기관의 영업 마감시간(16시) 이후 결제 계좌에 입금된 금액에 대해서는 결제 계좌 기관의 사정에 따라 당일 출금되지 못하여 연체로 처리될 수 있으므로 유의하시기 바랍니다.
 - 자동납부 업무 마감시간 이후 당사 홈페이지 / 모바일 등에서 즉시 결제 또는 가상계좌 입금(송금납부)을 통해 당일 결제가 가능 합니다.
-- 세부내용은 하나카드 홈페이지[고객센터-카드이용안내-결제안내] 및 모바일 앱[고객센터 탭] 참고', 'https://api.card-gorilla.com:8080/storage/card/241/card_img/20468/241card.png', 0, '', 0);
-INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, join_path, is_expired) VALUES (6, 1, '원더카드 LIVING', 19900, 400000, '서비스 확인
+- 세부내용은 하나카드 홈페이지[고객센터-카드이용안내-결제안내] 및 모바일 앱[고객센터 탭] 참고', 'https://api.card-gorilla.com:8080/storage/card/241/card_img/20468/241card.png', 0, 0, '', 0),
+
+(6, 1, '원더카드 LIVING', 19900, 400000, '서비스 확인
 - 이용 중인 원더카드 서비스는 원큐페이 앱에서 확인 가능합니다.
 - 카드 신청 시 선택한 맞춤 혜택 조합 서비스의 상세한 내용은 원큐페이 앱에서 확인 가능하며, 카드 발급 후 직접 변경하여 이용 가능합니다.
 
@@ -5325,67 +5497,5 @@ INSERT INTO card_db.card (card_company_id, card_type, card_name, annual_fee, pre
 - 할부 이용 전체 금액은 할부 이용한 달의 이용금액으로 반영됩니다.
 
 서비스 제외 대상
-- 국세, 지방세, 공과금(인터넷/모바일앱을 통한 공과금 납부금액 포함), 국민연금/고용보험료/산재보험료/건강보험료 납부금액, 상품권 및 기프트카드 구매, 선불카드 및 선불전자지급수단(하나머니 등) 충전 금액, 수도요금, 대학등록금, 대학원등록금, 스쿨뱅킹, 부동산임대료, 초/중/고 학교납입금, 무이자할부 및 부분무이자할부 이용금액 전체', 'https://api.card-gorilla.com:8080/storage/card/2447/card_img/27742/2447card.png', 0, '', 0);
-
-
-#3-2. user dummy
-insert into user(birth, name, phone_number)
-values ("000101", "일싸피", "01011111111"),
-       ("000102", "이싸피", "01022222222"),
-       ("000103", "삼싸피", "01033333333"),
-       ("000104", "사싸피", "01044444444"),
-       ("000105", "오싸피", "01055555555"),
-       ("000106", "육싸피", "01066666666")
+- 국세, 지방세, 공과금(인터넷/모바일앱을 통한 공과금 납부금액 포함), 국민연금/고용보험료/산재보험료/건강보험료 납부금액, 상품권 및 기프트카드 구매, 선불카드 및 선불전자지급수단(하나머니 등) 충전 금액, 수도요금, 대학등록금, 대학원등록금, 스쿨뱅킹, 부동산임대료, 초/중/고 학교납입금, 무이자할부 및 부분무이자할부 이용금액 전체', 'https://api.card-gorilla.com:8080/storage/card/2447/card_img/27742/2447card.png', 0, 0, '', 0)
 ;
-
-#4-2. user_card dummy
-insert into user_card(user_id, card_id, card_identifier, card_number, card_cvc, card_password, card_member, expired_year, expired_month, token)
-values (1, 22, "ce42cfa3f011c5560bb6bf744a32e609bffaf2c1953f61ef92cd75d5ba1aba17", "1000000000000001", "000", "1234", 0, "25", "01", null),
-       (1, 57, "3e10f9ada03f6268a79f11dcdd4b19a75d9f5c7bf627b30740d686aeab0f6ec5", "1000000000000002", "000", "1234", 0, "25", "01", null),
-       (1, 96, "f8d75b27bb43f303c04891d4c669b5a37543b8873bcd156e65321bf645c9d92a", "1000000000000003", "000", "1234", 0, "25", "01", null),
-       (1, 27, "2668d59654d6bf0acd1929f8f27aebffb1be4243079294a5c7071ed308720908", "1000000000000004", "000", "1234", 0, "25", "01", null),
-       (1, 1, "cdb9d2053137920a4929560e561589e776210eb014201b6de24b998aa1e0c4fe", "1000000000000005", "000", "1234", 0, "25", "01", null),
-       (1, 45, "2ece585d69444b6770f1eaa4982d6fbcfe07628159804252687c1bb9ba684e07", "1000000000000006", "000", "1234", 0, "25", "01", null),
-
-       (2, 33, "793e3bb26b15a933a9505210390dac4cc57f4c0d19adebae515782a847dcfa3f", "2000000000000001", "000", "1234", 0, "25", "01", null),
-       (2, 153, "e9760ae2e0f38470c98de435ffa8d53580543e9813b0e709377a94c11c0deb66", "2000000000000002", "000", "1234", 0, "25", "01", null),
-       (2, 180, "f9ff9b48b39af2da105b88a6d4fa5dca364f18e913307eb1bed6671158aaa0cd", "2000000000000003", "000", "1234", 0, "25", "01", null),
-       (2, 22, "440fdf94f565b75633a5b4cd530c574daf58d89784ec6bb7a69e144b23faefbe", "2000000000000004", "000", "1234", 0, "25", "01", null),
-       (2, 124, "93107d63bf900ae6c2d85818c2f69deea0d13189a5f216e0999d2f707bb0c36a", "2000000000000005", "000", "1234", 0, "25", "01", null),
-       (2, 45, "cd7a6429d09f5c89b1bfad90be9378547587b2b9cfd418ad9cae9207ff8a153b", "2000000000000006", "000", "1234", 0, "25", "01", null),
-
-       (3, 96, "210685892aac98682648008b06df73039eb3819936f3dddae877a05fd2f7312a", "3000000000000001", "000", "1234", 0, "25", "01", null),
-       (3, 27, "8742016dc40b3734eb0be058c85c93cebe6b0f37773c7306f40835c3c965653b", "3000000000000002", "000", "1234", 0, "25", "01", null),
-       (3, 1, "0cfac32761a8ed21ee94509a17eb3d573646a3bf4d7bd894e3b7ef4bc4fde0c2", "3000000000000003", "000", "1234", 0, "25", "01", null),
-       (3, 180, "07956d23cc706157732027953d5fb1017b9142b7f221728caf1254be1e5affe1", "3000000000000004", "000", "1234", 0, "25", "01", null),
-       (3, 124, "40128a911fbde97eb0128d09f5aac92c685a7e3c3bcd62b29af89b672535c8c5", "3000000000000005", "000", "1234", 0, "25", "01", null),
-       (3, 33, "7e9e774994ebff2c618bc26dcabbb31885f3de6a140536faa75f9a692d286085", "3000000000000006", "000", "1234", 0, "25", "01", null),
-
-       (4, 22, "02367e31067c40aa27cb97ff6645e2a84333b8fdf434b444b77aeba4161c09d9", "4000000000000001", "000", "1234", 0, "25", "01", null),
-       (4, 57, "58c639c2cf67d78852ee20de39cf5018203680e50d6467f14221283e7a0bd143", "4000000000000002", "000", "1234", 0, "25", "01", null),
-       (4, 33, "61d53c2026cc2888249da1b61a1b93c91e389b364418c816157822abd012883c", "4000000000000003", "000", "1234", 0, "25", "01", null),
-       (4, 124, "9320d2487a5883b2fd8ccf2ddc1eeb2fa5636a18bd9dddcaf27b5239118d2cb6", "4000000000000004", "000", "1234", 0, "25", "01", null),
-       (4, 1, "5aabb076ae8b5797e9cab8f83f0c22f524847de59a755ff3ff20a43cd16612c8", "4000000000000005", "000", "1234", 0, "25", "01", null),
-       (4, 153, "ddc51e5e48987360c5f496d94928ff58a124ead6b3a7403b26dcc40bee23189e", "4000000000000006", "000", "1234", 0, "25", "01", null),
-
-       (5, 153, "f8adabfdd1bc82491a5fbbbd61b42d72fb79811962d3642b8d859ff1a73a40b7", "5000000000000001", "000", "1234", 0, "25", "01", null),
-       (5, 96, "be6bec53442e8ccb4774096e77b83df4f733f03be1abd546d736c2d2a7d664de", "5000000000000002", "000", "1234", 0, "25", "01", null),
-       (5, 3, "23eee50fb13b1085a800281273312da8612e37c6d4282283c2858ac6f96acb8c", "5000000000000003", "000", "1234", 0, "25", "01", null),
-       (5, 18, "372ffe760147a1ed2a00e9a11d1dbdb688576a43ff3cbcb8c9df8a9da7fb37ef", "5000000000000004", "000", "1234", 0, "25", "01", null),
-       (5, 49, "108ef8801bafacf5bd56e94408c2a525f65024a0e80948996ebe0646e0f7bab8", "5000000000000005", "000", "1234", 0, "25", "01", null),
-       (5, 17, "01c1b39bfb4353da7ed1ec39eeed8e1426cf33429fb4f360a5af779dfcaa1612", "5000000000000006", "000", "1234", 0, "25", "01", null),
-
-       (6, 153, "c69b0f96756bf5c8fecfde7f23940d3ec082608789499f457f1cdd3055f7e144", "6000000000000001", "000", "1234", 0, "25", "01", null),
-       (6, 27, "4a05cb02a790e6009429865b80fa52b7e9143349f1466622d47dfd529f246c4b", "6000000000000002", "000", "1234", 0, "25", "01", null),
-       (6, 124, "f3af21ef05b75ea075f19e6413653bafa1493677ea75814c57c80367ca3b6c45", "6000000000000003", "000", "1234", 0, "25", "01", null),
-       (6, 3, "ce716d4bfa9cab72403b77a00e4e3e0a8e661f1d92aac9404294e95873218aeb", "6000000000000004", "000", "1234", 0, "25", "01", null),
-       (6, 172, "70ee929908519ffd7f3604c6aaa27fe85f692205c102eade1f923b0980cfce45", "6000000000000005", "000", "1234", 0, "25", "01", null),
-       (6, 19, "1b13b992e7201f756e226255bac477dd35ed78c60619af7878041fd385e2609d", "6000000000000006", "000", "1234", 0, "25", "01", null)
-;
-
-
-#5-2. card_history dummy
-
-# insert into card_history(user_card_id, status, pay_type, approved_num, approved_date_time, approved_amt, trans_date_time, modified_amt, merchant_name, merchant_regno, total_install_cnt, large_category_id, small_category_id)
-# values ();
-
