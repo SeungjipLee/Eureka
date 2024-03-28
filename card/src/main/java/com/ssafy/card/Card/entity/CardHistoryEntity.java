@@ -53,6 +53,5 @@ public class CardHistoryEntity {
     @NotNull
     int largeCategoryId;
 
-    @NotNull
     int smallCategoryId;
 }
