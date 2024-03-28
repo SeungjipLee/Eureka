@@ -15,7 +15,9 @@ public enum ResponseCode {
     INVALID_USER_NAME(500, "존재하지 않는 유저 Name"),
     INVALID_USER_BIRTH(500, "존재하지 않는 유저 Birth"),
     INVALID_REFRESH_TOKEN(500, "유효하지 않은 RefreshToken."),
+
     INVALID_ACCESS_TOKEN(500, "유효하지 않은 AccessToken"),
+
 
     // 카드
     NOT_FOUND_CARD(404, "존재하지 않는 카드"),
