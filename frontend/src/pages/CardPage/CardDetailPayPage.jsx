@@ -1,63 +1,97 @@
-import { StyleSheet, Text, View, Pressable, ScrollView } from "react-native"
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Text, View, Image, Pressable, ScrollView } from "react-native"
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import TokenUtils from "../../stores/TokenUtils";
+import { getCardHistory } from "../../apis/CardAPi";
 
-function CardDetailPayPage() {
+function CardDetailPayPage({ route }) {
   const navigation = useNavigation()
-  const data = {
-    month: 2403,
-    name: "삼성카드 taptap O",
-    imgUrl: require('../../../assets/card.png'),
-    creditCheck: "신용",
-    cardStatus: "보유 카드",
-    target: 400000,
-    now: 224000,
-    benefits: 64000,
-    consumes: [
-      {
-        idx: 1,
-        place: '스타벅스',
-        date: '2024.01.01',
-        time: '09:30',
-        price: 30000
-      },
-      {
-        idx: 2,
-        place: '풋살장',
-        date: '2024.01.01',
-        time: '09:30',
-        price: 41000
-      },
-      {
-        idx: 3,
-        place: '욜로 PC방',
-        date: '2024.01.01',
-        time: '09:30',
-        price: 51200
-      },
-      {
-        idx: 4,
-        place: '스타벅스',
-        date: '2024.01.01',
-        time: '09:30',
-        price: 13200
-      },
-      {
-        idx: 5,
-        place: '풋살장',
-        date: '2024.01.01',
-        time: '09:30',
-        price: 41200
-      },
-      {
-        idx: 6,
-        place: '욜로 PC방',
-        date: '2024.01.01',
-        time: '09:30',
-        price: 33200
-      },
-    ]
+  const { months, userCardId } = route.params || {};
+  const [token, setToken] = useState('')
+  const [cardHistory, setCardHistory] = useState([])
+  const [month, setMonth] = useState(`${months}`)
+  const [year, setYear] = useState('2024')
+
+  useEffect(() => {
+    const fetchToken = async () => {
+      const accessToken = await TokenUtils.getAccessToken();
+      setToken(accessToken);
+    };
+  
+    fetchToken();
+  }, []);
+
+  const fetchHistoryList = async () => {
+    if (token) {
+      try {
+        const res = await getCardHistory(token, userCardId, year + month);
+        setCardHistory(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchHistoryList()
+      return () => {};
+    }, [token])
+  );
+
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false };
+    const date = new Date(dateString);
+    const formattedDate = new Intl.DateTimeFormat('ko-KR', options).format(date);
+    return formattedDate.replace(/\./g, '-').replace(/(\d{4}-\d{2}-\d{2})/, '$1 ').trim();
   }
+
+  const goToPrevMonth = () => {
+    let newYear = parseInt(year);
+    let newMonth = parseInt(month) - 1;
+    if (newMonth === 0) {
+      newMonth = 12;
+      newYear -= 1;
+    }
+  
+    newMonth = newMonth.toString().padStart(2, '0');
+  
+    setYear(newYear.toString());
+    setMonth(newMonth);
+    fetchData(newYear.toString(), newMonth);
+  };
+
+  const goToNextMonth = () => {
+    let newYear = parseInt(year);
+    let newMonth = parseInt(month) + 1;
+    if (newMonth === 13) {
+      newMonth = 1;
+      newYear += 1;
+    }
+  
+    newMonth = newMonth.toString().padStart(2, '0');
+  
+    setYear(newYear.toString());
+    setMonth(newMonth);
+    fetchData(newYear.toString(), newMonth);
+  };
+
+  const fetchData = async (newYear, newMonth) => {
+    if (token) {
+      try {  
+        const cardHistoryResponse = await getCardHistory(token, userCardId, newYear + newMonth);
+        setCardHistory(cardHistoryResponse.data);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
+  
+  useEffect(() => {
+    fetchData(year, month);
+  }, [token, year, month]);
+
   return (
     <View>
       <View style={{flexDirection:'row', alignItems: 'center', marginTop: 30}}>
@@ -68,47 +102,54 @@ function CardDetailPayPage() {
       </View>
         <View style={styles.costContainer}>
             <View style={{flexDirection:'row', justifyContent:'space-around', alignItems:'center'}}>
-              <Pressable onPress={() => navigation.navigate('CardHome')} style={{  marginLeft: 20 }}>
-                <MaterialCommunityIcons name="chevron-left" size={50} color="#B8B8B8"/>
-              </Pressable>
-              <Text style={{fontSize: 24}}>3월📅</Text>
-              <Pressable onPress={() => navigation.navigate('CardHome')} style={{ marginRight: 20 }}>
-                <MaterialCommunityIcons name="chevron-right" size={50} color="#B8B8B8"/>
-              </Pressable>
+            <Pressable onPress={goToPrevMonth}>
+            <MaterialCommunityIcons name="chevron-left" size={50} color="#B8B8B8"/>
+          </Pressable>
+          <Text style={{fontSize: 24}}>{year}년 {month}월</Text>
+          <Pressable onPress={goToNextMonth}>
+            <MaterialCommunityIcons name="chevron-right" size={50} color="#B8B8B8"/>
+          </Pressable>
             </View>
-            <View style={{flexDirection: 'row', alignItems:'center', justifyContent:'space-around', marginTop: 10}}>
-              <Text style={{fontSize: 16, marginVertical: 10}}>이용 내역</Text>
-              <Text>
-                <Text style={{fontSize: 20, fontWeight:'bold'}}>{data.now}</Text>  원
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems:'center', marginVertical: 10 }}>
+          <Text style={{ fontSize: 16, marginLeft: 20, marginVertical: 10 }}>이용 내역</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'flex-end', marginEnd: 30}}>
+            <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
+              {cardHistory.monthTotalConsumption}
+            </Text>
+            <Text> 원</Text>
+            </View>
+          </View>
+
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems:'center', marginBottom: 10}}>
+            <Text style={{ fontSize: 16, marginLeft: 20, marginVertical: 10 }}>받은 혜택</Text>
+            <View style={{ flexDirection: 'row', alignItems: 'flex-end', marginEnd: 30}}>
+              <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#447FFF' }}>
+                {cardHistory.monthTotalDiscount}
               </Text>
+              <Text> 원</Text>
             </View>
-            <View style={{flexDirection: 'row', alignItems:'center', justifyContent:'space-around'}}>
-              <Text style={{fontSize: 16, marginVertical: 10}}>받은 혜택</Text>
-              <Text>
-                <Text style={{fontSize: 20, fontWeight:'bold', color: '#447FFF'}}>{data.benefits}</Text>  원
-              </Text>
-            </View>
+          </View>
             <Text style={{fontSize: 16, marginTop: 20, margin: 10, fontWeight:'bold', color: '#B4B4B4'}}>최근 결제</Text>
             <View style={{width: '100%', backgroundColor: '#B4B4B4', height: 3, alignSelf:'center'}}></View>
             <ScrollView>
-              {data.consumes.map((item) => (
-                <View key={item.idx}>
-                <View 
-                  style={{ 
-                    flexDirection: 'row', 
-                    justifyContent: 'space-between',
-                    alignItems:'center',
-                    padding: 10,
-                    marginHorizontal: 10,
+              {(cardHistory.myDataCardHistoryList || []).slice().reverse().map((item) => (
+                <View key={item.approvedNum}>
+                  <View 
+                    style={{ 
+                      flexDirection: 'row', 
+                      justifyContent: 'space-between',
+                      alignItems:'center',
+                      padding: 10,
+                      marginHorizontal: 10,
                     }}>
-                  <View>
-                    <Text style={{ fontWeight: 'bold' }}>{item.place}</Text>
-                    <Text style={{ textAlign: 'right', color: '#B4B4B4' }}>{item.date} {item.time}</Text>  
+                    <View>
+                      <Text style={{ fontWeight: 'bold' }}>{item.merchantName}</Text>
+                      <Text style={{ textAlign: 'right', color: '#B4B4B4' }}>{formatDate(item.approvedDateTime)}</Text>  
+                    </View>
+                    <View>
+                      <Text style={{ textAlign: 'right', fontWeight: 'bold', color: '#333', fontSize: 16,}}>{item.approvedAmt.toLocaleString()}원</Text>
+                    </View>
                   </View>
-                  <View>
-                    <Text style={{ textAlign: 'right', fontWeight: 'bold', color: '#333', fontSize: 16,}}>{item.price.toLocaleString()}원</Text>
-                  </View>
-                </View>
                   <View style={{width: '100%', backgroundColor: '#B4B4B4', height: 1, alignSelf:'center'}}></View>
                 </View>
               ))}

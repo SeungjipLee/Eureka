@@ -43,9 +43,9 @@ public class UserCardController {
     // 현재까지 사용 금액도 보여줘야 하는데 이번 달 사용금액(통계) API가 필요
     @Operation(summary = "등록한 결제 카드 조회")
     @GetMapping("/list/pay")
-    public ResponseEntity<?> payUserCardList(@AuthenticationPrincipal UserDetails userDetails){
+    public ResponseEntity<?> payUserCardList(@AuthenticationPrincipal UserDetails userDetails, String yyyymm){
         log.debug("등록한 결제 카드 조회, userId : " + userDetails.getUsername());
-        return ResponseEntity.ok(userCardService.payUserCardList(userDetails.getUsername()));
+        return ResponseEntity.ok(userCardService.payUserCardList(userDetails.getUsername(), yyyymm));
     }
 
     @Operation(summary = "카드 정보")

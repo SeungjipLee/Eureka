@@ -17,6 +17,8 @@ import com.ssafy.eureka.domain.user.dto.request.SendMessageRequest;
 import com.ssafy.eureka.domain.user.dto.request.SignUpRequest;
 import com.ssafy.eureka.domain.user.dto.response.CheckUserRespnose;
 import com.ssafy.eureka.domain.user.dto.response.JwtTokenResponse;
+import com.ssafy.eureka.domain.user.dto.response.UserDataTokenResponse;
+import com.ssafy.eureka.domain.user.dto.response.UserDataTokenResponse.UserData;
 import com.ssafy.eureka.domain.user.repository.RefreshTokenRepository;
 import com.ssafy.eureka.domain.user.repository.UserRepository;
 import com.ssafy.eureka.util.AesUtil;
@@ -45,7 +47,12 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void sendMessage(SendMessageRequest sendMessageRequest) {
-        // 문자 전송
+        // 회원 조회
+
+
+        // 존재하면 전송
+
+
     }
 
     @Override
@@ -72,7 +79,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public JwtTokenResponse checkUser(CheckUserRequest checkUserRequest) {
+    public UserDataTokenResponse checkUser(CheckUserRequest checkUserRequest) {
         // 인증번호 체크
         if(!checkUserRequest.getAuthNumber().equals("123456")){
             throw new CustomException(ResponseCode.PASSWORD_ERROR);
@@ -109,12 +116,16 @@ public class UserServiceImpl implements UserService{
 
         mydataTokenRepository.save(myDataToken);
 
-        return jwtTokenResponse;
+        UserDataTokenResponse userData = new UserDataTokenResponse(
+            jwtTokenResponse.getAccessToken(), jwtTokenResponse.getRefreshToken(),
+            new UserData(checkUserRequest.getUserName(), userUtil.formatBirthDate(checkUserRequest.getUserBirth(), checkUserRequest.getUserGender()), checkUserRequest.getPhoneNumber()));
+
+        return userData;
     }
 
     @Override
     @Transactional
-    public JwtTokenResponse signUp(SignUpRequest signUpRequest) {
+    public UserDataTokenResponse signUp(SignUpRequest signUpRequest) {
         String encodePhoneNumber = aesUtil.encrypt(signUpRequest.getPhoneNumber());
 
         if(userRepository.findByPhoneNumber(encodePhoneNumber).isPresent()){
@@ -147,11 +158,15 @@ public class UserServiceImpl implements UserService{
 
         mydataTokenRepository.save(myDataToken);
 
-        return jwtTokenResponse;
+        UserDataTokenResponse userData = new UserDataTokenResponse(
+            jwtTokenResponse.getAccessToken(), jwtTokenResponse.getRefreshToken(),
+            new UserData(signUpRequest.getUserName(), userUtil.formatBirthDate(signUpRequest.getUserBirth(), signUpRequest.getUserGender()), signUpRequest.getPhoneNumber()));
+
+        return userData;
     }
 
     @Override
-    public JwtTokenResponse login(LoginRequest loginRequest) {
+    public UserDataTokenResponse login(LoginRequest loginRequest) {
         UserEntity user = userRepository.findByUserId(loginRequest.getUserId())
             .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
 
@@ -185,7 +200,11 @@ public class UserServiceImpl implements UserService{
 
         mydataTokenRepository.save(myDataToken);
 
-        return jwtTokenResponse;
+        UserDataTokenResponse userData = new UserDataTokenResponse(
+            jwtTokenResponse.getAccessToken(), jwtTokenResponse.getRefreshToken(),
+            new UserData(user.getUserName(), userUtil.formatBirthDate(userBirth, user.getUserGender()), phoneNumber));
+
+        return userData;
     }
 
     @Override
