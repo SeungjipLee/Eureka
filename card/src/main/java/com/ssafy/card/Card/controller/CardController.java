@@ -48,7 +48,7 @@ public class CardController {
     @PostMapping("/pay")
     public ApiResponse<?> approvePay(@AuthenticationPrincipal UserDetails userDetails,
         @RequestBody ApprovePayRequest approvePayRequest){
-
+        log.debug("결제 요청, 카드번호 : " +  userDetails.getUsername());
         ApprovePayResponse result = cardService.approvePay(approvePayRequest);
 
         return new ApiResponse<>(ResponseCode.SUCCESS.getMessage(), ResponseCode.SUCCESS.getStatus(), result);

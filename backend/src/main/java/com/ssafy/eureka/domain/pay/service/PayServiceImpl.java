@@ -24,7 +24,7 @@ import com.ssafy.eureka.domain.pay.dto.response.PayHistoryListResponse;
 import com.ssafy.eureka.domain.pay.dto.response.PayHistoryResponse;
 import com.ssafy.eureka.domain.pay.repository.PayHistoryRepository;
 import com.ssafy.eureka.domain.pay.repository.PayInfoRepository;
-import com.ssafy.eureka.domain.payment.dto.request.PayRequest;
+import com.ssafy.eureka.domain.payment.dto.request.ApprovePayRequest;
 import com.ssafy.eureka.domain.payment.dto.response.PayResponse;
 import com.ssafy.eureka.domain.payment.feign.PaymentFeign;
 import java.util.ArrayList;
@@ -103,7 +103,7 @@ public class PayServiceImpl implements PayService{
         UserCardEntity userCard = userCardRepository.findByUserCardId(aprrovePayRequest.getUserCardId())
             .orElseThrow(() -> new CustomException(ResponseCode.USER_CARD_NOT_FOUND));
 
-        PayRequest payRequest = new PayRequest(userCard.getCardIdentifier(), userCard.getToken(), payInfo);
+        ApprovePayRequest payRequest = new ApprovePayRequest(userCard.getCardIdentifier(), userCard.getToken(), payInfo);
 
         MyDataApiResponse<?> response = paymentFeign.requestPay(userCard.getToken(), payRequest);
 
