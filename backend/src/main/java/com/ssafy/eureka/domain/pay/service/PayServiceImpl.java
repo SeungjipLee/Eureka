@@ -23,7 +23,9 @@ import com.ssafy.eureka.domain.payment.dto.request.PayRequest;
 import com.ssafy.eureka.domain.payment.dto.response.PayResponse;
 import com.ssafy.eureka.domain.payment.feign.PaymentFeign;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.parameters.P;
@@ -52,6 +54,7 @@ public class PayServiceImpl implements PayService{
         List<UserCardEntity> userCardList = userCardRepository.findAllByUserIdAndIsPaymentEnabledTrue(Integer.parseInt(userId));
 
         List<RecommendCard> list = new ArrayList<>();
+        Map<Integer, Integer> cardToDiscount = new HashMap<>();
 
         for(UserCardEntity userCard : userCardList){
             CardEntity cardProd = cardRepository.findByCardId(userCard.getCardId());
@@ -67,12 +70,12 @@ public class PayServiceImpl implements PayService{
                 card.setDiscountAmount(Math.toIntExact(requestPayRequest.getTotalAmount()));
             }
 
+            cardToDiscount.put(card.getUserCardId(), card.getDiscountAmount());
             list.add(card);
         }
 
         // 정렬하기
-
-        PayInfo payInfo = new PayInfo(userId, requestPayRequest, list.get(0).getUserCardId(), list.get(0).getDiscountAmount());
+        PayInfo payInfo = new PayInfo(userId, requestPayRequest, cardToDiscount, list.get(0).getUserCardId(), list.get(0).getDiscountAmount());
         payInfoRepository.save(payInfo);
 
         return new CardRecommendResponse(list);
@@ -94,9 +97,10 @@ public class PayServiceImpl implements PayService{
         if(response.getStatus() != 200){
             throw new CustomException(400, response.getMessage());
         }
-
         // 결제 내역 저장
-        PayHistoryEntity payHistory = PayHistoryEntity.regist(userId, userCard.getUserCardId(), (PayResponse)response.getData(), payInfo);
+        PayHistoryEntity payHistory = PayHistoryEntity.regist(userId, userCard.getUserCardId(), (PayResponse)response.getData(),
+            payInfo, payInfo.getCardToDiscount().get(userCard.getUserCardId()));
+
         payHistoryRepository.save(payHistory);
 
         // 결제 결과 반환

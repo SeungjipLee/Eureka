@@ -2,6 +2,7 @@ package com.ssafy.eureka.domain.pay.dto;
 
 import com.ssafy.eureka.domain.pay.dto.request.RequestPayRequest;
 import jakarta.validation.constraints.NotNull;
+import java.util.Map;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.data.annotation.Id;
@@ -46,11 +47,14 @@ public class PayInfo {
 
     private Integer smallCategoryId;
 
+    Map<Integer, Integer> cardToDiscount;
+
     private int recommendCardId;
 
     private int recommendDiscount;
 
-    public PayInfo(String userId, RequestPayRequest requestPayRequest, int recommendCardId, int recommendDiscount) {
+    public PayInfo(String userId, RequestPayRequest requestPayRequest, Map<Integer, Integer> cardToDiscount,
+        int recommendCardId, int recommendDiscount) {
         this.userId = userId;
         this.orderId = requestPayRequest.getOrderId();
         this.storeName = requestPayRequest.getStoreName();
@@ -63,6 +67,7 @@ public class PayInfo {
         this.redirectUrl = requestPayRequest.getRedirectUrl();
         this.largeCategoryId = requestPayRequest.getLargeCategoryId();
         this.smallCategoryId = requestPayRequest.getSmallCategoryId();
+        this.cardToDiscount = cardToDiscount;
         this.recommendCardId = recommendCardId;
         this.recommendDiscount = recommendDiscount;
     }

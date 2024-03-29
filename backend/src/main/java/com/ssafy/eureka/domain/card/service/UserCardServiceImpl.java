@@ -238,6 +238,7 @@ public class UserCardServiceImpl implements UserCardService {
         }
 
         MyDataCardHistoryResponse myDataCardPayList = (MyDataCardHistoryResponse) response.getData();
+        // 총 결제 금액, 할인 금액 넣어서 리턴하기
 
         log.debug("myDataCardPayList : "+ myDataCardPayList);
 
