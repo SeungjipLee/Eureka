@@ -10,7 +10,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PayRequest {
+public class ApprovePayRequest {
     private String cardIdentifier;
 
     private String token;
@@ -27,7 +27,7 @@ public class PayRequest {
 
     private Integer smallCategoryId;
 
-    public PayRequest(String cardIdentifier, String token, PayInfo payInfo) {
+    public ApprovePayRequest(String cardIdentifier, String token, PayInfo payInfo) {
         this.cardIdentifier = cardIdentifier;
         this.token = token;
 
