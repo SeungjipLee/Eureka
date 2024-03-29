@@ -45,7 +45,7 @@ function TwoCategory() {
           <Text style={{ marginRight: 15 }}>디자인, 인기, 캐릭터</Text>
         </View>
         <Pressable
-          onPress={() => navigation.navigate("ByCard")}
+          onPress={() => navigation.navigate("FitYourConsumption")}
           style={styles.pressableStyle}
         >
           <MaterialCommunityIcons name="chevron-right" size={26} />

@@ -9,6 +9,15 @@ async function getProductCardListByCompany(token, id, success, fail) {
   }
 }
 
+async function getProductCardListByCategory(token, id, success, fail) {
+  try {
+    const response = await API(token).get(`/card/prod/category/list/${id}`);
+    success(response);
+  } catch (error) {
+    fail(error);
+  }
+}
+
 async function getProductCardDetail(token, id, success, fail) {
   try {
     const response = await API(token).get(`/card/prod/detail/${id}`);
@@ -28,4 +37,9 @@ async function getMyPaymentCards(token, yyyymm, success, fail) {
   }
 }
 
-export { getProductCardListByCompany, getProductCardDetail, getMyPaymentCards };
+export {
+  getProductCardListByCompany,
+  getProductCardListByCategory,
+  getProductCardDetail,
+  getMyPaymentCards,
+};
