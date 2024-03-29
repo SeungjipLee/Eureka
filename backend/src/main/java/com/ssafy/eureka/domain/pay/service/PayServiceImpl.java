@@ -8,11 +8,13 @@ import com.ssafy.eureka.domain.card.dto.CardEntity;
 import com.ssafy.eureka.domain.card.dto.UserCardEntity;
 import com.ssafy.eureka.domain.card.repository.CardBenefitDetailRepository;
 import com.ssafy.eureka.domain.card.repository.CardRepository;
+import com.ssafy.eureka.domain.card.repository.MydataTokenRepository;
 import com.ssafy.eureka.domain.card.repository.UserCardRepository;
 import com.ssafy.eureka.domain.category.dto.LargeCategoryEntity;
 import com.ssafy.eureka.domain.category.dto.SmallCategoryEntity;
 import com.ssafy.eureka.domain.category.repository.LargeCategoryRepository;
 import com.ssafy.eureka.domain.category.repository.SmallCategoryRepository;
+import com.ssafy.eureka.domain.mydata.dto.MyDataToken;
 import com.ssafy.eureka.domain.pay.dto.PayHistoryEntity;
 import com.ssafy.eureka.domain.pay.dto.PayInfo;
 import com.ssafy.eureka.domain.pay.dto.request.AprrovePayRequest;
@@ -45,6 +47,7 @@ public class PayServiceImpl implements PayService{
     private final UserCardRepository userCardRepository;
     private final UserRepository userRepository;
 
+    private final MydataTokenRepository mydataTokenRepository;
     private final PayHistoryRepository payHistoryRepository;
     private final PayInfoRepository payInfoRepository;
     private final PaymentFeign paymentFeign;
@@ -91,7 +94,9 @@ public class PayServiceImpl implements PayService{
     }
 
     @Override
-    public AprrovePayResponse approvePay(String userId, AprrovePayRequest aprrovePayRequest) {
+    public void approvePay(String userId, AprrovePayRequest aprrovePayRequest) {
+        MyDataToken myDataToken = mydataTokenRepository.findById(userId)
+            .orElseThrow(() -> new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR));
 
         String orderId = aprrovePayRequest.getOrderId();
 
@@ -103,21 +108,17 @@ public class PayServiceImpl implements PayService{
         UserCardEntity userCard = userCardRepository.findByUserCardId(aprrovePayRequest.getUserCardId())
             .orElseThrow(() -> new CustomException(ResponseCode.USER_CARD_NOT_FOUND));
 
-        ApprovePayRequest payRequest = new ApprovePayRequest(userCard.getCardIdentifier(), userCard.getToken(), payInfo);
-
-        MyDataApiResponse<?> response = paymentFeign.requestPay(userCard.getToken(), payRequest);
+        MyDataApiResponse<?> response = paymentFeign.requestPay(myDataToken.getAccessToken(),
+            new ApprovePayRequest(userCard.getCardIdentifier(), userCard.getToken(), payInfo));
 
         if(response.getStatus() != 200){
             throw new CustomException(400, response.getMessage());
         }
-        // 결제 내역 저장
+
         PayHistoryEntity payHistory = PayHistoryEntity.regist(userId, userCard.getUserCardId(), (PayResponse)response.getData(),
             payInfo, payInfo.getCardToDiscount().get(userCard.getUserCardId()));
 
-//        payHistoryRepository.save(payHistory);
-
-        // 결제 결과 반환
-        return null;
+        payHistoryRepository.save(payHistory);
     }
 
     @Override

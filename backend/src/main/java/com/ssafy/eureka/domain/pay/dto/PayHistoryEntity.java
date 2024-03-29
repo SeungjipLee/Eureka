@@ -41,7 +41,7 @@ public class PayHistoryEntity {
     @NotNull
     private int largeCategoryId;
 
-    private int smallCategoryId;
+    private Integer smallCategoryId;
 
     @NotNull
     @Column(length = 8)
@@ -60,8 +60,7 @@ public class PayHistoryEntity {
     @Column(columnDefinition = "DATETIME")
     private LocalDateTime transDateTime;
 
-    @NotNull
-    private int modifiedAmt;
+    private Integer modifiedAmt;
 
     @NotNull
     private int totalInstallCnt;

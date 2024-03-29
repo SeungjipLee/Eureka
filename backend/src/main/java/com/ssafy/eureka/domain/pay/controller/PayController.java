@@ -33,7 +33,8 @@ public class PayController {
     @PostMapping("/approve")
     public ResponseEntity<?> approvePay(@AuthenticationPrincipal UserDetails userDetails, @RequestBody AprrovePayRequest aprrovePayRequest) {
         log.debug("결제 승인 요청, userId : " + userDetails.getUsername() + "결제 번호 : " + aprrovePayRequest.getOrderId());
-        return ResponseEntity.ok(payService.approvePay(userDetails.getUsername(), aprrovePayRequest));
+        payService.approvePay(userDetails.getUsername(), aprrovePayRequest);
+        return ResponseEntity.ok().build();
     }
 
     @Operation(summary = "페이 결제 내역")

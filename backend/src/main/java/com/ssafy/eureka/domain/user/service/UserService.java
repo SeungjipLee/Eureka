@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public interface UserService {
 
-    JwtTokenResponse checkUser(CheckUserRequest checkUserRequest);
+    UserDataTokenResponse checkUser(CheckUserRequest checkUserRequest);
 
     UserDataTokenResponse signUp(SignUpRequest signUpRequest);
 
