@@ -18,6 +18,7 @@ async function getProductCardDetail(token, id, success, fail) {
   }
 }
 
+//
 async function getMyPaymentCards(token, success, fail) {
   try {
     const response = await API(token).get(`/ucard/list/pay`);

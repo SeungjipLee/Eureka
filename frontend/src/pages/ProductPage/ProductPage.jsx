@@ -25,6 +25,7 @@ import {
 } from "../../slices/productSlice";
 import TokenUtils from "../../stores/TokenUtils";
 import { getMyPaymentCards } from "../../apis/ProductApi";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const screenHeight = Dimensions.get("window").height;
 
@@ -36,7 +37,9 @@ function ProductPage() {
   const [modalVisible, setModalVisible] = useState(false);
   const [token, setToken] = useState("");
   const [hasError, setHasError] = useState(false);
-  const [selectedCardIndex, setSelectedCardIndex] = useState(null);
+  const [selectedCardIndex, setSelectedCardIndex] = useState(0);
+  const [tempSelectedCard, setTempSelectedCard] = useState(null); // 확인시 이미지가 바뀔수 잇게 카드 정보를 임시로 저장하기위함
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -79,10 +82,10 @@ function ProductPage() {
   const handleSelectCard = (card, index) => {
     if (selectedCardIndex === index) {
       setSelectedCardIndex(null);
-      dispatch(selectPayCard(null)); // 선택을 취소하는 경우, null을 저장
+      setTempSelectedCard(null); // 임시 선택된 카드 정보 삭제
     } else {
       setSelectedCardIndex(index);
-      dispatch(selectPayCard(card)); // 선택된 카드의 ID를 Redux 스토어에 저장
+      setTempSelectedCard(card); // 임시 선택된 카드 정보 저장
     }
   };
 
@@ -128,14 +131,11 @@ function ProductPage() {
                   ]}
                 />
                 <Text style={{ marginLeft: 50 }}>{card.cardName}</Text>
-                <Text
-                  style={{
-                    color: selectedCardIndex === index ? "blue" : "grey",
-                    marginLeft: 100,
-                  }}
-                >
-                  ✓
-                </Text>
+                <MaterialCommunityIcons
+                  name="check"
+                  size={24}
+                  color={selectedCardIndex === index ? "#6396FE" : "#C5C5C5"}
+                />
               </TouchableOpacity>
             ))}
           </ScrollView>
@@ -144,8 +144,11 @@ function ProductPage() {
             style={styles.closeButton}
             onPress={() => {
               setModalVisible(false);
-              setSelectedCardIndex(null);
+              if (tempSelectedCard !== null) {
+                dispatch(selectPayCard(tempSelectedCard)); // 임시로 선택된 카드 정보를 Redux 스토어에 저장
+              }
               dispatch(clickMyCard());
+              setTempSelectedCard(null); // 임시 상태 초기화
             }}
           >
             <Text>확인</Text>

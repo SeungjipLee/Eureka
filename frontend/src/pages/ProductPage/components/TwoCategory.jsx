@@ -16,7 +16,7 @@ function TwoCategory() {
     <View style={styles.container}>
       <View style={styles.category1}>
         <Image
-          source={require("../../../../assets/favicon.png")}
+          source={require("../../../../assets/goodIcon.png")}
           style={styles.image}
         />
         <View style={styles.textContainer}>
@@ -25,32 +25,30 @@ function TwoCategory() {
           </Text>
           <Text>대중교통, 소비, 음식점</Text>
         </View>
-        <Pressable onPress={() => navigation.navigate("FitYourConsumption")}>
-          <MaterialCommunityIcons
-            name="chevron-right"
-            size={26}
-            style={styles.nextBtn}
-          />
+        <Pressable
+          onPress={() => navigation.navigate("FitYourConsumption")}
+          style={styles.pressableStyle}
+        >
+          <MaterialCommunityIcons name="chevron-right" size={26} />
         </Pressable>
       </View>
 
       <View style={styles.category2}>
         <Image
-          source={require("../../../../assets/favicon.png")}
+          source={require("../../../../assets/SlightlySmilingFace.png")}
           style={styles.image}
         />
         <View style={styles.textContainer}>
-          <Text style={{ fontSize: 13, fontWeight: "600" }}>
-            20대들이 환장하는 카드
+          <Text style={{ fontSize: 13, fontWeight: "600", marginRight: 15 }}>
+            20대들이 좋아하는 카드
           </Text>
-          <Text>디자인, 인기, 캐릭터</Text>
+          <Text style={{ marginRight: 15 }}>디자인, 인기, 캐릭터</Text>
         </View>
-        <Pressable onPress={() => navigation.navigate("ByCard")}>
-          <MaterialCommunityIcons
-            name="chevron-right"
-            size={26}
-            style={styles.nextBtn}
-          />
+        <Pressable
+          onPress={() => navigation.navigate("ByCard")}
+          style={styles.pressableStyle}
+        >
+          <MaterialCommunityIcons name="chevron-right" size={26} />
         </Pressable>
       </View>
     </View>
@@ -67,6 +65,7 @@ const styles = StyleSheet.create({
     width: 400,
     height: 50,
     marginTop: 10,
+    alignItems: "center",
   },
   category2: {
     flexDirection: "row",
@@ -74,10 +73,11 @@ const styles = StyleSheet.create({
     height: 50,
     marginTop: 10,
     marginBottom: 20,
+    alignItems: "center",
   },
   textContainer: {
     width: 180,
-    marginLeft: 25,
+    marginLeft: 5,
     marginRight: 40,
     justifyContent: "center",
     alignItems: "center",
@@ -86,8 +86,11 @@ const styles = StyleSheet.create({
     marginLeft: 25,
     marginRight: 40,
   },
-  nextBtn: {
-    marginTop: 15,
+  pressableStyle: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 30,
   },
 });
 export default TwoCategory;
