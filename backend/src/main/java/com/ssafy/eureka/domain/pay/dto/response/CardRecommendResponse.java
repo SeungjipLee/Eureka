@@ -16,6 +16,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CardRecommendResponse {
+    private String orderId;
     List<RecommendCard> cardList;
 
     @Getter

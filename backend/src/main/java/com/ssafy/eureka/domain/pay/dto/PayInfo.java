@@ -4,13 +4,17 @@ import com.ssafy.eureka.domain.pay.dto.request.RequestPayRequest;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 import java.time.LocalDateTime;
 
 @Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
-@RedisHash(value = "payInfo", timeToLive = 3 * 1000L)
+@RedisHash(value = "payInfo", timeToLive = 60 * 1000L)
 public class PayInfo {
     @Id
     private String orderId;
