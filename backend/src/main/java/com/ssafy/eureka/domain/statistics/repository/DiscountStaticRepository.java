@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
-public interface DiscountStaticRepository extends JpaRepository<DiscountStaticEntity, String> {
+public interface DiscountStaticRepository extends JpaRepository<DiscountStaticEntity, Integer> {
 
     @Query(value = "SELECT * FROM discount_static " +
             "WHERE user_card_id = :userCardId AND year = :year AND month = :month", nativeQuery = true)

@@ -27,4 +27,12 @@ public class StatisticsController {
         return ResponseEntity.ok(statisticsService.totalStatistics(userDetails.getUsername(), yyyyMM));
     }
 
+    @Operation(summary = "카테고리별 총 소비 통계 (달)")
+    @GetMapping("/{yyyyMM}/consumption")
+    public ResponseEntity<?> getMonthlyStatistics(@AuthenticationPrincipal UserDetails userDetails,
+                                                  @PathVariable("yyyyMM") String yyyyMM) {
+        log.debug("카테고리별 총 소비통계, userId : " + userDetails.getUsername() + ", 날짜 : " + yyyyMM);
+        return ResponseEntity.ok(statisticsService.consumptionStatisticsResponse(userDetails.getUsername(), yyyyMM));
+    }
+
 }

@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://j10e101.p.ssafy.io:3307/card_db?tinyInt1isBit=false&serverTimezone=UTC&characterEncoding=UTF-8
+    url: jdbc:mysql://localhost:3306/card_db?tinyInt1isBit=false&serverTimezone=UTC&characterEncoding=UTF-8
     username: root
-    password: e101!ehfehswkq
+    password: 1234
 
   jpa:
     hibernate:
@@ -18,9 +18,9 @@ spring:
 
   data:
     redis:
-      host: j10e101.p.ssafy.io
-      port: 6380
-      password: e101@ehfehswkq
+      host: localhost
+      port: 6379
+      password: 1234
       timeout: 3000
 
 logging:
