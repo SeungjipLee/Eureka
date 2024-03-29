@@ -73,7 +73,7 @@ function OwnCardPage2 () {
                   ))}
                 </View>
               </View>
-              <TouchableOpacity style={styles.detailButton} onPress={() => navigation.navigate('CardDetail', { cardId: item.cardId })}>
+              <TouchableOpacity style={styles.detailButton} onPress={() => navigation.navigate('CardDetail', { userCardId: item.userCardId })}>
                 <Text style={styles.detailButtonText}>자세히 보기</Text>
               </TouchableOpacity>
             </View>
