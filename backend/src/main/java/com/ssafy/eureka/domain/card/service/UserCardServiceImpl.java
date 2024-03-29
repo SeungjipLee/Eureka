@@ -20,6 +20,8 @@ import com.ssafy.eureka.domain.mydata.dto.response.MyDataCardHistoryResponse;
 import com.ssafy.eureka.domain.mydata.dto.response.MyDataUserCardResponse;
 import com.ssafy.eureka.domain.mydata.dto.response.MyDataUserCardResponse.MyDataUserCard;
 import com.ssafy.eureka.domain.mydata.feign.MyDataFeign;
+import com.ssafy.eureka.domain.pay.dto.PayHistoryEntity;
+import com.ssafy.eureka.domain.pay.repository.PayHistoryRepository;
 import com.ssafy.eureka.domain.payment.dto.request.PayTokenRequest;
 import com.ssafy.eureka.domain.payment.dto.response.PayTokenResponse;
 import com.ssafy.eureka.domain.payment.feign.PaymentFeign;
@@ -48,6 +50,7 @@ public class UserCardServiceImpl implements UserCardService {
     private final CardBenefitDetailRepository cardBenefitDetailRepository;
     private final CardBenefitRepository cardBenefitRepository;
     private final LargeCategoryRepository largeCategoryRepository;
+    private final PayHistoryRepository payHistoryRepository;
 
     private final MyDataFeign myDataFeign;
     private final PaymentFeign paymentFeign;
@@ -159,14 +162,38 @@ public class UserCardServiceImpl implements UserCardService {
     }
 
     @Override
-    public List<PayUserCardResponse> payUserCardList(String userId) {
+    public List<PayUserCardResponse> payUserCardList(String userId, String yyyymm) {
 
         List<PayUserCardResponse> payUserCardResponseList = new ArrayList<>();
         List<UserCardEntity> userCardEntityList = userCardRepository.findAllByUserIdAndIsPaymentEnabledTrue(Integer.parseInt(userId));
         if (userCardEntityList.isEmpty()) return payUserCardResponseList;
 
+        // 로그인한 유저의 모든 결제 카드
         for (UserCardEntity userCardEntity : userCardEntityList)
         {
+
+            int totalAmt=0;
+            String cardIdentifier = userCardEntity.getCardIdentifier();
+
+            MyDataToken myDataToken = mydataTokenRepository.findById(userId)
+                    .orElseThrow(() -> new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR));
+
+            String accessToken = myDataToken.getAccessToken();
+
+            MyDataApiResponse<?> response = myDataFeign.searchCardPayList(accessToken,
+                    userCardEntity.getCardIdentifier(), yyyymm);
+
+            if (response.getStatus() != 200) {
+                throw new CustomException(400, response.getMessage());
+            }
+
+            MyDataCardHistoryResponse myDataCardPayList = (MyDataCardHistoryResponse) response.getData();
+
+            log.debug("myDataCardPayList : "+ myDataCardPayList);
+
+            for(int i=0; i<myDataCardPayList.getMyDataCardHistoryList().size(); i++){
+                totalAmt += myDataCardPayList.getMyDataCardHistoryList().get(i).getApprovedAmt();
+            }
 
             int userCardId = userCardEntity.getUserCardId();
             int cardId = userCardEntity.getCardId();
@@ -184,7 +211,7 @@ public class UserCardServiceImpl implements UserCardService {
             payUserCardResponseList.add(new PayUserCardResponse(
                 userCardId, Integer.parseInt(userId),
                 cardId, cardName, previousPerformance,
-                firstCardNumber, lastCardNumber, imagePath, imgAttr));
+                firstCardNumber, lastCardNumber, imagePath, imgAttr, totalAmt));
         }
         return payUserCardResponseList;
     }
