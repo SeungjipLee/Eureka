@@ -87,7 +87,7 @@ public class StatisticServiceImpl implements StatisticService {
         }
 
         BigInteger totalConsumption = BigInteger.valueOf(0);
-        List<ConsumptionStatistics> consumptionStatisticsStatisticsList = new ArrayList<>();
+        List<ConsumptionStatistics> consumptionStatisticsList = new ArrayList<>();
 
         List<LargeCategoryEntity> largeCategoryEntityList = largeCategoryRepository.findByLargeCategoryIdNot(1);
 
@@ -96,7 +96,7 @@ public class StatisticServiceImpl implements StatisticService {
             consumptionStatistics.setCategoryId(largeCategoryEntity.getLargeCategoryId());
             consumptionStatistics.setCategoryName(largeCategoryEntity.getCategoryName());
             consumptionStatistics.setConsumption(BigInteger.valueOf(0));
-            consumptionStatisticsStatisticsList.add(consumptionStatistics);
+            consumptionStatisticsList.add(consumptionStatistics);
         }
 
         for (UserCardEntity userCardEntity : userCardEntityList) {
@@ -117,7 +117,7 @@ public class StatisticServiceImpl implements StatisticService {
                     int categoryId = consumptionLargeStaticEntity.getLargeCategoryId();
                     BigInteger consumption = consumptionLargeStaticEntity.getConsumptionAmount();
 
-                    for (ConsumptionStatistics consumptionStatistics : consumptionStatisticsStatisticsList) {
+                    for (ConsumptionStatistics consumptionStatistics : consumptionStatisticsList) {
                         if (consumptionStatistics.getCategoryId() == categoryId) {
                             consumptionStatistics.setConsumption(consumptionStatistics.getConsumption().add(consumption));
                             break;
@@ -130,9 +130,12 @@ public class StatisticServiceImpl implements StatisticService {
             }
         }
 
+        consumptionStatisticsList.sort((ConsumptionStatistics cs1, ConsumptionStatistics cs2)
+                -> cs2.getConsumption().compareTo(cs1.getConsumption()));
+
         ConsumptionStatisticsResponse response = new ConsumptionStatisticsResponse();
         response.setTotalConsumption(totalConsumption);
-        response.setConsumptionList(consumptionStatisticsStatisticsList);
+        response.setConsumptionList(consumptionStatisticsList);
         return response;
     }
 }
