@@ -6,6 +6,7 @@ import com.ssafy.eureka.domain.user.dto.request.SendMessageRequest;
 import com.ssafy.eureka.domain.user.dto.request.SignUpRequest;
 import com.ssafy.eureka.domain.user.dto.response.CheckUserRespnose;
 import com.ssafy.eureka.domain.user.dto.response.JwtTokenResponse;
+import com.ssafy.eureka.domain.user.dto.response.UserDataTokenResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -13,9 +14,9 @@ public interface UserService {
 
     JwtTokenResponse checkUser(CheckUserRequest checkUserRequest);
 
-    JwtTokenResponse signUp(SignUpRequest signUpRequest);
+    UserDataTokenResponse signUp(SignUpRequest signUpRequest);
 
-    JwtTokenResponse login(LoginRequest loginRequest);
+    UserDataTokenResponse login(LoginRequest loginRequest);
 
     void updatePassword(UserDetails userDetails, String password);
 
