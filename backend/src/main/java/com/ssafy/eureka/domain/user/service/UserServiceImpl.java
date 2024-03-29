@@ -79,7 +79,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public JwtTokenResponse checkUser(CheckUserRequest checkUserRequest) {
+    public UserDataTokenResponse checkUser(CheckUserRequest checkUserRequest) {
         // 인증번호 체크
         if(!checkUserRequest.getAuthNumber().equals("123456")){
             throw new CustomException(ResponseCode.PASSWORD_ERROR);
@@ -116,7 +116,11 @@ public class UserServiceImpl implements UserService{
 
         mydataTokenRepository.save(myDataToken);
 
-        return jwtTokenResponse;
+        UserDataTokenResponse userData = new UserDataTokenResponse(
+            jwtTokenResponse.getAccessToken(), jwtTokenResponse.getRefreshToken(),
+            new UserData(checkUserRequest.getUserName(), userUtil.formatBirthDate(checkUserRequest.getUserBirth(), checkUserRequest.getUserGender()), checkUserRequest.getPhoneNumber()));
+
+        return userData;
     }
 
     @Override
@@ -157,9 +161,6 @@ public class UserServiceImpl implements UserService{
         UserDataTokenResponse userData = new UserDataTokenResponse(
             jwtTokenResponse.getAccessToken(), jwtTokenResponse.getRefreshToken(),
             new UserData(signUpRequest.getUserName(), userUtil.formatBirthDate(signUpRequest.getUserBirth(), signUpRequest.getUserGender()), signUpRequest.getPhoneNumber()));
-
-        // 유저 정보
-        // 이름, 생년월일(8자리), 전화번호
 
         return userData;
     }

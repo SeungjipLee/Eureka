@@ -13,33 +13,39 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { selectCardId } from "../../../../slices/productSlice";
 
-function ChooseOne({ data }) {
+function CategoryChooseOne({ data }) {
   const navigation = useNavigation();
   const animation = useRef(new Animated.Value(0)).current;
   const scrollViewRef = useRef();
   const dispatch = useDispatch();
-  const itemColorMapping = {
-    삼성: "#8A9CC8",
-    농협: "#B9D1A8",
-    국민: "#7FAED6",
-    신한: "#6F9FC3",
-    우리: "#C7E89E",
-    하나: "#76C1A6",
-    기업: "#6F8DBD",
-    현대: "#E6A1C4",
-    롯데: "#D07A7A",
-  };
 
-  const logoImages = {
-    삼성: require("../../../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_삼성.png"),
-    농협: require("../../../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_농협.png"),
-    국민: require("../../../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_국민.png"),
-    신한: require("../../../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_신한.png"),
-    우리: require("../../../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_우리.png"),
-    하나: require("../../../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_하나.png"),
-    기업: require("../../../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_기업.png"),
-    현대: require("../../../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_현대.png"),
-    롯데: require("../../../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_롯데.png"),
+  const categoryImages = {
+    모든가맹점: require("../../../../../assets/CategoryIcon/0.png"),
+    대중교통: require("../../../../../assets/CategoryIcon/1.png"),
+    주유: require("../../../../../assets/CategoryIcon/2.png"),
+    마트: require("../../../../../assets/CategoryIcon/3.png"),
+    편의점: require("../../../../../assets/CategoryIcon/4.png"),
+    통신: require("../../../../../assets/CategoryIcon/5.png"),
+    온라인쇼핑: require("../../../../../assets/CategoryIcon/6.png"),
+    쇼핑: require("../../../../../assets/CategoryIcon/7.png"),
+    배달앱: require("../../../../../assets/CategoryIcon/8.png"),
+    음식점: require("../../../../../assets/CategoryIcon/9.png"),
+    주점: require("../../../../../assets/CategoryIcon/10.png"),
+    카페: require("../../../../../assets/CategoryIcon/11.png"),
+    디저트: require("../../../../../assets/CategoryIcon/12.png"),
+    뷰티와피트니스: require("../../../../../assets/CategoryIcon/13.png"),
+    공과금: require("../../../../../assets/CategoryIcon/14.png"),
+    병원과약국: require("../../../../../assets/CategoryIcon/15.png"),
+    애완동물: require("../../../../../assets/CategoryIcon/16.png"),
+    교육: require("../../../../../assets/CategoryIcon/17.png"),
+    자동차: require("../../../../../assets/CategoryIcon/18.png"),
+    레저와스포츠: require("../../../../../assets/CategoryIcon/19.png"),
+    영화: require("../../../../../assets/CategoryIcon/20.png"),
+    문화와여가: require("../../../../../assets/CategoryIcon/21.png"),
+    간편결제: require("../../../../../assets/CategoryIcon/22.png"),
+    항공: require("../../../../../assets/CategoryIcon/23.png"),
+    여행과숙박: require("../../../../../assets/CategoryIcon/24.png"),
+    기타: require("../../../../../assets/CategoryIcon/25.png"),
   };
 
   const [selected, setSelected] = useState(0);
@@ -72,7 +78,7 @@ function ChooseOne({ data }) {
         <Text
           style={{
             color: selected === index ? "#4f4f4f" : "#8e8e8e",
-            fontSize: 17,
+            fontSize: 15,
             fontWeight: "400",
           }}
         >
@@ -84,7 +90,7 @@ function ChooseOne({ data }) {
 
   const lineStyle = {
     height: 0.2,
-    backgroundColor: "#d4d4d4",
+    backgroundColor: "#aaaaaa",
     width: (itemWidth + 10) * data.length,
     alignSelf: "center",
   };
@@ -95,7 +101,7 @@ function ChooseOne({ data }) {
         style={[
           styles.topContainer,
           {
-            backgroundColor: itemColorMapping[selectCompanyName] || "#fffeb6",
+            backgroundColor: "#fcfcfc",
           },
         ]}
       >
@@ -126,7 +132,10 @@ function ChooseOne({ data }) {
               <Text style={styles.companyName}>인기있는 카드</Text>
             </View>
           </View>
-          <Image source={logoImages[selectCompanyName]} style={styles.image} />
+          <Image
+            source={categoryImages[selectCompanyName]}
+            style={styles.image}
+          />
         </View>
       </View>
 
@@ -157,19 +166,36 @@ function ChooseOne({ data }) {
 }
 
 const initialData = [
-  { id: 1, name: "국민" },
-  { id: 2, name: "삼성" },
-  { id: 3, name: "농협" },
-  { id: 4, name: "신한" },
-  { id: 5, name: "현대" },
-  { id: 6, name: "하나" },
-  { id: 7, name: "우리" },
-  { id: 8, name: "기업" },
-  { id: 9, name: "롯데" },
+  { id: 1, name: "모든가맹점" },
+  { id: 2, name: "대중교통" },
+  { id: 3, name: "주유" },
+  { id: 4, name: "마트" },
+  { id: 5, name: "편의점" },
+  { id: 6, name: "통신" },
+  { id: 7, name: "온라인쇼핑" },
+  { id: 8, name: "쇼핑" },
+  { id: 9, name: "배달앱" },
+  { id: 10, name: "음식점" },
+  { id: 11, name: "주점" },
+  { id: 12, name: "카페" },
+  { id: 13, name: "디저트" },
+  { id: 14, name: "뷰티와피트니스" },
+  { id: 15, name: "공과금" },
+  { id: 16, name: "병원과약국" },
+  { id: 17, name: "애완동물" },
+  { id: 18, name: "교육" },
+  { id: 19, name: "자동차" },
+  { id: 20, name: "레저와스포츠" },
+  { id: 21, name: "영화" },
+  { id: 22, name: "문화와여가" },
+  { id: 23, name: "간편결제" },
+  { id: 24, name: "항공" },
+  { id: 25, name: "여행과숙박" },
+  { id: 26, name: "기타" },
 ];
 
 export default function App() {
-  return <ChooseOne data={initialData} />;
+  return <CategoryChooseOne data={initialData} />;
 }
 
 const styles = StyleSheet.create({

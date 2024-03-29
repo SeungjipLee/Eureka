@@ -17,6 +17,5 @@ public interface CardService {
 
     public List<UserCardResponse> cardList(UserDetails userDetails);
     public CardHistoryResponse cardHistory(String phoneNumber, String cardIdentifier, String yyyymm);
-
     ApprovePayResponse approvePay(ApprovePayRequest approvePayRequest);
 }

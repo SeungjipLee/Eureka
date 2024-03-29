@@ -9,8 +9,10 @@ function PayCardPage() {
   const navigation = useNavigation()
   const [token, setToken] = useState('');
   const [cardList, setCardList] = useState([]);
+  const currentDate = new Date();
+  const currentMonth = ('0' + (currentDate.getMonth() + 1)).slice(-2); 
+  const currentYear = currentDate.getFullYear().toString()
 
-  console.log(token)
   useEffect(() => {
     const fetchToken = async () => {
       const accessToken = await TokenUtils.getAccessToken();
@@ -24,6 +26,7 @@ function PayCardPage() {
     if (token) { 
       getPayCard(
         token,
+        currentYear+currentMonth,
         (res) => {
           setCardList(res.data);
         },
@@ -55,10 +58,10 @@ function PayCardPage() {
             <View style={{ flex: 1 }}>
               <Text style={styles.cardTitle}>{item.cardName}</Text>
               <Text>{item.firstCardNumber}- **** - **** - {item.lastCardNumber}</Text>
-              {item.target - item.now > 0 ? (
+              {item.previousPerformance - item.totalAmt > 0 ? (
                 <Text>
                   이용 실적이 
-                  <Text style={styles.highlightText}> {item.target - item.now}원 </Text>
+                  <Text style={styles.highlightText}> {item.previousPerformance - item.totalAmt}원 </Text>
                   남았어요
                 </Text>
               ) : (
@@ -100,7 +103,7 @@ const styles = StyleSheet.create({
   cardImage: {
     width: 102,
     height: 64,
-    marginRight: 10,
+    marginRight: 20,
     borderRadius: 8,
   },
   rotatedImage: {
@@ -108,7 +111,7 @@ const styles = StyleSheet.create({
     width: 64,
     height: 102,
     marginHorizontal: 20,
-    marginEnd: 30,
+    marginEnd: 35,
     marginVertical: -15
   },
   highlightText: {

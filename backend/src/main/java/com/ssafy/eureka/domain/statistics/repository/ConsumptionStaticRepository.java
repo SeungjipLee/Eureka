@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.Optional;
 
-public interface ConsumptionStaticRepository extends JpaRepository<ConsumptionStaticEntity, String> {
+public interface ConsumptionStaticRepository extends JpaRepository<ConsumptionStaticEntity, Integer> {
 
     ConsumptionStaticEntity findByUserCardId(int userCardId);
 
