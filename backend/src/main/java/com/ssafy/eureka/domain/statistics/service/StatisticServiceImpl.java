@@ -31,7 +31,10 @@ public class StatisticServiceImpl implements StatisticService {
 
         // 보유 카드 조회
         List<UserCardEntity> userCardEntityList = userCardRepository.findAllByUserId(Integer.parseInt(userId));
-        if(userCardEntityList == null) throw new CustomException(ResponseCode.USER_CARD_NOT_FOUND);
+        if(userCardEntityList.isEmpty()) {
+            log.debug("보유카드 없음");
+            throw new CustomException(ResponseCode.USER_CARD_NOT_FOUND);
+        }
 
         BigInteger totalConsumption = BigInteger.valueOf(0);
         int totalDiscount = 0;
