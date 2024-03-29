@@ -26,7 +26,7 @@ public class PayHistoryListResponse {
     private int approvedAmt;
     private int status;
 //    private LocalDateTime transDateTime;
-    private int modifiedAmt;
+    private Integer modifiedAmt;
     private int totalInstallCnt;
     private int discount;
     private int recommendDiscount;
