@@ -39,7 +39,7 @@ function CategoryCardList() {
           console.log(res.data);
         },
         (err) => {
-          console.log("Error, CategoryCardList");
+          console.log("Error, CategoryCardList", err);
         }
       );
     }

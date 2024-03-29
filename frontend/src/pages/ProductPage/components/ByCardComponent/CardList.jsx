@@ -39,7 +39,7 @@ function CardList() {
           console.log(res.data);
         },
         (err) => {
-          console.log("Error, CardList");
+          console.log("Error, CardList", err);
         }
       );
     }
