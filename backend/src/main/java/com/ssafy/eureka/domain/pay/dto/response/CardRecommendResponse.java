@@ -16,6 +16,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CardRecommendResponse {
+    private String orderId;
     List<RecommendCard> cardList;
 
     @Getter
@@ -62,13 +63,13 @@ public class CardRecommendResponse {
             imgAttr = cardProd.getImgAttr();
             previousPerformance = cardProd.getPreviousPerformance();
 
+            // 할인 가능 여부 체크
+
             if(cardBenefit != null){
                 discountCost = cardBenefit.getDiscountCost();
                 discountCostType = cardBenefit.getDiscountCostType();
                 discountType = cardBenefit.getDiscountType();
             }
-
-            discountAmount = 0;
         }
     }
 }

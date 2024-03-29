@@ -16,18 +16,20 @@ import java.util.List;
 @NoArgsConstructor
 public class CardHistoryListResponse {
 
-    private int cardHistoryId;
-    private    int userCardId;
-    private    String approvedNum;
-    private  int status;
-    private int payType;
-    private LocalDateTime transDtime;
-    private  String merchantName;
-    private  String merchantRegno;
-    private  int approvedAmt;
-    private  int modifiedAmt;
-    private int totalInstallCnt;
-    private String categoryName;
+    int cardHistoryId;
+    int userCardId;
+    String approvedNum;
+    LocalDateTime approvedDateTime;
+    int status;
+    int payType;
+    LocalDateTime transDateTime;
+    String merchantName;
+    String merchantRegNo;
+    int approvedAmt;
+    int modifiedAmt;
+    int totalInstallCnt;
+    int largeCategoryId;
+    int smallCategoryId;
 
     public CardHistoryListResponse(MyDataCardHistoryResponse myDataCardHistoryResponse){
 
@@ -38,13 +40,12 @@ public class CardHistoryListResponse {
         this.approvedNum = myDataCardHistoryResponse.getMyDataCardHistoryList().get(i).getApprovedNum();
         this.status = myDataCardHistoryResponse.getMyDataCardHistoryList().get(i).getStatus();
         this.payType = myDataCardHistoryResponse.getMyDataCardHistoryList().get(i).getPayType();
-        this.transDtime = myDataCardHistoryResponse.getMyDataCardHistoryList().get(i).getTransDtime();
+        this.transDateTime = myDataCardHistoryResponse.getMyDataCardHistoryList().get(i).getTransDateTime();
         this.merchantName = myDataCardHistoryResponse.getMyDataCardHistoryList().get(i).getMerchantName();
-        this.merchantRegno = myDataCardHistoryResponse.getMyDataCardHistoryList().get(i).getMerchantRegno();
+        this.merchantRegNo = myDataCardHistoryResponse.getMyDataCardHistoryList().get(i).getMerchantRegNo();
         this.approvedAmt = myDataCardHistoryResponse.getMyDataCardHistoryList().get(i).getApprovedAmt();
         this.modifiedAmt = myDataCardHistoryResponse.getMyDataCardHistoryList().get(i).getModifiedAmt();
         this.totalInstallCnt = myDataCardHistoryResponse.getMyDataCardHistoryList().get(i).getTotalInstallCnt();
-        this.categoryName = myDataCardHistoryResponse.getMyDataCardHistoryList().get(i).getCategoryName();
 
         }
     }

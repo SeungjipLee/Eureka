@@ -43,9 +43,10 @@ public class UserCardController {
     // 현재까지 사용 금액도 보여줘야 하는데 이번 달 사용금액(통계) API가 필요
     @Operation(summary = "등록한 결제 카드 조회")
     @GetMapping("/list/pay")
-    public ResponseEntity<?> payUserCardList(@AuthenticationPrincipal UserDetails userDetails){
+    public ResponseEntity<?> payUserCardList(@AuthenticationPrincipal UserDetails userDetails,
+                                             @RequestParam String yyyymm){
         log.debug("등록한 결제 카드 조회, userId : " + userDetails.getUsername());
-        return ResponseEntity.ok(userCardService.payUserCardList(userDetails.getUsername()));
+        return ResponseEntity.ok(userCardService.payUserCardList(userDetails.getUsername(), yyyymm));
     }
 
     @Operation(summary = "카드 정보")
@@ -64,20 +65,20 @@ public class UserCardController {
         return ResponseEntity.ok().build();
     }
 
-    @Operation(summary = "해당 카드 모든 거래 내역 조회")
+    @Operation(summary = "해당 카드 거래 내역 조회")
     @PostMapping("/list/pay")
     public ResponseEntity<?> listCardHistory(@AuthenticationPrincipal UserDetails userDetails,
                                              @RequestParam int userCardId, @RequestParam String yyyymm){
-        log.debug("카드 내역 조회, userId : " + userDetails.getUsername());
+        log.debug("카드 내역 조회, userId : " + userDetails.getUsername() + ", 카드번호 : " + userCardId + ", yyyymm : " + yyyymm);
         return ResponseEntity.ok(userCardService.listCardHistory(userDetails.getUsername(), userCardId, yyyymm));
     }
 
     @Operation(summary = "서버에 보유 카드 등록하기")
     @PostMapping("/regist")
     public ResponseEntity<?> registUserCard(@AuthenticationPrincipal UserDetails userDetails,
-        @RequestBody RegistUserCardRequest registUserCardRequest) {
+        @RequestBody RegistUserCardRequest registUserCardRequest, @RequestParam String yyyymm) {
         log.debug("보유 카드 등록, userId : " + userDetails.getUsername());
-        userCardService.registUserCard(userDetails.getUsername(), registUserCardRequest);
+        userCardService.registUserCard(userDetails.getUsername(), registUserCardRequest, yyyymm);
         return ResponseEntity.ok().build();
     }
 

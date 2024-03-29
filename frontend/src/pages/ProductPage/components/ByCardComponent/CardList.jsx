@@ -50,7 +50,10 @@ function CardList() {
       {cards.map((item) => (
         <Pressable
           onPress={() =>
-            navigation.navigate("SelectCardInfo", { cardId: item.cardId })
+            navigation.navigate("SelectCardInfo", {
+              cardId: item.cardId,
+              type: 1,
+            })
           }
           key={item.cardId}
           style={styles.card}

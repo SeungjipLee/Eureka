@@ -1,5 +1,7 @@
 package com.ssafy.card.Card.service.implementation;
 
+import com.ssafy.card.Card.dto.request.ApprovePayRequest;
+import com.ssafy.card.Card.dto.response.ApprovePayResponse;
 import com.ssafy.card.Card.dto.response.CardHistoryResponse;
 import com.ssafy.card.Card.entity.CardEntity;
 import com.ssafy.card.Card.entity.CardHistoryEntity;
@@ -59,7 +61,7 @@ public class CardServiceImpl implements CardService {
     }
 
     @Override
-    public List<CardHistoryEntity> cardHistory(String phoneNumber, String cardIdentifier, String yyyymm) {
+    public CardHistoryResponse cardHistory(String phoneNumber, String cardIdentifier, String yyyymm) {
 
         UserEntity userEntity = userRepository.findByPhoneNumber(phoneNumber)
                 .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
@@ -69,19 +71,31 @@ public class CardServiceImpl implements CardService {
 
         // 해당 유저 카드 ID
         int userCardId = userCardEntity.getUserCardId();
-        String token = userCardEntity.getToken();
-
-        if(token == null) throw new CustomException(ResponseCode.INVALID_ACCESS_TOKEN);
 
         List<CardHistoryEntity> list = cardHistoryRepository.findByUserCardIdAndMonthAndYear(
                 userCardId, yyyymm.substring(0, 4), yyyymm.substring(4, 6));
-//        List<CardHistoryEntity> list = cardHistoryRepository.findByUserCardId(userCardId);
 
-        List<CardHistoryResponse> historyList = new ArrayList<>();
-        for(int i=0; i<list.size(); i++){
-            historyList.add(new CardHistoryResponse(list.get(i)));
+        List<CardHistoryResponse.MyDataCardHistory> myDataCardHistoryList = new ArrayList<>();
+
+        for(CardHistoryEntity history : list){
+            myDataCardHistoryList.add(new CardHistoryResponse.MyDataCardHistory(history));
         }
 
-        return list;
+        return new CardHistoryResponse(0, 0, myDataCardHistoryList);
+    }
+
+    @Override
+    public ApprovePayResponse approvePay(ApprovePayRequest approvePayRequest) {
+        UserCardEntity userCard = userCardRepository.findByCardIdentifier(approvePayRequest.getCardIdentifier())
+            .orElseThrow(() -> new CustomException(ResponseCode.NOT_FOUND_CARD));
+
+        if(!userCard.getToken().equals(approvePayRequest.getToken())){
+            throw new CustomException(ResponseCode.PAY_TOKEN_ERROR);
+        }
+
+        CardHistoryEntity cardHistory = CardHistoryEntity.regist(userCard.getUserCardId(), approvePayRequest);
+        cardHistoryRepository.save(cardHistory);
+
+        return new ApprovePayResponse(cardHistory);
     }
 }

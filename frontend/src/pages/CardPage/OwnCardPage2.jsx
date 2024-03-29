@@ -12,33 +12,35 @@ function OwnCardPage2 () {
   const [cardList, setCardList] = useState([]);
 
   console.log(token)
-  useFocusEffect(
-    React.useCallback(() => {
-      setModalVisible(false);
-      return () => {};
-    }, [])
-  );
-
   useEffect(() => {
-    const fetchTokenAndCards = async () => {
+    const fetchToken = async () => {
       const accessToken = await TokenUtils.getAccessToken();
       setToken(accessToken);
-
+    };
+  
+    fetchToken();
+  }, []);
+  
+  const fetchCardList = async () => {
+    if (token) { 
       getOwnCard(
-        accessToken, // Updated to use accessToken directly
+        token,
         (res) => {
           setCardList(res.data);
-          console.log(res.data);
         },
         (err) => console.log(err)
       );
-    };
-
-    fetchTokenAndCards();
-  }, [token]); // Added token to dependency array
+    }
+  };
+  
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchCardList();
+      return () => {};
+    }, [token])
+  );
 
   const handleSelectBank = (bank) => {
-    console.log('Selected Bank:', bank);
     setModalVisible(false); // 은행 선택 후 모달 닫기
   };
 
@@ -71,7 +73,7 @@ function OwnCardPage2 () {
                   ))}
                 </View>
               </View>
-              <TouchableOpacity style={styles.detailButton} onPress={() => navigation.navigate('CardDetail', { cardId: item.cardId })}>
+              <TouchableOpacity style={styles.detailButton} onPress={() => navigation.navigate('CardDetail', { userCardId: item.userCardId })}>
                 <Text style={styles.detailButtonText}>자세히 보기</Text>
               </TouchableOpacity>
             </View>

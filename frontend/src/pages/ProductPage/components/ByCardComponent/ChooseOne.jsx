@@ -11,7 +11,6 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import axios from "axios";
 import { selectCardId } from "../../../../slices/productSlice";
 
 function ChooseOne({ data }) {
@@ -83,7 +82,6 @@ function ChooseOne({ data }) {
     );
   };
 
-  // 선의 스타일을 동적으로 계산합니다.
   const lineStyle = {
     height: 0.2,
     backgroundColor: "#d4d4d4",

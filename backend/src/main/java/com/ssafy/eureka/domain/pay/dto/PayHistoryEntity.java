@@ -1,5 +1,6 @@
 package com.ssafy.eureka.domain.pay.dto;
 
+import com.ssafy.eureka.domain.payment.dto.response.PayResponse;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,12 +39,9 @@ public class PayHistoryEntity {
     private int recommendCardId;
 
     @NotNull
-    private int partnershipStoreId;
-
-    @NotNull
     private int largeCategoryId;
 
-    private int smallCategoryId;
+    private Integer smallCategoryId;
 
     @NotNull
     @Column(length = 8)
@@ -61,8 +60,7 @@ public class PayHistoryEntity {
     @Column(columnDefinition = "DATETIME")
     private LocalDateTime transDateTime;
 
-    @NotNull
-    private int modifiedAmt;
+    private Integer modifiedAmt;
 
     @NotNull
     private int totalInstallCnt;
@@ -72,4 +70,23 @@ public class PayHistoryEntity {
 
     @NotNull
     private int recommendDiscount;
+
+    public static PayHistoryEntity regist(String userId, int userCardId, PayResponse payResponse, PayInfo payInfo, Integer discount) {
+        PayHistoryEntity payHistory = new PayHistoryEntity();
+        payHistory.orderId = payInfo.getOrderId();
+        payHistory.userId = Integer.parseInt(userId);
+        payHistory.userCardId = userCardId;
+        payHistory.recommendCardId = payInfo.getRecommendCardId();
+        payHistory.largeCategoryId = payResponse.getLargeCategoryId();
+        payHistory.smallCategoryId = payResponse.getSmallCategoryId();
+        payHistory.approvedNum = payResponse.getApprovedNum();
+        payHistory.approvedDateTime = payResponse.getApprovedDateTime();
+        payHistory.approvedAmt = payResponse.getApprovedAmt();
+        payHistory.status = payResponse.getStatus();
+        payHistory.transDateTime = payResponse.getTransDateTime();
+        payHistory.modifiedAmt = payResponse.getModifiedAmt();
+        payHistory.totalInstallCnt = payResponse.getTotalInstallCnt();
+        payHistory.discount = Objects.requireNonNullElse(discount, 0);
+        return payHistory;
+    }
 }

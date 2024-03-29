@@ -3,44 +3,31 @@ import {
   StyleSheet,
   View,
   Text,
-  Modal,
   Pressable,
   Dimensions,
   Image,
 } from "react-native";
-
+import { useDispatch, useSelector } from "react-redux";
+import { clickMyCard } from "../../../slices/productSlice";
 const { height } = Dimensions.get("window");
 
 function MainNotice() {
-  const [modalVisible, setModalVisible] = useState(false);
+  const dispatch = useDispatch();
+  const checkChangeSelectPayCard = useSelector(
+    (state) => state.productList.selectPayCardInfo
+  );
+  const handleClickMyCard = () => {
+    dispatch(clickMyCard());
+  };
 
+  // 선택되었을 때만 보이니까 문제.. 그냥 결제카드가 있으면 최상단꺼를 디폴트로
+  console.log(checkChangeSelectPayCard, "MainNotice, 내 결제카드");
   return (
     <View style={styles.centeredView}>
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <View style={styles.modalOverlay}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>모달 창 내용</Text>
-            <Pressable
-              style={[styles.button, styles.buttonClose]}
-              onPress={() => setModalVisible(!modalVisible)}
-            >
-              <Text style={styles.textStyle}>닫기</Text>
-            </Pressable>
-          </View>
-        </View>
-      </Modal>
-
       <View style={styles.container}>
         <View style={styles.maintextContainer}>
           <Text style={styles.maintext}>
-            <Pressable onPress={() => setModalVisible(true)}>
+            <Pressable onPress={handleClickMyCard}>
               <Text style={styles.underlineText}>내 카드</Text>
             </Pressable>
             를
@@ -49,7 +36,11 @@ function MainNotice() {
         </View>
 
         <Image
-          source={require("../../../../assets/card2.png")}
+          source={
+            checkChangeSelectPayCard && checkChangeSelectPayCard.imagePath
+              ? { uri: checkChangeSelectPayCard.imagePath }
+              : require("../../../../assets/ThinkingFace.png") // 대체 이미지 경로
+          }
           style={styles.image}
         />
       </View>
@@ -111,12 +102,12 @@ const styles = StyleSheet.create({
   image: {
     height: 80,
     width: 50,
-    marginRight: 10,
-    marginLeft: 100,
+    marginRight: 100,
+    marginLeft: 50,
   },
   maintextContainer: {
     flexDirection: "column",
-    marginRight: 40,
+    marginRight: 140,
     marginTop: 15,
   },
   maintext: {
@@ -127,5 +118,19 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "400",
     textDecorationLine: "underline",
+  },
+  image: {
+    width: 85,
+    height: 55,
+    resizeMode: "contain",
+    marginBottom: 15,
+    marginTop: 12,
+  },
+  image2: {
+    width: 60,
+    height: 85,
+    resizeMode: "contain",
+    marginLeft: 10,
+    marginRight: 11,
   },
 });

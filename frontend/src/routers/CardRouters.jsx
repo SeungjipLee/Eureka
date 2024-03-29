@@ -5,20 +5,17 @@ import PayCardEnrollPage from "../pages/CardPage/PayCardEnrollPage";
 import OwnCardEnrollPage from "../pages/CardPage/OwnCardEnrollPage";
 import OwnCardPage from "../pages/CardPage/OwnCardPage";
 
-
-
-function CardRouters () {
-  const CardStack = createStackNavigator()
+function CardRouters() {
+  const HomeStack = createStackNavigator();
   return (
-    <CardStack.Navigator
-      screenOptions={{ headerShown: false }}>
-      <CardStack.Screen name="CardHome" component={OwnCardPage}/>
-      <CardStack.Screen name="CardDetail" component={CardDetailPage}/>
-      <CardStack.Screen name="CardDetailPay" component={CardDetailPayPage}/>
-      <CardStack.Screen name="PayCardEnroll" component={PayCardEnrollPage}/>
-      <CardStack.Screen name="OwnCardEnroll" component={OwnCardEnrollPage}/>
-    </CardStack.Navigator>
-  )
+    <HomeStack.Navigator screenOptions={{ headerShown: false }}>
+      <HomeStack.Screen name="CardHome" component={OwnCardPage} />
+      <HomeStack.Screen name="CardDetail" component={CardDetailPage} />
+      <HomeStack.Screen name="CardDetailPay" component={CardDetailPayPage} />
+      <HomeStack.Screen name="PayCardEnroll" component={PayCardEnrollPage} />
+      <HomeStack.Screen name="OwnCardEnroll" component={OwnCardEnrollPage} />
+    </HomeStack.Navigator>
+  );
 }
 
-export default CardRouters     
+export default CardRouters;

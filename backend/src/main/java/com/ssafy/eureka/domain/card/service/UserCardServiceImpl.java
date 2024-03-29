@@ -17,16 +17,27 @@ import com.ssafy.eureka.domain.mydata.dto.MyDataToken;
 import com.ssafy.eureka.domain.card.dto.request.SearchUserCardRequest;
 import com.ssafy.eureka.domain.mydata.dto.request.MyDataCardHistoryRequest;
 import com.ssafy.eureka.domain.mydata.dto.response.MyDataCardHistoryResponse;
+import com.ssafy.eureka.domain.mydata.dto.response.MyDataCardHistoryResponse.MyDataCardHistory;
 import com.ssafy.eureka.domain.mydata.dto.response.MyDataUserCardResponse;
 import com.ssafy.eureka.domain.mydata.dto.response.MyDataUserCardResponse.MyDataUserCard;
 import com.ssafy.eureka.domain.mydata.feign.MyDataFeign;
+import com.ssafy.eureka.domain.pay.dto.PayHistoryEntity;
+import com.ssafy.eureka.domain.pay.repository.PayHistoryRepository;
 import com.ssafy.eureka.domain.payment.dto.request.PayTokenRequest;
 import com.ssafy.eureka.domain.payment.dto.response.PayTokenResponse;
 import com.ssafy.eureka.domain.payment.feign.PaymentFeign;
+import com.ssafy.eureka.domain.statistics.entity.ConsumptionLargeStaticEntity;
+import com.ssafy.eureka.domain.statistics.entity.ConsumptionSmallStaticEntity;
+import com.ssafy.eureka.domain.statistics.entity.ConsumptionStaticEntity;
+import com.ssafy.eureka.domain.statistics.repository.ConsumptionLargeStaticRepository;
+import com.ssafy.eureka.domain.statistics.repository.ConsumptionSmallStaticRepository;
+import com.ssafy.eureka.domain.statistics.repository.ConsumptionStaticRepository;
 import com.ssafy.eureka.domain.user.dto.UserEntity;
 import com.ssafy.eureka.domain.user.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
+
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -48,6 +59,10 @@ public class UserCardServiceImpl implements UserCardService {
     private final CardBenefitDetailRepository cardBenefitDetailRepository;
     private final CardBenefitRepository cardBenefitRepository;
     private final LargeCategoryRepository largeCategoryRepository;
+    private final PayHistoryRepository payHistoryRepository;
+    private final ConsumptionStaticRepository consumptionStaticRepository;
+    private final ConsumptionLargeStaticRepository consumptionLargeStaticRepository;
+    private final ConsumptionSmallStaticRepository consumptionSmallStaticRepository;
 
     private final MyDataFeign myDataFeign;
     private final PaymentFeign paymentFeign;
@@ -79,7 +94,7 @@ public class UserCardServiceImpl implements UserCardService {
             MyDataApiResponse<?> response = myDataFeign.searchUserCard(accessToken, comp);
 
             if (response.getStatus() != 200) {
-                throw new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR);
+                throw new CustomException(400, response.getMessage());
             }
 
             MyDataUserCardResponse myDataUserCardResponse = (MyDataUserCardResponse) response.getData();
@@ -138,7 +153,6 @@ public class UserCardServiceImpl implements UserCardService {
                 // 혜택은 있지만 상세 혜택 테이블에서 혜택 번호가 없는 경우
                 if(cardBenefitDetailEntityList.isEmpty()) continue;
 
-
                 String discountType = cardBenefitDetailEntityList.get(0).getDiscountCostType();
                 double discountCost = cardBenefitDetailEntityList.get(0).getDiscountCost();
                 int largeCategoryId = cardBenefitDetailEntityList.get(0).getLargeCategoryId();
@@ -160,14 +174,37 @@ public class UserCardServiceImpl implements UserCardService {
     }
 
     @Override
-    public List<PayUserCardResponse> payUserCardList(String userId) {
+    public List<PayUserCardResponse> payUserCardList(String userId, String yyyymm) {
 
         List<PayUserCardResponse> payUserCardResponseList = new ArrayList<>();
         List<UserCardEntity> userCardEntityList = userCardRepository.findAllByUserIdAndIsPaymentEnabledTrue(Integer.parseInt(userId));
         if (userCardEntityList.isEmpty()) return payUserCardResponseList;
 
+        // 로그인한 유저의 모든 결제 카드
         for (UserCardEntity userCardEntity : userCardEntityList)
         {
+
+            int totalAmt=0;
+
+            MyDataToken myDataToken = mydataTokenRepository.findById(userId)
+                    .orElseThrow(() -> new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR));
+
+            String accessToken = myDataToken.getAccessToken();
+
+            MyDataApiResponse<?> response = myDataFeign.searchCardPayList(accessToken,
+                    userCardEntity.getCardIdentifier(), yyyymm);
+
+            if (response.getStatus() != 200) {
+                throw new CustomException(400, response.getMessage());
+            }
+
+            MyDataCardHistoryResponse myDataCardPayList = (MyDataCardHistoryResponse) response.getData();
+
+            log.debug("myDataCardPayList : "+ myDataCardPayList);
+
+            for(int i=0; i<myDataCardPayList.getMyDataCardHistoryList().size(); i++){
+                totalAmt += myDataCardPayList.getMyDataCardHistoryList().get(i).getApprovedAmt();
+            }
 
             int userCardId = userCardEntity.getUserCardId();
             int cardId = userCardEntity.getCardId();
@@ -185,7 +222,7 @@ public class UserCardServiceImpl implements UserCardService {
             payUserCardResponseList.add(new PayUserCardResponse(
                 userCardId, Integer.parseInt(userId),
                 cardId, cardName, previousPerformance,
-                firstCardNumber, lastCardNumber, imagePath, imgAttr));
+                firstCardNumber, lastCardNumber, imagePath, imgAttr, totalAmt));
         }
         return payUserCardResponseList;
     }
@@ -203,12 +240,15 @@ public class UserCardServiceImpl implements UserCardService {
         String cardName = cardEntity.getCardName();
         int cardType = cardEntity.getCardType();
         int previousPerformance = cardEntity.getPreviousPerformance();
+        String imagePath = cardEntity.getImagePath();
+        int imgAttr = cardEntity.getImgAttr();
 
-        return new CardInfoResponse(userCardId, cardId, cardName, cardType, previousPerformance, isPaymentEnabled);
+        return new CardInfoResponse(userCardId, cardId, cardName, cardType, previousPerformance,
+                isPaymentEnabled, imagePath, imgAttr);
     }
 
     @Override
-    public List<CardHistoryListResponse> listCardHistory(String userId, int userCardId, String yyyymm) {
+    public MyDataCardHistoryResponse listCardHistory(String userId, int userCardId, String yyyymm) {
         MyDataToken myDataToken = mydataTokenRepository.findById(userId)
             .orElseThrow(() -> new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR));
 
@@ -219,42 +259,167 @@ public class UserCardServiceImpl implements UserCardService {
         UserEntity userEntity = userRepository.findByUserId(intUserId)
             .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
 
-        log.debug("카드 정보 : " + userCardId);
         UserCardEntity userCardEntity = userCardRepository.findByUserCardId(userCardId)
             .orElseThrow(() -> new CustomException(ResponseCode.USER_CARD_NOT_FOUND));
 
         MyDataApiResponse<?> response = myDataFeign.searchCardPayList(accessToken,
-            new MyDataCardHistoryRequest(userCardEntity.getCardIdentifier(), yyyymm));
-        log.debug("response.getStatus() : "+ response.getStatus());
+        userCardEntity.getCardIdentifier(), yyyymm);
 
         if (response.getStatus() != 200) {
-            throw new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR);
+            throw new CustomException(400, response.getMessage());
         }
-        log.debug("response.getStatus() 후 ");
 
         MyDataCardHistoryResponse myDataCardPayList = (MyDataCardHistoryResponse) response.getData();
+        // 총 결제 금액, 할인 금액 넣어서 리턴하기
 
-        List<CardHistoryListResponse> cardHistoryListResponse = new ArrayList<>();
-        for(int i=0; i<myDataCardPayList.getMyDataCardHistoryList().size(); i++){
-            CardHistoryListResponse cardHistoryResponse = new CardHistoryListResponse(myDataCardPayList);
-            cardHistoryListResponse.add(cardHistoryResponse);
+        int totalConsumption = 0;
+        // 레퍼지토리에서 가져오기
+        int totalDiscount = 0;
+
+        for(MyDataCardHistory card : myDataCardPayList.getMyDataCardHistoryList()){
+            totalConsumption += card.getApprovedAmt();
         }
+        myDataCardPayList.setMonthTotalConsumption(totalConsumption);
+        myDataCardPayList.setMonthTotalDiscount(totalDiscount);
 
-        // 조회한 데이터를 쓱싹 쓱싹 해서 반환하기
-        return cardHistoryListResponse;
+        return myDataCardPayList;
     }
 
     @Override
-    public void registUserCard(String userId, RegistUserCardRequest registUserCardRequest) {
+    public void registUserCard(String userId, RegistUserCardRequest registUserCardRequest,
+                               String yyyymm) {
         for (RegistUserCard userCard : registUserCardRequest.getRegisterUserCard()) {
             UserCardEntity card = userCardRepository.findByCardIdentifier(userCard.getCardIdentifier())
                 .orElse(null);
 
             if(card == null){
+                log.debug("카드엄슴");
                 UserCardEntity newCard = UserCardEntity.registUserCard(userId, userCard);
                 userCardRepository.save(newCard);
+
+            // 카드가 등록됐을 때만 3달 치 거래내역을 넣어주는 것도 생각
+            UserCardEntity userCardEntity = userCardRepository.findByCardIdentifier(userCard.getCardIdentifier())
+                    .orElseThrow(() -> new CustomException(ResponseCode.USER_CARD_NOT_FOUND));
+
+            // 저장했으면 userCardId가 생겼을 것
+            int userCardId = userCardEntity.getUserCardId();
+
+            MyDataToken myDataToken = mydataTokenRepository.findById(userId)
+                    .orElseThrow(() -> new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR));
+
+            String accessToken = myDataToken.getAccessToken();
+
+            // 등록 카드의 3달치 거래 내역을 소비 통계에 저장
+            for(int i=0; i<3; i++){
+
+                log.debug("3달치 계산 시작");
+            int yyyy = Integer.parseInt(yyyymm.substring(0, 4));
+            int mm = Integer.parseInt(yyyymm.substring(4, 6));
+
+            log.debug("yyyy, mm : "+ yyyy + " / " + mm);
+
+            if(mm-i <=0){
+                mm = 13-i;
+                yyyy -= 1;
             }
+            else mm = mm - i;
+
+            String year = String.valueOf(yyyy);
+            String month = "0"+mm;
+
+            yyyymm = year + month;
+            log.debug("yyyymm : "+ yyyymm);
+
+            MyDataApiResponse<?> response = myDataFeign.searchCardPayList(accessToken,
+                    userCardEntity.getCardIdentifier(), yyyymm);
+
+            if (response.getStatus() != 200) {
+                throw new CustomException(400, response.getMessage());
+            }
+
+            MyDataCardHistoryResponse myDataCardPayList = (MyDataCardHistoryResponse) response.getData();
+
+            if(myDataCardPayList == null) return;
+
+            log.debug("myDataCardPayList : "+ myDataCardPayList);
+
+            BigInteger totalConsumption= BigInteger.ZERO;
+
+
+                    // 소비 통계 id를 대분류 통계가 참고하고 대분류 통계 id를 소분류 통계가 참고하는데
+                    // 그럴려면 소비 통계에 데이터가 먼저 저장돼있어야 대분류 통계가 참고
+                    // 소비 통계 먼저 저장해놔야..
+
+                    // 소비 통계
+            ConsumptionStaticEntity consumptionStaticEntity = consumptionStaticRepository.findByUserCardId(userCardId);
+                int consumptionStaticId = consumptionStaticEntity.getConsumptionStaticId();
+            // 해당 달 모든 거래내역
+            for(int j=0; j<myDataCardPayList.getMyDataCardHistoryList().size(); j++){
+
+
+                totalConsumption = totalConsumption.add(BigInteger.valueOf(myDataCardPayList.getMyDataCardHistoryList().get(j).getApprovedAmt()));
+//                    if (consumptionStaticEntity == null){
+//                        consumptionStaticRepository.save(new ConsumptionStaticEntity(
+//                                userCardId, year, month, totalConsumption)
+//                        );
+//                    }
+//                    else {
+//                        consumptionStaticEntity.setTotalConsumption(totalConsumption);
+//                        consumptionStaticRepository.save(consumptionStaticEntity);
+//                        consumptionStaticId = consumptionStaticEntity.getConsumptionStaticId();
+//                    }
+              }
+
+                consumptionStaticRepository.save(new ConsumptionStaticEntity(
+                                userCardId, year, month, totalConsumption)
+                );
+
+                // method로 뺄까..
+                for(int j=0; j<myDataCardPayList.getMyDataCardHistoryList().size(); j++) {
+
+                    int largeCategoryId = myDataCardPayList.getMyDataCardHistoryList().get(j).getLargeCategoryId();
+                    int smallCategoryId = myDataCardPayList.getMyDataCardHistoryList().get(j).getSmallCategoryId();
+
+                    // 소비 금액 (Large)
+                    ConsumptionLargeStaticEntity consumptionLargeStaticEntity =
+                            consumptionLargeStaticRepository.findByConsumptionStaticId(consumptionStaticId);
+
+                    // 빅인티저..
+                    BigInteger consumptionAmount = consumptionLargeStaticEntity.getConsumptionAmount();
+                    BigInteger amount = BigInteger.valueOf(myDataCardPayList.getMyDataCardHistoryList().get(j).getApprovedAmt());
+
+                    // 금액 추가
+                    consumptionLargeStaticEntity.setConsumptionAmount((consumptionAmount.add(amount)));
+
+                    // 횟수 증가
+                    int consumptionCount = consumptionLargeStaticEntity.getConsumptionCount();
+                    consumptionLargeStaticEntity.setConsumptionCount(consumptionCount + 1);
+                    consumptionLargeStaticEntity.setConsumptionLargeStaticId(largeCategoryId);
+
+                    consumptionLargeStaticRepository.save(consumptionLargeStaticEntity);
+
+                    int consumptionLargeStaticId = consumptionLargeStaticEntity.getConsumptionLargeStaticId();
+
+                    // 소비 금액 내역 (Small)
+                    saveConsumptionSmall(consumptionLargeStaticId, smallCategoryId, amount);
+                   }
+                }
+            }  // for
         }
+    }
+    public void saveConsumptionSmall(int consumptionLargeStaticId, int smallCategoryId, BigInteger amount){
+
+        ConsumptionSmallStaticEntity smallStaticEntity =
+                consumptionSmallStaticRepository.findByConsumptionLargeStaticId(consumptionLargeStaticId);
+
+        BigInteger consumptionAmount = smallStaticEntity.getConsumption();
+        int count = smallStaticEntity.getConsumptionCount();
+
+        smallStaticEntity.setConsumption(consumptionAmount.add(amount));
+        smallStaticEntity.setConsumptionCount(count+1);
+        smallStaticEntity.setSmallCategoryId(smallCategoryId);
+
+        consumptionSmallStaticRepository.save(smallStaticEntity);
     }
 
     @Override
@@ -281,8 +446,7 @@ public class UserCardServiceImpl implements UserCardService {
         log.debug("response : " + response);
 
         if (response.getStatus() != 200) {
-            log.debug("에러 발생 : " + response.getMessage());
-            throw new CustomException(ResponseCode.PAY_TOKEN_ERROR);
+            throw new CustomException(400, response.getMessage());
         }
 
         PayTokenResponse payTokenResponse = (PayTokenResponse) response.getData();
