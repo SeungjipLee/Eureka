@@ -94,7 +94,7 @@ create table if not exists user
     phone_number     varchar(255)   not null            unique                      COMMENT '휴대폰 번호(AES-256)',
     password         varchar(255)   not null                                        COMMENT '비밀번호(6자리, BCrypt)',
     registered_at    datetime       not null            DEFAULT current_timestamp   COMMENT '가입 일시',
-    is_unregistered  bit            not null            DEFAULT 0                   COMMENT '탈퇴 여부',
+    is_unregistered  boolean        not null            DEFAULT 0                   COMMENT '탈퇴 여부',
     un_registered_at datetime       null                                            COMMENT '탈외 일시'
 );
 
@@ -141,7 +141,7 @@ create table if not exists pay_history
     user_id                 int             not null                                        COMMENT '유저 관리번호',
     user_card_id            int             not null                                        COMMENT '유저 카드 관리번호',
     recommendCardId         int             not null                                        COMMENT '추천 카드 관리번호',
-    partnership_store_id    int             not null                                        COMMENT '제휴 가맹점 관리번호',
+#     partnership_store_id    int             not null                                        COMMENT '제휴 가맹점 관리번호',
     large_category_id       tinyint         not null                                        COMMENT '대분류 카테고리 번호',
     small_category_id       int             null                                            COMMENT '소분류 카테고리 번호',
     approved_num            char(8)         not null                                        COMMENT '승인 번호',

@@ -7,12 +7,10 @@ import com.ssafy.eureka.domain.mydata.dto.response.MyDataCardHistoryResponse;
 import com.ssafy.eureka.domain.mydata.dto.response.MyDataTokenResponse;
 import com.ssafy.eureka.domain.mydata.dto.response.MyDataUserCardResponse;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
-//@FeignClient(name="myDataFeign", url="${feign.client.baseurl.myDataFeign}")
+import java.util.List;
+
 @FeignClient(name="myDataFeign", url="${feign.client.baseurl.myDataFeign}")
 public interface MyDataFeign {
     @PostMapping(path = "/auth/mydata")
@@ -24,8 +22,10 @@ public interface MyDataFeign {
         @RequestHeader("Authorization") String accessToken,
         @RequestParam("cardCompanyId") int cardCompanyId);
 
-    @PostMapping(path = "/card/history")
+    @GetMapping(path = "/card/history")
     public MyDataApiResponse<MyDataCardHistoryResponse> searchCardPayList(
         @RequestHeader("Authorization") String accessToken,
-        @RequestBody MyDataCardHistoryRequest myDataCardHistoryRequest);
+        @RequestParam("cardIdentifier") String cardIdentifier,
+        @RequestParam("yyyymm") String yyyymm);
+//        @RequestBody MyDataCardHistoryRequest myDataCardHistoryRequest);
 }

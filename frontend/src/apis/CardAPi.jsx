@@ -11,7 +11,7 @@ async function getOwnCard(token, success, fail) {
 
 async function getPayCard(token, success, fail) {
   try {
-    const response = await API(token).get('/ucard/list/1')
+    const response = await API(token).get('/ucard/list/pay')
     success(response);
   } catch (error) {
     fail(error);
@@ -46,5 +46,32 @@ async function addPayCard(token, data, success, fail) {
   }
 }
 
+async function getCardDetail(token, userCardId, success, fail) {
+  try {
+    const response = await API(token).get(`/ucard/cardInfo/${userCardId}`)
+    success(response);
+  } catch (error) {
+    fail(error);
+  }
+}
 
-export { getOwnCard, addOwnCard, getMyCardList, getPayCard, addPayCard, }
+async function getCardHistory(token, userCardId, yyyymm, success, fail) {
+  try {
+    const response = await API(token).post(`/ucard/list/pay?userCardId=${userCardId}&yyyymm=${yyyymm}`)
+    success(response);
+  } catch (error) {
+    fail(error);
+  }
+}
+
+async function cardPay(token, data, success, fail) {
+  try {
+    const response = await API(token).post('/pay/request', data)
+    success(response);
+  } catch (error) {
+    fail(error);
+  }
+}
+
+
+export { getOwnCard, addOwnCard, getMyCardList, getPayCard, addPayCard, getCardDetail, cardPay, getCardHistory }

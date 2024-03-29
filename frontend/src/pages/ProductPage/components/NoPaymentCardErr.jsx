@@ -7,39 +7,27 @@ import {
   Dimensions,
   Image,
 } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import { clickMyCard } from "../../../slices/productSlice";
+import { useNavigation } from "@react-navigation/native";
 const { height } = Dimensions.get("window");
 
-function MainNotice() {
-  const dispatch = useDispatch();
-  const checkChangeSelectPayCard = useSelector(
-    (state) => state.productList.selectPayCardInfo
-  );
-  const handleClickMyCard = () => {
-    dispatch(clickMyCard());
-  };
+function NopaymentCardErr() {
+  const navigation = useNavigation();
 
-  console.log(checkChangeSelectPayCard, "Look at this");
   return (
     <View style={styles.centeredView}>
       <View style={styles.container}>
         <View style={styles.maintextContainer}>
           <Text style={styles.maintext}>
-            <Pressable onPress={handleClickMyCard}>
+            <Pressable onPress={() => navigation.navigate("CardHome")}>
               <Text style={styles.underlineText}>내 카드</Text>
             </Pressable>
             를
           </Text>
-          <Text style={styles.maintext}>분석했어요!</Text>
+          <Text style={styles.maintext}>등록해주세요!</Text>
         </View>
 
         <Image
-          source={
-            checkChangeSelectPayCard && checkChangeSelectPayCard.imagePath
-              ? { uri: checkChangeSelectPayCard.imagePath }
-              : require("../../../../assets/ThinkingFace.png") // 대체 이미지 경로
-          }
+          source={require("../../../../assets/ThinkingFace.png")}
           style={styles.image}
         />
       </View>
@@ -47,7 +35,7 @@ function MainNotice() {
   );
 }
 
-export default MainNotice;
+export default NopaymentCardErr;
 
 const styles = StyleSheet.create({
   modalOverlay: {
@@ -100,7 +88,7 @@ const styles = StyleSheet.create({
   },
   image: {
     height: 80,
-    width: 50,
+    width: 80,
     marginRight: 10,
     marginLeft: 100,
   },
@@ -117,19 +105,5 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "400",
     textDecorationLine: "underline",
-  },
-  image: {
-    width: 85,
-    height: 55,
-    resizeMode: "contain",
-    marginBottom: 15,
-    marginTop: 12,
-  },
-  image2: {
-    width: 60,
-    height: 85,
-    resizeMode: "contain",
-    marginLeft: 10,
-    marginRight: 11,
   },
 });
