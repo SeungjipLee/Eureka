@@ -81,7 +81,7 @@ public class CardServiceImpl implements CardService {
             myDataCardHistoryList.add(new CardHistoryResponse.MyDataCardHistory(history));
         }
 
-        return new CardHistoryResponse(myDataCardHistoryList);
+        return new CardHistoryResponse(0, 0, myDataCardHistoryList);
     }
 
     @Override
@@ -96,8 +96,7 @@ public class CardServiceImpl implements CardService {
 
         // 결제 내역 저장하기.
         CardHistoryEntity cardHistory = CardHistoryEntity.regist(userCard.getUserCardId(), approvePayRequest);
-        cardHistoryRepository.save(cardHistory);
-
+//        cardHistoryRepository.save(cardHistory);
 
         return new ApprovePayResponse(cardHistory);
     }
