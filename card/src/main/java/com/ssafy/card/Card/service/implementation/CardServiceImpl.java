@@ -86,7 +86,6 @@ public class CardServiceImpl implements CardService {
 
     @Override
     public ApprovePayResponse approvePay(ApprovePayRequest approvePayRequest) {
-        // 토큰 검증하기.
         UserCardEntity userCard = userCardRepository.findByCardIdentifier(approvePayRequest.getCardIdentifier())
             .orElseThrow(() -> new CustomException(ResponseCode.NOT_FOUND_CARD));
 
@@ -94,9 +93,8 @@ public class CardServiceImpl implements CardService {
             throw new CustomException(ResponseCode.PAY_TOKEN_ERROR);
         }
 
-        // 결제 내역 저장하기.
         CardHistoryEntity cardHistory = CardHistoryEntity.regist(userCard.getUserCardId(), approvePayRequest);
-//        cardHistoryRepository.save(cardHistory);
+        cardHistoryRepository.save(cardHistory);
 
         return new ApprovePayResponse(cardHistory);
     }

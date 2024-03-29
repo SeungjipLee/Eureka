@@ -7,7 +7,6 @@ import com.ssafy.card.Card.service.CardService;
 import com.ssafy.card.User.dto.response.UserCardResponse;
 import com.ssafy.card.common.ApiResponse;
 import com.ssafy.card.common.ResponseCode;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -25,32 +24,31 @@ public class CardController {
     private final CardService cardService;
 
     @GetMapping("/list")
-    public ApiResponse getCardList(@AuthenticationPrincipal UserDetails userDetails){
+    public ApiResponse getCardList(@AuthenticationPrincipal UserDetails userDetails) {
 
         log.debug("특정 유저 모든 카드 조회");
         List<UserCardResponse> result = cardService.cardList(userDetails);
 
-        return new ApiResponse(ResponseCode.SUCCESS.getMessage(), ResponseCode.SUCCESS.getStatus(), result);
+        return new ApiResponse(ResponseCode.SUCCESS.getMessage(), ResponseCode.SUCCESS.getStatus(),
+            result);
     }
 
     @GetMapping("/history")
     public ApiResponse<?> getCardHistory(@AuthenticationPrincipal UserDetails userDetails,
-                                         @RequestParam String cardIdentifier, @RequestParam String yyyymm){
+        @RequestParam String cardIdentifier, @RequestParam String yyyymm) {
 
-        System.out.println("카드 결제 내역 조회, 카드식별자 : "+ cardIdentifier +"/" + yyyymm);
-        log.debug("카드 결제 내역 조회, 카드식별자 : "+ cardIdentifier );
+        System.out.println("카드 결제 내역 조회, 카드식별자 : " + cardIdentifier + "/" + yyyymm);
+        log.debug("카드 결제 내역 조회, 카드식별자 : " + cardIdentifier);
         String phoneNumber = userDetails.getUsername();
         CardHistoryResponse result = cardService.cardHistory(phoneNumber, cardIdentifier, yyyymm);
 
-        return new ApiResponse(ResponseCode.SUCCESS.getMessage(), ResponseCode.SUCCESS.getStatus(), result);
+        return new ApiResponse(ResponseCode.SUCCESS.getMessage(), ResponseCode.SUCCESS.getStatus(),
+            result);
     }
 
     @PostMapping("/pay")
-    public ApiResponse<?> approvePay(@AuthenticationPrincipal UserDetails userDetails,
-        @RequestBody ApprovePayRequest approvePayRequest){
-        log.debug("결제 요청, 카드번호 : " +  userDetails.getUsername());
+    public ApiResponse<?> approvePay(@RequestBody ApprovePayRequest approvePayRequest) {
         ApprovePayResponse result = cardService.approvePay(approvePayRequest);
-
         return new ApiResponse<>(ResponseCode.SUCCESS.getMessage(), ResponseCode.SUCCESS.getStatus(), result);
     }
 }
