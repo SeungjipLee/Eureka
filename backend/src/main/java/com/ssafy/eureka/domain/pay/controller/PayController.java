@@ -11,10 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Tag(name = "결제 로직 API", description = "결제 요청 1(결제 정보 -> 카드 추천), 결제 요청 2(카드 선택 -> 결제 진행)")
@@ -37,5 +34,14 @@ public class PayController {
     public ResponseEntity<?> approvePay(@AuthenticationPrincipal UserDetails userDetails, @RequestBody AprrovePayRequest aprrovePayRequest) {
         log.debug("결제 승인 요청, userId : " + userDetails.getUsername() + "결제 번호 : " + aprrovePayRequest.getOrderId());
         return ResponseEntity.ok(payService.approvePay(userDetails.getUsername(), aprrovePayRequest));
+    }
+
+    @Operation(summary = "페이 결제 내역")
+    @GetMapping("/history")
+    public ResponseEntity<?> payHistory(@AuthenticationPrincipal UserDetails userDetails,
+                                        @RequestParam String yyyymm){
+
+        log.debug("페이 결제 내역, userId : "+ userDetails.getUsername());
+        return ResponseEntity.ok(payService.payHistory(userDetails.getUsername(),yyyymm));
     }
 }
