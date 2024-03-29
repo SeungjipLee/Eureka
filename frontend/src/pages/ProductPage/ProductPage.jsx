@@ -57,11 +57,22 @@ function ProductPage() {
 
   useEffect(() => {
     if (token) {
+      // 현재 날짜를 얻기 위한 함수
+      const getCurrentDate = () => {
+        const date = new Date();
+        const year = date.getFullYear(); // 현재 연도
+        const month = date.getMonth() + 1; // JavaScript에서 월은 0부터 시작하므로 +1
+        return year * 100 + month; // YYYYMM 형태로 반환
+      };
+
+      const currentDate = getCurrentDate();
       getMyPaymentCards(
         token,
+        currentDate,
         (res) => {
           setCards(res.data);
           dispatch(saveMyPayCard(res.data));
+          dispatch(selectPayCard(res.data[0])); // 선택된 결제카드 디폴트: 첫번째 결제카드
           console.log(res.data, "결제카드 불러오기 성공");
           if (res.data.length === 0) {
             setHasError(true);
@@ -70,7 +81,7 @@ function ProductPage() {
           }
         },
         (err) => {
-          console.log("Error, ProductPage1", err);
+          console.log("Error, ProductPage 결제카드 불러오기", err);
           if (err.response && err.response.status === 404) {
             setHasError(true);
           }
@@ -130,7 +141,11 @@ function ProductPage() {
                     },
                   ]}
                 />
-                <Text style={{ marginLeft: 50 }}>{card.cardName}</Text>
+                <Text
+                  style={{ fontSize: 14, fontWeight: "600", marginRight: 30 }}
+                >
+                  {card.cardName}
+                </Text>
                 <MaterialCommunityIcons
                   name="check"
                   size={24}
@@ -151,7 +166,9 @@ function ProductPage() {
               setTempSelectedCard(null); // 임시 상태 초기화
             }}
           >
-            <Text>확인</Text>
+            <Text style={{ fontSize: 20, fontWeight: "600", color: "#ffffff" }}>
+              확인
+            </Text>
           </TouchableOpacity>
         </View>
       </Modal>
@@ -193,6 +210,8 @@ const styles = StyleSheet.create({
   },
   modalView: {
     position: "absolute",
+    alignItems: "center",
+    justifyContent: "center",
     bottom: 0,
     width: "100%",
     height: screenHeight / 1.6,
@@ -221,29 +240,32 @@ const styles = StyleSheet.create({
   cardItem: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
     backgroundColor: "#fff",
-    borderRadius: 10,
     marginVertical: 8,
     padding: 10,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
   },
-  closeButton: {},
+  closeButton: {
+    marginBottom: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    height: 50,
+    width: 150,
+    borderRadius: 15,
+    backgroundColor: "#527dfd",
+  },
   image: {
-    width: 85,
-    height: 55,
+    width: 95,
+    height: 60,
     resizeMode: "contain",
     marginBottom: 15,
     marginTop: 12,
   },
   image2: {
-    width: 60,
-    height: 85,
+    width: 80,
+    height: 100,
     resizeMode: "contain",
     marginLeft: 10,
-    marginRight: 11,
+    marginRight: 40,
   },
 });
