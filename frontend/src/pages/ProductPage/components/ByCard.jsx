@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, ScrollView, View, Text, Pressable } from "react-native";
+import { StyleSheet, View } from "react-native";
 import ChooseOne from "./ByCardComponent/ChooseOne";
 import CardList from "./ByCardComponent/CardList";
 

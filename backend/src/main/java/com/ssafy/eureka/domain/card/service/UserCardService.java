@@ -18,7 +18,7 @@ public interface UserCardService {
 
     MyDataCardHistoryResponse listCardHistory(String userId, int userCardId, String yyyymm);
 
-    void registUserCard(String userId, RegistUserCardRequest registUserCardRequest);
+    void registUserCard(String userId, RegistUserCardRequest registUserCardRequest, String yyyymm);
 
     void registPayCard(String userId, RegistPayCardRequest registPayCardRequest);
 

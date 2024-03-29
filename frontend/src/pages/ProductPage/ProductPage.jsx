@@ -25,6 +25,7 @@ import {
 } from "../../slices/productSlice";
 import TokenUtils from "../../stores/TokenUtils";
 import { getMyPaymentCards } from "../../apis/ProductApi";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 const screenHeight = Dimensions.get("window").height;
 
@@ -36,7 +37,9 @@ function ProductPage() {
   const [modalVisible, setModalVisible] = useState(false);
   const [token, setToken] = useState("");
   const [hasError, setHasError] = useState(false);
-  const [selectedCardIndex, setSelectedCardIndex] = useState(null);
+  const [selectedCardIndex, setSelectedCardIndex] = useState(0);
+  const [tempSelectedCard, setTempSelectedCard] = useState(null); // 확인시 이미지가 바뀔수 잇게 카드 정보를 임시로 저장하기위함
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -54,11 +57,22 @@ function ProductPage() {
 
   useEffect(() => {
     if (token) {
+      // 현재 날짜를 얻기 위한 함수
+      const getCurrentDate = () => {
+        const date = new Date();
+        const year = date.getFullYear(); // 현재 연도
+        const month = date.getMonth() + 1; // JavaScript에서 월은 0부터 시작하므로 +1
+        return year * 100 + month; // YYYYMM 형태로 반환
+      };
+
+      const currentDate = getCurrentDate();
       getMyPaymentCards(
         token,
+        currentDate,
         (res) => {
           setCards(res.data);
           dispatch(saveMyPayCard(res.data));
+          dispatch(selectPayCard(res.data[0])); // 선택된 결제카드 디폴트: 첫번째 결제카드
           console.log(res.data, "결제카드 불러오기 성공");
           if (res.data.length === 0) {
             setHasError(true);
@@ -67,7 +81,7 @@ function ProductPage() {
           }
         },
         (err) => {
-          console.log("Error, ProductPage1", err);
+          console.log("Error, ProductPage 결제카드 불러오기", err);
           if (err.response && err.response.status === 404) {
             setHasError(true);
           }
@@ -79,10 +93,10 @@ function ProductPage() {
   const handleSelectCard = (card, index) => {
     if (selectedCardIndex === index) {
       setSelectedCardIndex(null);
-      dispatch(selectPayCard(null)); // 선택을 취소하는 경우, null을 저장
+      setTempSelectedCard(null); // 임시 선택된 카드 정보 삭제
     } else {
       setSelectedCardIndex(index);
-      dispatch(selectPayCard(card)); // 선택된 카드의 ID를 Redux 스토어에 저장
+      setTempSelectedCard(card); // 임시 선택된 카드 정보 저장
     }
   };
 
@@ -127,15 +141,16 @@ function ProductPage() {
                     },
                   ]}
                 />
-                <Text style={{ marginLeft: 50 }}>{card.cardName}</Text>
                 <Text
-                  style={{
-                    color: selectedCardIndex === index ? "blue" : "grey",
-                    marginLeft: 100,
-                  }}
+                  style={{ fontSize: 14, fontWeight: "600", marginRight: 30 }}
                 >
-                  ✓
+                  {card.cardName}
                 </Text>
+                <MaterialCommunityIcons
+                  name="check"
+                  size={24}
+                  color={selectedCardIndex === index ? "#6396FE" : "#C5C5C5"}
+                />
               </TouchableOpacity>
             ))}
           </ScrollView>
@@ -144,11 +159,16 @@ function ProductPage() {
             style={styles.closeButton}
             onPress={() => {
               setModalVisible(false);
-              setSelectedCardIndex(null);
+              if (tempSelectedCard !== null) {
+                dispatch(selectPayCard(tempSelectedCard)); // 임시로 선택된 카드 정보를 Redux 스토어에 저장
+              }
               dispatch(clickMyCard());
+              setTempSelectedCard(null); // 임시 상태 초기화
             }}
           >
-            <Text>확인</Text>
+            <Text style={{ fontSize: 20, fontWeight: "600", color: "#ffffff" }}>
+              확인
+            </Text>
           </TouchableOpacity>
         </View>
       </Modal>
@@ -190,6 +210,8 @@ const styles = StyleSheet.create({
   },
   modalView: {
     position: "absolute",
+    alignItems: "center",
+    justifyContent: "center",
     bottom: 0,
     width: "100%",
     height: screenHeight / 1.6,
@@ -218,29 +240,32 @@ const styles = StyleSheet.create({
   cardItem: {
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
     backgroundColor: "#fff",
-    borderRadius: 10,
     marginVertical: 8,
     padding: 10,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
   },
-  closeButton: {},
+  closeButton: {
+    marginBottom: 20,
+    alignItems: "center",
+    justifyContent: "center",
+    height: 50,
+    width: 150,
+    borderRadius: 15,
+    backgroundColor: "#527dfd",
+  },
   image: {
-    width: 85,
-    height: 55,
+    width: 95,
+    height: 60,
     resizeMode: "contain",
     marginBottom: 15,
     marginTop: 12,
   },
   image2: {
-    width: 60,
-    height: 85,
+    width: 80,
+    height: 100,
     resizeMode: "contain",
     marginLeft: 10,
-    marginRight: 11,
+    marginRight: 40,
   },
 });

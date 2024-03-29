@@ -20,7 +20,8 @@ function MainNotice() {
     dispatch(clickMyCard());
   };
 
-  console.log(checkChangeSelectPayCard, "Look at this");
+  // 선택되었을 때만 보이니까 문제.. 그냥 결제카드가 있으면 최상단꺼를 디폴트로
+  console.log(checkChangeSelectPayCard, "MainNotice, 내 결제카드");
   return (
     <View style={styles.centeredView}>
       <View style={styles.container}>
@@ -101,12 +102,12 @@ const styles = StyleSheet.create({
   image: {
     height: 80,
     width: 50,
-    marginRight: 10,
-    marginLeft: 100,
+    marginRight: 100,
+    marginLeft: 50,
   },
   maintextContainer: {
     flexDirection: "column",
-    marginRight: 40,
+    marginRight: 140,
     marginTop: 15,
   },
   maintext: {
