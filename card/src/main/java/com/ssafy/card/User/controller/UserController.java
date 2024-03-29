@@ -39,6 +39,4 @@ public class UserController {
 
         return new ApiResponse(ResponseCode.SUCCESS.getMessage(), ResponseCode.SUCCESS.getStatus(), result);
     }
-
-    // 결제 요청 처리
 }

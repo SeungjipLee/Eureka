@@ -20,17 +20,17 @@ public class MyDataCardHistoryResponse {
     public static class MyDataCardHistory {
         int cardHistoryId;
         int userCardId;
-        String approvedNum;
-        LocalDateTime approvedDateTime;
         int status;
         int payType;
+        String approvedNum;
+        LocalDateTime approvedDateTime;
+        int approvedAmt;
         LocalDateTime transDateTime;
+        Integer modifiedAmt;
         String merchantName;
         String merchantRegNo;
-        int approvedAmt;
-        int modifiedAmt;
-        int totalInstallCnt;
+        Integer totalInstallCnt;
         int largeCategoryId;
-        int smallCategoryId;
+        Integer smallCategoryId;
     }
 }

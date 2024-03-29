@@ -62,13 +62,13 @@ public class CardRecommendResponse {
             imgAttr = cardProd.getImgAttr();
             previousPerformance = cardProd.getPreviousPerformance();
 
+            // 할인 가능 여부 체크
+
             if(cardBenefit != null){
                 discountCost = cardBenefit.getDiscountCost();
                 discountCostType = cardBenefit.getDiscountCostType();
                 discountType = cardBenefit.getDiscountType();
             }
-
-            discountAmount = 0;
         }
     }
 }

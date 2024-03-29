@@ -17,7 +17,7 @@ public interface PaymentFeign {
         @RequestHeader("Authorization") String accessToken,
         @RequestBody PayTokenRequest payTokenRequest);
 
-    @PostMapping(path = "/user/pay")
+    @PostMapping(path = "/card/pay")
     public MyDataApiResponse<PayResponse> requestPay(
         @RequestHeader("Authorization") String accessToken,
         @RequestBody PayRequest payRequest);
