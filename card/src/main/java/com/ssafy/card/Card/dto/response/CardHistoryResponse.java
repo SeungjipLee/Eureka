@@ -12,6 +12,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CardHistoryResponse {
+    private int monthTotalConsumption;
+
+    private int monthTotalDiscount;
+
     List<MyDataCardHistory> myDataCardHistoryList;
 
     @Getter

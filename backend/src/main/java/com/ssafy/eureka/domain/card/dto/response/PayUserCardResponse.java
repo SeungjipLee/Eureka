@@ -21,4 +21,5 @@ public class PayUserCardResponse {
     String lastCardNumber;
     String imagePath;
     int imgAttr;
+    int totalAmt;
 }

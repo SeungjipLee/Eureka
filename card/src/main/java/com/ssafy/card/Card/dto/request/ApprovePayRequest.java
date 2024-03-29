@@ -1,8 +1,12 @@
 package com.ssafy.card.Card.dto.request;
 
-import lombok.Getter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ApprovePayRequest {
     private String cardIdentifier;
 

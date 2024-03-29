@@ -1,5 +1,6 @@
 package com.ssafy.eureka.domain.mydata.dto.response;
 
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -8,10 +9,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class MyDataCardHistoryResponse {
-    List<MyDataCardHistory> myDataCardHistoryList;
+    private int monthTotalConsumption;
+
+    private int monthTotalDiscount;
+
+    private List<MyDataCardHistory> myDataCardHistoryList;
 
     @Getter
     @Setter
