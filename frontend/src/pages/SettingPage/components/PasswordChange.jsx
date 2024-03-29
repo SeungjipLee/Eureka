@@ -1,12 +1,38 @@
 import React, { useState, createRef, useEffect } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, Pressable, TextInput, Alert, BackHandler } from 'react-native';
+import { StyleSheet, Text, View, Pressable, TextInput, Alert, BackHandler, TouchableOpacity } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const PasswordChange = ({ navigation }) => { // navigation prop 추가
   const initialRefs = Array(6).fill().map(() => createRef());
   const [inputValues, setInputValues] = useState(Array(6).fill(''));
   const [activeInputIndex, setActiveInputIndex] = useState(0);
+  const [showPassword, setShowPassword] = useState(false);
+
   const [buttonBackgrounds, setButtonBackgrounds] = useState(Array(12).fill('#3675FF'));
+
+  useEffect(() => {
+    const backAction = () => {
+      confirmCancelation();
+      return true;
+    };
+  
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+  
+    const unsubscribe = navigation.addListener('focus', () => {
+      setInputValues(Array(6).fill(''));
+      setActiveInputIndex(0);
+    });
+  
+    return () => {
+      backHandler.remove();
+      unsubscribe();
+    };
+  }, [navigation]); // 의존성 배열에 navigation을 포함시켜줍니다.
+  
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleInputChange = (text, index) => {
     const newInputValues = [...inputValues];
@@ -107,17 +133,6 @@ const PasswordChange = ({ navigation }) => { // navigation prop 추가
     );
   };
 
-  useEffect(() => {
-    const backAction = () => {
-      confirmCancelation();
-      // true를 반환하면 기본 동작(앱 종료)을 막습니다.
-      return true;
-    };
-
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
-
-    return () => backHandler.remove();
-  }, []);
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
@@ -138,7 +153,11 @@ const PasswordChange = ({ navigation }) => { // navigation prop 추가
             <TextInput
               key={index}
               ref={initialRefs[index]}
-              style={[styles.input, { backgroundColor: value ? 'white' : 'gray' }]}
+              style={[
+                styles.input,
+                { backgroundColor: value ? 'white' : 'gray' }, // 입력 값의 유무에 따른 배경색 설정
+                showPassword && value ? { color: 'black', backgroundColor: 'transparent' } : { color: 'transparent' }, // 비밀번호 보기 활성화 및 입력 값이 있는 경우 텍스트 색상을 검정으로 변경
+              ]}
               maxLength={1}
               onChangeText={(text) => handleInputChange(text, index)}
               value={value}
@@ -147,6 +166,9 @@ const PasswordChange = ({ navigation }) => { // navigation prop 추가
             />
           ))}
         </View>
+        <TouchableOpacity style={styles.toggleButton} onPress={togglePasswordVisibility}>
+          <Text style={styles.toggleButtonText}>비밀번호 보기</Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.bottomContainer}>
         {renderNumberPad()}
@@ -159,13 +181,13 @@ const styles = StyleSheet.create({
   safeAreaView: {
     width: '100%',
     height: '100%',
-    marginTop: '10%',
     backgroundColor: '#3675FF',
   },
   topBar: {
     width: '100%',
-    height: '5%',
+    height: '10%',
     flexDirection: 'row',
+    paddingTop: '2%'
   },
   // 나머지 상단 바 스타일
   pressable: {
@@ -193,6 +215,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     height: '35%',
+    paddingTop: '10%',
   },
   promptContainer: {
     marginBottom: 20,
@@ -209,18 +232,20 @@ const styles = StyleSheet.create({
   input: {
     width: 40,
     height: 40,
-    borderColor: 'black',
-    borderWidth: 2,
     borderRadius: 20,
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: 40,
     backgroundColor: 'white',
     marginHorizontal: '1%',
     color: 'transparent'
   },
+  inputVisible: {
+    backgroundColor: 'transparent', // 배경색 투명
+    color: 'black', // 텍스트 색상 검정
+  },
   bottomContainer: {
     width: '100%',
-    height: '60%',
+    height: '55%',
     justifyContent: 'center',
     paddingBottom: 20,
   },
@@ -245,6 +270,19 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: 'white'
   },
+  toggleButton: {
+    marginTop: 20,
+    backgroundColor: 'rgba(128, 128, 128, 0.7)',
+    width: '35%',
+    height: '13%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10
+  },
+  toggleButtonText: {
+    fontSize: 24,
+    color: 'rgba(255, 255, 255, 0.8)',
+  }
 });
 
 export default PasswordChange;

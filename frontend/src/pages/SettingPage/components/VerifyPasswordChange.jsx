@@ -1,5 +1,6 @@
 import React, { useState, createRef } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, Pressable, TextInput, Alert } from 'react-native';
+import { StyleSheet, Text, View, Pressable, TextInput, Alert } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import axios from 'axios';
 import TokenService from '../../../stores/TokenUtils';
@@ -155,13 +156,13 @@ const styles = StyleSheet.create({
   safeAreaView: {
     width: '100%',
     height: '100%',
-    marginTop: '10%',
     backgroundColor: '#3675FF',
   },
   topBar: {
     width: '100%',
-    height: '5%',
+    height: '10%',
     flexDirection: 'row',
+    paddingTop: '2%'
   },
   // 나머지 상단 바 스타일
   pressable: {
@@ -189,6 +190,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     height: '35%',
+    paddingTop: '10%',
   },
   promptContainer: {
     marginBottom: 20,
@@ -205,18 +207,20 @@ const styles = StyleSheet.create({
   input: {
     width: 40,
     height: 40,
-    borderColor: 'black',
-    borderWidth: 2,
     borderRadius: 20,
     textAlign: 'center',
-    fontSize: 20,
+    fontSize: 40,
     backgroundColor: 'white',
     marginHorizontal: '1%',
     color: 'transparent'
   },
+  inputVisible: {
+    backgroundColor: 'transparent', // 배경색 투명
+    color: 'black', // 텍스트 색상 검정
+  },
   bottomContainer: {
     width: '100%',
-    height: '60%',
+    height: '55%',
     justifyContent: 'center',
     paddingBottom: 20,
   },
@@ -241,6 +245,19 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: 'white'
   },
+  toggleButton: {
+    marginTop: 20,
+    backgroundColor: 'rgba(128, 128, 128, 0.7)',
+    width: '35%',
+    height: '13%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 10
+  },
+  toggleButtonText: {
+    fontSize: 24,
+    color: 'rgba(255, 255, 255, 0.8)',
+  }
 });
 
 export default VerifyPasswordChange;

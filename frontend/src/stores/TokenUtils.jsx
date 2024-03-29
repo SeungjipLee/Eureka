@@ -3,6 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const StorageKeys = {
   AccessToken: 'accessToken',
   RefreshToken: 'refreshToken',
+  UserData: 'userData',
 };
 
 const TokenService = {
@@ -36,13 +37,35 @@ const TokenService = {
     }
   },
 
-  // 모든 토큰 삭제
-  clearAllTokens: async () => {
+  // 사용자 정보 저장
+  setUserData: async (userData) => {
+    try {
+      const userDataString = JSON.stringify(userData);
+      await AsyncStorage.setItem(StorageKeys.UserData, userDataString);
+    } catch (error) {
+      console.error('AsyncStorage에 사용자 정보 저장 실패', error);
+    }
+  },
+
+  // 사용자 정보 조회
+  getUserData: async () => {
+    try {
+      const userDataString = await AsyncStorage.getItem(StorageKeys.UserData);
+      return userDataString ? JSON.parse(userDataString) : null;
+    } catch (error) {
+      console.error('AsyncStorage에서 사용자 정보 조회 실패', error);
+      return null;
+    }
+  },
+
+  // 모든 정보 삭제 (토큰 및 사용자 정보)
+  clearAllData: async () => {
     try {
       await AsyncStorage.removeItem(StorageKeys.AccessToken);
       await AsyncStorage.removeItem(StorageKeys.RefreshToken);
+      await AsyncStorage.removeItem(StorageKeys.UserData); // 사용자 정보도 삭제
     } catch (error) {
-      console.error('AsyncStorage에서 토큰 삭제 실패', error);
+      console.error('AsyncStorage에서 모든 데이터 삭제 실패', error);
     }
   },
 };

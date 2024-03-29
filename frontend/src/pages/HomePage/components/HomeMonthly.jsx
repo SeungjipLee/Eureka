@@ -63,7 +63,7 @@ function HomeMonthly () {
         <View style={styles.midcontainer}>
           <Image style={styles.image} source={require('../../../../assets/HomeIcon/CoinWallet.png')}/>
           <View>
-            <Text style={styles.font}>총 결제 금액</Text>
+            <Text style={styles.font}>총 결제 예상 금액</Text>
             <Text style={styles.price}>{payAmount}원</Text>
           </View>
           <Pressable onPress={() => navigation.navigate('StatisticsPage')}>
@@ -113,7 +113,8 @@ const styles = StyleSheet.create({
   price: {
     fontWeight: 'bold',
     fontSize: 24,
-    color: '#6797ff'
+    color: '#6797ff',
+    alignSelf:'flex-end'
   },
   nextBtn: {
     start: 'end',

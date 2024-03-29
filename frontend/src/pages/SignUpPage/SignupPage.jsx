@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, TextInput, Alert, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Alert, TouchableOpacity } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Picker } from '@react-native-picker/picker';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
@@ -45,6 +46,7 @@ const SignupPage = () => {
       axios.post('https://j10e101.p.ssafy.io/api/user/send', userInfo)
         .then(response => {
           // 성공적으로 응답을 받았을 때
+          console.log(response.data)
           Alert.alert('인증번호가 전송되었습니다.', '인증번호를 입력해주세요.');
           setShowAuthInput(true); // 인증번호 입력란을 표시
           setTimeout(() => authNumInputRef.current.focus(), 100);
@@ -103,13 +105,16 @@ const SignupPage = () => {
           // response.data에 값이 있는 경우, 즉 accessToken과 refreshToken이 반환된 경우
           if (response.data && response.data.accessToken && response.data.refreshToken) {
             // TokenUtils를 사용하여 accessToken과 refreshToken 저장 및 Routers로 이동
-            const { accessToken, refreshToken } = response.data;
+            const { accessToken, refreshToken, userData } = response.data;
             await TokenService.setToken(accessToken, refreshToken);
+            await TokenService.setUserData(userData);
+
             navigation.reset({
               index: 0, // 새 스택의 시작 인덱스를 0으로 설정합니다.
               routes: [{ name: 'Routers' }], // 이동할 라우트의 배열을 설정합니다.
             });
             console.log(accessToken)
+            console.log(response.data)
           } else {
             // response.data가 비어있거나 예상한 값이 없는 경우, 인증 성공 처리
             Alert.alert('인증 성공', '인증이 완료되었습니다.', [
@@ -157,6 +162,7 @@ const SignupPage = () => {
         }}
         returnKeyType="next"
         onSubmitEditing={() => rNumInputRef.current.focus()}
+        editable={!showAuthInput}
       ></TextInput>
     </View>
   );
@@ -197,6 +203,7 @@ const SignupPage = () => {
           }}
           returnKeyType="next"
           onSubmitEditing={() => rNum2InputRef.current.focus()}
+          editable={!showAuthInput}
         />
         <View
           style={{
@@ -230,6 +237,7 @@ const SignupPage = () => {
           }}
           returnKeyType="next"
           onSubmitEditing={() => nameInputRef.current.focus()}
+          editable={!showAuthInput}
         />
         <TextInput
           style={[
@@ -270,6 +278,7 @@ const SignupPage = () => {
         }}
         keyboardType='default'
         returnKeyType="done"
+        editable={!showAuthInput}
       ></TextInput>
     </View>
   );

@@ -58,7 +58,8 @@ const styles = StyleSheet.create({
   price: {
     fontWeight: 'bold',
     fontSize: 24,
-    color: '#6797ff'
+    color: '#6797ff',
+    alignSelf:'flex-end'
   },
   nextBtn: {
     start: 'end',
