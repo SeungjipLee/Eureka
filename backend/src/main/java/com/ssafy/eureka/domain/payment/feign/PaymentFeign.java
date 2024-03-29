@@ -1,7 +1,7 @@
 package com.ssafy.eureka.domain.payment.feign;
 
 import com.ssafy.eureka.common.response.MyDataApiResponse;
-import com.ssafy.eureka.domain.payment.dto.request.PayRequest;
+import com.ssafy.eureka.domain.payment.dto.request.ApprovePayRequest;
 import com.ssafy.eureka.domain.payment.dto.request.PayTokenRequest;
 import com.ssafy.eureka.domain.payment.dto.response.PayResponse;
 import com.ssafy.eureka.domain.payment.dto.response.PayTokenResponse;
@@ -20,5 +20,5 @@ public interface PaymentFeign {
     @PostMapping(path = "/card/pay")
     public MyDataApiResponse<PayResponse> requestPay(
         @RequestHeader("Authorization") String accessToken,
-        @RequestBody PayRequest payRequest);
+        @RequestBody ApprovePayRequest approvePayRequest);
 }

@@ -9,6 +9,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -71,7 +72,7 @@ public class PayHistoryEntity {
     @NotNull
     private int recommendDiscount;
 
-    public static PayHistoryEntity regist(String userId, int userCardId, PayResponse payResponse, PayInfo payInfo) {
+    public static PayHistoryEntity regist(String userId, int userCardId, PayResponse payResponse, PayInfo payInfo, Integer discount) {
         PayHistoryEntity payHistory = new PayHistoryEntity();
         payHistory.orderId = payInfo.getOrderId();
         payHistory.userId = Integer.parseInt(userId);
@@ -86,8 +87,7 @@ public class PayHistoryEntity {
         payHistory.transDateTime = payResponse.getTransDateTime();
         payHistory.modifiedAmt = payResponse.getModifiedAmt();
         payHistory.totalInstallCnt = payResponse.getTotalInstallCnt();
-        payHistory.discount = 0;
-        payHistory.recommendDiscount = payInfo.getRecommendDiscount();
+        payHistory.discount = Objects.requireNonNullElse(discount, 0);
         return payHistory;
     }
 }
