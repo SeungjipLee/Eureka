@@ -17,6 +17,7 @@ import com.ssafy.eureka.domain.mydata.dto.MyDataToken;
 import com.ssafy.eureka.domain.card.dto.request.SearchUserCardRequest;
 import com.ssafy.eureka.domain.mydata.dto.request.MyDataCardHistoryRequest;
 import com.ssafy.eureka.domain.mydata.dto.response.MyDataCardHistoryResponse;
+import com.ssafy.eureka.domain.mydata.dto.response.MyDataCardHistoryResponse.MyDataCardHistory;
 import com.ssafy.eureka.domain.mydata.dto.response.MyDataUserCardResponse;
 import com.ssafy.eureka.domain.mydata.dto.response.MyDataUserCardResponse.MyDataUserCard;
 import com.ssafy.eureka.domain.mydata.feign.MyDataFeign;
@@ -261,7 +262,15 @@ public class UserCardServiceImpl implements UserCardService {
         MyDataCardHistoryResponse myDataCardPayList = (MyDataCardHistoryResponse) response.getData();
         // 총 결제 금액, 할인 금액 넣어서 리턴하기
 
-        log.debug("myDataCardPayList : "+ myDataCardPayList);
+        int totalConsumption = 0;
+        // 레퍼지토리에서 가져오기
+        int totalDiscount = 0;
+
+        for(MyDataCardHistory card : myDataCardPayList.getMyDataCardHistoryList()){
+            totalConsumption += card.getApprovedAmt();
+        }
+        myDataCardPayList.setMonthTotalConsumption(totalConsumption);
+        myDataCardPayList.setMonthTotalDiscount(totalDiscount);
 
         return myDataCardPayList;
     }

@@ -81,7 +81,7 @@ public class CardServiceImpl implements CardService {
             myDataCardHistoryList.add(new CardHistoryResponse.MyDataCardHistory(history));
         }
 
-        return new CardHistoryResponse(myDataCardHistoryList);
+        return new CardHistoryResponse(0, 0, myDataCardHistoryList);
     }
 
     @Override

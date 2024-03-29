@@ -87,14 +87,18 @@ public class PayServiceImpl implements PayService{
         PayInfo payInfo = new PayInfo(userId, requestPayRequest, cardToDiscount, list.get(0).getUserCardId(), list.get(0).getDiscountAmount());
         payInfoRepository.save(payInfo);
 
-        return new CardRecommendResponse(list);
+        return new CardRecommendResponse(requestPayRequest.getOrderId(), list);
     }
 
     @Override
     public AprrovePayResponse approvePay(String userId, AprrovePayRequest aprrovePayRequest) {
 
-        PayInfo payInfo = payInfoRepository.findById(aprrovePayRequest.getOrderId())
+        String orderId = aprrovePayRequest.getOrderId();
+
+        PayInfo payInfo = payInfoRepository.findById(orderId)
             .orElseThrow(() -> new CustomException(ResponseCode.PAY_INFO_NOT_FOUND));
+
+        payInfoRepository.deleteById(orderId);
 
         UserCardEntity userCard = userCardRepository.findByUserCardId(aprrovePayRequest.getUserCardId())
             .orElseThrow(() -> new CustomException(ResponseCode.USER_CARD_NOT_FOUND));
@@ -110,7 +114,7 @@ public class PayServiceImpl implements PayService{
         PayHistoryEntity payHistory = PayHistoryEntity.regist(userId, userCard.getUserCardId(), (PayResponse)response.getData(),
             payInfo, payInfo.getCardToDiscount().get(userCard.getUserCardId()));
 
-        payHistoryRepository.save(payHistory);
+//        payHistoryRepository.save(payHistory);
 
         // 결제 결과 반환
         return null;
