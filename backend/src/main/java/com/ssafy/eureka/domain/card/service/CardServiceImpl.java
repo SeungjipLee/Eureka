@@ -164,13 +164,18 @@ public class CardServiceImpl implements CardService{
     }
 
     @Override
-    public List<CardBenefitEntity> cardProdDetail(int cardId) {
+    public CardProdDetailResponse cardProdDetail(int cardId) {
+
 
         CardEntity cardEntity = cardRepository.findByCard(cardId)
                 .orElseThrow(() -> new CustomException(ResponseCode.CARD_NOT_FOUND));
 
-//        String imagePath = cardEntity.getImagePath();
-//        String cardName = cardEntity.getCardName();
+        String imagePath = cardEntity.getImagePath();
+        String cardName = cardEntity.getCardName();
+        int imgAttr = cardEntity.getImgAttr();
+
+        List<CardBenefitEntity> CardBenefitEntityList = cardBenefitRepository.findByCardId(cardId);
+
 //        int annualFee = cardEntity.getAnnualFee();
 //        int previousPerformance = cardEntity.getPreviousPerformance();
 //        String registerPage = cardEntity.getJoinPath();
@@ -193,7 +198,7 @@ public class CardServiceImpl implements CardService{
 //        CardProdDetailResponse cardProdDetailResponse = new CardProdDetailResponse(
 //                cardId, imagePath, cardName, annualFee, previousPerformance,
 //                registerPage, list);
-        return cardBenefitRepository.findByCardId(cardId);
+        return new CardProdDetailResponse(imagePath, cardName, imgAttr, CardBenefitEntityList);
     }
 
     @Override

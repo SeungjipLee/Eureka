@@ -2,7 +2,9 @@ package com.ssafy.eureka.domain.statistics.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigInteger;
@@ -10,6 +12,8 @@ import java.math.BigInteger;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "consumption_static")
 public class ConsumptionStaticEntity {
 
@@ -32,4 +36,10 @@ public class ConsumptionStaticEntity {
     @Column(columnDefinition = "BIGINT")
     private BigInteger totalConsumption;
 
+    public ConsumptionStaticEntity (int userCardId, String yyyy, String mm, BigInteger totalConsumption){
+        this.userCardId = userCardId;
+        this.year = yyyy;
+        this.month = mm;
+        this.totalConsumption = totalConsumption;
+    }
 }
