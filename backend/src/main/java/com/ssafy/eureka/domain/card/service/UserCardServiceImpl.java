@@ -269,6 +269,7 @@ public class UserCardServiceImpl implements UserCardService {
         for(MyDataCardHistory card : myDataCardPayList.getMyDataCardHistoryList()){
             totalConsumption += card.getApprovedAmt();
         }
+
         myDataCardPayList.setMonthTotalConsumption(totalConsumption);
         myDataCardPayList.setMonthTotalDiscount(totalDiscount);
 
@@ -290,8 +291,6 @@ public class UserCardServiceImpl implements UserCardService {
 
     @Override
     public void deleteUserCard(String userId, int userCardId) {
-        // 유저 정보 2중 확인
-
         UserCardEntity userCard = userCardRepository.findByUserCardId(userCardId)
             .orElseThrow(() -> new CustomException(ResponseCode.USER_CARD_NOT_FOUND));
 

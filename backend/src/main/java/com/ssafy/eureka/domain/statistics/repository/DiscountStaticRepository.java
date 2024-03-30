@@ -12,5 +12,4 @@ public interface DiscountStaticRepository extends JpaRepository<DiscountStaticEn
     @Query(value = "SELECT * FROM discount_static " +
             "WHERE user_card_id = :userCardId AND year = :year AND month = :month", nativeQuery = true)
     Optional<DiscountStaticEntity> findByUserCardIdAndMonthAndYear(@Param("userCardId") int userCardId, @Param("year") String year, @Param("month") String month);
-
 }

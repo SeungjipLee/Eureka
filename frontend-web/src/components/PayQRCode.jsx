@@ -9,13 +9,13 @@ export default function PayQRCode() {
   // QR 코드에 포함될 정보
   const getPayInfo = () =>
     JSON.stringify({
-      storeCode: "AAAAAA",
-      storeId: "111111",
-      orderId: "qwertyuiopasdfghjklzxcvbnmqwerty",
-      orderName: orderName,
+      storeName: "스타벅스 명지점",
+      storeRegNo: "000-00-00000",
+      orderId: "64바이트 랜덤값",
+      orderName: "스타벅스 명지점",
       totalAmount: totalAmount,
       requestedAt: new Date(),
-      vat: 400,
+      vat: 0,
       redirectUrl: "https://j10e101.p.ssafy.io/",
     });
 

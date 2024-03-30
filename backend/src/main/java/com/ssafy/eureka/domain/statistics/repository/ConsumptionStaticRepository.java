@@ -14,5 +14,4 @@ public interface ConsumptionStaticRepository extends JpaRepository<ConsumptionSt
     @Query(value = "SELECT * FROM consumption_static " +
             "WHERE user_card_id = :userCardId AND year = :year AND month = :month", nativeQuery = true)
     Optional<ConsumptionStaticEntity> findByUserCardIdAndMonthAndYear(@Param("userCardId") int userCardId, @Param("year") String year, @Param("month") String month);
-
 }

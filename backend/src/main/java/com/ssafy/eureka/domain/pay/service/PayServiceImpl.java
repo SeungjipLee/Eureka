@@ -19,16 +19,23 @@ import com.ssafy.eureka.domain.pay.dto.PayHistoryEntity;
 import com.ssafy.eureka.domain.pay.dto.PayInfo;
 import com.ssafy.eureka.domain.pay.dto.request.AprrovePayRequest;
 import com.ssafy.eureka.domain.pay.dto.request.RequestPayRequest;
-import com.ssafy.eureka.domain.pay.dto.response.AprrovePayResponse;
 import com.ssafy.eureka.domain.pay.dto.response.CardRecommendResponse;
 import com.ssafy.eureka.domain.pay.dto.response.CardRecommendResponse.RecommendCard;
 import com.ssafy.eureka.domain.pay.dto.response.PayHistoryListResponse;
 import com.ssafy.eureka.domain.pay.dto.response.PayHistoryResponse;
 import com.ssafy.eureka.domain.pay.repository.PayHistoryRepository;
 import com.ssafy.eureka.domain.pay.repository.PayInfoRepository;
+import com.ssafy.eureka.domain.pay.util.PayUtil;
 import com.ssafy.eureka.domain.payment.dto.request.ApprovePayRequest;
 import com.ssafy.eureka.domain.payment.dto.response.PayResponse;
 import com.ssafy.eureka.domain.payment.feign.PaymentFeign;
+import com.ssafy.eureka.domain.statistics.entity.ConsumptionStaticEntity;
+import com.ssafy.eureka.domain.statistics.repository.ConsumptionLargeStaticRepository;
+import com.ssafy.eureka.domain.statistics.repository.ConsumptionSmallStaticRepository;
+import com.ssafy.eureka.domain.statistics.repository.ConsumptionStaticRepository;
+import com.ssafy.eureka.domain.statistics.repository.DiscountLargeStaticRepository;
+import com.ssafy.eureka.domain.statistics.repository.DiscountSmallStaticRepository;
+import com.ssafy.eureka.domain.statistics.repository.DiscountStaticRepository;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -57,6 +64,15 @@ public class PayServiceImpl implements PayService{
     private final LargeCategoryRepository largeCategoryRepository;
     private final CardRepository cardRepository;
 
+    private final PayUtil payUtil;
+
+    private final ConsumptionStaticRepository consumptionStaticRepository;
+    private final ConsumptionLargeStaticRepository consumptionLargeStaticRepository;
+    private final ConsumptionSmallStaticRepository consumptionSmallStaticRepository;
+
+    private final DiscountStaticRepository discountStaticRepository;
+    private final DiscountLargeStaticRepository discountLargeStaticRepository;
+    private final DiscountSmallStaticRepository discountSmallStaticRepository;
 
     @Override
     public CardRecommendResponse requestPay(String userId, RequestPayRequest requestPayRequest) {
@@ -72,11 +88,33 @@ public class PayServiceImpl implements PayService{
             CardEntity cardProd = cardRepository.findByCardId(userCard.getCardId());
 
             CardBenefitDetailEntity cardBenefit = cardBenefitDetailRepository.findCardBenefitDetailsByCardIdAndCategory(userCard.getCardId(), largeCategory, smallCategory)
-                .orElse(null);
+                    .orElse(null);
 
             RecommendCard card = new RecommendCard(cardProd, userCard, cardBenefit);
 
-            // 00원 할인된다만 정해서 넣어주면 됨.
+            // 할인 정보 계산 및 추가
+
+            int discount = payUtil.calculateDiscount();
+
+//            userCard.getCurrentMonthAmount();
+//            전월실적
+
+            // 빅 카테고리 총 소비 금액, 횟수 조회
+            // 스몰 카테고리 총 소비 금액, 횟수 조회
+
+
+            /*
+                largeCategoryId, smallCategoryId, cardId로 cardBenefitDetail 조회하기
+
+                cardId의 전월실적
+                userCardId의 이번 달 총 소비, 해당 카테고리 소비 금액, 횟수, 할인 금액, 할인 횟수 가져오기
+
+                // 할인 받을 수 있는 지 확인
+
+                // 할인 금액 반환
+             */
+
+
             card.setDiscountAmount(new Random().nextInt(21) * 100);
             if (card.getDiscountCost() > requestPayRequest.getTotalAmount()){
                 card.setDiscountAmount(Math.toIntExact(requestPayRequest.getTotalAmount()));
@@ -119,6 +157,25 @@ public class PayServiceImpl implements PayService{
             payInfo, payInfo.getCardToDiscount().get(userCard.getUserCardId()));
 
         payHistoryRepository.save(payHistory);
+
+        userCard.updateMonthAmount(payInfo.getTotalAmount());
+        userCardRepository.save(userCard);
+
+        String year =String.valueOf(payHistory.getApprovedDateTime().getYear());
+        String month = String.format("%02d", payHistory.getApprovedDateTime().getMonthValue());
+
+            // 소비
+//        ConsumptionStaticEntity consumptionStaticEntity = consumptionStaticRepository.findByUserCardIdAndMonthAndYear(
+//            userCard.getUserCardId(), year, month)
+//            .orElseGet(() -> new ConsumptionStaticEntity());
+
+//        consumptionLargeStaticRepository
+//        consumptionSmallStaticRepository
+        // 할인
+//        discountStaticRepository
+//        discountLargeStaticRepository
+//        discountSmallStaticRepository
+
     }
 
     @Override
@@ -133,7 +190,7 @@ public class PayServiceImpl implements PayService{
                         yyyymm.substring(0, 4), yyyymm.substring(4, 6));
         if (payHistoryEntityList.isEmpty()) return null;
 
-        int totalAmt=0;
+        int totalAmt = 0;
 
         List<PayHistoryListResponse> payHistoryListResponseList = new ArrayList<>();
         for(PayHistoryEntity payHistoryEntity: payHistoryEntityList){
