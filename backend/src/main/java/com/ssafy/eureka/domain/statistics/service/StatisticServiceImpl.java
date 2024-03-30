@@ -4,12 +4,9 @@ import com.ssafy.eureka.common.exception.CustomException;
 import com.ssafy.eureka.common.response.ResponseCode;
 import com.ssafy.eureka.domain.card.dto.UserCardEntity;
 import com.ssafy.eureka.domain.card.repository.UserCardRepository;
-import com.ssafy.eureka.domain.category.dto.LargeCategoryEntity;
-import com.ssafy.eureka.domain.category.repository.LargeCategoryRepository;
 import com.ssafy.eureka.domain.statistics.dto.ConsumptionStatistics;
 import com.ssafy.eureka.domain.statistics.dto.TotalStatistics;
 import com.ssafy.eureka.domain.statistics.dto.response.ConsumptionStatisticsResponse;
-import com.ssafy.eureka.domain.statistics.entity.ConsumptionLargeStaticEntity;
 import com.ssafy.eureka.domain.statistics.entity.ConsumptionStaticEntity;
 import com.ssafy.eureka.domain.statistics.entity.DiscountStaticEntity;
 import com.ssafy.eureka.domain.statistics.repository.ConsumptionLargeStaticRepository;
@@ -30,7 +27,6 @@ import java.util.Optional;
 public class StatisticServiceImpl implements StatisticService {
 
     private final UserCardRepository userCardRepository;
-    private final LargeCategoryRepository largeCategoryRepository;
     private final ConsumptionStaticRepository consumptionStaticRepository;
     private final ConsumptionLargeStaticRepository consumptionLargeStaticRepository;
     private final DiscountStaticRepository discountStaticRepository;
@@ -86,52 +82,14 @@ public class StatisticServiceImpl implements StatisticService {
             throw new CustomException(ResponseCode.USER_CARD_NOT_FOUND);
         }
 
-        BigInteger totalConsumption = BigInteger.valueOf(0);
-        List<ConsumptionStatistics> consumptionStatisticsList = new ArrayList<>();
+        String year = yyyyMM.substring(0, 4);
+        String month = yyyyMM.substring(4, 6);
 
-        List<LargeCategoryEntity> largeCategoryEntityList = largeCategoryRepository.findByLargeCategoryIdNot(1);
 
-        for (LargeCategoryEntity largeCategoryEntity : largeCategoryEntityList) {
-            ConsumptionStatistics consumptionStatistics = new ConsumptionStatistics();
-            consumptionStatistics.setCategoryId(largeCategoryEntity.getLargeCategoryId());
-            consumptionStatistics.setCategoryName(largeCategoryEntity.getCategoryName());
-            consumptionStatistics.setConsumption(BigInteger.valueOf(0));
-            consumptionStatisticsList.add(consumptionStatistics);
-        }
+        BigInteger totalConsumption = consumptionStaticRepository.findTotalConsumptionByUserIdAndDate(Integer.parseInt(userId), year, month);
 
-        for (UserCardEntity userCardEntity : userCardEntityList) {
-            int userCardId = userCardEntity.getUserCardId();
-            Optional<ConsumptionStaticEntity> consumptionStaticEntity =
-                    consumptionStaticRepository.findByUserCardIdAndMonthAndYear(userCardId, yyyyMM.substring(0, 4), yyyyMM.substring(4, 6));
-
-            if (consumptionStaticEntity.isPresent()) {
-                // 전체 소비금액 더하기
-                totalConsumption = totalConsumption.add(consumptionStaticEntity.get().getTotalConsumption());
-
-                int consumptionStaticId = consumptionStaticEntity.get().getConsumptionStaticId();
-                List<ConsumptionLargeStaticEntity> consumptionLargeStaticEntityList =
-                        consumptionLargeStaticRepository.findAllByConsumptionStaticId(consumptionStaticId);
-
-                // 카테고리별 소비금액 더하기
-                for (ConsumptionLargeStaticEntity consumptionLargeStaticEntity : consumptionLargeStaticEntityList) {
-                    int categoryId = consumptionLargeStaticEntity.getLargeCategoryId();
-                    BigInteger consumption = consumptionLargeStaticEntity.getConsumptionAmount();
-
-                    for (ConsumptionStatistics consumptionStatistics : consumptionStatisticsList) {
-                        if (consumptionStatistics.getCategoryId() == categoryId) {
-                            consumptionStatistics.setConsumption(consumptionStatistics.getConsumption().add(consumption));
-                            break;
-                        }
-                    }
-                }
-
-            } else {
-                log.debug(userCardId + " : 소비내역 없음");
-            }
-        }
-
-        consumptionStatisticsList.sort((ConsumptionStatistics cs1, ConsumptionStatistics cs2)
-                -> cs2.getConsumption().compareTo(cs1.getConsumption()));
+        List<ConsumptionStatistics> consumptionStatisticsList =
+                consumptionLargeStaticRepository.findConsumptionStatisticsByUserIdAndDate(Integer.parseInt(userId), year, month);
 
         ConsumptionStatisticsResponse response = new ConsumptionStatisticsResponse();
         response.setTotalConsumption(totalConsumption);
