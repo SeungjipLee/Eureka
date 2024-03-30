@@ -10,8 +10,8 @@ function QRScanRouters () {
   return (
     <QRStack.Navigator
       screenOptions={{ headerShown: false }}>
-      <QRStack.Screen name="QRScanPage" component={QRScanPage}/>
       <QRStack.Screen name="PayLoadingPage" component={PayLoadingPage}/>
+      <QRStack.Screen name="QRScanPage" component={QRScanPage}/>
       <QRStack.Screen name="PayCheck" component={PayCheck}/>
       <QRStack.Screen name="PayComplete" component={PayComplete}/>
     </QRStack.Navigator>

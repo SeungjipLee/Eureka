@@ -15,6 +15,8 @@ import com.ssafy.eureka.domain.category.dto.SmallCategoryEntity;
 import com.ssafy.eureka.domain.category.repository.LargeCategoryRepository;
 import com.ssafy.eureka.domain.category.repository.SmallCategoryRepository;
 import com.ssafy.eureka.domain.mydata.dto.MyDataToken;
+import com.ssafy.eureka.domain.mydata.dto.response.MyDataCardHistoryResponse;
+import com.ssafy.eureka.domain.mydata.feign.MyDataFeign;
 import com.ssafy.eureka.domain.pay.dto.PayHistoryEntity;
 import com.ssafy.eureka.domain.pay.dto.PayInfo;
 import com.ssafy.eureka.domain.pay.dto.request.AprrovePayRequest;
@@ -45,8 +47,10 @@ import java.util.Random;
 import com.ssafy.eureka.domain.user.dto.UserEntity;
 import com.ssafy.eureka.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class PayServiceImpl implements PayService{
@@ -58,6 +62,7 @@ public class PayServiceImpl implements PayService{
     private final PayHistoryRepository payHistoryRepository;
     private final PayInfoRepository payInfoRepository;
     private final PaymentFeign paymentFeign;
+    private final MyDataFeign myDataFeign;
 
     private final CardBenefitDetailRepository cardBenefitDetailRepository;
     private final SmallCategoryRepository smallCategoryRepository;
@@ -184,34 +189,72 @@ public class PayServiceImpl implements PayService{
         UserEntity userEntity = userRepository.findByUserId(Integer.parseInt(userId))
                 .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
 
-        List<PayHistoryEntity> payHistoryEntityList =
-                payHistoryRepository.findByUserId(
-                        Integer.parseInt(userId),
-                        yyyymm.substring(0, 4), yyyymm.substring(4, 6));
-        if (payHistoryEntityList.isEmpty()) return null;
+
+        MyDataToken myDataToken = mydataTokenRepository.findById(userId)
+                .orElseThrow(() -> new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR));
+
+        String accessToken = myDataToken.getAccessToken();
+
+        // 해당 유저가 가진 모든 카드
+        List<UserCardEntity> userCardEntityList = userCardRepository.findAllByUserId(Integer.parseInt(userId));
 
         int totalAmt = 0;
-
+        
         List<PayHistoryListResponse> payHistoryListResponseList = new ArrayList<>();
-        for(PayHistoryEntity payHistoryEntity: payHistoryEntityList){
 
-            int largeCategoryId = payHistoryEntity.getLargeCategoryId();
-            int smallCategoryId = payHistoryEntity.getSmallCategoryId();
-            totalAmt += payHistoryEntity.getApprovedAmt();
+        for (int i=0; i<userCardEntityList.size(); i++){
+            
+            // 카드 하나의 모든 결제 내역 불러오기
+            MyDataApiResponse<?> response = myDataFeign.searchCardPayList(accessToken,
+                    userCardEntityList.get(i).getCardIdentifier(), yyyymm);
 
-            LargeCategoryEntity largeCategoryEntity
-                    = largeCategoryRepository.findByLargeCategoryId(largeCategoryId);
-            Optional<SmallCategoryEntity> smallCategoryEntity
-                    = smallCategoryRepository.findBySmallCategoryId(smallCategoryId);
+            if(response.getStatus() != 200){
+                throw new CustomException(400, response.getMessage());
+            }
 
-            String largeCategoryName = largeCategoryEntity.getCategoryName();
-            String smallCategoryName = smallCategoryEntity.get().getCategoryName();
+            CardEntity cardEntity = cardRepository.findByCard(userCardEntityList.get(i).getCardId())
+                    .orElseThrow(() -> new CustomException(ResponseCode.CARD_NOT_FOUND));
 
-            payHistoryListResponseList.add(new PayHistoryListResponse(
-                    payHistoryEntity, largeCategoryName, smallCategoryName
-            ));
+            String cardName = cardEntity.getCardName();
+
+            MyDataCardHistoryResponse myDataCardPayList = (MyDataCardHistoryResponse) response.getData();
+            log.debug("myDataCardPayList" + myDataCardPayList);
+            System.out.println("myDataCardPayList" + myDataCardPayList.getMyDataCardHistoryList());
+
+            for(int j=0; j<myDataCardPayList.getMyDataCardHistoryList().size(); j++){
+
+            String approvedNum = myDataCardPayList.getMyDataCardHistoryList().get(j).getApprovedNum();
+                System.out.println("approvedNum " + approvedNum);
+
+                // 카드사 결제내역에 있는 승인번호와 페이내역에 있는 승인번호가 일치하는 결제 내역만 조회
+//            List<PayHistoryEntity> payHistoryEntityList =
+//                    payHistoryRepository.findByApprovedNum(
+//                            approvedNum,
+//                            yyyymm.substring(0, 4), yyyymm.substring(4, 6));
+//            if (payHistoryEntityList.isEmpty()) return null;
+                PayHistoryEntity payHistoryEntity = payHistoryRepository.findByApprovedNum(approvedNum);
+                if (payHistoryEntity == null) continue; // 카드 결제 내역엔 있지만 페이 내역엔 없다면
+
+                System.out.println("payHistoryEntity " + payHistoryEntity);
+
+                int largeCategoryId = payHistoryEntity.getLargeCategoryId();
+                int smallCategoryId = payHistoryEntity.getSmallCategoryId();
+                totalAmt += payHistoryEntity.getApprovedAmt();
+
+                LargeCategoryEntity largeCategoryEntity
+                        = largeCategoryRepository.findByLargeCategoryId(largeCategoryId);
+                Optional<SmallCategoryEntity> smallCategoryEntity
+                        = smallCategoryRepository.findBySmallCategoryId(smallCategoryId);
+
+                String largeCategoryName = largeCategoryEntity.getCategoryName();
+                String smallCategoryName = smallCategoryEntity.get().getCategoryName();
+
+                payHistoryListResponseList.add(new PayHistoryListResponse(cardName,
+                        payHistoryEntity, largeCategoryName, smallCategoryName
+                ));
+
+            }
         }
-
 
         return new PayHistoryResponse(totalAmt, payHistoryListResponseList);
     }

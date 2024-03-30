@@ -26,10 +26,18 @@ import com.ssafy.eureka.domain.pay.repository.PayHistoryRepository;
 import com.ssafy.eureka.domain.payment.dto.request.PayTokenRequest;
 import com.ssafy.eureka.domain.payment.dto.response.PayTokenResponse;
 import com.ssafy.eureka.domain.payment.feign.PaymentFeign;
+import com.ssafy.eureka.domain.statistics.entity.ConsumptionLargeStaticEntity;
+import com.ssafy.eureka.domain.statistics.entity.ConsumptionSmallStaticEntity;
+import com.ssafy.eureka.domain.statistics.entity.ConsumptionStaticEntity;
+import com.ssafy.eureka.domain.statistics.repository.ConsumptionLargeStaticRepository;
+import com.ssafy.eureka.domain.statistics.repository.ConsumptionSmallStaticRepository;
+import com.ssafy.eureka.domain.statistics.repository.ConsumptionStaticRepository;
 import com.ssafy.eureka.domain.user.dto.UserEntity;
 import com.ssafy.eureka.domain.user.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
+
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -52,6 +60,9 @@ public class UserCardServiceImpl implements UserCardService {
     private final CardBenefitRepository cardBenefitRepository;
     private final LargeCategoryRepository largeCategoryRepository;
     private final PayHistoryRepository payHistoryRepository;
+    private final ConsumptionStaticRepository consumptionStaticRepository;
+    private final ConsumptionLargeStaticRepository consumptionLargeStaticRepository;
+    private final ConsumptionSmallStaticRepository consumptionSmallStaticRepository;
 
     private final MyDataFeign myDataFeign;
     private final PaymentFeign paymentFeign;
@@ -174,7 +185,6 @@ public class UserCardServiceImpl implements UserCardService {
         {
 
             int totalAmt=0;
-            String cardIdentifier = userCardEntity.getCardIdentifier();
 
             MyDataToken myDataToken = mydataTokenRepository.findById(userId)
                     .orElseThrow(() -> new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR));
@@ -277,17 +287,22 @@ public class UserCardServiceImpl implements UserCardService {
     }
 
     @Override
-    public void registUserCard(String userId, RegistUserCardRequest registUserCardRequest) {
+    public void registUserCard(String userId, RegistUserCardRequest registUserCardRequest
+                               ) {
         for (RegistUserCard userCard : registUserCardRequest.getRegisterUserCard()) {
             UserCardEntity card = userCardRepository.findByCardIdentifier(userCard.getCardIdentifier())
                 .orElse(null);
 
             if(card == null){
+                log.debug("카드엄슴");
                 UserCardEntity newCard = UserCardEntity.registUserCard(userId, userCard);
                 userCardRepository.save(newCard);
-            }
+
+            // 거래 내역을 소비 통계에 저장하는 메서드 추가 예정
+            }  // for
         }
     }
+
 
     @Override
     public void deleteUserCard(String userId, int userCardId) {
@@ -326,4 +341,129 @@ public class UserCardServiceImpl implements UserCardService {
             userCardRepository.save(card);
         }
     }
+
+    ////
+//    public void addStatics(){
+//        // 카드가 등록됐을 때만 3달 치 거래내역을 넣어주는 것도 생각
+//        UserCardEntity userCardEntity = userCardRepository.findByCardIdentifier(userCard.getCardIdentifier())
+//                .orElseThrow(() -> new CustomException(ResponseCode.USER_CARD_NOT_FOUND));
+//
+//        // 저장했으면 userCardId가 생겼을 것
+//        int userCardId = userCardEntity.getUserCardId();
+//
+//        MyDataToken myDataToken = mydataTokenRepository.findById(userId)
+//                .orElseThrow(() -> new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR));
+//
+//        String accessToken = myDataToken.getAccessToken();
+//
+//        // 등록 카드의 3달치 거래 내역을 소비 통계에 저장
+//        for(int i=0; i<3; i++){
+//
+//            log.debug("3달치 계산 시작");
+//            int yyyy = Integer.parseInt(yyyymm.substring(0, 4));
+//            int mm = Integer.parseInt(yyyymm.substring(4, 6));
+//
+//            log.debug("yyyy, mm : "+ yyyy + " / " + mm);
+//
+//            if(mm-i <=0){
+//                mm = 13-i;
+//                yyyy -= 1;
+//            }
+//            else mm = mm - i;
+//
+//            String year = String.valueOf(yyyy);
+//            String month = "0"+mm;
+//
+//            yyyymm = year + month;
+//            log.debug("yyyymm : "+ yyyymm);
+//
+//            MyDataApiResponse<?> response = myDataFeign.searchCardPayList(accessToken,
+//                    userCardEntity.getCardIdentifier(), yyyymm);
+//
+//            if (response.getStatus() != 200) {
+//                throw new CustomException(400, response.getMessage());
+//            }
+//
+//            MyDataCardHistoryResponse myDataCardPayList = (MyDataCardHistoryResponse) response.getData();
+//
+//            if(myDataCardPayList == null) return;
+//
+//            log.debug("myDataCardPayList : "+ myDataCardPayList);
+//
+//            BigInteger totalConsumption= BigInteger.ZERO;
+//
+//
+//            // 소비 통계 id를 대분류 통계가 참고하고 대분류 통계 id를 소분류 통계가 참고하는데
+//            // 그럴려면 소비 통계에 데이터가 먼저 저장돼있어야 대분류 통계가 참고
+//            // 소비 통계 먼저 저장해놔야..
+//
+//            // 소비 통계
+//            ConsumptionStaticEntity consumptionStaticEntity = consumptionStaticRepository.findByUserCardId(userCardId);
+//            int consumptionStaticId = consumptionStaticEntity.getConsumptionStaticId();
+//            // 해당 달 모든 거래내역
+//            for(int j=0; j<myDataCardPayList.getMyDataCardHistoryList().size(); j++){
+//
+//
+//                totalConsumption = totalConsumption.add(BigInteger.valueOf(myDataCardPayList.getMyDataCardHistoryList().get(j).getApprovedAmt()));
+////                    if (consumptionStaticEntity == null){
+////                        consumptionStaticRepository.save(new ConsumptionStaticEntity(
+////                                userCardId, year, month, totalConsumption)
+////                        );
+////                    }
+////                    else {
+////                        consumptionStaticEntity.setTotalConsumption(totalConsumption);
+////                        consumptionStaticRepository.save(consumptionStaticEntity);
+////                        consumptionStaticId = consumptionStaticEntity.getConsumptionStaticId();
+////                    }
+//            }
+//
+//            consumptionStaticRepository.save(new ConsumptionStaticEntity(
+//                    userCardId, year, month, totalConsumption)
+//            );
+//
+//            // method로 뺄까..
+//            for(int j=0; j<myDataCardPayList.getMyDataCardHistoryList().size(); j++) {
+//
+//                int largeCategoryId = myDataCardPayList.getMyDataCardHistoryList().get(j).getLargeCategoryId();
+//                int smallCategoryId = myDataCardPayList.getMyDataCardHistoryList().get(j).getSmallCategoryId();
+//
+//                // 소비 금액 (Large)
+//                ConsumptionLargeStaticEntity consumptionLargeStaticEntity =
+//                        consumptionLargeStaticRepository.findByConsumptionStaticId(consumptionStaticId);
+//
+//                // 빅인티저..
+//                BigInteger consumptionAmount = consumptionLargeStaticEntity.getConsumptionAmount();
+//                BigInteger amount = BigInteger.valueOf(myDataCardPayList.getMyDataCardHistoryList().get(j).getApprovedAmt());
+//
+//                // 금액 추가
+//                consumptionLargeStaticEntity.setConsumptionAmount((consumptionAmount.add(amount)));
+//
+//                // 횟수 증가
+//                int consumptionCount = consumptionLargeStaticEntity.getConsumptionCount();
+//                consumptionLargeStaticEntity.setConsumptionCount(consumptionCount + 1);
+//                consumptionLargeStaticEntity.setConsumptionLargeStaticId(largeCategoryId);
+//
+//                consumptionLargeStaticRepository.save(consumptionLargeStaticEntity);
+//
+//                int consumptionLargeStaticId = consumptionLargeStaticEntity.getConsumptionLargeStaticId();
+//
+//                // 소비 금액 내역 (Small)
+//                saveConsumptionSmall(consumptionLargeStaticId, smallCategoryId, amount);
+//            }
+//        }
+//    }
+//    public void saveConsumptionSmall(int consumptionLargeStaticId, int smallCategoryId, BigInteger amount){
+//
+//        ConsumptionSmallStaticEntity smallStaticEntity =
+//                consumptionSmallStaticRepository.findByConsumptionLargeStaticId(consumptionLargeStaticId);
+//
+//        BigInteger consumptionAmount = smallStaticEntity.getConsumption();
+//        int count = smallStaticEntity.getConsumptionCount();
+//
+//        smallStaticEntity.setConsumption(consumptionAmount.add(amount));
+//        smallStaticEntity.setConsumptionCount(count+1);
+//        smallStaticEntity.setSmallCategoryId(smallCategoryId);
+//
+//        consumptionSmallStaticRepository.save(smallStaticEntity);
+//    }
 }

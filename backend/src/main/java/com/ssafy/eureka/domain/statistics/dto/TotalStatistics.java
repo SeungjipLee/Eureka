@@ -10,5 +10,6 @@ import java.math.BigInteger;
 @AllArgsConstructor
 public class TotalStatistics {
     private BigInteger totalConsumption;
-    private int totalDiscount;
+    private Long totalDiscount;
+    private BigInteger payApprovedAmt;
 }

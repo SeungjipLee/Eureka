@@ -1,11 +1,48 @@
 import { StyleSheet, View, Text, Image, Pressable } from "react-native"
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import TokenUtils from "../../../stores/TokenUtils";
+import React, { useState, useEffect } from "react";
+import { getHomeOnlyPay } from "../../../apis/HomeApi";
 
 
 
 function HomeOnlyPay () {
   const navigation = useNavigation()
+  const [token, setToken] = useState('');
+  const currentDate = new Date();
+  const currentMonth = ('0' + (currentDate.getMonth() + 1)).slice(-2); 
+  const currentYear = currentDate.getFullYear().toString()
+  const [payAmount, setPayAmout] = useState('')
+  const [payHistory, setPayHistory] = useState([])
+  
+  useEffect(() => {
+    const fetchToken = async () => {
+      const accessToken = await TokenUtils.getAccessToken();
+      setToken(accessToken);
+    };
+
+    fetchToken();
+  }, []);
+
+  useEffect(() => {
+  const fetchHomeOnlyPay = async () => {
+    if (!token) return; 
+
+    try {
+      const res = await getHomeOnlyPay(token, currentYear+currentMonth);
+      console.log(res.data);
+      setPayAmout(res.data.totalAmt);
+      setPayHistory(res.data.list);
+    } catch (err) {
+      // 에러 처리
+      console.log(err.response ? err.response.status : err);
+    }
+  };
+
+  fetchHomeOnlyPay(); // 토큰이 있는 경우 함수를 호출합니다.
+}, [token, currentYear, currentMonth]);
+
 
   return (
     <View>
@@ -14,7 +51,7 @@ function HomeOnlyPay () {
           <Image style={styles.image} source={require('../../../../assets/HomeIcon/CardPayment.png')}/>
           <View>
             <Text style={styles.font}>이번달 페이 결제 금액</Text>
-            <Text style={styles.price}>530,000원</Text>
+            <Text style={styles.price}>{payAmount}원</Text>
           </View>
           <Pressable onPress={() => navigation.navigate('OnlyPay')}>
             <MaterialCommunityIcons 
@@ -58,7 +95,8 @@ const styles = StyleSheet.create({
   price: {
     fontWeight: 'bold',
     fontSize: 24,
-    color: '#6797ff'
+    color: '#6797ff',
+    alignSelf:'flex-end'
   },
   nextBtn: {
     start: 'end',

@@ -8,11 +8,11 @@ import {
   Pressable,
   Image,
 } from "react-native";
-import { getProductCardListByCompany } from "../../../../apis/ProductApi";
+import { getProductCardListByCategory } from "../../../../apis/ProductApi";
 import TokenUtils from "../../../../stores/TokenUtils";
 import { useNavigation } from "@react-navigation/native";
 
-function CardList() {
+function CategoryCardList() {
   // 상태를 배열이 아닌 객체로 초기화하면서, 내부에 data 배열을 포함시킴
   const [cards, setCards] = useState([]);
   const selectId = useSelector((state) => state.productList.value);
@@ -31,7 +31,7 @@ function CardList() {
   useEffect(() => {
     // 토큰과 selectId가 유효할 때만 API 호출
     if (token && selectId) {
-      getProductCardListByCompany(
+      getProductCardListByCategory(
         token,
         selectId,
         (res) => {
@@ -39,7 +39,7 @@ function CardList() {
           console.log(res.data);
         },
         (err) => {
-          console.log("Error, CardList");
+          console.log("Error, CategoryCardList");
         }
       );
     }
@@ -52,7 +52,8 @@ function CardList() {
           onPress={() =>
             navigation.navigate("SelectCardInfo", {
               cardId: item.cardId,
-              type: 1,
+              type: 2,
+              cardd: item,
             })
           }
           key={item.cardId}
@@ -92,7 +93,7 @@ function CardList() {
   );
 }
 
-export default CardList;
+export default CategoryCardList;
 
 const styles = StyleSheet.create({
   card: {},

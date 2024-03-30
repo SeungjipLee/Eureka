@@ -1,12 +1,30 @@
 import React from "react";
-import { StyleSheet, ScrollView, View, Text, Pressable } from "react-native";
-
+import { StyleSheet, View, Text, Pressable } from "react-native";
+import CategoryCardList from "./ByCategoryComponent/CategoryCardList";
+import CategoryChooseOne from "./ByCategoryComponent/CategoryChooseOne";
 function ByCategory() {
   return (
-    <View>
-      <Text>카테고리별 추천</Text>
+    <View style={styles.container}>
+      <View style={styles.chooseOne}>
+        <CategoryChooseOne />
+      </View>
+      <View style={styles.cardList}>
+        <CategoryCardList />
+      </View>
     </View>
   );
 }
 
 export default ByCategory;
+
+const styles = StyleSheet.create({
+  container: {},
+  nextBtn: {
+    start: "end",
+    color: "#cacaca",
+    marginTop: 50,
+    marginLeft: 5,
+  },
+  chooseOne: {},
+  cardList: {},
+});

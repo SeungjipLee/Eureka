@@ -1,6 +1,7 @@
 package com.ssafy.eureka.domain.card.dto.response;
 
 import com.ssafy.eureka.domain.card.dto.CardBenefitDetailEntity;
+import com.ssafy.eureka.domain.card.dto.CardBenefitEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,13 +18,17 @@ import java.util.List;
 @AllArgsConstructor
 public class CardProdDetailResponse {
 
-    int cardId;
-    String imagePath;
-    String cardName;
-    int annualFee;
-//    String largeCategoryName;
-    int previousPerformance;
-    String registerPage;
-    List<CardProdDetailBenefitList> list;
+//    int cardId;
+//    String imagePath;
+//    String cardName;
+//    int annualFee;
+////    String largeCategoryName;
+//    int previousPerformance;
+//    String registerPage;
+//    List<CardProdDetailBenefitList> list;
 
+    private String imagePath;
+    private String cardName;
+    private int imgAttr;
+    List<CardBenefitEntity> list;
 }

@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class PayHistoryListResponse {
 
+    private String cardName;
     private int payHistoryId;
     private String orderId;
     private int userId;
@@ -26,7 +27,7 @@ public class PayHistoryListResponse {
     private int approvedAmt;
     private int status;
 //    private LocalDateTime transDateTime;
-    private int modifiedAmt;
+    private Integer modifiedAmt;
     private int totalInstallCnt;
     private int discount;
     private int recommendDiscount;
@@ -35,7 +36,9 @@ public class PayHistoryListResponse {
     private String largeCategoryName;
     private String smallCategoryName;
 
-    public PayHistoryListResponse(PayHistoryEntity entity, String largeCategoryName, String smallCategoryName){
+    public PayHistoryListResponse(String cardName, PayHistoryEntity entity, String largeCategoryName, String smallCategoryName){
+
+        this.cardName = cardName;
         this.payHistoryId = entity.getPayHistoryId();
         this.orderId = entity.getOrderId();
         this.userId = entity.getUserId();
