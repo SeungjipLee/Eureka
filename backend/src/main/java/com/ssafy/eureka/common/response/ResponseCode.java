@@ -35,6 +35,8 @@ public enum ResponseCode {
     STORE_NOT_FOUND(HttpServletResponse.SC_BAD_REQUEST, "제휴 가맹점이 아닙니다."),
     PAY_INFO_NOT_FOUND(HttpServletResponse.SC_NOT_FOUND, "결제 정보를 찾을 수 없음"),
     PAY_APRROVE_ERROR(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "카드 승인 오류"),
+
+    INVALID_YEAR_MONTH(HttpServletResponse.SC_BAD_REQUEST, "날짜 형식 오류"),
     ;
 
     private final int code;

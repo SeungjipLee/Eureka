@@ -15,6 +15,7 @@ import com.ssafy.eureka.domain.statistics.repository.ConsumptionLargeStaticRepos
 import com.ssafy.eureka.domain.statistics.repository.ConsumptionStaticRepository;
 import com.ssafy.eureka.domain.statistics.repository.DiscountLargeStaticRepository;
 import com.ssafy.eureka.domain.statistics.repository.DiscountStaticRepository;
+import com.ssafy.eureka.util.DateParserUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -56,8 +57,9 @@ public class StatisticServiceImpl implements StatisticService {
         // 보유 카드 조회
         checkUserCardExistsByUserId(userId);
 
-        String year = yyyyMM.substring(0, 4);
-        String month = yyyyMM.substring(4, 6);
+        DateParserUtil parser = new DateParserUtil(yyyyMM);
+        String year = parser.getYear();
+        String month = parser.getMonth();
 
         BigInteger totalConsumption = consumptionStaticRepository.findTotalConsumptionByUserIdAndDate(Integer.parseInt(userId), year, month);
         Long totalDiscount = discountStaticRepository.findTotalDiscountByUserIdAndDate(Integer.parseInt(userId), year, month);
@@ -71,8 +73,9 @@ public class StatisticServiceImpl implements StatisticService {
         // 보유 카드 조회
         checkUserCardExistsByUserId(userId);
 
-        String year = yyyyMM.substring(0, 4);
-        String month = yyyyMM.substring(4, 6);
+        DateParserUtil parser = new DateParserUtil(yyyyMM);
+        String year = parser.getYear();
+        String month = parser.getMonth();
 
 
         BigInteger totalConsumption = consumptionStaticRepository.findTotalConsumptionByUserIdAndDate(Integer.parseInt(userId), year, month);
@@ -91,8 +94,9 @@ public class StatisticServiceImpl implements StatisticService {
         // 보유 카드 조회
         checkUserCardExistsByUserId(userId);
 
-        String year = yyyyMM.substring(0, 4);
-        String month = yyyyMM.substring(4, 6);
+        DateParserUtil parser = new DateParserUtil(yyyyMM);
+        String year = parser.getYear();
+        String month = parser.getMonth();
 
         Long totalDiscount = discountStaticRepository.findTotalDiscountByUserIdAndDate(Integer.parseInt(userId), year, month);
         List<DiscountStatistics> discountStatisticsList =
@@ -108,8 +112,9 @@ public class StatisticServiceImpl implements StatisticService {
     public ConsumptionStatisticsResponse consumptionStatisticsByUserCardResponse(int userCardId, String yyyyMM) {
         checkUserCardExistsByUserCardId(userCardId);
 
-        String year = yyyyMM.substring(0, 4);
-        String month = yyyyMM.substring(4, 6);
+        DateParserUtil parser = new DateParserUtil(yyyyMM);
+        String year = parser.getYear();
+        String month = parser.getMonth();
 
         Optional<ConsumptionStaticEntity> consumptionStaticEntity = consumptionStaticRepository.findByUserCardId(userCardId);
         BigInteger totalConsumption = consumptionStaticEntity
@@ -128,8 +133,9 @@ public class StatisticServiceImpl implements StatisticService {
     public DiscountStatisticsResponse discountStatisticsByUserCardResponse(int userCardId, String yyyyMM) {
         checkUserCardExistsByUserCardId(userCardId);
 
-        String year = yyyyMM.substring(0, 4);
-        String month = yyyyMM.substring(4, 6);
+        DateParserUtil parser = new DateParserUtil(yyyyMM);
+        String year = parser.getYear();
+        String month = parser.getMonth();
 
         Optional<DiscountStaticEntity> discountStaticEntity = discountStaticRepository.findByUserCardId(userCardId);
         Long totalDiscount = Long.valueOf(discountStaticEntity
