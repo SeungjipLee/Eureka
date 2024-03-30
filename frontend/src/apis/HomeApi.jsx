@@ -9,4 +9,8 @@ async function getHomeInfo(token, yyyymm, success, fail) {
   }
 }
 
-export {getHomeInfo}
+async function getHomeOnlyPay(token, yyyymm) {
+  return await API(token).get(`/pay/history?yyyymm=${yyyymm}`);
+}
+
+export {getHomeInfo, getHomeOnlyPay}

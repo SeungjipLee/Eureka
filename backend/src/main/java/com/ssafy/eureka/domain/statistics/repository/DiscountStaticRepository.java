@@ -4,13 +4,19 @@ import com.ssafy.eureka.domain.statistics.entity.DiscountStaticEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+
+@Repository
 public interface DiscountStaticRepository extends JpaRepository<DiscountStaticEntity, Integer> {
 
-    @Query(value = "SELECT * FROM discount_static " +
-            "WHERE user_card_id = :userCardId AND year = :year AND month = :month", nativeQuery = true)
-    Optional<DiscountStaticEntity> findByUserCardIdAndMonthAndYear(@Param("userCardId") int userCardId, @Param("year") String year, @Param("month") String month);
+    Optional<DiscountStaticEntity> findByUserCardId(int userCardId);
+    @Query("SELECT COALESCE(SUM(ds.totalDiscount), 0) " +
+            "FROM DiscountStaticEntity ds " +
+            "JOIN UserCardEntity uc ON ds.userCardId = uc.userCardId " +
+            "WHERE uc.userId = :userId AND ds.year = :year AND ds.month = :month")
+    Long findTotalDiscountByUserIdAndDate(@Param("userId") int userId, @Param("year") String year, @Param("month") String month);
 
 }

@@ -3,8 +3,10 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
 
-function OnlyPay () {
-  const navigation = useNavigation() 
+function OnlyPay ({route}) {
+  const navigation = useNavigation()
+  const {payHistory, amt} = route.params || []
+  console.log(payHistory)
   const data = [
     {
       date: 12,
@@ -37,6 +39,49 @@ function OnlyPay () {
       ]      
     }
   ]
+
+  function transformData(list) {
+    // list가 없거나 비어있으면 빈 배열을 반환합니다.
+    if (!list || list.length === 0) {
+      return [];
+    }
+  
+    const groupedByDate = list.reduce((acc, cur) => {
+      // 날짜를 YYYY-MM-DD 형태로 파싱합니다.
+      const date = new Date(cur.approvedDateTime);
+      const day = date.toLocaleDateString('ko-KR', { weekday: 'short' }); // 'ko-KR' 로케일을 사용하여 요일을 가져옵니다.
+      const formattedDate = `${date.getDate()}`; // 일자만 추출합니다.
+  
+      // 현재 항목의 정보를 원하는 형태로 변환합니다.
+      const item = {
+        category: cur.largeCategoryName,
+        title: cur.smallCategoryName, 
+        card: `카드ID ${cur.userCardId}`,
+        price: cur.approvedAmt,
+      };
+  
+      // 날짜별로 그룹화하여 아이템을 추가합니다.
+      if (!acc[formattedDate]) {
+        acc[formattedDate] = {
+          date: parseInt(formattedDate, 10),
+          day,
+          info: [item],
+        };
+      } else {
+        acc[formattedDate].info.push(item);
+      }
+  
+      return acc;
+    }, {});
+  
+    // 객체를 배열로 변환하고, 날짜별로 정렬합니다.
+    return Object.values(groupedByDate).sort((a, b) => b.date - a.date);
+  }
+  
+  // 사용 예시
+  const transformedData = transformData(payHistory.list);
+  console.log(transformedData);
+
 
   const renderDateItem = ({ item }) => {
     return (
@@ -91,11 +136,11 @@ function OnlyPay () {
 
       <View style={styles.wholecontainer}>
         <Text style={styles.wholetext}>어플 결제 총 금액</Text>
-        <Text style={styles.wholeprice}>1,300,000 원</Text>
+        <Text style={styles.wholeprice}>{amt} 원</Text>
       </View>
 
       <FlatList
-        data={data}
+        data={payHistory}
         renderItem={renderDateItem}
         keyExtractor={(item, index) => index.toString()}
       />
