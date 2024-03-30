@@ -31,7 +31,12 @@ import com.ssafy.eureka.domain.pay.util.PayUtil;
 import com.ssafy.eureka.domain.payment.dto.request.ApprovePayRequest;
 import com.ssafy.eureka.domain.payment.dto.response.PayResponse;
 import com.ssafy.eureka.domain.payment.feign.PaymentFeign;
+import com.ssafy.eureka.domain.statistics.entity.ConsumptionLargeStaticEntity;
+import com.ssafy.eureka.domain.statistics.entity.ConsumptionSmallStaticEntity;
 import com.ssafy.eureka.domain.statistics.entity.ConsumptionStaticEntity;
+import com.ssafy.eureka.domain.statistics.entity.DiscountLargeStaticEntity;
+import com.ssafy.eureka.domain.statistics.entity.DiscountSmallStaticEntity;
+import com.ssafy.eureka.domain.statistics.entity.DiscountStaticEntity;
 import com.ssafy.eureka.domain.statistics.repository.ConsumptionLargeStaticRepository;
 import com.ssafy.eureka.domain.statistics.repository.ConsumptionSmallStaticRepository;
 import com.ssafy.eureka.domain.statistics.repository.ConsumptionStaticRepository;
@@ -166,21 +171,39 @@ public class PayServiceImpl implements PayService{
         userCard.updateMonthAmount(payInfo.getTotalAmount());
         userCardRepository.save(userCard);
 
+        /*          통계 저장 따로 뺴자 ㅋㅋ          */
         String year =String.valueOf(payHistory.getApprovedDateTime().getYear());
         String month = String.format("%02d", payHistory.getApprovedDateTime().getMonthValue());
+        ConsumptionStaticEntity consumptionStaticEntity = consumptionStaticRepository.findByUserCardIdAndMonthAndYear(
+            userCard.getUserCardId(), year, month).orElse(new ConsumptionStaticEntity(userCard.getUserCardId(), year, month));
+        consumptionStaticEntity.addPay(payInfo.getTotalAmount());
+        consumptionStaticRepository.save(consumptionStaticEntity);
 
-            // 소비
-//        ConsumptionStaticEntity consumptionStaticEntity = consumptionStaticRepository.findByUserCardIdAndMonthAndYear(
-//            userCard.getUserCardId(), year, month)
-//            .orElseGet(() -> new ConsumptionStaticEntity());
+        ConsumptionLargeStaticEntity consumptionLargeStaticEntity = consumptionLargeStaticRepository.findByConsumptionStaticIdAndLargeCategoryId(consumptionStaticEntity.getConsumptionStaticId(),
+            payInfo.getLargeCategoryId()).orElse(new ConsumptionLargeStaticEntity(consumptionStaticEntity.getConsumptionStaticId(), payInfo.getLargeCategoryId()));
+        consumptionLargeStaticEntity.addPay(payInfo.getTotalAmount());
+        consumptionLargeStaticRepository.save(consumptionLargeStaticEntity);
 
-//        consumptionLargeStaticRepository
-//        consumptionSmallStaticRepository
-        // 할인
-//        discountStaticRepository
-//        discountLargeStaticRepository
-//        discountSmallStaticRepository
+        ConsumptionSmallStaticEntity consumptionSmallStaticEntity = consumptionSmallStaticRepository.findByConsumptionLargeStaticIdAndSmallCategoryId(consumptionLargeStaticEntity.getConsumptionLargeStaticId(), payInfo.getSmallCategoryId())
+            .orElse(new ConsumptionSmallStaticEntity(consumptionLargeStaticEntity.getConsumptionLargeStaticId(), payInfo.getSmallCategoryId()));
+        consumptionSmallStaticEntity.addPay(payInfo.getTotalAmount());
+        consumptionSmallStaticRepository.save(consumptionSmallStaticEntity);
 
+
+        DiscountStaticEntity discountStaticEntity = discountStaticRepository.findByUserCardIdAndMonthAndYear(
+            userCard.getUserCardId(), year, month).orElse(new DiscountStaticEntity(userCard.getUserCardId(), year, month));
+        discountStaticEntity.addPay(payInfo.getCardToDiscount().get(userCard.getUserCardId()));
+        discountStaticRepository.save(discountStaticEntity);
+
+        DiscountLargeStaticEntity discountLargeStaticEntity = discountLargeStaticRepository.findByDiscountStaticIdAndLargeCategoryId(discountStaticEntity.getDiscountStaticId(),
+            payInfo.getLargeCategoryId()).orElse(new DiscountLargeStaticEntity(discountStaticEntity.getDiscountStaticId(), payInfo.getLargeCategoryId()));
+        discountLargeStaticEntity.addPay(payInfo.getCardToDiscount().get(userCard.getUserCardId()));
+        discountLargeStaticRepository.save(discountLargeStaticEntity);
+
+        DiscountSmallStaticEntity discountSmallStaticEntity = discountSmallStaticRepository.findByDiscountLargeStaticIdAndSmallCategoryId(discountLargeStaticEntity.getDiscountLargeStaticId(), payInfo.getSmallCategoryId())
+            .orElse(new DiscountSmallStaticEntity(discountLargeStaticEntity.getDiscountLargeStaticId(), payInfo.getSmallCategoryId()));
+        discountSmallStaticEntity.addPay(payInfo.getCardToDiscount().get(userCard.getUserCardId()));
+        discountSmallStaticRepository.save(discountSmallStaticEntity);
     }
 
     @Override
@@ -188,7 +211,6 @@ public class PayServiceImpl implements PayService{
 
         UserEntity userEntity = userRepository.findByUserId(Integer.parseInt(userId))
                 .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
-
 
         MyDataToken myDataToken = mydataTokenRepository.findById(userId)
                 .orElseThrow(() -> new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR));
@@ -199,7 +221,7 @@ public class PayServiceImpl implements PayService{
         List<UserCardEntity> userCardEntityList = userCardRepository.findAllByUserId(Integer.parseInt(userId));
 
         int totalAmt = 0;
-        
+
         List<PayHistoryListResponse> payHistoryListResponseList = new ArrayList<>();
 
         for (int i=0; i<userCardEntityList.size(); i++){

@@ -2,6 +2,7 @@ package com.ssafy.eureka.domain.statistics.repository;
 
 import com.ssafy.eureka.domain.statistics.dto.DiscountStatistics;
 import com.ssafy.eureka.domain.statistics.entity.DiscountLargeStaticEntity;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -29,4 +30,6 @@ public interface DiscountLargeStaticRepository extends JpaRepository<DiscountLar
             "WHERE ds.year = :year AND ds.month = :month AND ds.userCardId = :userCardId " +
             "ORDER BY dls.discountAmount DESC")
     List<DiscountStatistics> findDiscountStatisticsByUserCardIdAndDate(@Param("userCardId") int userCardId, @Param("year") String year, @Param("month") String month);
+
+    Optional<DiscountLargeStaticEntity> findByDiscountStaticIdAndLargeCategoryId(int discountStaticId, int largeCategoryId);
 }

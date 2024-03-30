@@ -28,4 +28,15 @@ public class DiscountLargeStaticEntity {
     @NotNull
     private int discountCount;
 
+    public DiscountLargeStaticEntity(int discountStaticId, int largeCategoryId) {
+        this.discountStaticId = discountStaticId;
+        this.largeCategoryId = largeCategoryId;
+        this.discountAmount = 0;
+        this.discountCount = 0;
+    }
+
+    public void addPay(Integer integer) {
+        this.discountAmount += integer;
+        this.discountCount += 1;
+    }
 }

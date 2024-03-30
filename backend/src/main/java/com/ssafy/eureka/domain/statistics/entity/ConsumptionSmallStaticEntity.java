@@ -29,4 +29,14 @@ public class ConsumptionSmallStaticEntity {
     @NotNull
     private int consumptionCount;
 
+    public ConsumptionSmallStaticEntity(int consumptionLargeStaticId, Integer smallCategoryId) {
+        this.consumptionLargeStaticId = consumptionLargeStaticId;
+        this.smallCategoryId = smallCategoryId;
+        this.consumption = BigInteger.ZERO;
+        this.consumptionCount = 0;
+    }
+
+    public void addPay(int totalAmount) {
+        this.consumption.add(BigInteger.valueOf(totalAmount));
+    }
 }

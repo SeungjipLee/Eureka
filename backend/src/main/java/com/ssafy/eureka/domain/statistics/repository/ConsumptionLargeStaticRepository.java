@@ -2,6 +2,8 @@ package com.ssafy.eureka.domain.statistics.repository;
 
 import com.ssafy.eureka.domain.statistics.dto.ConsumptionStatistics;
 import com.ssafy.eureka.domain.statistics.entity.ConsumptionLargeStaticEntity;
+import java.util.Optional;
+import javax.swing.text.html.Option;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -30,4 +32,6 @@ public interface ConsumptionLargeStaticRepository extends JpaRepository<Consumpt
             "WHERE cs.year = :year AND cs.month = :month AND cs.userCardId = :userCardId " +
             "ORDER BY cls.consumptionAmount DESC")
     List<ConsumptionStatistics> findConsumptionStatisticsByUserCardIdAndDate(@Param("userCardId") int userCardId, @Param("year") String year, @Param("month") String month);
+
+    Optional<ConsumptionLargeStaticEntity> findByConsumptionStaticIdAndLargeCategoryId(int consumptionStaticId, int largeCategoryId);
 }

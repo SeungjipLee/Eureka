@@ -36,10 +36,14 @@ public class ConsumptionStaticEntity {
     @Column(columnDefinition = "BIGINT")
     private BigInteger totalConsumption;
 
-    public ConsumptionStaticEntity (int userCardId, String yyyy, String mm, BigInteger totalConsumption){
+    public ConsumptionStaticEntity (int userCardId, String yyyy, String mm){
         this.userCardId = userCardId;
         this.year = yyyy;
         this.month = mm;
-        this.totalConsumption = totalConsumption;
+        this.totalConsumption = BigInteger.valueOf(0);
+    }
+
+    public void addPay(int amount){
+        this.totalConsumption.add(BigInteger.valueOf(amount));
     }
 }

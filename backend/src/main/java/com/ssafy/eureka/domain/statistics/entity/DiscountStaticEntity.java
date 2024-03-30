@@ -31,4 +31,14 @@ public class DiscountStaticEntity {
     @NotNull
     private int totalDiscount;
 
+    public DiscountStaticEntity(int userCardId, String year, String month) {
+        this.userCardId = userCardId;
+        this.year = year;
+        this.month = month;
+        this.totalDiscount = 0;
+    }
+
+    public void addPay(int totalAmount) {
+        this.totalDiscount += totalAmount;
+    }
 }

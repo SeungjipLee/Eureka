@@ -18,4 +18,6 @@ public interface DiscountStaticRepository extends JpaRepository<DiscountStaticEn
             "JOIN UserCardEntity uc ON ds.userCardId = uc.userCardId " +
             "WHERE uc.userId = :userId AND ds.year = :year AND ds.month = :month")
     Long findTotalDiscountByUserIdAndDate(@Param("userId") int userId, @Param("year") String year, @Param("month") String month);
+
+    Optional<DiscountStaticEntity> findByUserCardIdAndMonthAndYear(int userCardId, String year, String month);
 }
