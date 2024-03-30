@@ -31,47 +31,47 @@ function BankListModal({ visible, onClose, onSelect }) {
     {
       id: 1,
       name: "KB국민카드",
-      imgUrl: require("../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_국민.png"),
+      imgUrl: require("../../../assets/banking_logo/kb.png"),
     },
     {
       id: 2,
       name: "삼성카드",
-      imgUrl: require("../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_삼성.png"),
+      imgUrl: require("../../../assets/banking_logo/samsung.png"),
     },
     {
       id: 3,
       name: "NH농협카드",
-      imgUrl: require("../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_농협.png"),
+      imgUrl: require("../../../assets/banking_logo/nonghyup.png"),
     },
     {
       id: 4,
       name: "신한카드",
-      imgUrl: require("../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_신한.png"),
+      imgUrl: require("../../../assets/banking_logo/shinhan.png"),
     },
     {
       id: 5,
       name: "현대카드",
-      imgUrl: require("../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_현대.png"),
+      imgUrl: require("../../../assets/banking_logo/hyundai.png"),
     },
     {
       id: 6,
       name: "하나카드",
-      imgUrl: require("../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_하나.png"),
+      imgUrl: require("../../../assets/banking_logo/hana.png"),
     },
     {
       id: 7,
       name: "우리카드",
-      imgUrl: require("../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_우리.png"),
+      imgUrl: require("../../../assets/banking_logo/woori.png"),
     },
     {
       id: 8,
       name: "IBK기업은행카드",
-      imgUrl: require("../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_기업.png"),
+      imgUrl: require("../../../assets/banking_logo/ibk.png"),
     },
     {
       id: 9,
       name: "롯데카드",
-      imgUrl: require("../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_롯데.png"),
+      imgUrl: require("../../../assets/banking_logo/lotte.png"),
     },
   ];
 
