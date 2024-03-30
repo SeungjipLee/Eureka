@@ -53,7 +53,7 @@ function HomeOnlyPay () {
             <Text style={styles.font}>이번달 페이 결제 금액</Text>
             <Text style={styles.price}>{payAmount}원</Text>
           </View>
-          <Pressable onPress={() => navigation.navigate('OnlyPay', {payHistory: payHistory, amt: payAmount})}>
+          <Pressable onPress={() => navigation.navigate('OnlyPay')}>
             <MaterialCommunityIcons 
               name="chevron-right" size={26} style={styles.nextBtn}/>
           </Pressable>
