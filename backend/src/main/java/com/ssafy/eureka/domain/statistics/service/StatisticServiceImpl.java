@@ -4,9 +4,11 @@ import com.ssafy.eureka.common.exception.CustomException;
 import com.ssafy.eureka.common.response.ResponseCode;
 import com.ssafy.eureka.domain.card.repository.UserCardRepository;
 import com.ssafy.eureka.domain.pay.repository.PayHistoryRepository;
+import com.ssafy.eureka.domain.statistics.dto.BestCardStatistics;
 import com.ssafy.eureka.domain.statistics.dto.ConsumptionStatistics;
 import com.ssafy.eureka.domain.statistics.dto.DiscountStatistics;
 import com.ssafy.eureka.domain.statistics.dto.TotalStatistics;
+import com.ssafy.eureka.domain.statistics.dto.response.BestCardStatisticsResponse;
 import com.ssafy.eureka.domain.statistics.dto.response.ConsumptionStatisticsResponse;
 import com.ssafy.eureka.domain.statistics.dto.response.DiscountStatisticsResponse;
 import com.ssafy.eureka.domain.statistics.entity.ConsumptionStaticEntity;
@@ -154,6 +156,21 @@ public class StatisticServiceImpl implements StatisticService {
         DiscountStatisticsResponse response = new DiscountStatisticsResponse();
         response.setTotalDiscount(totalDiscount);
         response.setDiscountList(discountStatisticsList);
+        return response;
+    }
+
+    public BestCardStatisticsResponse bestCardStatisticsResponse(String userId, String yyyyMM) {
+        checkUserCardExistsByUserId(userId);
+
+        DateParserUtil parser = new DateParserUtil(yyyyMM);
+        String year = parser.getYear();
+        String month = parser.getMonth();
+
+        List<BestCardStatistics> bestCardStatisticsList =
+                discountStaticRepository.findCardStatisticsByUserIdAndDate(Integer.parseInt(userId), year, month);
+
+        BestCardStatisticsResponse response = new BestCardStatisticsResponse();
+        response.setBestCardStatisticsList(bestCardStatisticsList);
         return response;
     }
 }
