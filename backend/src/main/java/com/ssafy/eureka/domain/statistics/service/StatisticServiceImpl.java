@@ -3,6 +3,7 @@ package com.ssafy.eureka.domain.statistics.service;
 import com.ssafy.eureka.common.exception.CustomException;
 import com.ssafy.eureka.common.response.ResponseCode;
 import com.ssafy.eureka.domain.card.repository.UserCardRepository;
+import com.ssafy.eureka.domain.pay.repository.PayHistoryRepository;
 import com.ssafy.eureka.domain.statistics.dto.ConsumptionStatistics;
 import com.ssafy.eureka.domain.statistics.dto.DiscountStatistics;
 import com.ssafy.eureka.domain.statistics.dto.TotalStatistics;
@@ -32,6 +33,7 @@ public class StatisticServiceImpl implements StatisticService {
     private final ConsumptionLargeStaticRepository consumptionLargeStaticRepository;
     private final DiscountStaticRepository discountStaticRepository;
     private final DiscountLargeStaticRepository discountLargeStaticRepository;
+    private final PayHistoryRepository payHistoryRepository;
 
     private void checkUserCardExistsByUserId(String userId) {
         int parsedUserId = Integer.parseInt(userId);
@@ -58,8 +60,9 @@ public class StatisticServiceImpl implements StatisticService {
 
         BigInteger totalConsumption = consumptionStaticRepository.findTotalConsumptionByUserIdAndDate(Integer.parseInt(userId), year, month);
         Long totalDiscount = discountStaticRepository.findTotalDiscountByUserIdAndDate(Integer.parseInt(userId), year, month);
+        BigInteger payApprovedAmt = payHistoryRepository.findPayApprovedAmtByUserIdAndDate(Integer.parseInt(userId), year, month);
 
-        return new TotalStatistics(totalConsumption, totalDiscount);
+        return new TotalStatistics(totalConsumption, totalDiscount, payApprovedAmt);
     }
 
     @Override
