@@ -2,24 +2,22 @@ package com.ssafy.eureka.domain.statistics.service;
 
 import com.ssafy.eureka.common.exception.CustomException;
 import com.ssafy.eureka.common.response.ResponseCode;
-import com.ssafy.eureka.domain.card.dto.UserCardEntity;
 import com.ssafy.eureka.domain.card.repository.UserCardRepository;
 import com.ssafy.eureka.domain.statistics.dto.ConsumptionStatistics;
+import com.ssafy.eureka.domain.statistics.dto.DiscountStatistics;
 import com.ssafy.eureka.domain.statistics.dto.TotalStatistics;
 import com.ssafy.eureka.domain.statistics.dto.response.ConsumptionStatisticsResponse;
-import com.ssafy.eureka.domain.statistics.entity.ConsumptionStaticEntity;
-import com.ssafy.eureka.domain.statistics.entity.DiscountStaticEntity;
+import com.ssafy.eureka.domain.statistics.dto.response.DiscountStatisticsResponse;
 import com.ssafy.eureka.domain.statistics.repository.ConsumptionLargeStaticRepository;
 import com.ssafy.eureka.domain.statistics.repository.ConsumptionStaticRepository;
+import com.ssafy.eureka.domain.statistics.repository.DiscountLargeStaticRepository;
 import com.ssafy.eureka.domain.statistics.repository.DiscountStaticRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Slf4j
 @Service
@@ -30,6 +28,7 @@ public class StatisticServiceImpl implements StatisticService {
     private final ConsumptionStaticRepository consumptionStaticRepository;
     private final ConsumptionLargeStaticRepository consumptionLargeStaticRepository;
     private final DiscountStaticRepository discountStaticRepository;
+    private final DiscountLargeStaticRepository discountLargeStaticRepository;
 
     private void checkUserCardExists(String userId) {
         int parsedUserId = Integer.parseInt(userId);
@@ -48,7 +47,7 @@ public class StatisticServiceImpl implements StatisticService {
         String month = yyyyMM.substring(4, 6);
 
         BigInteger totalConsumption = consumptionStaticRepository.findTotalConsumptionByUserIdAndDate(Integer.parseInt(userId), year, month);
-        int totalDiscount = discountStaticRepository.findTotalDiscountByUserIdAndDate(Integer.parseInt(userId), year, month);
+        Long totalDiscount = discountStaticRepository.findTotalDiscountByUserIdAndDate(Integer.parseInt(userId), year, month);
 
         return new TotalStatistics(totalConsumption, totalDiscount);
     }
@@ -71,5 +70,24 @@ public class StatisticServiceImpl implements StatisticService {
         response.setTotalConsumption(totalConsumption);
         response.setConsumptionList(consumptionStatisticsList);
         return response;
+    }
+
+    @Override
+    public DiscountStatisticsResponse discountStatisticsResponse(String userId, String yyyyMM) {
+        // 보유 카드 조회
+        checkUserCardExists(userId);
+
+        String year = yyyyMM.substring(0, 4);
+        String month = yyyyMM.substring(4, 6);
+
+        Long totalDiscount = discountStaticRepository.findTotalDiscountByUserIdAndDate(Integer.parseInt(userId), year, month);
+        List<DiscountStatistics> discountStatisticsList =
+                discountLargeStaticRepository.findDiscountStatisticsByUserIdAndDate(Integer.parseInt(userId), year, month);
+
+        DiscountStatisticsResponse response = new DiscountStatisticsResponse();
+        response.setTotalDiscount(totalDiscount);
+        response.setDiscountList(discountStatisticsList);
+        return response;
+
     }
 }

@@ -19,7 +19,7 @@ public class StatisticsController {
 
     private final StatisticService statisticsService;
 
-    @Operation(summary = "총 소비, 할인 금액 조회 (달)")
+    @Operation(summary = "월간 총 소비, 할인 금액 조회")
     @GetMapping("/{yyyyMM}")
     public ResponseEntity<?> getTotalStatistics(@AuthenticationPrincipal UserDetails userDetails,
                                                 @PathVariable("yyyyMM") String yyyyMM){
@@ -27,12 +27,20 @@ public class StatisticsController {
         return ResponseEntity.ok(statisticsService.totalStatistics(userDetails.getUsername(), yyyyMM));
     }
 
-    @Operation(summary = "카테고리별 총 소비 통계 (달)")
+    @Operation(summary = "월간 카테고리별 총 소비 통계")
     @GetMapping("/{yyyyMM}/consumption")
-    public ResponseEntity<?> getMonthlyStatistics(@AuthenticationPrincipal UserDetails userDetails,
+    public ResponseEntity<?> getTotalConsumptionStatistics(@AuthenticationPrincipal UserDetails userDetails,
                                                   @PathVariable("yyyyMM") String yyyyMM) {
         log.debug("카테고리별 총 소비통계, userId : " + userDetails.getUsername() + ", 날짜 : " + yyyyMM);
         return ResponseEntity.ok(statisticsService.consumptionStatisticsResponse(userDetails.getUsername(), yyyyMM));
+    }
+
+    @Operation(summary = "월간 카테고리별 총 할인 통계")
+    @GetMapping("/{yyyyMM}/discount")
+    public ResponseEntity<?> getTotalDiscountStatistics(@AuthenticationPrincipal UserDetails userDetails,
+                                                  @PathVariable("yyyyMM") String yyyyMM) {
+        log.debug("카테고리별 총 할인통계, userId : " + userDetails.getUsername() + ", 날짜 : " + yyyyMM);
+        return ResponseEntity.ok(statisticsService.discountStatisticsResponse(userDetails.getUsername(), yyyyMM));
     }
 
 }
