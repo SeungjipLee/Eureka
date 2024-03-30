@@ -14,9 +14,4 @@ public class DiscountStatistics {
     private String categoryName;
     private Long discount;
 
-    public DiscountStatistics(int categoryId, String categoryName, int discountAmount) {
-        this.categoryId = categoryId;
-        this.categoryName = categoryName;
-        this.discount = (long) discountAmount;
-    }
 }

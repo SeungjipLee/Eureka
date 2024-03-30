@@ -20,6 +20,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -134,8 +135,15 @@ public class StatisticServiceImpl implements StatisticService {
         Long totalDiscount = Long.valueOf(discountStaticEntity
                 .map(DiscountStaticEntity::getTotalDiscount).orElse(0));
 
-        List<DiscountStatistics> discountStatisticsList =
+        List<Object[]> rawResults =
                 discountLargeStaticRepository.findDiscountStatisticsByUserCardIdAndDate(userCardId, year, month);
+        List<DiscountStatistics> discountStatisticsList = new ArrayList<>();
+        for (Object[] result : rawResults) {
+            int largeCategoryId = (int) result[0];
+            String categoryName = (String) result[1];
+            int discount = (int) result[2];
+            discountStatisticsList.add(new DiscountStatistics(largeCategoryId, categoryName, (long) discount));
+        }
 
         DiscountStatisticsResponse response = new DiscountStatisticsResponse();
         response.setTotalDiscount(totalDiscount);
