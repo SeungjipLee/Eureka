@@ -76,9 +76,9 @@ public class UserCardController {
     @Operation(summary = "서버에 보유 카드 등록하기")
     @PostMapping("/regist")
     public ResponseEntity<?> registUserCard(@AuthenticationPrincipal UserDetails userDetails,
-        @RequestBody RegistUserCardRequest registUserCardRequest, @RequestParam String yyyymm) {
+        @RequestBody RegistUserCardRequest registUserCardRequest) {
         log.debug("보유 카드 등록, userId : " + userDetails.getUsername());
-        userCardService.registUserCard(userDetails.getUsername(), registUserCardRequest, yyyymm);
+        userCardService.registUserCard(userDetails.getUsername(), registUserCardRequest );
         return ResponseEntity.ok().build();
     }
 
