@@ -154,6 +154,11 @@ public class PayServiceImpl implements PayService{
                 throw new CustomException(400, response.getMessage());
             }
 
+            CardEntity cardEntity = cardRepository.findByCard(userCardEntityList.get(i).getCardId())
+                    .orElseThrow(() -> new CustomException(ResponseCode.CARD_NOT_FOUND));
+
+            String cardName = cardEntity.getCardName();
+
             MyDataCardHistoryResponse myDataCardPayList = (MyDataCardHistoryResponse) response.getData();
             log.debug("myDataCardPayList" + myDataCardPayList);
             System.out.println("myDataCardPayList" + myDataCardPayList.getMyDataCardHistoryList());
@@ -186,7 +191,7 @@ public class PayServiceImpl implements PayService{
                 String largeCategoryName = largeCategoryEntity.getCategoryName();
                 String smallCategoryName = smallCategoryEntity.get().getCategoryName();
 
-                payHistoryListResponseList.add(new PayHistoryListResponse(
+                payHistoryListResponseList.add(new PayHistoryListResponse(cardName,
                         payHistoryEntity, largeCategoryName, smallCategoryName
                 ));
 
