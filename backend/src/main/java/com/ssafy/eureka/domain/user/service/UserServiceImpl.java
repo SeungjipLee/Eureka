@@ -47,11 +47,14 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void sendMessage(SendMessageRequest sendMessageRequest) {
-        // 회원 조회
+        MyDataApiResponse response = myDataFeign.cechkUser(new MyDataTokenRequest(sendMessageRequest.getPhoneNumber(), sendMessageRequest.getUserBirth(), sendMessageRequest.getUserName()));
 
+        if(response.getStatus() != 200){
+            throw new CustomException(ResponseCode.SEND_MESSAGE_ERROR);
+        }
 
-        // 존재하면 전송
-
+        // 아래 번호로 전송하기
+//        sendMessageRequest.getPhoneNumber();
 
     }
 

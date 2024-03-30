@@ -13,6 +13,10 @@ import java.util.List;
 
 @FeignClient(name="myDataFeign", url="${feign.client.baseurl.myDataFeign}")
 public interface MyDataFeign {
+    @PostMapping(path = "/auth/check")
+    public MyDataApiResponse<?> cechkUser(
+        @RequestBody MyDataTokenRequest myDataTokenRequest);
+
     @PostMapping(path = "/auth/mydata")
     public MyDataApiResponse<MyDataTokenResponse> requestToken(
         @RequestBody MyDataTokenRequest myDataTokenRequest);
