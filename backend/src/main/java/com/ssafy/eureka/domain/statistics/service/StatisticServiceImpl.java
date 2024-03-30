@@ -31,56 +31,32 @@ public class StatisticServiceImpl implements StatisticService {
     private final ConsumptionLargeStaticRepository consumptionLargeStaticRepository;
     private final DiscountStaticRepository discountStaticRepository;
 
-    @Override
-    public TotalStatistics totalStatistics(String userId, String yyyyMM){
-
-        // 보유 카드 조회
-        List<UserCardEntity> userCardEntityList = userCardRepository.findAllByUserId(Integer.parseInt(userId));
-        if(userCardEntityList.isEmpty()) {
+    private void checkUserCardExists(String userId) {
+        int parsedUserId = Integer.parseInt(userId);
+        if(!userCardRepository.existsByUserId(parsedUserId)) {
             log.debug("보유카드 없음");
             throw new CustomException(ResponseCode.USER_CARD_NOT_FOUND);
         }
+    }
 
-        BigInteger totalConsumption = BigInteger.valueOf(0);
-        int totalDiscount = 0;
+    @Override
+    public TotalStatistics totalStatistics(String userId, String yyyyMM){
+        // 보유 카드 조회
+        checkUserCardExists(userId);
 
-        // 보유카드들의 통계 값 조회
-        for (UserCardEntity userCardEntity : userCardEntityList) {
-            int userCardId = userCardEntity.getUserCardId();
+        String year = yyyyMM.substring(0, 4);
+        String month = yyyyMM.substring(4, 6);
 
-            log.debug("통계 조회, 카드 번호 : " + userCardId);
-
-            // 소비 통계 값 저장
-            Optional<ConsumptionStaticEntity> consumptionStaticEntity =
-                    consumptionStaticRepository.findByUserCardIdAndMonthAndYear(userCardId, yyyyMM.substring(0, 4), yyyyMM.substring(4, 6));
-            if(consumptionStaticEntity.isPresent()) {
-                log.debug("소비 금액 : " + consumptionStaticEntity.get().getTotalConsumption());
-                totalConsumption = totalConsumption.add(consumptionStaticEntity.get().getTotalConsumption());
-            } else {
-                log.debug("소비 금액 : 0");
-            }
-
-            // 할인 통계 값 저장
-            Optional<DiscountStaticEntity> discountStaticEntity =
-                    discountStaticRepository.findByUserCardIdAndMonthAndYear(userCardId, yyyyMM.substring(0, 4), yyyyMM.substring(4, 6));
-            if (discountStaticEntity.isPresent()) {
-                log.debug("할인 금액 : " + discountStaticEntity.get().getTotalDiscount());
-                totalDiscount += discountStaticEntity.get().getTotalDiscount();
-            } else {
-                log.debug("할인 금액 : 0");
-            }
-        }
+        BigInteger totalConsumption = consumptionStaticRepository.findTotalConsumptionByUserIdAndDate(Integer.parseInt(userId), year, month);
+        int totalDiscount = discountStaticRepository.findTotalDiscountByUserIdAndDate(Integer.parseInt(userId), year, month);
 
         return new TotalStatistics(totalConsumption, totalDiscount);
     }
 
     @Override
     public ConsumptionStatisticsResponse consumptionStatisticsResponse(String userId, String yyyyMM) {
-        List<UserCardEntity> userCardEntityList = userCardRepository.findAllByUserId(Integer.parseInt(userId));
-        if (userCardEntityList.isEmpty()) {
-            log.debug("보유카드 없음");
-            throw new CustomException(ResponseCode.USER_CARD_NOT_FOUND);
-        }
+        // 보유 카드 조회
+        checkUserCardExists(userId);
 
         String year = yyyyMM.substring(0, 4);
         String month = yyyyMM.substring(4, 6);
