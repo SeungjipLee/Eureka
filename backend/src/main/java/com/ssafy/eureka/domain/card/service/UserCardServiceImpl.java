@@ -286,8 +286,8 @@ public class UserCardServiceImpl implements UserCardService {
     }
 
     @Override
-    public void registUserCard(String userId, RegistUserCardRequest registUserCardRequest,
-                               String yyyymm) {
+    public void registUserCard(String userId, RegistUserCardRequest registUserCardRequest
+                               ) {
         for (RegistUserCard userCard : registUserCardRequest.getRegisterUserCard()) {
             UserCardEntity card = userCardRepository.findByCardIdentifier(userCard.getCardIdentifier())
                 .orElse(null);
