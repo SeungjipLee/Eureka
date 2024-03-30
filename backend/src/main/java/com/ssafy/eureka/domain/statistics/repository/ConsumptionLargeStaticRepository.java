@@ -23,4 +23,13 @@ public interface ConsumptionLargeStaticRepository extends JpaRepository<Consumpt
             "ORDER BY SUM(cls.consumptionAmount) DESC")
     List<ConsumptionStatistics> findConsumptionStatisticsByUserIdAndDate(@Param("userId") int userId, @Param("year") String year, @Param("month") String month);
 
+    @Query("SELECT new com.ssafy.eureka.domain.statistics.dto.ConsumptionStatistics(lc.largeCategoryId, lc.categoryName, cls.consumptionAmount) " +
+            "FROM ConsumptionLargeStaticEntity cls " +
+            "JOIN ConsumptionStaticEntity cs ON cls.consumptionStaticId = cs.consumptionStaticId " +
+            "JOIN LargeCategoryEntity lc ON cls.largeCategoryId = lc.largeCategoryId " +
+            "WHERE cs.year = :year AND cs.month = :month AND cs.userCardId = :userCardId " +
+            "ORDER BY cls.consumptionAmount DESC")
+    List<ConsumptionStatistics> findConsumptionStatisticsByUserCardIdAndDate(@Param("userCardId") int userCardId, @Param("year") String year, @Param("month") String month);
+
+
 }

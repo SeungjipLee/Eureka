@@ -18,6 +18,9 @@ public interface UserCardRepository extends JpaRepository<UserCardEntity, String
 
     Optional<UserCardEntity> findByCardIdentifier(String cardIdentifier);
 
-    @Query("SELECT COUNT(u) > 0 FROM UserCardEntity u WHERE u.userId = ?1")
     boolean existsByUserId(int userId);
+
+    boolean existsByUserCardId(int userCardId);
+
+
 }
