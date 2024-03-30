@@ -52,4 +52,12 @@ public class StatisticsController {
         return ResponseEntity.ok(statisticsService.consumptionStatisticsByUserCardResponse(userCardId, yyyyMM));
     }
 
+    @Operation(summary = "월간 카테고리별 할인 통계 (카드별)")
+        @GetMapping("/{yyyyMM}/discount/{userCardId}")
+        public  ResponseEntity<?> getDiscountStatisticsByUserCard(@AuthenticationPrincipal UserDetails userDetails,
+                                                                     @PathVariable("yyyyMM") String yyyyMM,
+                                                                     @PathVariable("userCardId") int userCardId) {
+            log.debug("카테고리별 할인통계 (카드별), userCardId : " + userCardId + ", 날짜 : " + yyyyMM);
+            return ResponseEntity.ok(statisticsService.discountStatisticsByUserCardResponse(userCardId, yyyyMM));
+        }
 }

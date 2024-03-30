@@ -9,6 +9,7 @@ import com.ssafy.eureka.domain.statistics.dto.TotalStatistics;
 import com.ssafy.eureka.domain.statistics.dto.response.ConsumptionStatisticsResponse;
 import com.ssafy.eureka.domain.statistics.dto.response.DiscountStatisticsResponse;
 import com.ssafy.eureka.domain.statistics.entity.ConsumptionStaticEntity;
+import com.ssafy.eureka.domain.statistics.entity.DiscountStaticEntity;
 import com.ssafy.eureka.domain.statistics.repository.ConsumptionLargeStaticRepository;
 import com.ssafy.eureka.domain.statistics.repository.ConsumptionStaticRepository;
 import com.ssafy.eureka.domain.statistics.repository.DiscountLargeStaticRepository;
@@ -116,6 +117,26 @@ public class StatisticServiceImpl implements StatisticService {
         ConsumptionStatisticsResponse response = new ConsumptionStatisticsResponse();
         response.setTotalConsumption(totalConsumption);
         response.setConsumptionList(consumptionStatisticsList);
+        return response;
+    }
+
+    @Override
+    public DiscountStatisticsResponse discountStatisticsByUserCardResponse(int userCardId, String yyyyMM) {
+        checkUserCardExistsByUserCardId(userCardId);
+
+        String year = yyyyMM.substring(0, 4);
+        String month = yyyyMM.substring(4, 6);
+
+        Optional<DiscountStaticEntity> discountStaticEntity = discountStaticRepository.findByUserCardId(userCardId);
+        Long totalDiscount = Long.valueOf(discountStaticEntity
+                .map(DiscountStaticEntity::getTotalDiscount).orElse(0));
+
+        List<DiscountStatistics> discountStatisticsList =
+                discountLargeStaticRepository.findDiscountStatisticsByUserCardIdAndDate(userCardId, year, month);
+
+        DiscountStatisticsResponse response = new DiscountStatisticsResponse();
+        response.setTotalDiscount(totalDiscount);
+        response.setDiscountList(discountStatisticsList);
         return response;
     }
 }

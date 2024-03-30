@@ -10,6 +10,6 @@ public interface StatisticService {
     ConsumptionStatisticsResponse consumptionStatisticsResponse(String userId, String yyyyMM);
     DiscountStatisticsResponse discountStatisticsResponse(String userId, String yyyyMM);
     ConsumptionStatisticsResponse consumptionStatisticsByUserCardResponse(int userCardId, String yyyyMM);
-
+    DiscountStatisticsResponse discountStatisticsByUserCardResponse(int userCardId, String yyyyMM);
 
 }

@@ -13,4 +13,10 @@ public class DiscountStatistics {
     private int categoryId;
     private String categoryName;
     private Long discount;
+
+    public DiscountStatistics(int categoryId, String categoryName, int discountAmount) {
+        this.categoryId = categoryId;
+        this.categoryName = categoryName;
+        this.discount = (long) discountAmount;
+    }
 }
