@@ -63,5 +63,13 @@ async function cardPay(token, data, success, fail) {
   }
 }
 
+async function proceedPay(token, data, success, fail) {
+  try {
+    const response = await API(token).post('/pay/approve', data)
+    success(response);
+  } catch (error) {
+    fail(error);
+  }
+}
 
-export { getOwnCard, addOwnCard, getMyCardList, getPayCard, addPayCard, getCardDetail, cardPay, getCardHistory }
+export { getOwnCard, addOwnCard, getMyCardList, getPayCard, addPayCard, getCardDetail, cardPay, getCardHistory, proceedPay }

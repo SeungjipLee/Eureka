@@ -1,38 +1,77 @@
-import { View, Text, Image, StyleSheet, Pressable } from "react-native"
+import { View, Text, Image, StyleSheet, Pressable, Modal, FlatList, TouchableOpacity } from "react-native"
 import { useNavigation } from '@react-navigation/native';
+import { useState, useEffect } from "react";
+import TokenUtils from "../../stores/TokenUtils";
+import { proceedPay } from "../../apis/CardAPi";
 
 
-function PayCheck () {
+function PayCheck ({route}) {
   const navigation = useNavigation()
-  const data = {
-    name: "삼성 iD ON 카드",
-    cost: 7,
-    priceType: "%",
-    discountType: "청구할인",
-    now: 324000,
-    target: 400000,
+  const { cardList, totalAmount, orderId } = route.params || {}
+  const [modalVisible, setModalVisible] = useState(false)
+  const [selectedCard, setSelectedCard] = useState(cardList[0])
+  const [token, setToken] = useState('')
+  const [completeData, setCompleteData] = useState('')
+  const discountTypes = {
+    0: "즉시 할인",
+    1: "청구할인",
+    2: "포인트 적립"
+  };
+
+  useEffect(() => {
+    const fetchToken = async () => {
+      const accessToken = await TokenUtils.getAccessToken();
+      setToken(accessToken);
+    };
+  
+    fetchToken();
+  }, []);
+  console.log(orderId)
+
+  const progress = (selectedCard.currentMonthAmount / selectedCard.previousPerformance) * 100
+  const remaining = selectedCard.previousPerformance - selectedCard.currentMonthAmount
+
+  function handleSubmit () {
+    const inputData = {orderId: orderId, userCardId: selectedCard.userCardId}
+    proceedPay(
+      token,
+      inputData,
+      (res) => {
+        console.log(res)
+        navigation.navigate('PayComplete', {
+          selectedCard: selectedCard,
+          totalAmount: totalAmount,
+          discountInfo: `${selectedCard.discountCost}${selectedCard.discountCostType === '%' ? '%' : '원'} ${discountTypes[selectedCard.discountType]}`,
+          progress: progress,
+          remaining: Math.max(0, remaining - totalAmount)
+        });
+      },
+      
+      (err) => {
+        console.log(selectedCard.userCardId)
+        console.log(err)
+      } 
+      )
   }
-  const progress = (data.now / data.target) * 100
-  const remaining = data.target - data.now
 
   return(
     <View style={{flex: 1, justifyContent: 'center', alignItems:'center'}}>
       <View style={{width:'90%', height: 230, backgroundColor: '#4D85FF', marginTop: -120, borderRadius: 20, marginBottom: -150}}/>
       <View style={{width:'80%', height: 640, backgroundColor:'#ffffff', borderRadius: 20, alignItems:'center'}}>
-        <Image source={require('../../../assets/card.png')}
+        <Image source={{uri: selectedCard.imagePath}}
         style={{width: 240, height: 140, borderRadius: 10, alignSelf: 'center', margin: 60}}
         />
         
 
         <View style={styles.midContainer}>
           <Text>
-            <Text style={{fontWeight:'bold', fontSize: 20}}>{data.name}</Text> 로 결제하면
+            <Text style={{fontWeight:'bold', fontSize: 20}}>{selectedCard.cardName}</Text> 로 결제하면
           </Text>
 
           <Text style={{marginVertical: 10}}>
             <Text style={{fontWeight:'bold', fontSize: 20}}>
-              <Text style={{fontWeight:'bold', fontSize: 20, color: '#3675FF'}}>{data.cost} {data.priceType}</Text>
-              <Text>{data.discountType}</Text>
+              <Text style={{fontWeight:'bold', fontSize: 20, color: '#3675FF'}}>{selectedCard.discountCost} {selectedCard.discountCostType}</Text>
+              <Text> {discountTypes[selectedCard.discountType]}</Text>
             </Text> 가능해요
           </Text>
 
@@ -40,17 +79,17 @@ function PayCheck () {
         {remaining > 0 ? (
           <Text>
             <Text style={styles.remainingAmount}>{remaining.toLocaleString()}</Text>원
-          </Text>
+          </Text>  
         ) : (
           <Text style={styles.achievementText}>실적을 달성하였습니다!</Text>
         )}
         <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
           <Text>
-            <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#578CFF' }}>{data.now}</Text>원
+            <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#578CFF' }}>{selectedCard.currentMonthAmount}</Text>원
           </Text>
           <Text style={{ marginHorizontal: 10, fontSize: 20, fontWeight: 'bold' }}>/</Text>
           <Text>
-            <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#578CFF' }}>{data.target}</Text>원
+            <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#578CFF' }}>{selectedCard.previousPerformance}</Text>원
           </Text>
         </View>
         <View style={styles.progressBarContainer}>
@@ -59,13 +98,46 @@ function PayCheck () {
         </View>
       </View>
         
-        <Pressable onPress={()=>navigation.navigate('PayComplete')}>
+        <Pressable onPress={handleSubmit}>
           <View style={{borderRadius: 8, backgroundColor: '#4D85FF', paddingVertical: 15, paddingHorizontal: 30, marginTop: 25}}>
-            <Text style={{color:'#ffffff', fontWeight: 'bold', fontSize: 20, textAlign:'center'}}>32,000원 결제하기</Text>
+            <Text style={{color:'#ffffff', fontWeight: 'bold', fontSize: 20, textAlign:'center'}}>{totalAmount}원 결제하기</Text>
           </View>
         </Pressable>
       </View>
-      <Text style={{marginTop: 20, marginBottom: -20, fontSize: 16, textDecorationLine: 'underline', color:'#A5A5A5'}}>다른 카드 선택</Text>
+      <Text onPress={() => setModalVisible(true)} style={{marginTop: 20, marginBottom: -20, fontSize: 16, textDecorationLine: 'underline', color:'#A5A5A5'}}>다른 카드 선택</Text>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+            setModalVisible(!modalVisible);
+        }}
+      >
+        <Pressable style={styles.modalOverlay} onPress={() => setModalVisible(false)}>
+            <View style={styles.modalContainer} onStartShouldSetResponder={() => true}>
+                <Text style={{fontSize: 20, fontWeight:'bold', marginVertical: 20}}>다른 카드 선택</Text>
+                <FlatList
+                    data={cardList}
+                    showsVerticalScrollIndicator={false}
+                    renderItem={({ item }) => (
+                        <TouchableOpacity style={styles.modalItem} onPress={() => {
+                            setSelectedCard(item);
+                            setModalVisible(!modalVisible);
+                        }}>
+                            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                <Image source={{uri: item.imagePath}} style={[styles.cardImage, item.imgAttr === 1 ? styles.verticalImage : styles.horizontalImage]}/>
+                                <View style={{ marginLeft: 10 }}>
+                                    <Text style={styles.modalText}>{item.cardName}</Text>
+                                    <Text>{item.discountAmount}원 할인</Text>
+                                </View>
+                            </View>
+                        </TouchableOpacity>
+                    )}
+                    keyExtractor={item => item.cardId.toString()}
+                />
+            </View>
+        </Pressable>
+      </Modal>
     </View>
   )
 }
@@ -112,4 +184,72 @@ const styles = StyleSheet.create({
     right: 10,
     color: '#ffffff',
   },
+  modalView: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    height: '50%',
+    marginVertical: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+  modalItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 10,
+    marginVertical: 8,
+    width: '100%',
+    borderBottomWidth: 1, 
+    borderBottomColor: '#f0f0f0',
+  },
+  modalText: {
+    fontSize: 18,
+    marginTop: -10
+  },
+  cardImage: {
+    resizeMode: 'contain',
+    marginBottom: 10,
+  },
+  horizontalImage: {
+    width: 100, 
+    height: 60, 
+    marginEnd: 10
+  },
+  verticalImage: {
+    width: 60, 
+    height: 100, 
+    transform: [{rotate: '-90deg'}],
+    marginHorizontal: 20,
+    marginEnd: 30
+  },
+  modalOverlay: {
+    flex: 1,
+    justifyContent: 'flex-end', 
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalContainer: {
+    width: '100%',
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+    maxHeight: '80%',
+},
 })

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Text, View, StyleSheet, Pressable, Image } from "react-native";
-import { Camera } from "expo-camera";
+import { Camera } from 'expo-camera'
 import { MaterialIcons } from '@expo/vector-icons';
 import { cardPay } from "../../apis/CardAPi";
 import TokenUtils from "../../stores/TokenUtils";
@@ -10,9 +10,9 @@ export default function QRcodeScanner() {
   const navigation = useNavigation()
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
-  const [barcodeData, setBarcodeData] = useState(null);
   const cameraRef = useRef(null);
-  const [token, setToken] = useState('');
+  const [token, setToken] = useState('')
+  const [cardList, setCardList] = useState([])
 
   useEffect(() => {
     (async () => {
@@ -29,17 +29,35 @@ export default function QRcodeScanner() {
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
-    setBarcodeData({ type, data });
-    
+    const barcodeData = JSON.parse(data)
+
+    const requestBody = {
+      storeRegNo: barcodeData.storeCode, 
+      storeName: barcodeData.orderName, 
+      orderId: barcodeData.orderId,
+      orderName: barcodeData.orderName,
+      largeCategoryId: 1, 
+      smallCategoryId: 1, 
+      totalAmount: parseInt(barcodeData.totalAmount, 10),
+      vat: barcodeData.vat,
+      totalInstallCnt: 0, 
+      requestedAt: barcodeData.requestedAt,
+      redirectUrl: barcodeData.redirectUrl
+    };
+
     cardPay(
       token,
-      { type, data }, // Use the latest barcode data directly here
-      (res) => console.log(res),
-      (err) => console.log(err)  
+      requestBody,
+      (res) => {
+        setCardList(res.data.cardList)
+        console.log(res.data.cardList)
+        navigation.navigate('PayLoadingPage', {cardList: res.data.cardList, totalAmount: requestBody.totalAmount, orderId:requestBody.orderId});
+      },
+      (err) => {
+        console.log(err)
+      }
     );
-    console.log({ type, data });
-    navigation.navigate('PayLoadingPage');
-  };
+};
 
   const handleRetryScan = () => {
     setScanned(false);

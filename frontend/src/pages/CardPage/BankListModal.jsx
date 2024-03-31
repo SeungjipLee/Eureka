@@ -76,8 +76,6 @@ function BankListModal({ visible, onClose, onSelect }) {
   ];
 
   const [selectedBanks, setSelectedBanks] = useState([]);
-
-  // 은행 선택/해제 처리 함수
   const handleSelect = (bank) => {
     if (selectedBanks.find((selectedBank) => selectedBank.id === bank.id)) {
       setSelectedBanks(
