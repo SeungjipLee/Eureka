@@ -1,13 +1,18 @@
-import React from 'react';
-import { StyleSheet, TouchableOpacity, Text, Alert, View, Pressable } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, TouchableOpacity, Text, Alert, View, Pressable, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import TokenService from '../../stores/TokenUtils';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import * as ImagePicker from 'expo-image-picker';
 
 
 function SettingPage() {
   const navigation = useNavigation();
+  const [username, setUsername] = useState('');
+  const [userbirth, setuserbirth] = useState('');
+  const [userphonenumber, setuserphonenumber] = useState('');
+  const [selectedImage, setSelectedImage] = useState(null);
 
   const handleLogout = () => {
     // 로그아웃 확인 다이얼로그 표시
@@ -36,23 +41,65 @@ function SettingPage() {
     }
   };
 
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const userData = await TokenService.getUserData();
+      if (userData && userData.userName && userData.userBirth && userData.phoneNumber) {
+        setUsername(userData.userName);
+        setuserbirth(userData.userBirth);
+        setuserphonenumber(userData.phoneNumber);
+      }
+    };
+    fetchUserData();
+  }, []);
+
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setSelectedImage(result.uri); // 이미지 선택 후 상태 업데이트
+    }
+  };
+
   return (
     <SafeAreaView style={styles.safeAreaView}>
       <View style={styles.topBar}>
         <Pressable onPress={() => navigation.goBack()} style={styles.pressable}>
-          <MaterialCommunityIcons name="chevron-left" size={40} color="black" />
+          <MaterialCommunityIcons name="chevron-left" size={50} color="black" />
         </Pressable>
         <View style={styles.titleContainer}>
           <Text style={styles.title}>설정</Text>
         </View>
       </View>
-      <View style={styles.profileContainer}>
-        <View style={{ width: '100%', height: '50%', justifyContent:'center', alignItems:'center'}}>
-          <Text style={{backgroundColor:'red'}}>이미지</Text>
+      <View style={styles.middleContainer}>
+        <View style={styles.imageContainer}>
+          <TouchableOpacity onPress={pickImage}>
+            {selectedImage ? (
+              <Image source={{ uri: selectedImage }} style={styles.profileImage} />
+            ) : (
+              <Image source={require('../../../assets/profileDefault.png')} style={styles.profileImage} />
+            )}
+            <MaterialCommunityIcons name="close-circle" size={30} color="black" style={styles.crossIcon} />
+          </TouchableOpacity>
         </View>
-        <View style={{ width: '100%', height: '50%', justifyContent:'center', alignItems:'center'}}>
-          <Text>이름</Text>
-          <Text>내 정보 수정하기</Text>
+        <View style={styles.profileContainer}>
+          <View style={styles.profileData}>
+            <Text style={styles.profileTitle}>이름</Text>
+            <Text style={styles.profileVlue}>{username}</Text>
+          </View>
+          <View style={styles.profileData}>
+            <Text style={styles.profileTitle}>나이</Text>
+            <Text style={styles.profileVlue}>{userbirth}</Text>
+          </View>
+          <View style={styles.profileData}>
+            <Text style={styles.profileTitle}>전화번호</Text>
+            <Text style={styles.profileVlue}>{userphonenumber}</Text>
+          </View>
         </View>
       </View>
       <View style={styles.bottomContainer}>
@@ -63,6 +110,9 @@ function SettingPage() {
         </TouchableOpacity>
         <TouchableOpacity onPress={handleLogout} style={styles.button}>
           <Text style={styles.buttonText}>로그아웃</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('ConfirmLoading')} style={styles.button}>
+          <Text style={styles.buttonText}>로딩</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -75,13 +125,11 @@ const styles = StyleSheet.create({
   safeAreaView: {
     width: '100%',
     height: '100%',
-    // backgroundColor: '#F7F7F7',
-    // backgroundColor: '#3675FF',
   },
   topBar: {
     width: '100%',
     height: '10%',
-    marginTop: '2%',
+    paddingTop: '2%',
     flexDirection: 'row',
   },
   pressable: {
@@ -100,26 +148,69 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
   },
-  profileContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
+  middleContainer: {
     width: '95%',
-    height: '40%',
+    height: '45%',
     marginLeft: ' 2.5%',
     borderWidth: 2,
     borderColor: '#D7D7D7',
     borderRadius: 20,
     shadowColor: '#D7D7D7',
-    backgroundColor: '#ffffff'
+  },
+  imageContainer: {
+    width: '100%',
+    height: '40%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderBottomColor: 'black',
+    borderBottomWidth: 2,
+    position: 'relative',
+  },
+  profileImage: {
+    width: 120,
+    height: 120,
+    borderRadius: 60,
+    backgroundColor: 'black',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  crossIcon: {
+    position: 'absolute',
+    right: 0,
+    top: 100,
+    transform: [{ rotate: '45deg' }],
+  },
+  profileContainer: {
+    width: '100%',
+    height: '60%',
+    // backgroundColor:'blue',
+  },
+  profileData: {
+    width: '100%',
+    height: '30%',
+    flexDirection: 'row',
+    // backgroundColor: 'orange'
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  profileTitle: {
+    flex: 1,
+    // textAlign: 'left',
+    fontSize: 24,
+  },
+  profileVlue: {
+    flex: 3,
+    textAlign: 'right',
+    fontSize: 24
   },
   bottomContainer: {
     width: '100%',
-    height: '55%',
-    paddingBottom: 20,
+    height: '45%',
+    paddingTop: '5%',
   },
   button: {
     width: '95%',
-    height: '10%',
+    height: '15%',
     backgroundColor: '#007AFF',
     marginTop: '5%',
     marginLeft: '2.5%',
