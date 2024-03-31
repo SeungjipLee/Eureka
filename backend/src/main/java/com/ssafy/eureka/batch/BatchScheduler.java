@@ -9,7 +9,6 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 @Slf4j
 @Component
@@ -28,7 +27,6 @@ public class BatchScheduler {
         try {
             JobParameters jobParameters = new JobParametersBuilder()
                     .addLocalDate("date", LocalDate.now())
-//                    .addDate("date", new Date())
                     .toJobParameters();
             jobLauncher.run(job, jobParameters);
             log.info("Job Finished, " + jobParameters);

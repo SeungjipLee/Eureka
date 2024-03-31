@@ -23,7 +23,7 @@ public class CardOwnershipJob {
 
     @Bean
     public Job updateCardOwnershipJob(PlatformTransactionManager transactionManager, JobRepository jobRepository) {
-        return new JobBuilder("Job 보유 카드 통계", jobRepository)
+        return new JobBuilder("cardOwnershipJob", jobRepository)
                 .start(updateOverviewStep(transactionManager, jobRepository))
                 .next(updateStaticStep(transactionManager, jobRepository))
                 .build();
