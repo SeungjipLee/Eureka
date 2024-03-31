@@ -18,5 +18,14 @@ public interface PayHistoryRepository extends JpaRepository<PayHistoryEntity, In
            "AND MONTH(p.approvedDateTime) = :month")
     List<PayHistoryEntity> findByUserId(@Param("userId") int userId, @Param("year") String year, @Param("month") String month);
 
+    @Query("SELECT p " +
+            "from PayHistoryEntity p " +
+            "WHERE p.approvedNum = :approvedNum " +
+            "AND YEAR(p.approvedDateTime) = :year " +
+            "AND MONTH(p.approvedDateTime) = :month")
+    List<PayHistoryEntity> findByApprovedNum(@Param("approvedNum") String approvedNum, @Param("year") String year, @Param("month") String month);
+
+    PayHistoryEntity findByApprovedNum(String approvedNum);
+
 
 }

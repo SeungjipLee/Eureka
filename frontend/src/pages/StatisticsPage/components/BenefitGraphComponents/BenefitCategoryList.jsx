@@ -4,9 +4,6 @@ import {
   View,
   Text,
   Dimensions,
-  StatusBar,
-  Platform,
-  Image,
 } from "react-native";
 
 const { width, height } = Dimensions.get("window");

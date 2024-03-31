@@ -15,7 +15,7 @@ public interface CardService {
     CardCompanyListResponse listCardCompany();
     List<CardProdListResponse> cardProdCompanyList(int companyId);
     List<CardProdListResponse> cardProdCategoryList(int categoryId);
-    List<CardBenefitEntity> cardProdDetail(int cardId);
+    CardProdDetailResponse cardProdDetail(int cardId);
 
     CardEntity cardProdRecommend();
 }
