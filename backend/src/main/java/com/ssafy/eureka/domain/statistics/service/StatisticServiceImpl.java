@@ -6,6 +6,7 @@ import com.ssafy.eureka.domain.card.repository.UserCardRepository;
 import com.ssafy.eureka.domain.pay.repository.PayHistoryRepository;
 import com.ssafy.eureka.domain.statistics.dto.*;
 import com.ssafy.eureka.domain.statistics.dto.response.BestCardStatisticsResponse;
+import com.ssafy.eureka.domain.statistics.dto.response.CardOwnershipOverviewResponse;
 import com.ssafy.eureka.domain.statistics.dto.response.ConsumptionStatisticsResponse;
 import com.ssafy.eureka.domain.statistics.dto.response.DiscountStatisticsResponse;
 import com.ssafy.eureka.domain.statistics.entity.CardOwnershipOverviewEntity;
@@ -212,5 +213,15 @@ public class StatisticServiceImpl implements StatisticService {
                     key.getAgeGroup(), key.getGender(), integer);
             cardOwnershipStaticRepository.save(newStatic);
         });
+    }
+
+    @Override
+    public CardOwnershipOverviewResponse cardOwnershipOverviewResponse() {
+        List<CardOwnershipOverview> cardOwnershipOverviewList =
+                cardOwnershipOverviewRepository.findCardOwnershipOverviews();
+
+        CardOwnershipOverviewResponse response = new CardOwnershipOverviewResponse();
+        response.setCardOwnershipOverviewList(cardOwnershipOverviewList);
+        return response;
     }
 }

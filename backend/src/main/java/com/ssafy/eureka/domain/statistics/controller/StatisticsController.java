@@ -68,4 +68,12 @@ public class StatisticsController {
         log.debug("이달의 카드, userId : " + userDetails.getUsername() + ", 날짜 : " + yyyyMM);
         return ResponseEntity.ok(statisticsService.bestCardStatisticsResponse(userDetails.getUsername(), yyyyMM));
     }
+
+    @Operation(summary = "많이 보유한 카드 top 10")
+    @GetMapping("/most-owned/cards")
+    public ResponseEntity<?> getCardOwnershipOverview(@AuthenticationPrincipal UserDetails userDetails) {
+        log.debug("유저 " + userDetails.getUsername() + " : 보유카드 전체 통계 조회");
+        return ResponseEntity.ok(statisticsService.cardOwnershipOverviewResponse());
+    }
+
 }
