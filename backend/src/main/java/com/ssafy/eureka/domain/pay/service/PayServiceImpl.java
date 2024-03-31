@@ -161,12 +161,12 @@ public class PayServiceImpl implements PayService{
 
             MyDataCardHistoryResponse myDataCardPayList = (MyDataCardHistoryResponse) response.getData();
             log.debug("myDataCardPayList" + myDataCardPayList);
-            System.out.println("myDataCardPayList" + myDataCardPayList.getMyDataCardHistoryList());
+//            System.out.println("myDataCardPayList" + myDataCardPayList.getMyDataCardHistoryList());
 
             for(int j=0; j<myDataCardPayList.getMyDataCardHistoryList().size(); j++){
 
             String approvedNum = myDataCardPayList.getMyDataCardHistoryList().get(j).getApprovedNum();
-                System.out.println("approvedNum " + approvedNum);
+//                System.out.println("approvedNum " + approvedNum);
 
                 // 카드사 결제내역에 있는 승인번호와 페이내역에 있는 승인번호가 일치하는 결제 내역만 조회
 //            List<PayHistoryEntity> payHistoryEntityList =
@@ -177,7 +177,7 @@ public class PayServiceImpl implements PayService{
                 PayHistoryEntity payHistoryEntity = payHistoryRepository.findByApprovedNum(approvedNum);
                 if (payHistoryEntity == null) continue; // 카드 결제 내역엔 있지만 페이 내역엔 없다면
 
-                System.out.println("payHistoryEntity " + payHistoryEntity);
+//                System.out.println("payHistoryEntity " + payHistoryEntity);
 
                 int largeCategoryId = payHistoryEntity.getLargeCategoryId();
                 int smallCategoryId = payHistoryEntity.getSmallCategoryId();
