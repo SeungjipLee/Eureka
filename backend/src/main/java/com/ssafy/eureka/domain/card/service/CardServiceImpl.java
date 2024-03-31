@@ -173,10 +173,11 @@ public class CardServiceImpl implements CardService{
         String imagePath = cardEntity.getImagePath();
         String cardName = cardEntity.getCardName();
         int imgAttr = cardEntity.getImgAttr();
+        String joinPath = cardEntity.getJoinPath();
 
         List<CardBenefitEntity> CardBenefitEntityList = cardBenefitRepository.findByCardId(cardId);
 
-        return new CardProdDetailResponse(imagePath, cardName, imgAttr, CardBenefitEntityList);
+        return new CardProdDetailResponse(imagePath, cardName, imgAttr, joinPath, CardBenefitEntityList);
     }
 
     @Override
