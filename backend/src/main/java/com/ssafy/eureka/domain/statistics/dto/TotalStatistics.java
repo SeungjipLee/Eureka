@@ -11,4 +11,5 @@ import java.math.BigInteger;
 public class TotalStatistics {
     private BigInteger totalConsumption;
     private Long totalDiscount;
+    private BigInteger payApprovedAmt;
 }

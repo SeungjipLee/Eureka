@@ -18,17 +18,9 @@ import java.util.List;
 @AllArgsConstructor
 public class CardProdDetailResponse {
 
-//    int cardId;
-//    String imagePath;
-//    String cardName;
-//    int annualFee;
-////    String largeCategoryName;
-//    int previousPerformance;
-//    String registerPage;
-//    List<CardProdDetailBenefitList> list;
-
     private String imagePath;
     private String cardName;
     private int imgAttr;
+    private String joinPath;
     List<CardBenefitEntity> list;
 }

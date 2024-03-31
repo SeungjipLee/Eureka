@@ -1,66 +1,106 @@
-import { StyleSheet, View, Text, Pressable, FlatList, Image } from "react-native"
+import React, { useCallback, useState, useEffect } from 'react';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import { StyleSheet, View, Text, Pressable, FlatList, Image } from "react-native"
+import TokenUtils from "../../stores/TokenUtils";
+import { getHomeOnlyPay } from "../../apis/HomeApi";
 
 
-function OnlyPay ({route}) {
+function OnlyPay () {
   const navigation = useNavigation()
-  const {payHistory, amt} = route.params || []
-  console.log(payHistory)
-  const data = [
-    {
-      date: 12,
-      day: "화",
-      info : [
-        {
-          category: "쇼핑",
-          title: "주식회사 신세데 통상",
-          card: "삼성 탭탭O 카드",
-          price: 40000
-        }
-      ]
-    },
-    {
-      date: 11,
-      day: "월",
-      info: [
-        {
-          category: "편의점",
-          title: "이마트 24시 녹산더시티",
-          card: "KB 알뜰카드",
-          price: 12000
-        },
-        {
-          category: "음식점",
-          title: "노브랜드 버거 녹산점",
-          card: "삼성 탭탭O 카드",
-          price: 9800
-        }
-      ]      
-    }
+  const [token, setToken] = useState('')
+  const [month, setMonth] = useState(new Date().getMonth() + 1)
+  const [year, setYear] = useState(new Date().getFullYear())
+  const [payHistory, setPayHistory] = useState([])
+  const [payAmount, setPayAmount] = useState('')
+  const imgPath =  [
+    { categoryId: "대중교통", path: require('../../../assets/CategoryIcon/1.png')},
+    { categoryId: "주유", path: require('../../../assets/CategoryIcon/2.png')},
+    { categoryId: "마트", path: require('../../../assets/CategoryIcon/3.png')},
+    { categoryId: "편의점", path: require('../../../assets/CategoryIcon/4.png')},
+    { categoryId: "통신", path: require('../../../assets/CategoryIcon/5.png')},
+    { categoryId: "온라인쇼핑", path: require('../../../assets/CategoryIcon/6.png')},
+    { categoryId: "쇼핑", path: require('../../../assets/CategoryIcon/7.png')},
+    { categoryId: "배달앱", path: require('../../../assets/CategoryIcon/8.png')},
+    { categoryId: "음식점", path: require('../../../assets/CategoryIcon/9.png')},
+    { categoryId: "주점", path: require('../../../assets/CategoryIcon/10.png')},
+    { categoryId: "카페", path: require('../../../assets/CategoryIcon/11.png')},
+    { categoryId: "디저트", path: require('../../../assets/CategoryIcon/12.png')},
+    { categoryId: "뷰티/피트니스", path: require('../../../assets/CategoryIcon/13.png')},
+    { categoryId: "공과금", path: require('../../../assets/CategoryIcon/14.png')},
+    { categoryId: "병원/약국", path: require('../../../assets/CategoryIcon/15.png')},
+    { categoryId: "애완동물", path: require('../../../assets/CategoryIcon/16.png')},
+    { categoryId: "교육", path: require('../../../assets/CategoryIcon/17.png')},
+    { categoryId: "자동차", path: require('../../../assets/CategoryIcon/18.png')},
+    { categoryId: "레저/스포츠", path: require('../../../assets/CategoryIcon/19.png')},
+    { categoryId: "영화", path: require('../../../assets/CategoryIcon/20.png')},
+    { categoryId: "문화/여가", path: require('../../../assets/CategoryIcon/21.png')},
+    { categoryId: "간편결제", path: require('../../../assets/CategoryIcon/22.png')},
+    { categoryId: "항공", path: require('../../../assets/CategoryIcon/23.png')},
+    { categoryId: "여행/숙박", path: require('../../../assets/CategoryIcon/24.png')},
+    { categoryId: "기타", path: require('../../../assets/CategoryIcon/25.png')},
   ]
 
+  useEffect(() => {
+    const fetchToken = async () => {
+      const accessToken = await TokenUtils.getAccessToken();
+      setToken(accessToken);
+    };
+  
+    fetchToken();
+  }, []);
+
+  const fetchHistoryList = useCallback(async () => {
+    if (token) {
+      try {
+        const res = await getHomeOnlyPay(token, `${year}${month.toString().padStart(2, '0')}`);
+        setPayHistory(res.data.list);
+        setPayAmount(res.data.totalAmt);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+  }, [token, month, year]);
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchHistoryList();
+    }, [fetchHistoryList])
+  );
+
+  const changeMonth = (delta) => {
+    let newMonth = month + delta;
+    let newYear = year;
+
+    if (newMonth > 12) {
+      newMonth = 1;
+      newYear += 1;
+    } else if (newMonth < 1) {
+      newMonth = 12;
+      newYear -= 1;
+    }
+
+    setMonth(newMonth);
+    setYear(newYear);
+  };
+
   function transformData(list) {
-    // list가 없거나 비어있으면 빈 배열을 반환합니다.
     if (!list || list.length === 0) {
       return [];
     }
   
     const groupedByDate = list.reduce((acc, cur) => {
-      // 날짜를 YYYY-MM-DD 형태로 파싱합니다.
       const date = new Date(cur.approvedDateTime);
-      const day = date.toLocaleDateString('ko-KR', { weekday: 'short' }); // 'ko-KR' 로케일을 사용하여 요일을 가져옵니다.
-      const formattedDate = `${date.getDate()}`; // 일자만 추출합니다.
+      const day = date.toLocaleDateString('ko-KR', { weekday: 'short' }); 
+      const formattedDate = `${date.getDate()}`;
   
-      // 현재 항목의 정보를 원하는 형태로 변환합니다.
       const item = {
         category: cur.largeCategoryName,
         title: cur.smallCategoryName, 
-        card: `카드ID ${cur.userCardId}`,
+        card: cur.userCardId,
         price: cur.approvedAmt,
       };
   
-      // 날짜별로 그룹화하여 아이템을 추가합니다.
       if (!acc[formattedDate]) {
         acc[formattedDate] = {
           date: parseInt(formattedDate, 10),
@@ -74,12 +114,10 @@ function OnlyPay ({route}) {
       return acc;
     }, {});
   
-    // 객체를 배열로 변환하고, 날짜별로 정렬합니다.
     return Object.values(groupedByDate).sort((a, b) => b.date - a.date);
   }
   
-  // 사용 예시
-  const transformedData = transformData(payHistory.list);
+  const transformedData = transformData(payHistory);
   console.log(transformedData);
 
 
@@ -87,7 +125,7 @@ function OnlyPay ({route}) {
     return (
       <View style={{ marginVertical: 20 }}>
         <Text style={{ fontSize: 18, fontWeight: 'bold', marginLeft: 20, color: '#999999' }}>
-          {item.date}일 {item.day}
+          {item?.date}일 {item?.day}
         </Text>
         <View style={{ marginVertical: 10, alignSelf: 'center', width: 360, height:1, backgroundColor: '#999999' }}></View>
         <FlatList
@@ -100,9 +138,11 @@ function OnlyPay ({route}) {
   };
   
   const renderInfoItem = ({ item }) => {
+    const imagePath = imgPath.find(path => path.categoryId === item.category)?.path || require('../../../assets/favicon.png');
     return (
       <View style={{ marginLeft: 20, marginTop: 10, flexDirection:'row', justifyContent:'space-around', alignItems:'center' }}>
-        <Image source={require('../../../assets/favicon.png')}/>
+        <Image source={imagePath} style={{width: 50, height: 50}} />
+        {/* 찾은 이미지 경로를 사용 */}
         <View>
           <Text style={styles.place}>{item.title}</Text>
           <Text style={styles.anotherinfo}>{item.category} | {item.card}</Text>           
@@ -110,7 +150,7 @@ function OnlyPay ({route}) {
         <Text style={styles.price}>{item.price}원</Text>
       </View>
     );
-  };
+};
 
   return (
     <View style={styles.container}>
@@ -123,24 +163,22 @@ function OnlyPay ({route}) {
       </View>
 
       <View style={styles.midcontainer}>
-        <Pressable>
-            <MaterialCommunityIcons 
-              name="chevron-left" size={50} color={'#4F4F4F'}/>
-         </Pressable>
-         <Text style={styles.title}>3월</Text>
-         <Pressable>
-            <MaterialCommunityIcons 
-              name="chevron-right" size={50} color={'#4F4F4F'} style={styles.nextBtn}/>
-         </Pressable>
+        <Pressable onPress={() => changeMonth(-1)}>
+          <MaterialCommunityIcons name="chevron-left" size={50} color={'#4F4F4F'}/>
+        </Pressable>
+        <Text style={styles.title}>{year}년 {month.toString().padStart(2, '0')}월</Text>
+        <Pressable onPress={() => changeMonth(1)}>
+          <MaterialCommunityIcons name="chevron-right" size={50} color={'#4F4F4F'} style={styles.nextBtn}/>
+        </Pressable>
       </View>
 
       <View style={styles.wholecontainer}>
         <Text style={styles.wholetext}>어플 결제 총 금액</Text>
-        <Text style={styles.wholeprice}>{amt} 원</Text>
+        <Text style={styles.wholeprice}>{payAmount} 원</Text>
       </View>
 
       <FlatList
-        data={payHistory}
+        data={transformedData}
         renderItem={renderDateItem}
         keyExtractor={(item, index) => index.toString()}
       />

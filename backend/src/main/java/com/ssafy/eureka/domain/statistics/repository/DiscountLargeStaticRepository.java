@@ -22,4 +22,12 @@ public interface DiscountLargeStaticRepository extends JpaRepository<DiscountLar
             "ORDER BY SUM(dls.discountAmount) DESC")
     List<DiscountStatistics> findDiscountStatisticsByUserIdAndDate(@Param("userId") int userId, @Param("year") String year, @Param("month") String month);
 
+    @Query("SELECT lc.largeCategoryId, lc.categoryName, dls.discountAmount " +
+            "FROM DiscountLargeStaticEntity dls " +
+            "JOIN DiscountStaticEntity ds ON dls.discountStaticId = ds.discountStaticId " +
+            "JOIN LargeCategoryEntity lc ON dls.largeCategoryId = lc.largeCategoryId " +
+            "WHERE ds.year = :year AND ds.month = :month AND ds.userCardId = :userCardId " +
+            "ORDER BY dls.discountAmount DESC")
+    List<Object[]> findDiscountStatisticsByUserCardIdAndDate(@Param("userCardId") int userCardId, @Param("year") String year, @Param("month") String month);
+
 }

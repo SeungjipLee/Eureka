@@ -31,15 +31,15 @@ function ChooseOne({ data }) {
   };
 
   const logoImages = {
-    삼성: require("../../../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_삼성.png"),
-    농협: require("../../../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_농협.png"),
-    국민: require("../../../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_국민.png"),
-    신한: require("../../../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_신한.png"),
-    우리: require("../../../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_우리.png"),
-    하나: require("../../../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_하나.png"),
-    기업: require("../../../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_기업.png"),
-    현대: require("../../../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_현대.png"),
-    롯데: require("../../../../../assets/금융회사_로고아이콘/컬러/PNG/금융아이콘_PNG_롯데.png"),
+    삼성: require("../../../../../assets/banking_logo/samsung.png"),
+    농협: require("../../../../../assets/banking_logo/nonghyup.png"),
+    국민: require("../../../../../assets/banking_logo/kb.png"),
+    신한: require("../../../../../assets/banking_logo/shinhan.png"),
+    우리: require("../../../../../assets/banking_logo/woori.png"),
+    하나: require("../../../../../assets/banking_logo/hana.png"),
+    기업: require("../../../../../assets/banking_logo/ibk.png"),
+    현대: require("../../../../../assets/banking_logo/hyundai.png"),
+    롯데: require("../../../../../assets/banking_logo/lotte.png"),
   };
 
   const [selected, setSelected] = useState(0);
