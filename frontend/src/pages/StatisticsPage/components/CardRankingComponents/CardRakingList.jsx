@@ -2,13 +2,46 @@ import {
   StyleSheet,
   View,
   Text,
-  Dimensions,
-  StatusBar,
-  Platform,
   Image,
 } from "react-native";
+import { getMyTop3Cards} from "../../../../apis/StatisticsApi";
+import TokenUtils from "../../../../stores/TokenUtils";
+import { useEffect, useState } from "react";
 
-function CardRakingList() {
+function CardRakingList() {const [token, setToken] = useState("");
+const [top3CardList ,setTop3CardList] = useState([])
+
+useEffect(() => {
+  const fetchToken = async () => {
+    const accessToken = await TokenUtils.getAccessToken();
+    setToken(accessToken);
+  };
+  fetchToken();
+}, []);
+
+useEffect(()=>{
+  if(token){
+    const getCurrentDate = () => {
+      const date = new Date();
+      const year = date.getFullYear();
+      const month = date.getMonth() + 1; 
+      return year * 100 + month;
+    };
+    const currentDate = getCurrentDate();
+
+    getMyTop3Cards(
+      token,
+      currentDate,
+      (res)=>{
+        setTop3CardList(res.data.bestCardStatisticsList)
+      },
+      (err)=>{
+        console.log(err, "cardRanking err")
+      }
+    )
+  }
+}, [token])
+
   return (
     <View style={styles.container}>
       <View style={styles.topCard}>
@@ -18,10 +51,10 @@ function CardRakingList() {
             style={styles.oneBadge}
           />
           <Image
-            source={require("../../../../../assets/card.png")}
+            source={{uri: top3CardList[0]?.imagePath}}
             style={styles.image}
           ></Image>
-          <Text>삼성 taptap 카드</Text>
+          <Text style={{marginTop: 10}}>{top3CardList[0]?.cardName}</Text>
         </View>
 
         <View style={styles.topCardText}>
@@ -34,7 +67,7 @@ function CardRakingList() {
                 fontWeight: "semibold",
               }}
             >
-              89,000원
+              {top3CardList[0]?.totalDiscount.toLocaleString()}원
             </Text>
             의
           </Text>
@@ -49,13 +82,13 @@ function CardRakingList() {
             style={styles.otherBadge}
           />
           <Image
-            source={require("../../../../../assets/card.png")}
+            source={{uri:top3CardList[1]?.imagePath}}
             style={styles.image2}
           ></Image>
           <View style={styles.otherCardInfo}>
-            <Text style={styles.otherCardName}>KB HI GYM 카드</Text>
+            <Text style={styles.otherCardName}>{top3CardList[1]?.cardName}</Text>
             <Text style={styles.otherCardAmount}>
-              {"                "}약 67,000원
+             약 {top3CardList[1]?.totalDiscount.toLocaleString()}원
             </Text>
           </View>
         </View>
@@ -66,14 +99,13 @@ function CardRakingList() {
             style={styles.otherBadge}
           />
           <Image
-            source={require("../../../../../assets/card.png")}
+            source={{uri:top3CardList[2]?.imagePath}}
             style={styles.image2}
           ></Image>
           <View style={styles.otherCardInfo}>
-            <Text style={styles.otherCardName}>삼성 iD PET 카드</Text>
-            <Text style={styles.otherCardAmount}>
-              {"                "}약 37,000원
-            </Text>
+            <Text style={styles.otherCardName}>{top3CardList[2]?.cardName}</Text>{top3CardList[2]?.totalDiscount === 0 ? <Text style={styles.otherCardAmount}>0원</Text>:        <Text style={styles.otherCardAmount}>
+           약 {top3CardList[2]?.totalDiscount.toLocaleString()}
+            </Text>}
           </View>
         </View>
       </View>
@@ -96,6 +128,7 @@ const styles = StyleSheet.create({
   },
   imageContainer2: {
     flexDirection: "row",
+    alignItems: "center",
   },
   topCardText: {
     marginTop: 20,
@@ -110,11 +143,12 @@ const styles = StyleSheet.create({
     marginTop: 40,
     marginLeft: 40,
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "flex-end",
+    width: 120
   },
   image: {
-    height: 90,
-    width: 160,
+    height: 95,
+    width: 155,
   },
   image2: {
     flexDirection: "column",
@@ -123,7 +157,7 @@ const styles = StyleSheet.create({
     width: 130,
   },
   otherCardName: {
-    fontSize: 15,
+    fontSize: 13,
   },
   otherCardAmount: {
     fontSize: 12,

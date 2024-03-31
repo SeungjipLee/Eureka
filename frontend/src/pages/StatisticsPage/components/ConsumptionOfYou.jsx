@@ -10,8 +10,8 @@ import ConsumptionCategoryList from "./ConsumptionOfYouComponents/ConsumptionCat
 import { top5Category } from "../../../slices/staticSlice";
 import { getMyConsumptionOfCategoryAmount } from "../../../apis/StatisticsApi";
 import TokenUtils from "../../../stores/TokenUtils";
-const SCREEN_WIDTH = Dimensions.get("window").width;
 
+const SCREEN_WIDTH = Dimensions.get("window").width;
 const categoryColors = {
   0: "#ebc7fd", 
   1: "#fcb3b3", 
@@ -40,8 +40,6 @@ const categoryColors = {
   24: "#DCEDC8", 
   25: "#cdcdcd", 
 };
-
-
 const HorizontalBarGraph = ({ categories, totalConsump }) => {
   return (
     <View style={styles.rowGraph}>
@@ -66,23 +64,18 @@ const HorizontalBarGraph = ({ categories, totalConsump }) => {
   );
 };
 
-
-
 function ConsumptionOfYou() {
   const [token, setToken] = useState("");
   const [totalConsumption, setTotalConsumption] = useState("");
   const [categories, setCategories] = useState([])
   const dispatch = useDispatch();
-
   useEffect(() => {
     const fetchToken = async () => {
       const accessToken = await TokenUtils.getAccessToken();
       setToken(accessToken);
     };
-
     fetchToken();
   }, []);
-
   useEffect(() => {
     if(token){
       const getCurrentDate = () => {
@@ -92,7 +85,6 @@ function ConsumptionOfYou() {
         return year * 100 + month;
       };
       const currentDate = getCurrentDate();
-
       getMyConsumptionOfCategoryAmount(
         token,
         currentDate,
@@ -106,9 +98,7 @@ function ConsumptionOfYou() {
       )
     }
   }, [token])
-
     const formatTotalConsumption = totalConsumption.toLocaleString("ko-KR")
-
     const processCategories = (categories) => {
     
       // 상위 4개 추출
@@ -121,14 +111,12 @@ function ConsumptionOfYou() {
       if (others > 0) {
         topCategories.push({ categoryId: "25", categoryName: "그외..", consumption: others });
       }
-
       topCategories.push({totalConsumption: totalConsumption})
     
       dispatch(top5Category(topCategories))
       return topCategories;
     };
     
-
  const LastCategory = processCategories(categories)
   
   return (
@@ -152,9 +140,7 @@ function ConsumptionOfYou() {
     </View>
   );
 }
-
 export default ConsumptionOfYou;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

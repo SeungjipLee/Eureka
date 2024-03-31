@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   consumption: {
     flex: 2,
     marginBottom: 20,
-    minHeight: 600,
+    minHeight: 610,
     marginTop: -30,
     zIndex: 2,
     position: "relative",
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   benefitgraph: {
     flex: 1,
     marginBottom: 20,
-    minHeight: 600,
+    minHeight: 570,
   },
   cardranking: {
     flex: 1,
