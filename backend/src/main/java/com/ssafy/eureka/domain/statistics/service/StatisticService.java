@@ -13,5 +13,8 @@ public interface StatisticService {
     ConsumptionStatisticsResponse consumptionStatisticsByUserCardResponse(int userCardId, String yyyyMM);
     DiscountStatisticsResponse discountStatisticsByUserCardResponse(int userCardId, String yyyyMM);
     BestCardStatisticsResponse bestCardStatisticsResponse(String userId, String yyyyMM);
+    void updateCardOwnershipOverview();
+
+    void updateCardOwnershipStatic();
 
 }

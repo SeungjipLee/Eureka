@@ -4,28 +4,26 @@ import com.ssafy.eureka.common.exception.CustomException;
 import com.ssafy.eureka.common.response.ResponseCode;
 import com.ssafy.eureka.domain.card.repository.UserCardRepository;
 import com.ssafy.eureka.domain.pay.repository.PayHistoryRepository;
-import com.ssafy.eureka.domain.statistics.dto.BestCardStatistics;
-import com.ssafy.eureka.domain.statistics.dto.ConsumptionStatistics;
-import com.ssafy.eureka.domain.statistics.dto.DiscountStatistics;
-import com.ssafy.eureka.domain.statistics.dto.TotalStatistics;
+import com.ssafy.eureka.domain.statistics.dto.*;
 import com.ssafy.eureka.domain.statistics.dto.response.BestCardStatisticsResponse;
 import com.ssafy.eureka.domain.statistics.dto.response.ConsumptionStatisticsResponse;
 import com.ssafy.eureka.domain.statistics.dto.response.DiscountStatisticsResponse;
+import com.ssafy.eureka.domain.statistics.entity.CardOwnershipOverviewEntity;
+import com.ssafy.eureka.domain.statistics.entity.CardOwnershipStaticEntity;
 import com.ssafy.eureka.domain.statistics.entity.ConsumptionStaticEntity;
 import com.ssafy.eureka.domain.statistics.entity.DiscountStaticEntity;
-import com.ssafy.eureka.domain.statistics.repository.ConsumptionLargeStaticRepository;
-import com.ssafy.eureka.domain.statistics.repository.ConsumptionStaticRepository;
-import com.ssafy.eureka.domain.statistics.repository.DiscountLargeStaticRepository;
-import com.ssafy.eureka.domain.statistics.repository.DiscountStaticRepository;
+import com.ssafy.eureka.domain.statistics.repository.*;
+import com.ssafy.eureka.domain.user.dto.UserInfoDto;
+import com.ssafy.eureka.domain.user.repository.UserRepository;
 import com.ssafy.eureka.util.DateParserUtil;
+import com.ssafy.eureka.util.UserUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -33,10 +31,13 @@ import java.util.Optional;
 public class StatisticServiceImpl implements StatisticService {
 
     private final UserCardRepository userCardRepository;
+    private final UserRepository userRepository;
     private final ConsumptionStaticRepository consumptionStaticRepository;
     private final ConsumptionLargeStaticRepository consumptionLargeStaticRepository;
     private final DiscountStaticRepository discountStaticRepository;
     private final DiscountLargeStaticRepository discountLargeStaticRepository;
+    private final CardOwnershipOverviewRepository cardOwnershipOverviewRepository;
+    private final CardOwnershipStaticRepository cardOwnershipStaticRepository;
     private final PayHistoryRepository payHistoryRepository;
 
     private void checkUserCardExistsByUserId(String userId) {
@@ -159,6 +160,7 @@ public class StatisticServiceImpl implements StatisticService {
         return response;
     }
 
+    @Override
     public BestCardStatisticsResponse bestCardStatisticsResponse(String userId, String yyyyMM) {
         checkUserCardExistsByUserId(userId);
 
@@ -172,5 +174,43 @@ public class StatisticServiceImpl implements StatisticService {
         BestCardStatisticsResponse response = new BestCardStatisticsResponse();
         response.setBestCardStatisticsList(bestCardStatisticsList);
         return response;
+    }
+
+    @Override
+    @Transactional
+    public void updateCardOwnershipOverview() {
+        List<Object[]> cardOwnershipCounts = userCardRepository.countTotalCardOwnership();
+
+        for (Object[] result : cardOwnershipCounts) {
+            int cardId = (int) result[0];
+            Long longCount = (Long) result[1];
+            int count = longCount.intValue();
+
+            CardOwnershipOverviewEntity newOverview = CardOwnershipOverviewEntity.registerOverview(cardId, count);
+            cardOwnershipOverviewRepository.save(newOverview);
+        }
+    }
+
+    @Override
+    @Transactional
+    public void updateCardOwnershipStatic() {
+        List<UserInfoDto> userList = userRepository.findActiveUserInfo();
+
+        Map<CardOwnershipKey, Integer> ownershipMap = new HashMap<>();
+
+        for (UserInfoDto user : userList) {
+            char ageGroup = UserUtil.calculateAgeGroup(user.getUserBirth(), user.getUserGender());
+            List<Integer> userCardList = userCardRepository.findCardIdByUserId(user.getUserId());
+
+            for (Integer userCardId : userCardList) {
+                CardOwnershipKey key = new CardOwnershipKey(userCardId, ageGroup, user.getUserGender());
+                ownershipMap.merge(key, 1, Integer::sum);
+            }
+        }
+        ownershipMap.forEach((key, integer) -> {
+            CardOwnershipStaticEntity newStatic = CardOwnershipStaticEntity.registerStatic(key.getCardId(),
+                    key.getAgeGroup(), key.getGender(), integer);
+            cardOwnershipStaticRepository.save(newStatic);
+        });
     }
 }
