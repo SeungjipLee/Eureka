@@ -29,7 +29,7 @@ function IfUseRecommendCard() {
     (state) => state.productList.selectPayCardInfo
   );
 
-  console.log(selectCard, "cehci");
+  // console.log(selectCard, "cehci");
 
   useEffect(() => {
     const fetchToken = async () => {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   StyleSheet,
   View,
@@ -12,9 +12,6 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import TokenUtils from "../../../stores/TokenUtils";
-import { getMySingleCardBenefitList } from "../../../apis/ProductApi";
-
 const { width } = Dimensions.get("window");
 const benefits = [
   { id: 1, content: "할인 혜택", amount: "5,000원" },
@@ -24,37 +21,10 @@ const benefits = [
 
 function CurrentBenefitMore() {
   const navigation = useNavigation();
-  const [token, setToken] = useState("");
-  const selectCardInfo = useSelector(
-    (state) => state.productList.selectPayCardInfo
+  const [cardBenefitList, setCardBenefitList] = useState([]);
+  const selectCardBenefitInfo = useSelector(
+    (state) => state.productList.payCardBenefit
   );
-
-  const seclectCarduserCardId = selectCardInfo.userCardId;
-
-  useEffect(() => {
-    const fetchToken = async () => {
-      const accessToken = await TokenUtils.getAccessToken();
-      setToken(accessToken);
-    };
-
-    fetchToken();
-  }, []);
-
-  useEffect(() => {
-    if (token && seclectCarduserCardId) {
-      getMySingleCardBenefitList(
-        token,
-        202403,
-        seclectCarduserCardId,
-        (res) => {
-          console.log(res.data, "현재결제카드 혜택불러오기 성공");
-        },
-        (err) => {
-          console.log("현재결제카드 혜택불러오기 실패", err);
-        }
-      );
-    }
-  }, [token, seclectCarduserCardId]);
 
   return (
     <ScrollView contentContainerStyle={styles.container}>

@@ -65,11 +65,12 @@ function ProductPage() {
         return year * 100 + month; // YYYYMM 형태로 반환
       };
 
-      const currentDate = 202403;
+      const currentDate = 202402;
       getMyPaymentCards(
         token,
         currentDate,
         (res) => {
+          console.log(res.data, "chchchchchc");
           setCards(res.data);
           dispatch(saveMyPayCard(res.data));
           dispatch(selectPayCard(res.data[0])); // 선택된 결제카드 디폴트: 첫번째 결제카드
