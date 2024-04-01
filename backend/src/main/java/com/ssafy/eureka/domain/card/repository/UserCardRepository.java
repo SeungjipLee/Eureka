@@ -27,4 +27,6 @@ public interface UserCardRepository extends JpaRepository<UserCardEntity, String
     @Query("SELECT u.cardId FROM UserCardEntity u WHERE u.userId = :userId")
     List<Integer> findCardIdByUserId(@Param("userId") int userId);
 
+    @Query("SELECT u.userCardId FROM UserCardEntity u WHERE u.userId = :userId")
+    List<Integer> findUserCardIdByUserId(@Param("userId") int userId);
 }

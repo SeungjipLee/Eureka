@@ -59,4 +59,19 @@ public class CardOwnershipJob {
         };
     }
 
+    @Bean
+    public Step updateConsumptionStaticStep(PlatformTransactionManager transactionManager, JobRepository jobRepository) {
+        return new StepBuilder("카테고리별 소비 통계 유저 합산", jobRepository)
+                .tasklet(consumptionTasklet(), transactionManager)
+                .build();
+    }
+
+    public Tasklet consumptionTasklet() {
+        return (contribution, chunkContext) -> {
+            statisticService.updateConsumptionUserStatic();
+            log.info("consumptionUserStatic");
+            return RepeatStatus.FINISHED;
+        };
+    }
+
 }
