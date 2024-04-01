@@ -52,6 +52,13 @@ public class AuthServiceImpl implements AuthService {
         return new JwtTokenResponseDto("Bearer ", jwtTokenResponseDto.getAccessToken(), jwtTokenResponseDto.getRefreshToken());
 
     }
+
+    @Override
+    public void checkUser(MyDataRequestDto myDataRequestDto) {
+        UserEntity user = userRepository.findByPhoneNumber(myDataRequestDto.getPhoneNumber())
+            .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
+    }
+
     @Override
     public JwtTokenResponseDto issueMyDataToken(MyDataRequestDto myDataRequestDto) {
 
@@ -76,12 +83,12 @@ public class AuthServiceImpl implements AuthService {
         String password = dto.getPassword();
 
         Optional<UserCardEntity> userCardEntity = userCardRepository.findByCardNumber(cardNumber);
+        log.debug("userCardEntity : "+ userCardEntity);
 
         if(userCardEntity.isEmpty()) throw  new CustomException(ResponseCode.NOT_FOUND_CARD);
         if(!userCardEntity.get().getCardCvc().equals(cvc)) throw new CustomException(ResponseCode.NOT_FOUND_CARD);
         if(!userCardEntity.get().getExpired_year().equals(yy)) throw new CustomException(ResponseCode.NOT_FOUND_CARD);
         if(!userCardEntity.get().getExpired_month().equals(mm)) throw new CustomException(ResponseCode.NOT_FOUND_CARD);
-
 
         String twoPass = userCardEntity.get().getCardPassword().substring(0, 2);
         if(!twoPass.equals(password)) throw new CustomException(ResponseCode.NOT_FOUND_CARD);

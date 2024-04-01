@@ -2,7 +2,9 @@ package com.ssafy.eureka.domain.statistics.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigInteger;
@@ -10,6 +12,8 @@ import java.math.BigInteger;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "discount_static")
 public class DiscountStaticEntity {
 
@@ -31,4 +35,14 @@ public class DiscountStaticEntity {
     @NotNull
     private int totalDiscount;
 
+    public DiscountStaticEntity(int userCardId, String year, String month) {
+        this.userCardId = userCardId;
+        this.year = year;
+        this.month = month;
+        this.totalDiscount = 0;
+    }
+
+    public void addPay(int totalAmount) {
+        this.totalDiscount += totalAmount;
+    }
 }

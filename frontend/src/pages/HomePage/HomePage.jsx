@@ -1,11 +1,19 @@
+import React from 'react'
 import { StyleSheet, ScrollView, View } from "react-native"
-import HomeIcon from "./components/HomeIcon"
 import HomePayCard from "./components/HomePayCard"
 import HomeMonthly from "./components/HomeMonthly"
 import HomeOnlyPay from "./components/HomeOnlyPay"
 import HomeForYou from "./components/HomeForYou"
+import { useFocusEffect, useNavigation } from '@react-navigation/native'
 
 function HomePage() {
+  const navigation = useNavigation()
+  useFocusEffect(
+    React.useCallback(() => {
+      return () => {
+      };
+    }, [navigation])
+  );
   return (
       <ScrollView style={styles.container}>
         <View style={styles.paycard}><HomePayCard /></View>

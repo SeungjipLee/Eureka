@@ -174,10 +174,17 @@ function OwnCardEnrollPage({ route }) {
     addOwnCard(
       token,
       inputData,
-      (res) => {},
+      (res) => {
+          navigation.navigate("CheckModal",
+          {
+            message: "카드가 등록되었습니다.",
+            style: {fontSize: 20, color: '#ffffff'},
+            redirect: "보유 카드",
+          }
+        );
+      },
       (err) => console.log(err)
     );
-    navigation.navigate("CardHome");
   };
 
   return (
