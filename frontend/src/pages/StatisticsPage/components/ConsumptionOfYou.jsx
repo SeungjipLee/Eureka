@@ -75,6 +75,7 @@ function ConsumptionOfYou() {
   const [totalConsumption, setTotalConsumption] = useState("");
   const [categories, setCategories] = useState([]);
   const dispatch = useDispatch();
+
   useEffect(() => {
     const fetchToken = async () => {
       const accessToken = await TokenUtils.getAccessToken();
@@ -82,6 +83,7 @@ function ConsumptionOfYou() {
     };
     fetchToken();
   }, []);
+
   useEffect(() => {
     if (token) {
       const getCurrentDate = () => {
@@ -97,6 +99,7 @@ function ConsumptionOfYou() {
         (res) => {
           setTotalConsumption(res.data.totalConsumption);
           setCategories(res.data.consumptionList);
+          console.log(res.data, "check")
         },
         (err) => {
           console.log(err, "소비 카테고리 실패");
@@ -104,7 +107,9 @@ function ConsumptionOfYou() {
       );
     }
   }, [token]);
+
   const formatTotalConsumption = totalConsumption.toLocaleString("ko-KR");
+
   const processCategories = (categories) => {
     // 상위 4개 추출
     const topCategories = categories.slice(0, 4);

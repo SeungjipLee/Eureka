@@ -13,13 +13,17 @@ function CurrentBenefit() {
   const navigation = useNavigation();
   const [benefitAmount, setBenefitAmount] = useState("");
   const [token, setToken] = useState("");
+  const [selectCardUserCardId, setSelectCardUserCardId] = useState("");
   const selectCardInfo = useSelector(
     (state) => state.productList.selectPayCardInfo
   );
   const dispatch = useDispatch();
 
-  const seclectCarduserCardId = selectCardInfo.userCardId;
-
+  useEffect(() => {
+    if (selectCardInfo) {
+      setSelectCardUserCardId(selectCardInfo.userCardId);
+    }
+  }, [selectCardInfo]);
 
   useEffect(() => {
     const fetchToken = async () => {
@@ -35,13 +39,13 @@ function CurrentBenefit() {
       getMySingleCardBenefitList(
         token,
         202403,
-        seclectCarduserCardId,
+        selectCardUserCardId,
         (res) => {
           setBenefitAmount(res.data.totalDiscount);
           dispatch(selectPayCardBenefit(res.data));
         },
         (err) => {
-          console.log("현재결제카드 혜택불러오기 실패", err);
+          console.log("CurrentBenefit, 현재결제카드혜택불러오기 실패", err);
         }
       );
     }

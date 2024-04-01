@@ -80,7 +80,7 @@ function ProductPage() {
           }
         },
         (err) => {
-          console.log("Error, ProductPage 결제카드 불러오기", err);
+          console.log("ProductPage, 결제카드 불러오기 실패", err);
           if (err.response && err.response.status === 404) {
             setHasError(true);
           }
@@ -159,8 +159,6 @@ function ProductPage() {
               setModalVisible(false);
               if (tempSelectedCard !== null) {
                 dispatch(selectPayCard(tempSelectedCard)); // 임시로 선택된 카드 정보를 Redux 스토어에 저장
-              } else {
-                dispatch(selectPayCard(cards[0]));
               }
               dispatch(clickMyCard());
               setTempSelectedCard(null); // 임시 상태 초기화

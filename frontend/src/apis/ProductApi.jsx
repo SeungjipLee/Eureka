@@ -27,7 +27,7 @@ async function getProductCardDetail(token, id, success, fail) {
   }
 }
 
-// 등록 결제카드 불러오기
+// 등록된 결제카드 불러오기
 async function getMyPaymentCards(token, yyyymm, success, fail) {
   try {
     const response = await API(token).get(`/ucard/list/pay?yyyymm=${yyyymm}`);
