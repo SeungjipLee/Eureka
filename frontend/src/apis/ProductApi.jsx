@@ -37,9 +37,56 @@ async function getMyPaymentCards(token, yyyymm, success, fail) {
   }
 }
 
+async function getMySingleCardBenefitList(
+  token,
+  yyyymm,
+  userCardId,
+  success,
+  fail
+) {
+  try {
+    const response = await API(token).get(
+      `/static/${yyyymm}/discount/${userCardId}`
+    );
+    success(response);
+  } catch (error) {
+    fail(error);
+  }
+}
+
+async function get3RecommendCard(token, userCardId, success, fail) {
+  try {
+    const response = await API(token).get(
+      `/ucard/prod/recommend?userCardId=${userCardId}`
+    );
+    success(response);
+  } catch (error) {
+    fail(error);
+  }
+}
+
+async function getCompareMycardAndRecommendCard(
+  token,
+  userCardId,
+  success,
+  fail
+) {
+  try {
+    const response = await API(token).get(
+      `/ucard/prod/compare?userCardId=${userCardId}`
+    );
+    success(response);
+  } catch (error) {
+    fail(error);
+  }
+}
+
 export {
   getProductCardListByCompany,
   getProductCardListByCategory,
   getProductCardDetail,
   getMyPaymentCards,
+  getMySingleCardBenefitList,
+  getCompareMycardAndRecommendCard,
+  get3RecommendCard,
 };
