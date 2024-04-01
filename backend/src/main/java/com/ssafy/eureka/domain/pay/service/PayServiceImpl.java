@@ -113,11 +113,22 @@ public class PayServiceImpl implements PayService {
 
             CardBenefitDetailEntity cardBenefitDetail = cardBenefitDetailRepository.findCardBenefitDetailsByCardIdAndCategory(userCard.getCardId(), largeCategory, smallCategory, PageRequest.of(0, 1))
                 .stream()
-                .findFirst().orElse(null);
+                .findFirst()
+                .orElse(cardBenefitDetailRepository.findCardBenefitDetailsByCardIdAndCategory(userCard.getCardId(), largeCategory, null, PageRequest.of(0, 1))
+                    .stream()
+                    .findFirst().orElse(null));
 
             RecommendCard card = new RecommendCard(cardProd, userCard, cardBenefitDetail);
 
-            if(cardBenefitDetail != null){
+            if (cardBenefitDetail != null) {
+                if (cardBenefitDetail.getDiscountCostType().equals("원")) {
+                    card.setDiscountAmount((int) cardBenefitDetail.getDiscountCost());
+                } else if (cardBenefitDetail.getDiscountCostType().equals("%")) {
+                    card.setDiscountAmount((int) (requestPayRequest.getTotalAmount() * (cardBenefitDetail.getDiscountCost() / 100.0)));
+                } else if (cardBenefitDetail.getDiscountCostType().equals("L")) {
+                    card.setDiscountAmount((int) cardBenefitDetail.getDiscountCost() * (requestPayRequest.getTotalAmount() / 2000));
+                }
+
                 ConsumptionStaticEntity consumptionStatic = consumptionStaticRepository.findByUserCardIdAndYearAndMonth(
                     userCard.getUserCardId(), yearStr, monthStr).orElse(null);
 
@@ -127,36 +138,20 @@ public class PayServiceImpl implements PayService {
                 } else {
                     card.setCurrentMonthAmount(consumptionStatic.getTotalConsumption());
 
-                    int largeCategoryId = requestPayRequest.getLargeCategoryId();
-                    int smallCategoryId = requestPayRequest.getSmallCategoryId();
+                    DiscountStaticEntity discountStatic = discountStaticRepository.findByUserCardIdAndYearAndMonth(
+                        userCard.getUserCardId(), yearStr, monthStr).orElse(null);
 
-
-                    DiscountStaticEntity discountStatic = null;
                     DiscountLargeStaticEntity discountLargeStatic = null;
                     DiscountSmallStaticEntity discountSmallStatic = null;
 
-                    discountStatic = discountStaticRepository.findByUserCardIdAndYearAndMonth(
-                            userCard.getUserCardId(), yearStr, monthStr)
-                        .orElse(null);
-
-                    if(discountStatic != null){
+                    if (discountStatic != null) {
                         discountLargeStatic = discountLargeStaticRepository.findByDiscountStaticIdAndLargeCategoryId(
-                            discountStatic.getDiscountStaticId(), largeCategoryId).orElse(null);
-                    }
+                            discountStatic.getDiscountStaticId(), largeCategory).orElse(null);
 
-                    if(discountLargeStatic != null){
-                        discountSmallStatic = discountSmallStaticRepository.findByDiscountLargeStaticIdAndSmallCategoryId(
-                                discountLargeStatic.getDiscountLargeStaticId(), smallCategoryId)
-                            .orElse(null);
-                    }
-
-                    if (cardBenefitDetail.getDiscountCostType().equals("원")) {
-                        card.setDiscountAmount((int) cardBenefitDetail.getDiscountCost());
-                    } else if (cardBenefitDetail.getDiscountCostType().equals("%")) {
-                        card.setDiscountAmount((int) (requestPayRequest.getTotalAmount() * (
-                            cardBenefitDetail.getDiscountCost() / 100)));
-                    } else if (cardBenefitDetail.getDiscountCostType().equals("포인트")) {
-                        card.setDiscountAmount((int) cardBenefitDetail.getDiscountCost());
+                        if (discountLargeStatic != null) {
+                            discountSmallStatic = discountSmallStaticRepository.findByDiscountLargeStaticIdAndSmallCategoryId(
+                                discountLargeStatic.getDiscountLargeStaticId(), smallCategory).orElse(null);
+                        }
                     }
 
                     if (card.getDiscountAmount() > requestPayRequest.getTotalAmount()) {
@@ -166,39 +161,25 @@ public class PayServiceImpl implements PayService {
                     if (cardBenefitDetail.getPayMin() > requestPayRequest.getTotalAmount()) {
                         card.setDiscountAmount(0);
                     } else {
-                        if (discountStatic != null || discountLargeStatic != null) {
-                            if (cardBenefitDetail.getSmallCategoryId() == null) {
-                                if (discountLargeStatic.getDiscountCount()
-                                    >= cardBenefitDetail.getMonthlyLimitCount()) {
-                                    card.setDiscountAmount(0);
-                                }
-                                if (discountLargeStatic.getDiscountAmount()
-                                    > cardBenefitDetail.getDiscountLimit()) {
-                                    card.setDiscountAmount(0);
-                                }
-                            } else {
-                                if (discountSmallStatic != null && discountSmallStatic.getDiscountCount()
-                                    >= cardBenefitDetail.getMonthlyLimitCount()) {
-                                    card.setDiscountAmount(0);
-                                }
-                                if (discountSmallStatic != null && discountSmallStatic.getDiscount()
-                                    > cardBenefitDetail.getDiscountLimit()) {
-                                    card.setDiscountAmount(0);
-                                }
+                        if (discountSmallStatic != null) {
+                            if ((cardBenefitDetail.getMonthlyLimitCount() != 0&& (discountSmallStatic.getDiscountCount() >= cardBenefitDetail.getMonthlyLimitCount())) ||
+                                (cardBenefitDetail.getDiscountLimit() != 0 && (discountSmallStatic.getDiscount() > cardBenefitDetail.getDiscountLimit()))) {
+                                card.setDiscountAmount(0);
+                            }
+                        }
+                        else if(discountLargeStatic != null){
+                            if ((cardBenefitDetail.getMonthlyLimitCount() != 0&& (discountLargeStatic.getDiscountCount() >= cardBenefitDetail.getMonthlyLimitCount())) ||
+                                (cardBenefitDetail.getDiscountLimit() != 0 && (discountLargeStatic.getDiscountAmount() > cardBenefitDetail.getDiscountLimit()))) {
+                                card.setDiscountAmount(0);
                             }
                         }
                     }
                 }
-
-                cardToDiscount.put(card.getUserCardId(), card.getDiscountAmount());
-                if(card.getDiscountCostType().equals("L")){
-                    card.setDiscountCostType("원/L");
-                }
-            }else{
+            } else {
                 card.setDiscountAmount(0);
-                cardToDiscount.put(card.getUserCardId(), 0);
             }
 
+            cardToDiscount.put(card.getUserCardId(), card.getDiscountAmount());
             list.add(card);
         }
 
@@ -248,7 +229,7 @@ public class PayServiceImpl implements PayService {
         String year = String.valueOf(payHistory.getApprovedDateTime().getYear());
         String month = String.format("%02d", payHistory.getApprovedDateTime().getMonthValue());
 
-//        saveStatics(userCard, payInfo, year, month);
+        saveStatics(userCard, payInfo, year, month);
 //        payUtil.asyncStaticMethod(userCard, payInfo, year, month);
 
         long endTime = System.currentTimeMillis();

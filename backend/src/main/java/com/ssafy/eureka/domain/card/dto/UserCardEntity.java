@@ -95,6 +95,6 @@ public class UserCardEntity {
     }
 
     public void updateMonthAmount(int totalAmount) {
-        this.currentMonthAmount.add(BigInteger.valueOf(totalAmount));
+        this.currentMonthAmount = this.currentMonthAmount.add(BigInteger.valueOf(totalAmount));
     }
 }

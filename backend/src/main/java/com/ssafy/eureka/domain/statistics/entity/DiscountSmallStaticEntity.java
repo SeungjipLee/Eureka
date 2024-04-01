@@ -42,4 +42,5 @@ public class DiscountSmallStaticEntity {
         this.discount += integer;
         this.discountCount += 1;
     }
+
 }

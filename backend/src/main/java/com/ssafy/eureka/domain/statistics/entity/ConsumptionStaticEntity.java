@@ -50,8 +50,8 @@ public class ConsumptionStaticEntity {
         this.totalConsumption = value;
     }
 
-
     public void addPay(int amount){
-        this.totalConsumption.add(BigInteger.valueOf(amount));
+        this.totalConsumption = this.totalConsumption.add(BigInteger.valueOf(amount));
     }
 }
+

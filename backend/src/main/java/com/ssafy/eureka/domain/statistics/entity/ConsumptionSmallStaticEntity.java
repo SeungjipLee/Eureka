@@ -42,7 +42,7 @@ public class ConsumptionSmallStaticEntity {
     }
 
     public void addPay(int totalAmount) {
-        this.consumption.add(BigInteger.valueOf(totalAmount));
+        this.consumption = this.consumption.add(BigInteger.valueOf(totalAmount));
     }
 
     public ConsumptionSmallStaticEntity(int consumptionLargeStaticId, int smallCategoryId, BigInteger consumption,
