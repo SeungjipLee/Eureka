@@ -1,5 +1,6 @@
 package com.ssafy.eureka.domain.card.service;
 
+import com.ssafy.eureka.domain.card.dto.CardEntity;
 import com.ssafy.eureka.domain.card.dto.request.RegistPayCardRequest;
 import com.ssafy.eureka.domain.card.dto.request.RegistUserCardRequest;
 import com.ssafy.eureka.domain.card.dto.request.SearchUserCardRequest;
@@ -23,4 +24,8 @@ public interface UserCardService {
     void registPayCard(String userId, RegistPayCardRequest registPayCardRequest);
 
     void deleteUserCard(String userId, int userCardId);
+
+    CardEntity cardProdRecommend(String userId, int userCardId);
+
+    CardCompareResponse cardProdCompare(String userId, int userCardId);
 }

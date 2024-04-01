@@ -37,6 +37,8 @@ public enum ResponseCode {
     PAY_APRROVE_ERROR(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "카드 승인 오류"),
 
     INVALID_YEAR_MONTH(HttpServletResponse.SC_BAD_REQUEST, "날짜 형식 오류"),
+
+    STATISTICS_ERROR(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "통계 에러");
     ;
 
     private final int code;

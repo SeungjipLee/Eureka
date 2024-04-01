@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface ConsumptionSmallStaticRepository extends JpaRepository<ConsumptionSmallStaticEntity, Integer> {
 
     ConsumptionSmallStaticEntity findByConsumptionLargeStaticId(int consumptionLargeStaticId);
+    ConsumptionSmallStaticEntity findByConsumptionLargeStaticIdAndSmallCategoryId(int consumptionLargeStaticId, int smallCategoryId);
+
 }

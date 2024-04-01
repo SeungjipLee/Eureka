@@ -91,4 +91,20 @@ public class UserCardController {
         userCardService.registPayCard(userDetails.getUsername(), registPayCardRequest);
         return ResponseEntity.ok().build();
     }
+
+    @Operation(summary = "카드 상품 추천")
+    @GetMapping("/prod/recommend")
+    public ResponseEntity<?> cardProdRecommend(@AuthenticationPrincipal UserDetails userDetails,
+                                               @RequestParam int userCardId){
+        log.debug("카드 상품 추천 userCardId :"+ userCardId);
+        return ResponseEntity.ok(userCardService.cardProdRecommend(userDetails.getUsername(), userCardId));
+    }
+
+    @Operation(summary = "내 카드와 추천 카드 비교")
+    @GetMapping("/prod/compare")
+    public ResponseEntity<?> cardProdCompare(@AuthenticationPrincipal UserDetails userDetails,
+                                               @RequestParam int userCardId){
+        log.debug("카드 상품 추천 userCardId :"+ userCardId);
+        return ResponseEntity.ok(userCardService.cardProdCompare(userDetails.getUsername(), userCardId));
+    }
 }
