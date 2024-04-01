@@ -28,4 +28,5 @@ public interface UserCardService {
     CardEntity cardProdRecommend(String userId, int userCardId);
 
     CardCompareResponse cardProdCompare(String userId, int userCardId);
+    CardRecommendTop3 cardRecommendTop3(int userCardId);
 }

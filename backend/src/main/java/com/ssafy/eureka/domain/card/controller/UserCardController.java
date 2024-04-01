@@ -39,8 +39,6 @@ public class UserCardController {
         return ResponseEntity.ok(userCardService.ownUserCardList(userDetails.getUsername()));
     }
 
-    // 결제 카드의 실적, 사용 금액 보여주기용
-    // 현재까지 사용 금액도 보여줘야 하는데 이번 달 사용금액(통계) API가 필요
     @Operation(summary = "등록한 결제 카드 조회")
     @GetMapping("/list/pay")
     public ResponseEntity<?> payUserCardList(@AuthenticationPrincipal UserDetails userDetails,
@@ -106,5 +104,12 @@ public class UserCardController {
                                                @RequestParam int userCardId){
         log.debug("카드 상품 추천 userCardId :"+ userCardId);
         return ResponseEntity.ok(userCardService.cardProdCompare(userDetails.getUsername(), userCardId));
+    }
+    
+    @Operation(summary = "추천 카드 상위 카테고리 3개에서 카드 3개 추천")
+    @GetMapping("/prod/recommend/top3")
+    public ResponseEntity<?> cardRecommendTop3(@RequestParam int userCardId){
+        log.debug("추천 카드 상위 3개 카테고리 : "+ userCardId);
+        return ResponseEntity.ok(userCardService.cardRecommendTop3(userCardId));
     }
 }
