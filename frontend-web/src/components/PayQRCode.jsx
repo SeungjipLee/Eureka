@@ -8,21 +8,21 @@ export default function PayQRCode() {
 
   const stores = {
     "스타벅스 명지점": {
-      storeRegNo: "000-00-00002",
+      storeCode: "000-00-00002",
       storeName: "스타벅스 명지점",
       largeCategoryId: 12,
       smallCategoryId: 1,
       redirectUrl: "https://j10e101.p.ssafy.io/",
     },
     "GS25 명지점": {
-      storeRegNo: "000-00-00003",
+      storeCode: "000-00-00003",
       storeName: "GS25 명지점",
       largeCategoryId: 5,
       smallCategoryId: 8,
       redirectUrl: "https://j10e101.p.ssafy.io/gs25",
     },
     "S-OIL 명지점": {
-      storeRegNo: "000-00-00004",
+      storeCode: "000-00-00004",
       storeName: "S-OIL 명지점",
       largeCategoryId: 3,
       smallCategoryId: 157,
