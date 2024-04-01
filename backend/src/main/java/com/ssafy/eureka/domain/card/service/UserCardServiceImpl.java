@@ -175,7 +175,8 @@ public class UserCardServiceImpl implements UserCardService {
     public List<PayUserCardResponse> payUserCardList(String userId, String yyyymm) {
 
         List<PayUserCardResponse> payUserCardResponseList = new ArrayList<>();
-        List<UserCardEntity> userCardEntityList = userCardRepository.findAllByUserIdAndIsPaymentEnabledTrue(Integer.parseInt(userId));
+        List<UserCardEntity> userCardEntityList =
+                userCardRepository.findAllByUserIdAndIsPaymentEnabledTrue(Integer.parseInt(userId));
         if (userCardEntityList.isEmpty()) return payUserCardResponseList;
 
         // 로그인한 유저의 모든 결제 카드
@@ -340,11 +341,13 @@ public class UserCardServiceImpl implements UserCardService {
 
         if(userCard != null){
             userCard.registPayCard(registPayCardRequest, payTokenResponse);
+            log.debug("이미 등록된 카드");
         }else{
             UserCardEntity card = new UserCardEntity(Integer.parseInt(userId), registPayCardRequest, payTokenResponse);
             userCardRepository.save(card);
-            userCardRepository.flush();
             addStatistics(userId, payTokenResponse.getCardIdentifier());
+            log.debug("결제 카드 등록");
+
         }
     }
 
@@ -371,7 +374,9 @@ public class UserCardServiceImpl implements UserCardService {
         int consumptionStaticId = consumptionStaticEntity.getConsumptionStaticId();
 
         ConsumptionLargeStaticEntity consumptionLargeStaticEntity = consumptionLargeStaticRepository
-                .findTopByOrderByConsumptionAmountDesc();
+                .findTop1ByConsumptionStaticIdOrderByConsumptionAmountDesc(consumptionStaticId);
+        log.debug("consumptionLargeStaticEntity "+consumptionLargeStaticEntity);
+        System.out.println("Size : "+ consumptionLargeStaticEntity);
 
         int largeCategoryId = consumptionLargeStaticEntity.getLargeCategoryId();
 
@@ -418,7 +423,7 @@ public class UserCardServiceImpl implements UserCardService {
         int consumptionStaticId = consumptionStaticEntity.getConsumptionStaticId();
 
         ConsumptionLargeStaticEntity consumptionLargeStaticEntity = consumptionLargeStaticRepository
-                .findTopByOrderByConsumptionAmountDesc();
+                .findTop1ByConsumptionStaticIdOrderByConsumptionAmountDesc(consumptionStaticId);
 
         int largeCategoryId = consumptionLargeStaticEntity.getLargeCategoryId();
 
@@ -438,6 +443,76 @@ public class UserCardServiceImpl implements UserCardService {
 
     }
 
+    @Override
+    public CardRecommendTop3 cardRecommendTop3(int userCardId) {
+
+        UserCardEntity userCardEntity = userCardRepository.findByUserCardId(userCardId)
+                .orElseThrow(() -> new CustomException(ResponseCode.USER_CARD_NOT_FOUND));
+
+        int cardId = userCardEntity.getCardId();
+
+        // 내 카드
+        CardEntity cardEntity1 = cardRepository.findByCardId(cardId);
+        String cardName = cardEntity1.getCardName();
+        String imagePath = cardEntity1.getImagePath();
+        int imgAttr = cardEntity1.getImgAttr();
+
+
+        List<CardRecommendTop3List> top3List = new ArrayList<>();
+
+        // 추천 카드 3개 받기
+        LocalDate currentDate = LocalDate.now();
+
+        // 현재 연도와 월 가져오기
+        int currentYear = currentDate.getYear();
+        int currentMonth = currentDate.getMonthValue(); // 작년..
+
+        String year = String.format("%d", currentYear);
+        String month = String.format("%02d", currentMonth-1);
+
+        // 한 달 전 내역으로 추천해줄 것
+        ConsumptionStaticEntity consumptionStaticEntity = consumptionStaticRepository.findByUserCardAndMonth(userCardId, month);
+        log.debug("userCardId : " + userCardId + " month : "+ month);
+        if(consumptionStaticEntity == null) throw new CustomException(ResponseCode.INVALID_YEAR_MONTH);
+
+        int consumptionStaticId = consumptionStaticEntity.getConsumptionStaticId();
+
+        List<ConsumptionLargeStaticEntity> consumptionLargeStaticEntity = consumptionLargeStaticRepository
+                .findTop3ByConsumptionStaticIdOrderByConsumptionAmountDesc(consumptionStaticId);
+
+
+        // 상위 3개 카테고리 돌려
+        for (int i=0; i<consumptionLargeStaticEntity.size(); i++){
+
+        int largeCategoryId = consumptionLargeStaticEntity.get(i).getLargeCategoryId();
+
+        List<CardBenefitDetailEntity> cardBenefitDetailEntityList = cardBenefitDetailRepository.
+                findTop3ByLargeCategoryIdOrderByDiscountCostDesc(largeCategoryId);
+
+        for(int j=0; j<cardBenefitDetailEntityList.size(); j++){
+
+        int benefitId = cardBenefitDetailEntityList.get(j).getCardBenefitId();
+
+        CardBenefitEntity cardBenefitEntity = cardBenefitRepository.findFirstByCardBenefitId(benefitId);
+
+        cardId = cardBenefitEntity.getCardId();
+
+        CardEntity cardEntity2 = cardRepository.findByCardId(cardId);
+        LargeCategoryEntity largeCategoryEntity = largeCategoryRepository.findByLargeCategoryId(largeCategoryId);
+
+        String cardName2 = cardEntity2.getCardName();
+        String imagePath2 = cardEntity2.getImagePath();
+        int imgAttr2 = cardEntity2.getImgAttr();
+        String largeCategoryName = largeCategoryEntity.getCategoryName();
+            log.debug("상위 카테고리 : "+largeCategoryName);
+        int discountType = cardBenefitDetailEntityList.get(j).getDiscountType();
+        double discountCost = cardBenefitDetailEntityList.get(j).getDiscountCost();
+        top3List.add(new CardRecommendTop3List(cardName2, imagePath2, imgAttr2, largeCategoryName,
+                discountType, discountCost));
+          }
+        }
+        return new CardRecommendTop3(cardName, imagePath, imgAttr, top3List);
+    }
 
 
     public void addStatistics(String userId, String cardIdentifier){

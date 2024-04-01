@@ -229,7 +229,7 @@ create table if not exists discount_large_static
 create index idx_discount_static_id_large_category_id on discount_large_static(discount_static_id, large_category_id);
 
 
-#16. discount_detail_history
+#16. discount_small_static
 drop table if exists discount_small_static;
 create table if not exists discount_small_static
 (
@@ -241,3 +241,25 @@ create table if not exists discount_small_static
 );
 
 create index idx_discount_large_static_id_small_category_id on discount_small_static(discount_large_static_id, small_category_id);
+
+#17. card_ownership_overview
+drop table if exists card_ownership_overview;
+create table if not exists card_ownership_overview
+(
+    overview_id         int             auto_increment      primary key     comment '카드 보유현황 관리번호',
+    card_id             int             not null                            comment '카드상품 정보 번호',
+    ownership_count     int             not null                            comment '카드 보유 수',
+    created_date        date            not null                            comment '생성일'
+);
+
+#18. card_ownership_static
+drop table if exists card_ownership_static;
+create table if not exists card_ownership_static
+(
+    ownership_static_id         int             auto_increment      primary key     comment '카드 보유자 통계 관리번호',
+    card_id                     int             not null                            comment '카드상품 정보 번호',
+    age_group                   char(1)         not null                            comment '연령대',
+    gender                      char(1)         not null                            comment '성별',
+    ownership_count             int             not null                            comment '카드 보유 수',
+    created_date                date            not null                            comment '생성일'
+);

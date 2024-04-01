@@ -14,7 +14,13 @@ import java.util.List;
 public interface ConsumptionLargeStaticRepository extends JpaRepository<ConsumptionLargeStaticEntity, Integer> {
 
     ConsumptionLargeStaticEntity findByConsumptionStaticId(int consumptionStaticId);
-    ConsumptionLargeStaticEntity findTopByOrderByConsumptionAmountDesc();
+
+    @Query("SELECT c FROM ConsumptionLargeStaticEntity c WHERE c.consumptionStaticId = :consumptionStaticId ORDER BY c.consumptionAmount DESC limit 1")
+    ConsumptionLargeStaticEntity findTop1ByConsumptionStaticIdOrderByConsumptionAmountDesc(@Param("consumptionStaticId") int consumptionStaticId);
+
+    @Query("SELECT c FROM ConsumptionLargeStaticEntity c WHERE c.consumptionStaticId = :consumptionStaticId ORDER BY c.consumptionAmount DESC limit 3")
+    List<ConsumptionLargeStaticEntity> findTop3ByConsumptionStaticIdOrderByConsumptionAmountDesc(@Param("consumptionStaticId") int consumptionStaticId);
+
     @Query("SELECT new com.ssafy.eureka.domain.statistics.dto.ConsumptionStatistics(lc.largeCategoryId, lc.categoryName, SUM(cls.consumptionAmount)) " +
             "FROM ConsumptionLargeStaticEntity cls " +
             "JOIN ConsumptionStaticEntity cs ON cls.consumptionStaticId = cs.consumptionStaticId " +
