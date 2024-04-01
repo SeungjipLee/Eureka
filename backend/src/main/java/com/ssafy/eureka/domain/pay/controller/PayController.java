@@ -26,6 +26,7 @@ public class PayController {
     @PostMapping("/request")
     public ResponseEntity<?> requestPay(@AuthenticationPrincipal UserDetails userDetails, @RequestBody RequestPayRequest requestPayRequest) {
         log.debug("결제 요청, userId : " + userDetails.getUsername() + "결제 번호 : " + requestPayRequest.getOrderId());
+        log.debug("상점 정보 : " + requestPayRequest.getStoreName() + " / " + requestPayRequest.getStoreRegNo());
         return ResponseEntity.ok(payService.requestPay(userDetails.getUsername(), requestPayRequest));
     }
 
@@ -41,7 +42,6 @@ public class PayController {
     @GetMapping("/history")
     public ResponseEntity<?> payHistory(@AuthenticationPrincipal UserDetails userDetails,
                                         @RequestParam String yyyymm){
-
         log.debug("페이 결제 내역, userId : "+ userDetails.getUsername());
         return ResponseEntity.ok(payService.payHistory(userDetails.getUsername(),yyyymm));
     }

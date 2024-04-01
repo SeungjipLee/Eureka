@@ -14,7 +14,6 @@ import java.util.Optional;
 @Repository
 public interface DiscountStaticRepository extends JpaRepository<DiscountStaticEntity, Integer> {
 
-    Optional<DiscountStaticEntity> findByUserCardId(int userCardId);
     @Query("SELECT COALESCE(SUM(ds.totalDiscount), 0) " +
             "FROM DiscountStaticEntity ds " +
             "JOIN UserCardEntity uc ON ds.userCardId = uc.userCardId " +
@@ -29,4 +28,5 @@ public interface DiscountStaticRepository extends JpaRepository<DiscountStaticEn
             "LIMIT 3")
     List<BestCardStatistics> findCardStatisticsByUserIdAndDate(@Param("userId") int userId, @Param("year") String year, @Param("month") String month);
 
+    Optional<DiscountStaticEntity> findByUserCardIdAndYearAndMonth(int userCardId, String year, String month);
 }

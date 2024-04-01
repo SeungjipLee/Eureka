@@ -5,6 +5,7 @@ import com.ssafy.eureka.domain.card.dto.CardEntity;
 import com.ssafy.eureka.domain.card.dto.UserCardEntity;
 import jakarta.persistence.Column;
 import java.math.BigInteger;
+import java.util.Comparator;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,6 +17,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CardRecommendResponse {
+
     private String orderId;
     List<RecommendCard> cardList;
 
@@ -23,7 +25,8 @@ public class CardRecommendResponse {
     @Setter
     @NoArgsConstructor
     @AllArgsConstructor
-    public static class RecommendCard{
+    public static class RecommendCard implements Comparable<RecommendCard>{
+
         private int userCardId;
 
         private int cardId;
@@ -51,11 +54,12 @@ public class CardRecommendResponse {
 
         private int previousPerformance;
 
-        public RecommendCard(CardEntity cardProd, UserCardEntity userCard, CardBenefitDetailEntity cardBenefit) {
+        public RecommendCard(CardEntity cardProd, UserCardEntity userCard,
+            CardBenefitDetailEntity cardBenefit) {
             userCardId = userCard.getUserCardId();
             firstCardNumber = userCard.getFirstCardNumber();
             lastCardNumber = userCard.getLastCardNumber();
-            currentMonthAmount = userCard.getCurrentMonthAmount();
+            currentMonthAmount = BigInteger.ZERO;
 
             cardId = userCard.getCardId();
             cardName = cardProd.getCardName();
@@ -65,11 +69,29 @@ public class CardRecommendResponse {
 
             // 할인 가능 여부 체크
 
-            if(cardBenefit != null){
+            if (cardBenefit != null) {
                 discountCost = cardBenefit.getDiscountCost();
                 discountCostType = cardBenefit.getDiscountCostType();
                 discountType = cardBenefit.getDiscountType();
             }
+        }
+
+        @Override
+        public int compareTo(RecommendCard card) {
+            if (this.discountAmount > card.getDiscountAmount()) {
+                return 1;
+            } else if (this.discountAmount < card.getDiscountAmount()) {
+                return -1;
+            } else {
+                BigInteger thisPerformance = BigInteger.valueOf(this.previousPerformance).subtract(this.currentMonthAmount);
+                BigInteger cardPerformance = BigInteger.valueOf(card.getPreviousPerformance()).subtract(card.getCurrentMonthAmount());
+                int performanceComparison = thisPerformance.compareTo(cardPerformance);
+                if (performanceComparison != 0) {
+                    return performanceComparison;
+                }
+            }
+
+            return Integer.compare(this.userCardId, card.getUserCardId());
         }
     }
 }

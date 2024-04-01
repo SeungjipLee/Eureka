@@ -12,4 +12,6 @@ public interface AuthService {
     public JwtTokenResponseDto issueMyDataToken(MyDataRequestDto myDataRequestDto);
     public PayTokenResponse issuePayToken(PayRequestDto dto);
     public JwtTokenResponseDto reIssueToken(HttpServletRequest dto);
+
+    void checkUser(MyDataRequestDto myDataRequestDto);
 }

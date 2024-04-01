@@ -50,6 +50,8 @@ function PayCheck ({route}) {
       (err) => {
         console.log(selectedCard.userCardId)
         console.log(err)
+        alert('오류 발생! 다시 진행해 주세요.')
+        navigation.navigate('Home')
       } 
       )
   }
@@ -85,11 +87,11 @@ function PayCheck ({route}) {
         )}
         <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
           <Text>
-            <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#578CFF' }}>{selectedCard.currentMonthAmount}</Text>원
+            <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#578CFF' }}>{selectedCard.currentMonthAmount.toLocaleString()}</Text>원
           </Text>
           <Text style={{ marginHorizontal: 10, fontSize: 20, fontWeight: 'bold' }}>/</Text>
           <Text>
-            <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#578CFF' }}>{selectedCard.previousPerformance}</Text>원
+            <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#578CFF' }}>{selectedCard.previousPerformance.toLocaleString()}</Text>원
           </Text>
         </View>
         <View style={styles.progressBarContainer}>
@@ -99,8 +101,8 @@ function PayCheck ({route}) {
       </View>
         
         <Pressable onPress={handleSubmit}>
-          <View style={{borderRadius: 8, backgroundColor: '#4D85FF', paddingVertical: 15, paddingHorizontal: 30, marginTop: 25}}>
-            <Text style={{color:'#ffffff', fontWeight: 'bold', fontSize: 20, textAlign:'center'}}>{totalAmount}원 결제하기</Text>
+          <View style={{borderRadius: 8, backgroundColor: '#4D85FF', paddingVertical: 15, paddingHorizontal: 30, marginVertical: 25}}>
+            <Text style={{color:'#ffffff', fontWeight: 'bold', fontSize: 20, textAlign:'center'}}>{totalAmount.toLocaleString()}원 결제하기</Text>
           </View>
         </Pressable>
       </View>
@@ -128,7 +130,7 @@ function PayCheck ({route}) {
                                 <Image source={{uri: item.imagePath}} style={[styles.cardImage, item.imgAttr === 1 ? styles.verticalImage : styles.horizontalImage]}/>
                                 <View style={{ marginLeft: 10 }}>
                                     <Text style={styles.modalText}>{item.cardName}</Text>
-                                    <Text>{item.discountAmount}원 할인</Text>
+                                    <Text>{item.discountAmount.toLocaleString()}원 할인</Text>
                                 </View>
                             </View>
                         </TouchableOpacity>

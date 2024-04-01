@@ -11,7 +11,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import java.math.BigInteger;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -93,5 +92,9 @@ public class UserCardEntity {
         firstCardNumber = registPayCardRequest.getCardNumber().substring(0, 4);
         lastCardNumber = registPayCardRequest.getCardNumber().substring(12, 16);
         token = payTokenResponse.getAccessToken();
+    }
+
+    public void updateMonthAmount(int totalAmount) {
+        this.currentMonthAmount = this.currentMonthAmount.add(BigInteger.valueOf(totalAmount));
     }
 }

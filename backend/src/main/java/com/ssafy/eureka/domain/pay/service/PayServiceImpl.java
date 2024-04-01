@@ -21,32 +21,48 @@ import com.ssafy.eureka.domain.pay.dto.PayHistoryEntity;
 import com.ssafy.eureka.domain.pay.dto.PayInfo;
 import com.ssafy.eureka.domain.pay.dto.request.AprrovePayRequest;
 import com.ssafy.eureka.domain.pay.dto.request.RequestPayRequest;
-import com.ssafy.eureka.domain.pay.dto.response.AprrovePayResponse;
 import com.ssafy.eureka.domain.pay.dto.response.CardRecommendResponse;
 import com.ssafy.eureka.domain.pay.dto.response.CardRecommendResponse.RecommendCard;
 import com.ssafy.eureka.domain.pay.dto.response.PayHistoryListResponse;
 import com.ssafy.eureka.domain.pay.dto.response.PayHistoryResponse;
 import com.ssafy.eureka.domain.pay.repository.PayHistoryRepository;
 import com.ssafy.eureka.domain.pay.repository.PayInfoRepository;
+import com.ssafy.eureka.domain.pay.util.PayUtil;
 import com.ssafy.eureka.domain.payment.dto.request.ApprovePayRequest;
 import com.ssafy.eureka.domain.payment.dto.response.PayResponse;
 import com.ssafy.eureka.domain.payment.feign.PaymentFeign;
+import com.ssafy.eureka.domain.statistics.entity.ConsumptionLargeStaticEntity;
+import com.ssafy.eureka.domain.statistics.entity.ConsumptionSmallStaticEntity;
+import com.ssafy.eureka.domain.statistics.entity.ConsumptionStaticEntity;
+import com.ssafy.eureka.domain.statistics.entity.DiscountLargeStaticEntity;
+import com.ssafy.eureka.domain.statistics.entity.DiscountSmallStaticEntity;
+import com.ssafy.eureka.domain.statistics.entity.DiscountStaticEntity;
+import com.ssafy.eureka.domain.statistics.repository.ConsumptionLargeStaticRepository;
+import com.ssafy.eureka.domain.statistics.repository.ConsumptionSmallStaticRepository;
+import com.ssafy.eureka.domain.statistics.repository.ConsumptionStaticRepository;
+import com.ssafy.eureka.domain.statistics.repository.DiscountLargeStaticRepository;
+import com.ssafy.eureka.domain.statistics.repository.DiscountSmallStaticRepository;
+import com.ssafy.eureka.domain.statistics.repository.DiscountStaticRepository;
+import java.math.BigInteger;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Random;
 import com.ssafy.eureka.domain.user.dto.UserEntity;
 import com.ssafy.eureka.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class PayServiceImpl implements PayService{
+public class PayServiceImpl implements PayService {
 
     private final UserCardRepository userCardRepository;
     private final UserRepository userRepository;
@@ -62,37 +78,115 @@ public class PayServiceImpl implements PayService{
     private final LargeCategoryRepository largeCategoryRepository;
     private final CardRepository cardRepository;
 
+    private final PayUtil payUtil;
+
+    private final ConsumptionStaticRepository consumptionStaticRepository;
+    private final ConsumptionLargeStaticRepository consumptionLargeStaticRepository;
+    private final ConsumptionSmallStaticRepository consumptionSmallStaticRepository;
+
+    private final DiscountStaticRepository discountStaticRepository;
+    private final DiscountLargeStaticRepository discountLargeStaticRepository;
+    private final DiscountSmallStaticRepository discountSmallStaticRepository;
 
     @Override
     public CardRecommendResponse requestPay(String userId, RequestPayRequest requestPayRequest) {
         Integer largeCategory = requestPayRequest.getLargeCategoryId();
         Integer smallCategory = requestPayRequest.getSmallCategoryId();
 
-        List<UserCardEntity> userCardList = userCardRepository.findAllByUserIdAndIsPaymentEnabledTrue(Integer.parseInt(userId));
+        List<UserCardEntity> userCardList = userCardRepository.findAllByUserIdAndIsPaymentEnabledTrue(
+            Integer.parseInt(userId));
 
         List<RecommendCard> list = new ArrayList<>();
         Map<Integer, Integer> cardToDiscount = new HashMap<>();
 
-        for(UserCardEntity userCard : userCardList){
+        if(userCardList.isEmpty()){
+            throw new CustomException(ResponseCode.PAY_CARD_NOT_FOUND);
+        }
+
+        LocalDate lastMonth = LocalDate.now().minusMonths(1);
+
+        String yearStr = lastMonth.format(DateTimeFormatter.ofPattern("yyyy"));
+        String monthStr = lastMonth.format(DateTimeFormatter.ofPattern("MM"));
+
+        for (UserCardEntity userCard : userCardList) {
             CardEntity cardProd = cardRepository.findByCardId(userCard.getCardId());
 
-            CardBenefitDetailEntity cardBenefit = cardBenefitDetailRepository.findCardBenefitDetailsByCardIdAndCategory(userCard.getCardId(), largeCategory, smallCategory)
-                .orElse(null);
+            CardBenefitDetailEntity cardBenefitDetail = cardBenefitDetailRepository.findCardBenefitDetailsByCardIdAndCategory(userCard.getCardId(), largeCategory, smallCategory, PageRequest.of(0, 1))
+                .stream()
+                .findFirst()
+                .orElse(cardBenefitDetailRepository.findCardBenefitDetailsByCardIdAndCategory(userCard.getCardId(), largeCategory, null, PageRequest.of(0, 1))
+                    .stream()
+                    .findFirst().orElse(null));
 
-            RecommendCard card = new RecommendCard(cardProd, userCard, cardBenefit);
+            RecommendCard card = new RecommendCard(cardProd, userCard, cardBenefitDetail);
 
-            // 00원 할인된다만 정해서 넣어주면 됨.
-            card.setDiscountAmount(new Random().nextInt(21) * 100);
-            if (card.getDiscountCost() > requestPayRequest.getTotalAmount()){
-                card.setDiscountAmount(Math.toIntExact(requestPayRequest.getTotalAmount()));
+            if (cardBenefitDetail != null) {
+                if (cardBenefitDetail.getDiscountCostType().equals("원")) {
+                    card.setDiscountAmount((int) cardBenefitDetail.getDiscountCost());
+                } else if (cardBenefitDetail.getDiscountCostType().equals("%")) {
+                    card.setDiscountAmount((int) (requestPayRequest.getTotalAmount() * (cardBenefitDetail.getDiscountCost() / 100.0)));
+                } else if (cardBenefitDetail.getDiscountCostType().equals("L")) {
+                    card.setDiscountAmount((int) cardBenefitDetail.getDiscountCost() * (requestPayRequest.getTotalAmount() / 2000));
+                }
+
+                ConsumptionStaticEntity consumptionStatic = consumptionStaticRepository.findByUserCardIdAndYearAndMonth(
+                    userCard.getUserCardId(), yearStr, monthStr).orElse(null);
+
+                if ((consumptionStatic == null) || (consumptionStatic.getTotalConsumption().compareTo(
+                    BigInteger.valueOf(card.getPreviousPerformance())) < 0)) {
+                    card.setDiscountAmount(0);
+                } else {
+                    card.setCurrentMonthAmount(consumptionStatic.getTotalConsumption());
+
+                    DiscountStaticEntity discountStatic = discountStaticRepository.findByUserCardIdAndYearAndMonth(
+                        userCard.getUserCardId(), yearStr, monthStr).orElse(null);
+
+                    DiscountLargeStaticEntity discountLargeStatic = null;
+                    DiscountSmallStaticEntity discountSmallStatic = null;
+
+                    if (discountStatic != null) {
+                        discountLargeStatic = discountLargeStaticRepository.findByDiscountStaticIdAndLargeCategoryId(
+                            discountStatic.getDiscountStaticId(), largeCategory).orElse(null);
+
+                        if (discountLargeStatic != null) {
+                            discountSmallStatic = discountSmallStaticRepository.findByDiscountLargeStaticIdAndSmallCategoryId(
+                                discountLargeStatic.getDiscountLargeStaticId(), smallCategory).orElse(null);
+                        }
+                    }
+
+                    if (card.getDiscountAmount() > requestPayRequest.getTotalAmount()) {
+                        card.setDiscountAmount(requestPayRequest.getTotalAmount());
+                    }
+
+                    if (cardBenefitDetail.getPayMin() > requestPayRequest.getTotalAmount()) {
+                        card.setDiscountAmount(0);
+                    } else {
+                        if (discountSmallStatic != null) {
+                            if ((cardBenefitDetail.getMonthlyLimitCount() != 0&& (discountSmallStatic.getDiscountCount() >= cardBenefitDetail.getMonthlyLimitCount())) ||
+                                (cardBenefitDetail.getDiscountLimit() != 0 && (discountSmallStatic.getDiscount() > cardBenefitDetail.getDiscountLimit()))) {
+                                card.setDiscountAmount(0);
+                            }
+                        }
+                        else if(discountLargeStatic != null){
+                            if ((cardBenefitDetail.getMonthlyLimitCount() != 0&& (discountLargeStatic.getDiscountCount() >= cardBenefitDetail.getMonthlyLimitCount())) ||
+                                (cardBenefitDetail.getDiscountLimit() != 0 && (discountLargeStatic.getDiscountAmount() > cardBenefitDetail.getDiscountLimit()))) {
+                                card.setDiscountAmount(0);
+                            }
+                        }
+                    }
+                }
+            } else {
+                card.setDiscountAmount(0);
             }
 
             cardToDiscount.put(card.getUserCardId(), card.getDiscountAmount());
             list.add(card);
         }
 
-        // 정렬하기
-        PayInfo payInfo = new PayInfo(userId, requestPayRequest, cardToDiscount, list.get(0).getUserCardId(), list.get(0).getDiscountAmount());
+        Collections.sort(list);
+
+        PayInfo payInfo = new PayInfo(userId, requestPayRequest, cardToDiscount,
+            list.get(0).getUserCardId(), list.get(0).getDiscountAmount());
         payInfoRepository.save(payInfo);
 
         return new CardRecommendResponse(requestPayRequest.getOrderId(), list);
@@ -100,6 +194,8 @@ public class PayServiceImpl implements PayService{
 
     @Override
     public void approvePay(String userId, AprrovePayRequest aprrovePayRequest) {
+        long startTime = System.currentTimeMillis();
+
         MyDataToken myDataToken = mydataTokenRepository.findById(userId)
             .orElseThrow(() -> new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR));
 
@@ -110,52 +206,113 @@ public class PayServiceImpl implements PayService{
 
         payInfoRepository.deleteById(orderId);
 
-        UserCardEntity userCard = userCardRepository.findByUserCardId(aprrovePayRequest.getUserCardId())
+        UserCardEntity userCard = userCardRepository.findByUserCardId(
+                aprrovePayRequest.getUserCardId())
             .orElseThrow(() -> new CustomException(ResponseCode.USER_CARD_NOT_FOUND));
 
         MyDataApiResponse<?> response = paymentFeign.requestPay(myDataToken.getAccessToken(),
             new ApprovePayRequest(userCard.getCardIdentifier(), userCard.getToken(), payInfo));
 
-        if(response.getStatus() != 200){
+        if (response.getStatus() != 200) {
             throw new CustomException(400, response.getMessage());
         }
 
-        PayHistoryEntity payHistory = PayHistoryEntity.regist(userId, userCard.getUserCardId(), (PayResponse)response.getData(),
+        PayHistoryEntity payHistory = PayHistoryEntity.regist(userId, userCard.getUserCardId(),
+            (PayResponse) response.getData(),
             payInfo, payInfo.getCardToDiscount().get(userCard.getUserCardId()));
 
         payHistoryRepository.save(payHistory);
+
+        userCard.updateMonthAmount(payInfo.getTotalAmount());
+        userCardRepository.save(userCard);
+
+        String year = String.valueOf(payHistory.getApprovedDateTime().getYear());
+        String month = String.format("%02d", payHistory.getApprovedDateTime().getMonthValue());
+
+        saveStatics(userCard, payInfo, year, month);
+//        payUtil.asyncStaticMethod(userCard, payInfo, year, month);
+
+        long endTime = System.currentTimeMillis();
+        log.debug("결제 완료(통계 처리 완료 X), time : " + (endTime - startTime));
+    }
+
+    public void saveStatics(UserCardEntity userCard, PayInfo payInfo, String year, String month){
+        ConsumptionStaticEntity consumptionStaticEntity = consumptionStaticRepository.findByUserCardIdAndYearAndMonth(
+                userCard.getUserCardId(), year, month)
+            .orElse(new ConsumptionStaticEntity(userCard.getUserCardId(), year, month));
+        consumptionStaticEntity.addPay(payInfo.getTotalAmount());
+        consumptionStaticRepository.save(consumptionStaticEntity);
+
+        ConsumptionLargeStaticEntity consumptionLargeStaticEntity = consumptionLargeStaticRepository.findByConsumptionStaticIdAndLargeCategoryId(
+            consumptionStaticEntity.getConsumptionStaticId(),
+            payInfo.getLargeCategoryId()).orElse(
+            new ConsumptionLargeStaticEntity(consumptionStaticEntity.getConsumptionStaticId(),
+                payInfo.getLargeCategoryId()));
+        consumptionLargeStaticEntity.addPay(payInfo.getTotalAmount());
+        consumptionLargeStaticRepository.save(consumptionLargeStaticEntity);
+
+        ConsumptionSmallStaticEntity consumptionSmallStaticEntity = consumptionSmallStaticRepository.findByConsumptionLargeStaticIdAndSmallCategoryId(
+                consumptionLargeStaticEntity.getConsumptionLargeStaticId(),
+                payInfo.getSmallCategoryId())
+            .orElse(new ConsumptionSmallStaticEntity(
+                consumptionLargeStaticEntity.getConsumptionLargeStaticId(),
+                payInfo.getSmallCategoryId()));
+        consumptionSmallStaticEntity.addPay(payInfo.getTotalAmount());
+        consumptionSmallStaticRepository.save(consumptionSmallStaticEntity);
+
+        DiscountStaticEntity discountStaticEntity = discountStaticRepository.findByUserCardIdAndYearAndMonth(
+                userCard.getUserCardId(), year, month)
+            .orElse(new DiscountStaticEntity(userCard.getUserCardId(), year, month));
+        discountStaticEntity.addPay(payInfo.getCardToDiscount().get(userCard.getUserCardId()));
+        discountStaticRepository.save(discountStaticEntity);
+
+        DiscountLargeStaticEntity discountLargeStaticEntity = discountLargeStaticRepository.findByDiscountStaticIdAndLargeCategoryId(
+            discountStaticEntity.getDiscountStaticId(),
+            payInfo.getLargeCategoryId()).orElse(
+            new DiscountLargeStaticEntity(discountStaticEntity.getDiscountStaticId(),
+                payInfo.getLargeCategoryId()));
+        discountLargeStaticEntity.addPay(payInfo.getCardToDiscount().get(userCard.getUserCardId()));
+        discountLargeStaticRepository.save(discountLargeStaticEntity);
+
+        DiscountSmallStaticEntity discountSmallStaticEntity = discountSmallStaticRepository.findByDiscountLargeStaticIdAndSmallCategoryId(
+                discountLargeStaticEntity.getDiscountLargeStaticId(), payInfo.getSmallCategoryId())
+            .orElse(
+                new DiscountSmallStaticEntity(discountLargeStaticEntity.getDiscountLargeStaticId(),
+                    payInfo.getSmallCategoryId()));
+        discountSmallStaticEntity.addPay(payInfo.getCardToDiscount().get(userCard.getUserCardId()));
+        discountSmallStaticRepository.save(discountSmallStaticEntity);
     }
 
     @Override
     public PayHistoryResponse payHistory(String userId, String yyyymm) {
 
         UserEntity userEntity = userRepository.findByUserId(Integer.parseInt(userId))
-                .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
-
+            .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
 
         MyDataToken myDataToken = mydataTokenRepository.findById(userId)
-                .orElseThrow(() -> new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR));
+            .orElseThrow(() -> new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR));
 
         String accessToken = myDataToken.getAccessToken();
 
-        // 해당 유저가 가진 모든 카드
-        List<UserCardEntity> userCardEntityList = userCardRepository.findAllByUserId(Integer.parseInt(userId));
+        List<UserCardEntity> userCardEntityList = userCardRepository.findAllByUserId(
+            Integer.parseInt(userId));
 
-        int totalAmt=0;
+        int totalAmt = 0;
+
         List<PayHistoryListResponse> payHistoryListResponseList = new ArrayList<>();
 
-        for (int i=0; i<userCardEntityList.size(); i++){
-            
+        for (int i = 0; i < userCardEntityList.size(); i++) {
+
             // 카드 하나의 모든 결제 내역 불러오기
             MyDataApiResponse<?> response = myDataFeign.searchCardPayList(accessToken,
-                    userCardEntityList.get(i).getCardIdentifier(), yyyymm);
+                userCardEntityList.get(i).getCardIdentifier(), yyyymm);
 
-            if(response.getStatus() != 200){
+            if (response.getStatus() != 200) {
                 throw new CustomException(400, response.getMessage());
             }
 
             CardEntity cardEntity = cardRepository.findByCard(userCardEntityList.get(i).getCardId())
-                    .orElseThrow(() -> new CustomException(ResponseCode.CARD_NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ResponseCode.CARD_NOT_FOUND));
 
             String cardName = cardEntity.getCardName();
 
@@ -163,9 +320,9 @@ public class PayServiceImpl implements PayService{
             log.debug("myDataCardPayList" + myDataCardPayList);
 //            System.out.println("myDataCardPayList" + myDataCardPayList.getMyDataCardHistoryList());
 
-            for(int j=0; j<myDataCardPayList.getMyDataCardHistoryList().size(); j++){
-
-            String approvedNum = myDataCardPayList.getMyDataCardHistoryList().get(j).getApprovedNum();
+            for (int j = 0; j < myDataCardPayList.getMyDataCardHistoryList().size(); j++) {
+                String approvedNum = myDataCardPayList.getMyDataCardHistoryList().get(j)
+                    .getApprovedNum();
 //                System.out.println("approvedNum " + approvedNum);
 
                 // 카드사 결제내역에 있는 승인번호와 페이내역에 있는 승인번호가 일치하는 결제 내역만 조회
@@ -174,8 +331,11 @@ public class PayServiceImpl implements PayService{
 //                            approvedNum,
 //                            yyyymm.substring(0, 4), yyyymm.substring(4, 6));
 //            if (payHistoryEntityList.isEmpty()) return null;
-                PayHistoryEntity payHistoryEntity = payHistoryRepository.findByApprovedNum(approvedNum);
-                if (payHistoryEntity == null) continue; // 카드 결제 내역엔 있지만 페이 내역엔 없다면
+                PayHistoryEntity payHistoryEntity = payHistoryRepository.findByApprovedNum(
+                    approvedNum);
+                if (payHistoryEntity == null) {
+                    continue; // 카드 결제 내역엔 있지만 페이 내역엔 없다면
+                }
 
 //                System.out.println("payHistoryEntity " + payHistoryEntity);
 
@@ -184,15 +344,15 @@ public class PayServiceImpl implements PayService{
                 totalAmt += payHistoryEntity.getApprovedAmt();
 
                 LargeCategoryEntity largeCategoryEntity
-                        = largeCategoryRepository.findByLargeCategoryId(largeCategoryId);
+                    = largeCategoryRepository.findByLargeCategoryId(largeCategoryId);
                 Optional<SmallCategoryEntity> smallCategoryEntity
-                        = smallCategoryRepository.findBySmallCategoryId(smallCategoryId);
+                    = smallCategoryRepository.findBySmallCategoryId(smallCategoryId);
 
                 String largeCategoryName = largeCategoryEntity.getCategoryName();
                 String smallCategoryName = smallCategoryEntity.get().getCategoryName();
 
                 payHistoryListResponseList.add(new PayHistoryListResponse(cardName,
-                        payHistoryEntity, largeCategoryName, smallCategoryName
+                    payHistoryEntity, largeCategoryName, smallCategoryName
                 ));
 
             }

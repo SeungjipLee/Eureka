@@ -5,6 +5,7 @@ import PasswordConfirmPage from '../pages/SignUpPage/PasswordConfirmPage'
 import Routers from "./Routers";
 import LoadingPage from "../pages/LoadingPage/LoadingPage"
 import SplashPage from "../pages/LoadingPage/SplashPage";
+import ConfirmLoading from "../pages/SettingPage/components/ConfirmLoading";
 
 
 
@@ -18,6 +19,7 @@ function AuthenticationRouter () {
       <AuthStack.Screen name="PasswordPage" component={PasswordPage}/>
       <AuthStack.Screen name="PasswordConfirmPage" component={PasswordConfirmPage}/>
       <AuthStack.Screen name='SplashPage' component={SplashPage}/>
+      <AuthStack.Screen name='CheckModal' component={ConfirmLoading}/>
       <AuthStack.Screen name='Routers' component={Routers}/>
     </AuthStack.Navigator>
   )
