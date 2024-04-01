@@ -4,6 +4,8 @@ import com.ssafy.eureka.common.exception.CustomException;
 import com.ssafy.eureka.common.response.ResponseCode;
 import org.springframework.stereotype.Component;
 
+import java.util.Calendar;
+
 @Component
 public class UserUtil {
 
@@ -25,5 +27,20 @@ public class UserUtil {
 
         // yyyyMMdd 형식의 문자열로 반환
         return fullYear + monthDay;
+    }
+
+    public static char calculateAgeGroup(String birthInfo, char genderCode) {
+        String birth = UserUtil.formatBirthDate(birthInfo, genderCode);
+        int birthYear = Integer.parseInt(birth.substring(0, 4));
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+        int age = currentYear - birthYear + 1;
+        int ageGroupEtc = age / 10;
+
+        int ageGroup;
+        if (ageGroupEtc < 1) {
+            ageGroup = 1;
+        } else ageGroup = Math.min(ageGroupEtc, 6);
+
+        return String.valueOf(ageGroup).charAt(0);
     }
 }
