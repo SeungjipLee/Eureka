@@ -2,6 +2,8 @@ package com.ssafy.eureka.domain.statistics.repository;
 
 import com.ssafy.eureka.domain.statistics.dto.ConsumptionStatistics;
 import com.ssafy.eureka.domain.statistics.entity.ConsumptionLargeStaticEntity;
+import java.util.Optional;
+import javax.swing.text.html.Option;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -12,6 +14,7 @@ import java.util.List;
 public interface ConsumptionLargeStaticRepository extends JpaRepository<ConsumptionLargeStaticEntity, Integer> {
 
     ConsumptionLargeStaticEntity findByConsumptionStaticId(int consumptionStaticId);
+<<<<<<< HEAD
     ConsumptionLargeStaticEntity findByConsumptionStaticIdAndLargeCategoryId(int consumptionStaticId, int largeCategoryId);
 
     @Query("SELECT c FROM ConsumptionLargeStaticEntity c WHERE c.consumptionStaticId = :consumptionStaticId ORDER BY c.consumptionAmount DESC limit 1")
@@ -20,6 +23,9 @@ public interface ConsumptionLargeStaticRepository extends JpaRepository<Consumpt
     @Query("SELECT c FROM ConsumptionLargeStaticEntity c WHERE c.consumptionStaticId = :consumptionStaticId ORDER BY c.consumptionAmount DESC limit 3")
     List<ConsumptionLargeStaticEntity> findTop3ByConsumptionStaticIdOrderByConsumptionAmountDesc(@Param("consumptionStaticId") int consumptionStaticId);
 
+=======
+    ConsumptionLargeStaticEntity findTopByOrderByConsumptionAmountDesc();
+>>>>>>> 385c8fb693917301cfa1edf807359befe6594308
     @Query("SELECT new com.ssafy.eureka.domain.statistics.dto.ConsumptionStatistics(lc.largeCategoryId, lc.categoryName, SUM(cls.consumptionAmount)) " +
             "FROM ConsumptionLargeStaticEntity cls " +
             "JOIN ConsumptionStaticEntity cs ON cls.consumptionStaticId = cs.consumptionStaticId " +
@@ -38,5 +44,5 @@ public interface ConsumptionLargeStaticRepository extends JpaRepository<Consumpt
             "ORDER BY cls.consumptionAmount DESC")
     List<ConsumptionStatistics> findConsumptionStatisticsByUserCardIdAndDate(@Param("userCardId") int userCardId, @Param("year") String year, @Param("month") String month);
 
-
+    Optional<ConsumptionLargeStaticEntity> findByConsumptionStaticIdAndLargeCategoryId(int consumptionStaticId, int largeCategoryId);
 }

@@ -52,6 +52,13 @@ public class AuthServiceImpl implements AuthService {
         return new JwtTokenResponseDto("Bearer ", jwtTokenResponseDto.getAccessToken(), jwtTokenResponseDto.getRefreshToken());
 
     }
+
+    @Override
+    public void checkUser(MyDataRequestDto myDataRequestDto) {
+        UserEntity user = userRepository.findByPhoneNumber(myDataRequestDto.getPhoneNumber())
+            .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
+    }
+
     @Override
     public JwtTokenResponseDto issueMyDataToken(MyDataRequestDto myDataRequestDto) {
 

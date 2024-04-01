@@ -11,17 +11,16 @@ import com.ssafy.eureka.domain.card.dto.response.*;
 import com.ssafy.eureka.domain.card.dto.response.MyDataCardListResponse.MyDataCard;
 import com.ssafy.eureka.domain.card.dto.response.MyDataCardListResponse.MyDataCard.Card;
 import com.ssafy.eureka.domain.card.repository.*;
+import com.ssafy.eureka.domain.card.util.AsyncUserCardStaticsUtil;
 import com.ssafy.eureka.domain.category.dto.LargeCategoryEntity;
 import com.ssafy.eureka.domain.category.repository.LargeCategoryRepository;
 import com.ssafy.eureka.domain.mydata.dto.MyDataToken;
 import com.ssafy.eureka.domain.card.dto.request.SearchUserCardRequest;
-import com.ssafy.eureka.domain.mydata.dto.request.MyDataCardHistoryRequest;
 import com.ssafy.eureka.domain.mydata.dto.response.MyDataCardHistoryResponse;
 import com.ssafy.eureka.domain.mydata.dto.response.MyDataCardHistoryResponse.MyDataCardHistory;
 import com.ssafy.eureka.domain.mydata.dto.response.MyDataUserCardResponse;
 import com.ssafy.eureka.domain.mydata.dto.response.MyDataUserCardResponse.MyDataUserCard;
 import com.ssafy.eureka.domain.mydata.feign.MyDataFeign;
-import com.ssafy.eureka.domain.pay.dto.PayHistoryEntity;
 import com.ssafy.eureka.domain.pay.repository.PayHistoryRepository;
 import com.ssafy.eureka.domain.payment.dto.request.PayTokenRequest;
 import com.ssafy.eureka.domain.payment.dto.response.PayTokenResponse;
@@ -65,6 +64,7 @@ public class UserCardServiceImpl implements UserCardService {
 
     private final MyDataFeign myDataFeign;
     private final PaymentFeign paymentFeign;
+    private final AsyncUserCardStaticsUtil asyncUserCardStaticsUtil;
 
     private Map<Integer, String> cardCompany;
 
@@ -117,7 +117,6 @@ public class UserCardServiceImpl implements UserCardService {
 
     @Override
     public List<OwnUserCardResponse> ownUserCardList(String userId) {
-
         List<OwnUserCardResponse> registerCardList = new ArrayList<>();
         List<CardDetailBenefitList> cardDetailBenefitList;
 
@@ -279,6 +278,7 @@ public class UserCardServiceImpl implements UserCardService {
         for(MyDataCardHistory card : myDataCardPayList.getMyDataCardHistoryList()){
             totalConsumption += card.getApprovedAmt();
         }
+
         myDataCardPayList.setMonthTotalConsumption(totalConsumption);
         myDataCardPayList.setMonthTotalDiscount(totalDiscount);
 
@@ -288,25 +288,31 @@ public class UserCardServiceImpl implements UserCardService {
     @Override
     public void registUserCard(String userId, RegistUserCardRequest registUserCardRequest
                                ) {
+        long startTime = System.currentTimeMillis();
+
         for (RegistUserCard userCard : registUserCardRequest.getRegisterUserCard()) {
             UserCardEntity card = userCardRepository.findByCardIdentifier(userCard.getCardIdentifier())
                 .orElse(null);
 
             if(card == null){
-                log.debug("카드엄슴");
                 UserCardEntity newCard = UserCardEntity.registUserCard(userId, userCard);
                 userCardRepository.save(newCard);
 
-            addStatistics(userId, userCard.getCardIdentifier());
+                log.debug("카드 등록 시작");
+//                addStatistics(userId, userCard.getCardIdentifier());
+                asyncUserCardStaticsUtil.asyncStaticMethod(userId, userCard.getCardIdentifier());
+                log.debug("카드 등록 완료");
             }
         }
+
+        long endTime = System.currentTimeMillis();
+
+        log.debug("카드 등록 완료, time : " + (endTime - startTime));
     }
 
 
     @Override
     public void deleteUserCard(String userId, int userCardId) {
-        // 유저 정보 2중 확인
-
         UserCardEntity userCard = userCardRepository.findByUserCardId(userCardId)
             .orElseThrow(() -> new CustomException(ResponseCode.USER_CARD_NOT_FOUND));
 
@@ -334,7 +340,6 @@ public class UserCardServiceImpl implements UserCardService {
 
         UserCardEntity userCard = userCardRepository.findByCardIdentifier(payTokenResponse.getCardIdentifier())
             .orElse(null);
-        log.debug("여긴가?");
 
         if(userCard != null){
             userCard.registPayCard(registPayCardRequest, payTokenResponse);
@@ -344,6 +349,7 @@ public class UserCardServiceImpl implements UserCardService {
             userCardRepository.save(card);
             addStatistics(userId, payTokenResponse.getCardIdentifier());
             log.debug("결제 카드 등록");
+
         }
     }
 
@@ -510,6 +516,7 @@ public class UserCardServiceImpl implements UserCardService {
         return new CardRecommendTop3(cardName, imagePath, imgAttr, top3List);
     }
 
+
     public void addStatistics(String userId, String cardIdentifier){
 
         // 카드가 등록됐을 때만 3달 치 거래내역을 넣어주는 것도 생각
@@ -535,11 +542,11 @@ public class UserCardServiceImpl implements UserCardService {
         for(int i=0; i<3; i++){
             String yyyymm = String.format("%d%02d", currentYear, currentMonth);
 
-            log.debug("3달치 계산 시작");
+//            log.debug("3달치 계산 시작");
             int yyyy = Integer.parseInt(yyyymm.substring(0, 4));
             int mm = Integer.parseInt(yyyymm.substring(4, 6));
 
-            log.debug("yyyy, mm : "+ yyyy + " / " + mm);
+//            log.debug("yyyy, mm : "+ yyyy + " / " + mm);
             
             if(mm-i <=0){
                 // 년도 넘어가는 계산식 이거 아닌 듯 추후 수정
@@ -556,7 +563,7 @@ public class UserCardServiceImpl implements UserCardService {
             else month = "0"+ String.valueOf(mm);
 
             yyyymm = year + month;
-            log.debug("yyyymm : "+ yyyymm);
+//            log.debug("yyyymm : "+ yyyymm);
 
             MyDataApiResponse<?> response = myDataFeign.searchCardPayList(accessToken,
                     userCardEntity.getCardIdentifier(), yyyymm);
@@ -569,7 +576,7 @@ public class UserCardServiceImpl implements UserCardService {
 
             if(myDataCardPayList == null) return;
 
-            log.debug("myDataCardPayList : "+ myDataCardPayList);
+//            log.debug("myDataCardPayList : "+ myDataCardPayList);
 
             BigInteger totalConsumption= BigInteger.ZERO;
 
@@ -591,8 +598,7 @@ public class UserCardServiceImpl implements UserCardService {
 
             }
             consumptionStaticRepository.save(new ConsumptionStaticEntity(
-                    userCardId, year, month, totalConsumption)
-            );
+                    userCardId, year, month, totalConsumption));
 //            if (consumptionStaticEntity == null){
 //                consumptionStaticRepository.save(new ConsumptionStaticEntity(
 //                        userCardId, year, month, totalConsumption)
@@ -612,7 +618,7 @@ public class UserCardServiceImpl implements UserCardService {
                 // 소비 금액 (Large) / 소비 통계 ID에 속하면서 대분류 Id에 맞는 데이터 갖고옴
                 ConsumptionLargeStaticEntity consumptionLargeStaticEntity =
                         consumptionLargeStaticRepository.findByConsumptionStaticIdAndLargeCategoryId(
-                                consumptionStaticId, largeCategoryId);
+                                consumptionStaticId, largeCategoryId).orElse(null);
 
                 if(consumptionLargeStaticEntity == null){
                     consumptionLargeStaticRepository.save(new ConsumptionLargeStaticEntity(
@@ -622,8 +628,8 @@ public class UserCardServiceImpl implements UserCardService {
 
                 consumptionLargeStaticEntity =
                         consumptionLargeStaticRepository.findByConsumptionStaticIdAndLargeCategoryId(
-                                consumptionStaticId, largeCategoryId);
-                log.debug("consumptionLargeStaticEntity2 " +consumptionLargeStaticEntity);
+                                consumptionStaticId, largeCategoryId).orElse(null);
+//                log.debug("consumptionLargeStaticEntity2 " +consumptionLargeStaticEntity);
 
                 // 빅인티저..
                 BigInteger consumptionAmount = consumptionLargeStaticEntity.getConsumptionAmount(); // 라지에 있던 금액
@@ -638,7 +644,7 @@ public class UserCardServiceImpl implements UserCardService {
                 int consumptionCount = consumptionLargeStaticEntity.getConsumptionCount();
                 consumptionLargeStaticEntity.setConsumptionCount(consumptionCount + 1);
                 consumptionLargeStaticEntity.setLargeCategoryId(largeCategoryId);
-                log.debug("consumptionLargeStaticEntity "+ consumptionLargeStaticEntity);
+//                log.debug("consumptionLargeStaticEntity "+ consumptionLargeStaticEntity);
 
                 // 중분류 카테고리에
                 consumptionLargeStaticRepository.save(consumptionLargeStaticEntity);

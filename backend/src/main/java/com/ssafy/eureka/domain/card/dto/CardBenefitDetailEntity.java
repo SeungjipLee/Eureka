@@ -27,7 +27,7 @@ public class CardBenefitDetailEntity {
     @NotNull
     private int largeCategoryId;
 
-    private int smallCategoryId;
+    private Integer smallCategoryId;
 
     // 0 : 즉시, 1 : 청구, 2 : 포인트
     @NotNull

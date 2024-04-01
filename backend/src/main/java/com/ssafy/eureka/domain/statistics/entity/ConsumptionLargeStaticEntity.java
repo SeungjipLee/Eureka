@@ -13,6 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "consumption_large_static")
 public class ConsumptionLargeStaticEntity {
 
@@ -32,6 +33,19 @@ public class ConsumptionLargeStaticEntity {
 
     @NotNull
     private int consumptionCount;
+
+
+    public ConsumptionLargeStaticEntity(int consumptionStaticId, int largeCategoryId) {
+        this.consumptionStaticId = consumptionStaticId;
+        this.largeCategoryId = largeCategoryId;
+        this.consumptionAmount = BigInteger.ZERO;
+        this.consumptionCount = 0;
+    }
+
+    public void addPay(int totalAmount) {
+        this.consumptionAmount.add(BigInteger.valueOf(totalAmount));
+        this.consumptionCount += 1;
+    }
 
     public ConsumptionLargeStaticEntity(int consumptionStaticId, int largeCategoryId,
                                         BigInteger consumptionAmount, int consumptionCount){
