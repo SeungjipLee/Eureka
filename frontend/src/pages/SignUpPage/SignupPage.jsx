@@ -108,10 +108,17 @@ const SignupPage = () => {
             await TokenService.setToken(accessToken, refreshToken);
             await TokenService.setUserData(userData);
 
-            navigation.reset({
-              index: 0, // 새 스택의 시작 인덱스를 0으로 설정합니다.
-              routes: [{ name: 'Routers' }], // 이동할 라우트의 배열을 설정합니다.
-            });
+            const passwordSet = await TokenService.getPassword();
+            if (!passwordSet) {
+              navigation.navigate('SignupPasswordChange')
+            } else {
+              Alert.alert('인증 성공', '인증이 완료되었습니다.', [
+                { text: "확인", onPress: () => navigation.reset({
+                  index: 0, // 새 스택의 시작 인덱스를 0으로 설정합니다.
+                  routes: [{ name: 'Routers' }], // 이동할 라우트의 배열을 설정합니다.
+                }) }
+              ])
+            }
           } else {
             // response.data가 비어있거나 예상한 값이 없는 경우, 인증 성공 처리
             Alert.alert('인증 성공', '인증이 완료되었습니다.', [

@@ -2,7 +2,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import HomePage from "../pages/HomePage/HomePage";
 import OnlyPay from "../pages/HomePage/OnlyPay";
 import Compare from "../pages/HomePage/Compare";
-import SettingRouters from "./SettingRouters";
+import SettingPage from "../pages/SettingPage/SettingPage";
 
 
 function HomeRouters () {
@@ -13,7 +13,7 @@ function HomeRouters () {
       <HomeStack.Screen name="Home" component={HomePage}/>
       <HomeStack.Screen name="OnlyPay" component={OnlyPay}/>
       <HomeStack.Screen name="Compare" component={Compare}/>
-      <HomeStack.Screen name="SettingRouters" component={SettingRouters}/>
+      <HomeStack.Screen name="SettingPage" component={SettingPage}/>
     </HomeStack.Navigator>
   )
 }
