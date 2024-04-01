@@ -3,12 +3,12 @@ import { StyleSheet, View, Text, Dimensions, Platform } from "react-native";
 import TokenUtils from "../../../stores/TokenUtils";
 import { getMyTotalBenefitAmount } from "../../../apis/StatisticsApi";
 
-
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
 function BenefitAmountOfYou() {
-  const [benefitAmount, setBenefitAmount] = useState("")
- const [token, setToken] = useState("");
+  const [benefitAmount, setBenefitAmount] = useState("");
+  const [token, setToken] = useState("");
+
   useEffect(() => {
     const fetchToken = async () => {
       const accessToken = await TokenUtils.getAccessToken();
@@ -19,30 +19,30 @@ function BenefitAmountOfYou() {
   }, []);
 
   useEffect(() => {
-    if(token){
+    if (token) {
       const getCurrentDate = () => {
         const date = new Date();
         const year = date.getFullYear();
-        const month = date.getMonth() + 1; 
+        const month = date.getMonth() + 1;
         return year * 100 + month;
       };
-      const currentDate = getCurrentDate();
+      const currentDate = 202403;
 
       getMyTotalBenefitAmount(
         token,
         currentDate,
-        (res)=>{
-          setBenefitAmount(res.data.totalDiscount)
-          console.log(res.data, "혜택금액불러오기성공 BenefitAmountOfYou")
+        (res) => {
+          setBenefitAmount(res.data.totalDiscount);
+          console.log(res.data, "혜택금액불러오기성공 BenefitAmountOfYou");
         },
-        (err)=>{
-          console.log(err, "혜택금액불러오기 실패")
+        (err) => {
+          console.log(err, "혜택금액불러오기 실패");
         }
-      )
+      );
     }
-  }, [token])
+  }, [token]);
 
-  const formatBenefitAmount = benefitAmount.toLocaleString('ko-KR')
+  const formatBenefitAmount = benefitAmount.toLocaleString("ko-KR");
   return (
     <View>
       <View style={styles.container}>

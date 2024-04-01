@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   ScrollView,
@@ -38,13 +38,13 @@ function ProductPage() {
   const [token, setToken] = useState("");
   const [hasError, setHasError] = useState(false);
   const [selectedCardIndex, setSelectedCardIndex] = useState(0);
-  const [tempSelectedCard, setTempSelectedCard] = useState(null); // 확인시 이미지가 바뀔수 잇게 카드 정보를 임시로 저장하기위함
+  const [tempSelectedCard, setTempSelectedCard] = useState(null); // 확인시 이미지가 바뀔수 있게 카드 정보를 임시로 저장하기위함
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchToken = async () => {
-      const accessToken = await TokenUtils.getAccessToken();
+      const accessToken = await TokenUtils.getRefreshToken();
       setToken(accessToken);
     };
 

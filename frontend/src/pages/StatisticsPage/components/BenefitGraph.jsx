@@ -1,11 +1,5 @@
-import{ useEffect, useState } from "react"; 
-import {
-  StyleSheet,
-  View,
-  Text,
-  Dimensions,
-  Platform,
-} from "react-native";
+import { useEffect, useState } from "react";
+import { StyleSheet, View, Text, Dimensions, Platform } from "react-native";
 import BenefitCategoryList from "./BenefitGraphComponents/BenefitCategoryList";
 import { useDispatch } from "react-redux";
 import { benefitTop5Category } from "../../../slices/staticSlice";
@@ -14,51 +8,62 @@ import TokenUtils from "../../../stores/TokenUtils";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 const categoryColors = {
-  0: "#ebc7fd", 
-  1: "#fcb3b3", 
-  2: "#fff6bc", 
+  0: "#ebc7fd",
+  1: "#fcb3b3",
+  2: "#fff6bc",
   3: "#a6fca9",
-  4: "#c0c0c0", 
-  5: "#FFECB3", 
+  4: "#c0c0c0",
+  5: "#FFECB3",
   6: "#aad5fa",
-  7: "#90cad6", 
-  8: "#f2fd75", 
-  9: "#94d5e5", 
-  10: "#70fc95", 
-  11: "#ffd586", 
-  12: "#ffc063", 
-  13: "#CFD8DC", 
-  14: "#aaaaaa", 
+  7: "#90cad6",
+  8: "#f2fd75",
+  9: "#94d5e5",
+  10: "#70fc95",
+  11: "#ffd586",
+  12: "#ffc063",
+  13: "#CFD8DC",
+  14: "#aaaaaa",
   15: "#fcb0a1",
-  16: "#70ee64", 
-  17: "#E8F5E9", 
-  18: "#E1F5FE", 
-  19: "#72afff", 
+  16: "#70ee64",
+  17: "#E8F5E9",
+  18: "#E1F5FE",
+  19: "#72afff",
   20: "#CFD8DC",
   21: "#F5F5F5",
   22: "#FFF3E0",
   23: "#B3E5FC",
-  24: "#DCEDC8", 
-  25: "#cdcdcd", 
+  24: "#DCEDC8",
+  25: "#cdcdcd",
 };
 const HorizontalBarGraph = ({ categories, totalBenefit }) => {
   return (
     <View style={styles.rowGraph}>
-      <View style={{ flexDirection: 'row', height: '100%', alignItems: 'center', width: '100%' }}>
+      <View
+        style={{
+          flexDirection: "row",
+          height: "100%",
+          alignItems: "center",
+          width: "100%",
+        }}
+      >
         {categories.map((category, index) => {
-          const width = `${(category.discount/ totalBenefit) * 100}%`;
-          const color = categoryColors[category.categoryId] || '#E0E0E0';
+          const width = `${(category.discount / totalBenefit) * 100}%`;
+          const color = categoryColors[category.categoryId] || "#E0E0E0";
           const barStyle = {
-            height: '100%',
+            height: "100%",
             width,
             backgroundColor: color,
-            ...(index === 0 && { borderTopLeftRadius: 20, borderBottomLeftRadius: 20 }),
-            ...(index === categories.length - 1 && { borderTopRightRadius: 20, borderBottomRightRadius: 20 }),
+            ...(index === 0 && {
+              borderTopLeftRadius: 20,
+              borderBottomLeftRadius: 20,
+            }),
+            ...(index === categories.length - 1 && {
+              borderTopRightRadius: 20,
+              borderBottomRightRadius: 20,
+            }),
           };
-          
-          return (
-            <View key={index} style={barStyle} />
-          );
+
+          return <View key={index} style={barStyle} />;
         })}
       </View>
     </View>
@@ -68,7 +73,7 @@ const HorizontalBarGraph = ({ categories, totalBenefit }) => {
 function BenefitGraph() {
   const [token, setToken] = useState("");
   const [totalDiscount, setTotalDiscount] = useState("");
-  const [categories, setCategories] = useState([])
+  const [categories, setCategories] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -80,46 +85,51 @@ function BenefitGraph() {
   }, []);
 
   useEffect(() => {
-    if(token){
+    if (token) {
       const getCurrentDate = () => {
         const date = new Date();
         const year = date.getFullYear();
-        const month = date.getMonth() + 1; 
+        const month = date.getMonth() + 1;
         return year * 100 + month;
       };
-      const currentDate = getCurrentDate();
+      const currentDate = 202403;
       getMyBenefitAmountOfCategory(
         token,
         currentDate,
-        (res)=>{
-          setTotalDiscount(res.data.totalDiscount)
-          setCategories(res.data.discountList)
+        (res) => {
+          setTotalDiscount(res.data.totalDiscount);
+          setCategories(res.data.discountList);
         },
-        (err)=>{
-          console.log(err, "혜택 카테고리 실패")
+        (err) => {
+          console.log(err, "혜택 카테고리 실패");
         }
-      )
+      );
     }
-  }, [token])
+  }, [token]);
 
-    const formatTotalDiscount = totalDiscount.toLocaleString("ko-KR")
-    
-    const processCategories = (categories) => {
-    
-      const topCategories =categories.slice(0, 4);
-    
-      const others = categories.slice(4).reduce((acc, curr) => acc + curr.discount, 0);
+  const formatTotalDiscount = totalDiscount.toLocaleString("ko-KR");
 
-      if (others > 0) {
-        topCategories.push({ categoryId: "25", categoryName: "그외..", discount: others });
-      }
-      topCategories.push({totalDiscount: totalDiscount})
-    
-      dispatch( benefitTop5Category(topCategories))
-      return topCategories;
-    };
-    
- const LastCategory = processCategories(categories)
+  const processCategories = (categories) => {
+    const topCategories = categories.slice(0, 4);
+
+    const others = categories
+      .slice(4)
+      .reduce((acc, curr) => acc + curr.discount, 0);
+
+    if (others > 0) {
+      topCategories.push({
+        categoryId: "25",
+        categoryName: "그외..",
+        discount: others,
+      });
+    }
+    topCategories.push({ totalDiscount: totalDiscount });
+
+    dispatch(benefitTop5Category(topCategories));
+    return topCategories;
+  };
+
+  const LastCategory = processCategories(categories);
 
   return (
     <View style={styles.container}>
@@ -128,17 +138,23 @@ function BenefitGraph() {
       </View>
       <View style={styles.line}></View>
       <View style={styles.topContainer}>
-      <Text style={styles.BenefitText}>
+        <Text style={styles.BenefitText}>
           이번달에는{" "}
-          <Text style={{ fontWeight: "bold" }}>{LastCategory[0].categoryName}</Text><Text>에서</Text>
+          <Text style={{ fontWeight: "bold" }}>
+            {LastCategory[0].categoryName}
+          </Text>
+          <Text>에서</Text>
         </Text>
         <View style={styles.amountContainer}>
           <Text style={styles.BenefitText}>가장 많은 혜택을 누렸어요!</Text>
         </View>
       </View>
-      <HorizontalBarGraph categories={LastCategory} totalBenefit={totalDiscount} />
+      <HorizontalBarGraph
+        categories={LastCategory}
+        totalBenefit={totalDiscount}
+      />
       <View style={styles.bottomContainer}>
-      <BenefitCategoryList />
+        <BenefitCategoryList />
       </View>
     </View>
   );
@@ -195,24 +211,24 @@ const styles = StyleSheet.create({
     marginLeft: -50,
   },
   rowGraph: {
-    flexDirection:"row",
+    flexDirection: "row",
     marginTop: 10,
     marginBottom: 15,
     marginLeft: 20,
     height: 37,
     width: "93%",
     marginRight: 15,
-    overflow: 'hidden',
-    borderRadius: 20
+    overflow: "hidden",
+    borderRadius: 20,
   },
-  
+
   bottomContainer: {
     flex: 3,
     maxWidth: 250,
     marginRight: 40,
   },
   categoryBar: {
-    height: '100%',
+    height: "100%",
     borderRadius: 10,
   },
   line: {

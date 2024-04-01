@@ -1,46 +1,42 @@
-import {
-  StyleSheet,
-  View,
-  Text,
-  Image,
-} from "react-native";
-import { getMyTop3Cards} from "../../../../apis/StatisticsApi";
+import { StyleSheet, View, Text, Image } from "react-native";
+import { getMyTop3Cards } from "../../../../apis/StatisticsApi";
 import TokenUtils from "../../../../stores/TokenUtils";
 import { useEffect, useState } from "react";
 
-function CardRakingList() {const [token, setToken] = useState("");
-const [top3CardList ,setTop3CardList] = useState([])
+function CardRakingList() {
+  const [token, setToken] = useState("");
+  const [top3CardList, setTop3CardList] = useState([]);
 
-useEffect(() => {
-  const fetchToken = async () => {
-    const accessToken = await TokenUtils.getAccessToken();
-    setToken(accessToken);
-  };
-  fetchToken();
-}, []);
-
-useEffect(()=>{
-  if(token){
-    const getCurrentDate = () => {
-      const date = new Date();
-      const year = date.getFullYear();
-      const month = date.getMonth() + 1; 
-      return year * 100 + month;
+  useEffect(() => {
+    const fetchToken = async () => {
+      const accessToken = await TokenUtils.getAccessToken();
+      setToken(accessToken);
     };
-    const currentDate = getCurrentDate();
+    fetchToken();
+  }, []);
 
-    getMyTop3Cards(
-      token,
-      currentDate,
-      (res)=>{
-        setTop3CardList(res.data.bestCardStatisticsList)
-      },
-      (err)=>{
-        console.log(err, "cardRanking err")
-      }
-    )
-  }
-}, [token])
+  useEffect(() => {
+    if (token) {
+      const getCurrentDate = () => {
+        const date = new Date();
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
+        return year * 100 + month;
+      };
+      const currentDate = 202403;
+
+      getMyTop3Cards(
+        token,
+        currentDate,
+        (res) => {
+          setTop3CardList(res.data.bestCardStatisticsList);
+        },
+        (err) => {
+          console.log(err, "cardRanking err");
+        }
+      );
+    }
+  }, [token]);
 
   return (
     <View style={styles.container}>
@@ -51,10 +47,10 @@ useEffect(()=>{
             style={styles.oneBadge}
           />
           <Image
-            source={{uri: top3CardList[0]?.imagePath}}
+            source={{ uri: top3CardList[0]?.imagePath }}
             style={styles.image}
           ></Image>
-          <Text style={{marginTop: 10}}>{top3CardList[0]?.cardName}</Text>
+          <Text style={{ marginTop: 10 }}>{top3CardList[0]?.cardName}</Text>
         </View>
 
         <View style={styles.topCardText}>
@@ -82,13 +78,15 @@ useEffect(()=>{
             style={styles.otherBadge}
           />
           <Image
-            source={{uri:top3CardList[1]?.imagePath}}
+            source={{ uri: top3CardList[1]?.imagePath }}
             style={styles.image2}
           ></Image>
           <View style={styles.otherCardInfo}>
-            <Text style={styles.otherCardName}>{top3CardList[1]?.cardName}</Text>
+            <Text style={styles.otherCardName}>
+              {top3CardList[1]?.cardName}
+            </Text>
             <Text style={styles.otherCardAmount}>
-             약 {top3CardList[1]?.totalDiscount.toLocaleString()}원
+              약 {top3CardList[1]?.totalDiscount.toLocaleString()}원
             </Text>
           </View>
         </View>
@@ -99,13 +97,20 @@ useEffect(()=>{
             style={styles.otherBadge}
           />
           <Image
-            source={{uri:top3CardList[2]?.imagePath}}
+            source={{ uri: top3CardList[2]?.imagePath }}
             style={styles.image2}
           ></Image>
           <View style={styles.otherCardInfo}>
-            <Text style={styles.otherCardName}>{top3CardList[2]?.cardName}</Text>{top3CardList[2]?.totalDiscount === 0 ? <Text style={styles.otherCardAmount}>0원</Text>:        <Text style={styles.otherCardAmount}>
-           약 {top3CardList[2]?.totalDiscount.toLocaleString()}
-            </Text>}
+            <Text style={styles.otherCardName}>
+              {top3CardList[2]?.cardName}
+            </Text>
+            {top3CardList[2]?.totalDiscount === 0 ? (
+              <Text style={styles.otherCardAmount}>0원</Text>
+            ) : (
+              <Text style={styles.otherCardAmount}>
+                약 {top3CardList[2]?.totalDiscount.toLocaleString()}
+              </Text>
+            )}
           </View>
         </View>
       </View>
@@ -144,7 +149,7 @@ const styles = StyleSheet.create({
     marginLeft: 40,
     justifyContent: "center",
     alignItems: "flex-end",
-    width: 120
+    width: 120,
   },
   image: {
     height: 95,
