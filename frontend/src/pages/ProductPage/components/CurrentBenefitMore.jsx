@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   StyleSheet,
   View,
@@ -13,19 +13,38 @@ import {
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 const { width } = Dimensions.get("window");
-const benefits = [
-  { id: 1, content: "할인 혜택", amount: "5,000원" },
-  { id: 2, content: "적립 혜택", amount: "10,000원" },
-  { id: 3, content: "기타 혜택", amount: "3,000원" },
-];
 
 function CurrentBenefitMore() {
   const navigation = useNavigation();
   const [cardBenefitList, setCardBenefitList] = useState([]);
+  const [totalDiscountAmount, setTotalDiscountAmount] = useState("");
   const selectCardBenefitInfo = useSelector(
     (state) => state.productList.payCardBenefit
   );
+  const selectPaycard = useSelector(
+    (state) => state.productList.selectPayCardInfo
+  );
 
+  useEffect(
+    () => (
+      setCardBenefitList(selectCardBenefitInfo.discountList),
+      setTotalDiscountAmount(selectCardBenefitInfo.totalDiscount)
+    ),
+    [selectCardBenefitInfo]
+  );
+
+  // 이미지 스타일을 동적으로 결정하는 함수
+  function getImageStyle(imgAttr) {
+    if (imgAttr === 0) {
+      // 가로 이미지
+      return styles.horizontalImage;
+    } else if (imgAttr === 1) {
+      // 세로 이미지
+      return styles.verticalImage;
+    } else {
+      return styles.defaultImage; // 기본 스타일
+    }
+  }
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Pressable
@@ -41,12 +60,13 @@ function CurrentBenefitMore() {
       <View style={styles.topcontainer}>
         <View style={styles.maintextContainer}>
           <Text style={styles.maintext}>삼성카드 | 신용</Text>
-          <Text style={styles.cardName}>MR.LIFE Card</Text>
+          <Text style={styles.cardName}>{selectPaycard.cardName}</Text>
         </View>
 
         <Image
-          source={require("../../../../assets/card2.png")}
-          style={styles.image}
+          source={{ uri: selectPaycard.imagePath }}
+          style={getImageStyle(selectPaycard.imgAttr)} // 동적 스타일 적용
+          resizeMode="contain"
         />
       </View>
 
@@ -59,22 +79,32 @@ function CurrentBenefitMore() {
         <View style={styles.separator}></View>
 
         <View style={styles.benefitList}>
-          {benefits.map((benefit) => (
-            <View key={benefit.id} style={styles.benefitItem}>
-              <Text style={styles.benefitContent}>* {benefit.content}</Text>
-              <Text style={styles.benefitAmount}>{benefit.amount}</Text>
+          {cardBenefitList.map((benefit) => (
+            <View key={benefit.categoryId} style={styles.benefitItem}>
+              <Text style={styles.benefitContent}>
+                * {benefit.categoryName}
+              </Text>
+              <Text style={styles.discount}>
+                + {benefit.discount.toLocaleString()}원
+              </Text>
             </View>
           ))}
         </View>
         <View style={styles.bottom}>
           <View style={styles.separator} />
           <View style={styles.resultContainer}>
-            <Text>합계</Text>
-            <Text>결과</Text>
+            <Text>* 합계</Text>
+            <Text>{totalDiscountAmount.toLocaleString()}원</Text>
           </View>
         </View>
         <View style={styles.totalContainer}>
-          <Text>총 100000원 할인받았어요</Text>
+          <Text>
+            총{" "}
+            <Text style={{ fontSize: 20 }}>
+              {totalDiscountAmount.toLocaleString()}
+            </Text>
+            원 할인받았어요
+          </Text>
         </View>
       </View>
       <View style={styles.bottomContainer}>
@@ -166,7 +196,7 @@ const styles = StyleSheet.create({
   applyBtn: {
     borderRadius: 10,
     width: 150,
-    height: 60,
+    height: 50,
     backgroundColor: "#6b84ff",
     justifyContent: "center",
     alignItems: "center",
@@ -185,5 +215,20 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginTop: 20,
     marginBottom: 20,
+  },
+  horizontalImage: {
+    width: 140,
+    height: 80,
+    marginLeft: 20,
+  },
+  verticalImage: {
+    width: 80,
+    height: 140,
+    marginLeft: 25,
+  },
+  defaultImage: {
+    // 기본 이미지 스타일
+    width: 50,
+    height: 80,
   },
 });

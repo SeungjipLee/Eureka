@@ -65,12 +65,11 @@ function ProductPage() {
         return year * 100 + month; // YYYYMM 형태로 반환
       };
 
-      const currentDate = 202402;
+      const currentDate = 202403;
       getMyPaymentCards(
         token,
         currentDate,
         (res) => {
-          console.log(res.data, "chchchchchc");
           setCards(res.data);
           dispatch(saveMyPayCard(res.data));
           dispatch(selectPayCard(res.data[0])); // 선택된 결제카드 디폴트: 첫번째 결제카드
@@ -160,9 +159,11 @@ function ProductPage() {
               setModalVisible(false);
               if (tempSelectedCard !== null) {
                 dispatch(selectPayCard(tempSelectedCard)); // 임시로 선택된 카드 정보를 Redux 스토어에 저장
+              } else {
+                dispatch(selectPayCard(cards[0]));
               }
               dispatch(clickMyCard());
-              // setTempSelectedCard(null); // 임시 상태 초기화
+              setTempSelectedCard(null); // 임시 상태 초기화
             }}
           >
             <Text style={{ fontSize: 20, fontWeight: "600", color: "#ffffff" }}>
@@ -190,7 +191,7 @@ const styles = StyleSheet.create({
     marginTop: 50,
   },
   currentbenefit: {
-    flex: 0.5,
+    flex: 1,
     marginTop: 20,
     maxHeight: 50,
   },

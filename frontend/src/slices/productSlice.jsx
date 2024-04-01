@@ -20,7 +20,7 @@ export const productSlice = createSlice({
     clickMyCard: (state) => {
       state.selectCardValue = !state.selectCardValue;
     },
-    // "ProductPag에서 사용 => 결제카드 목록저장"
+    // "ProductPage에서 사용 => 결제카드 목록저장"
     saveMyPayCard: (state, action) => {
       state.payCards = action.payload;
     },

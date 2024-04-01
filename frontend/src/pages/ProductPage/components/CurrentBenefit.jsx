@@ -20,6 +20,7 @@ function CurrentBenefit() {
 
   const seclectCarduserCardId = selectCardInfo.userCardId;
 
+
   useEffect(() => {
     const fetchToken = async () => {
       const accessToken = await TokenUtils.getAccessToken();
@@ -30,7 +31,7 @@ function CurrentBenefit() {
   }, []);
 
   useEffect(() => {
-    if (token && seclectCarduserCardId) {
+    if (token) {
       getMySingleCardBenefitList(
         token,
         202403,
@@ -44,7 +45,7 @@ function CurrentBenefit() {
         }
       );
     }
-  }, [token, seclectCarduserCardId]);
+  }, [token, selectCardInfo]);
 
   return (
     <View>
