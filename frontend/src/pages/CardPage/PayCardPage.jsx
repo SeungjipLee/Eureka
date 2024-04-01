@@ -61,7 +61,7 @@ function PayCardPage() {
               {item.previousPerformance - item.totalAmt > 0 ? (
                 <Text>
                   이용 실적이 
-                  <Text style={styles.highlightText}> {item.previousPerformance - item.totalAmt}원 </Text>
+                  <Text style={styles.highlightText}> {(item.previousPerformance - item.totalAmt).toLocaleString()}원 </Text>
                   남았어요
                 </Text>
               ) : (
