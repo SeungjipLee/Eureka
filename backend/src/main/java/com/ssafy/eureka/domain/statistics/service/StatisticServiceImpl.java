@@ -28,6 +28,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigInteger;
+import java.time.LocalDate;
 import java.util.*;
 
 @Slf4j
@@ -224,8 +225,10 @@ public class StatisticServiceImpl implements StatisticService {
 
     @Override
     public CardOwnershipResponse cardOwnershipOverviewResponse() {
+        LocalDate date = cardOwnershipOverviewRepository.findLatestCreatedDate();
+
         List<CardOwnershipDto> cardOwnershipOverviewList =
-                cardOwnershipOverviewRepository.findCardOwnershipOverviews();
+                cardOwnershipOverviewRepository.findCardOwnershipOverviews(date);
 
         for (CardOwnershipDto ownershipStatic : cardOwnershipOverviewList) {
             Pageable pageable = PageRequest.of(0, 5);
@@ -247,8 +250,10 @@ public class StatisticServiceImpl implements StatisticService {
         UserInfoDto userInfo = userRepository.findUserInfoByUserId(Integer.parseInt(userId));
         char ageGroup = UserUtil.calculateAgeGroup(userInfo.getUserBirth(), userInfo.getUserGender());
 
+        LocalDate date = cardOwnershipStaticRepository.findLatestCreatedDate();
+
         List<CardOwnershipDto> cardOwnershipStaticList =
-                cardOwnershipStaticRepository.findCardOwnershipStaticByAgeGroup(ageGroup);
+                cardOwnershipStaticRepository.findCardOwnershipStaticByAgeGroup(ageGroup, date);
 
         for (CardOwnershipDto ownershipStatic : cardOwnershipStaticList) {
             Pageable pageable = PageRequest.of(0, 5);
