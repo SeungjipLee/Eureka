@@ -59,7 +59,7 @@ public class CardRecommendResponse {
             userCardId = userCard.getUserCardId();
             firstCardNumber = userCard.getFirstCardNumber();
             lastCardNumber = userCard.getLastCardNumber();
-            currentMonthAmount = userCard.getCurrentMonthAmount();
+            currentMonthAmount = BigInteger.ZERO;
 
             cardId = userCard.getCardId();
             cardName = cardProd.getCardName();

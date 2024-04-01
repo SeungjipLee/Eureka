@@ -47,13 +47,11 @@ import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Random;
 import com.ssafy.eureka.domain.user.dto.UserEntity;
 import com.ssafy.eureka.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -105,12 +103,14 @@ public class PayServiceImpl implements PayService {
             throw new CustomException(ResponseCode.PAY_CARD_NOT_FOUND);
         }
 
+        LocalDate lastMonth = LocalDate.now().minusMonths(1);
+
+        String yearStr = lastMonth.format(DateTimeFormatter.ofPattern("yyyy"));
+        String monthStr = lastMonth.format(DateTimeFormatter.ofPattern("MM"));
+
         for (UserCardEntity userCard : userCardList) {
             CardEntity cardProd = cardRepository.findByCardId(userCard.getCardId());
 
-//            CardBenefitDetailEntity cardBenefitDetail = cardBenefitDetailRepository.findCardBenefitDetailsByCardIdAndCategory(
-//                    userCard.getCardId(), largeCategory, smallCategory)
-//                .orElse(null);
 
             CardBenefitDetailEntity cardBenefitDetail = cardBenefitDetailRepository.findCardBenefitDetailsByCardIdAndCategory(userCard.getCardId(), largeCategory, smallCategory, PageRequest.of(0, 1))
                 .stream()
@@ -119,18 +119,15 @@ public class PayServiceImpl implements PayService {
             RecommendCard card = new RecommendCard(cardProd, userCard, cardBenefitDetail);
 
             if(cardBenefitDetail != null){
-                LocalDate lastMonth = LocalDate.now().minusMonths(1);
-
-                String yearStr = lastMonth.format(DateTimeFormatter.ofPattern("yyyy"));
-                String monthStr = lastMonth.format(DateTimeFormatter.ofPattern("MM"));
-
-                ConsumptionStaticEntity consumptionStatic = consumptionStaticRepository.findByUserCardIdAndMonthAndYear(
+                ConsumptionStaticEntity consumptionStatic = consumptionStaticRepository.findByUserCardIdAndYearAndMonth(
                     userCard.getUserCardId(), yearStr, monthStr).orElse(null);
 
                 if ((consumptionStatic == null) || (consumptionStatic.getTotalConsumption().compareTo(
                     BigInteger.valueOf(card.getPreviousPerformance())) < 0)) {
                     card.setDiscountAmount(0);
                 } else {
+                    card.setCurrentMonthAmount(consumptionStatic.getTotalConsumption());
+
                     int largeCategoryId = requestPayRequest.getLargeCategoryId();
                     int smallCategoryId = requestPayRequest.getSmallCategoryId();
 
@@ -240,7 +237,7 @@ public class PayServiceImpl implements PayService {
         String year = String.valueOf(payHistory.getApprovedDateTime().getYear());
         String month = String.format("%02d", payHistory.getApprovedDateTime().getMonthValue());
 
-        ConsumptionStaticEntity consumptionStaticEntity = consumptionStaticRepository.findByUserCardIdAndMonthAndYear(
+        ConsumptionStaticEntity consumptionStaticEntity = consumptionStaticRepository.findByUserCardIdAndYearAndMonth(
                 userCard.getUserCardId(), year, month)
             .orElse(new ConsumptionStaticEntity(userCard.getUserCardId(), year, month));
         consumptionStaticEntity.addPay(payInfo.getTotalAmount());

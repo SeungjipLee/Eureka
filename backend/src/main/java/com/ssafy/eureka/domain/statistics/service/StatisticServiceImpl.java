@@ -119,7 +119,7 @@ public class StatisticServiceImpl implements StatisticService {
         String month = parser.getMonth();
 
         Optional<ConsumptionStaticEntity> consumptionStaticEntity =
-                consumptionStaticRepository.findByUserCardIdAndMonthAndYear(userCardId, year, month);
+                consumptionStaticRepository.findByUserCardIdAndYearAndMonth(userCardId, year, month);
         BigInteger totalConsumption = consumptionStaticEntity
                 .map(ConsumptionStaticEntity::getTotalConsumption).orElse(BigInteger.ZERO);
 
