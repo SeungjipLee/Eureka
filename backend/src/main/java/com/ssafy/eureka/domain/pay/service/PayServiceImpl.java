@@ -58,6 +58,7 @@ import com.ssafy.eureka.domain.user.dto.UserEntity;
 import com.ssafy.eureka.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -107,9 +108,13 @@ public class PayServiceImpl implements PayService {
         for (UserCardEntity userCard : userCardList) {
             CardEntity cardProd = cardRepository.findByCardId(userCard.getCardId());
 
-            CardBenefitDetailEntity cardBenefitDetail = cardBenefitDetailRepository.findCardBenefitDetailsByCardIdAndCategory(
-                    userCard.getCardId(), largeCategory, smallCategory)
-                .orElse(null);
+//            CardBenefitDetailEntity cardBenefitDetail = cardBenefitDetailRepository.findCardBenefitDetailsByCardIdAndCategory(
+//                    userCard.getCardId(), largeCategory, smallCategory)
+//                .orElse(null);
+
+            CardBenefitDetailEntity cardBenefitDetail = cardBenefitDetailRepository.findCardBenefitDetailsByCardIdAndCategory(userCard.getCardId(), largeCategory, smallCategory, PageRequest.of(0, 1))
+                .stream()
+                .findFirst().orElse(null);
 
             RecommendCard card = new RecommendCard(cardProd, userCard, cardBenefitDetail);
 
