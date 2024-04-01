@@ -100,7 +100,7 @@ public class PayServiceImpl implements PayService {
         List<RecommendCard> list = new ArrayList<>();
         Map<Integer, Integer> cardToDiscount = new HashMap<>();
 
-        if(list.isEmpty()){
+        if(userCardList.isEmpty()){
             throw new CustomException(ResponseCode.PAY_CARD_NOT_FOUND);
         }
 
