@@ -2,6 +2,7 @@ package com.ssafy.eureka.domain.statistics.service;
 
 import com.ssafy.eureka.domain.statistics.dto.TotalStatistics;
 import com.ssafy.eureka.domain.statistics.dto.response.BestCardStatisticsResponse;
+import com.ssafy.eureka.domain.statistics.dto.response.CardOwnershipResponse;
 import com.ssafy.eureka.domain.statistics.dto.response.ConsumptionStatisticsResponse;
 import com.ssafy.eureka.domain.statistics.dto.response.DiscountStatisticsResponse;
 
@@ -13,5 +14,9 @@ public interface StatisticService {
     ConsumptionStatisticsResponse consumptionStatisticsByUserCardResponse(int userCardId, String yyyyMM);
     DiscountStatisticsResponse discountStatisticsByUserCardResponse(int userCardId, String yyyyMM);
     BestCardStatisticsResponse bestCardStatisticsResponse(String userId, String yyyyMM);
+    void updateCardOwnershipOverview();
+    void updateCardOwnershipStatic();
+    CardOwnershipResponse cardOwnershipOverviewResponse();
+    CardOwnershipResponse cardOwnershipStaticResponse(String userId);
 
 }

@@ -180,18 +180,4 @@ public class CardServiceImpl implements CardService{
         return new CardProdDetailResponse(imagePath, cardName, imgAttr, joinPath, CardBenefitEntityList);
     }
 
-    @Override
-    public CardEntity cardProdRecommend() {
-
-        List<CardEntity> cardEntityList = cardRepository.findAllBy();
-
-        int size = cardEntityList.size();
-
-        Random rd = new Random();
-        int rdId = rd.nextInt(size);
-
-        CardEntity cardEntity = cardEntityList.get(rdId);
-
-        return cardEntity;
-    }
 }

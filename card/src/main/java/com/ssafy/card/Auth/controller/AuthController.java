@@ -49,4 +49,11 @@ public class AuthController {
 
         return new ApiResponse(ResponseCode.SUCCESS.getMessage(), ResponseCode.SUCCESS.getStatus(), result);
     }
+
+    @PostMapping("/check")
+    public ApiResponse<?> checkUser(@RequestBody MyDataRequestDto myDataRequestDto){
+        log.debug("인증 번호 전송용 유저 확인 : " + myDataRequestDto.getName());
+        authService.checkUser(myDataRequestDto);
+        return new ApiResponse(ResponseCode.SUCCESS.getMessage(), ResponseCode.SUCCESS.getStatus(), null);
+    }
 }

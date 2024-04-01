@@ -53,13 +53,6 @@ public class CardController {
         return ResponseEntity.ok(cardService.cardProdDetail(cardId));
     }
 
-    @Operation(summary = "카드 상품 추천")
-    @GetMapping("/prod/recommend")
-    public ResponseEntity<?> cardProdRecommend(){
-        log.debug("카드 상품 추천");
-        return ResponseEntity.ok(cardService.cardProdRecommend());
-    }
-
 
     @Operation(summary = "절대 임의로 하지 말기!!!")
     @GetMapping("/admin/regist")
