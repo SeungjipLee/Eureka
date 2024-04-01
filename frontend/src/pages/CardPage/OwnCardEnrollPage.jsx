@@ -174,10 +174,11 @@ function OwnCardEnrollPage({ route }) {
     addOwnCard(
       token,
       inputData,
-      (res) => {},
+      (res) => {
+        navigation.navigate("보유 카드");
+      },
       (err) => console.log(err)
     );
-    navigation.navigate("CardHome");
   };
 
   return (
