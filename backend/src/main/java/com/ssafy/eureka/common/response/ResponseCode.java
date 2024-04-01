@@ -40,7 +40,8 @@ public enum ResponseCode {
 
     INVALID_YEAR_MONTH(HttpServletResponse.SC_BAD_REQUEST, "날짜 형식 오류"),
 
-    STATISTICS_ERROR(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "통계 에러");
+    STATISTICS_ERROR(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "통계 에러"),
+    PAY_CARD_NOT_FOUND(HttpServletResponse.SC_NOT_FOUND, "결제 카드가 존재하지 않음.");
     ;
 
     private final int code;

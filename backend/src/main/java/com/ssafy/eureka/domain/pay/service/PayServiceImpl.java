@@ -48,6 +48,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -98,6 +99,10 @@ public class PayServiceImpl implements PayService {
 
         List<RecommendCard> list = new ArrayList<>();
         Map<Integer, Integer> cardToDiscount = new HashMap<>();
+
+        if(list.isEmpty()){
+            throw new CustomException(ResponseCode.PAY_CARD_NOT_FOUND);
+        }
 
         for (UserCardEntity userCard : userCardList) {
             CardEntity cardProd = cardRepository.findByCardId(userCard.getCardId());
@@ -177,6 +182,8 @@ public class PayServiceImpl implements PayService {
             cardToDiscount.put(card.getUserCardId(), card.getDiscountAmount());
             list.add(card);
         }
+
+        Collections.sort(list);
 
         PayInfo payInfo = new PayInfo(userId, requestPayRequest, cardToDiscount,
             list.get(0).getUserCardId(), list.get(0).getDiscountAmount());

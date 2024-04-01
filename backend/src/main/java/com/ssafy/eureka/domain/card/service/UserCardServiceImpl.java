@@ -335,11 +335,11 @@ public class UserCardServiceImpl implements UserCardService {
 
         if(userCard != null){
             userCard.registPayCard(registPayCardRequest, payTokenResponse);
-            addStatistics(userId, userCard.getCardIdentifier());
         }else{
             UserCardEntity card = new UserCardEntity(Integer.parseInt(userId), registPayCardRequest, payTokenResponse);
-            addStatistics(userId, payTokenResponse.getCardIdentifier());
             userCardRepository.save(card);
+            userCardRepository.flush();
+            addStatistics(userId, payTokenResponse.getCardIdentifier());
         }
     }
 
