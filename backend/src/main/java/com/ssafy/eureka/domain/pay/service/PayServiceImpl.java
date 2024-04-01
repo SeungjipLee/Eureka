@@ -118,76 +118,81 @@ public class PayServiceImpl implements PayService {
 
             RecommendCard card = new RecommendCard(cardProd, userCard, cardBenefitDetail);
 
-            LocalDate lastMonth = LocalDate.now().minusMonths(1);
+            if(cardBenefitDetail != null){
+                LocalDate lastMonth = LocalDate.now().minusMonths(1);
 
-            String yearStr = lastMonth.format(DateTimeFormatter.ofPattern("yyyy"));
-            String monthStr = lastMonth.format(DateTimeFormatter.ofPattern("MM"));
+                String yearStr = lastMonth.format(DateTimeFormatter.ofPattern("yyyy"));
+                String monthStr = lastMonth.format(DateTimeFormatter.ofPattern("MM"));
 
-            ConsumptionStaticEntity consumptionStatic = consumptionStaticRepository.findByUserCardIdAndMonthAndYear(
-                userCard.getUserCardId(), yearStr, monthStr).orElse(null);
+                ConsumptionStaticEntity consumptionStatic = consumptionStaticRepository.findByUserCardIdAndMonthAndYear(
+                    userCard.getUserCardId(), yearStr, monthStr).orElse(null);
 
-            if ((consumptionStatic == null) || (consumptionStatic.getTotalConsumption().compareTo(
-                BigInteger.valueOf(card.getPreviousPerformance())) < 0)) {
-                card.setDiscountAmount(0);
-            } else {
-                int largeCategoryId = requestPayRequest.getLargeCategoryId();
-                int smallCategoryId = requestPayRequest.getSmallCategoryId();
-
-                DiscountStaticEntity discountStatic = discountStaticRepository.findByUserCardIdAndYearAndMonth(
-                        userCard.getUserCardId(), yearStr, monthStr)
-                    .orElse(null);
-
-                DiscountLargeStaticEntity discountLargeStatic = discountLargeStaticRepository.findByDiscountStaticIdAndLargeCategoryId(
-                    discountStatic.getDiscountStaticId(), largeCategoryId).orElse(null);
-
-                DiscountSmallStaticEntity discountSmallStatic = discountSmallStaticRepository.findByDiscountLargeStaticIdAndSmallCategoryId(
-                        discountLargeStatic.getDiscountLargeStaticId(), smallCategoryId)
-                    .orElse(null);
-
-                if (cardBenefitDetail.getDiscountCostType().equals("원")) {
-                    card.setDiscountAmount((int) cardBenefitDetail.getDiscountCost());
-                } else if (cardBenefitDetail.getDiscountCostType().equals("%")) {
-                    card.setDiscountAmount((int) (requestPayRequest.getTotalAmount() * (
-                        cardBenefitDetail.getDiscountCost() / 100)));
-                } else if (cardBenefitDetail.getDiscountCostType().equals("포인트")) {
-                    card.setDiscountAmount((int) cardBenefitDetail.getDiscountCost());
-                }
-
-                if (card.getDiscountAmount() > requestPayRequest.getTotalAmount()) {
-                    card.setDiscountAmount(requestPayRequest.getTotalAmount());
-                }
-
-                if (cardBenefitDetail.getPayMin() > requestPayRequest.getTotalAmount()) {
+                if ((consumptionStatic == null) || (consumptionStatic.getTotalConsumption().compareTo(
+                    BigInteger.valueOf(card.getPreviousPerformance())) < 0)) {
                     card.setDiscountAmount(0);
                 } else {
-                    if (discountStatic != null || discountLargeStatic != null) {
-                        if (cardBenefitDetail.getSmallCategoryId() == null) {
-                            if (discountLargeStatic.getDiscountCount()
-                                >= cardBenefitDetail.getMonthlyLimitCount()) {
-                                card.setDiscountAmount(0);
-                            }
-                            if (discountLargeStatic.getDiscountAmount()
-                                > cardBenefitDetail.getDiscountLimit()) {
-                                card.setDiscountAmount(0);
-                            }
-                        } else {
-                            if (discountSmallStatic.getDiscountCount()
-                                >= cardBenefitDetail.getMonthlyLimitCount()) {
-                                card.setDiscountAmount(0);
-                            }
-                            if (discountSmallStatic.getDiscount()
-                                > cardBenefitDetail.getDiscountLimit()) {
-                                card.setDiscountAmount(0);
+                    int largeCategoryId = requestPayRequest.getLargeCategoryId();
+                    int smallCategoryId = requestPayRequest.getSmallCategoryId();
+
+                    DiscountStaticEntity discountStatic = discountStaticRepository.findByUserCardIdAndYearAndMonth(
+                            userCard.getUserCardId(), yearStr, monthStr)
+                        .orElse(null);
+
+                    DiscountLargeStaticEntity discountLargeStatic = discountLargeStaticRepository.findByDiscountStaticIdAndLargeCategoryId(
+                        discountStatic.getDiscountStaticId(), largeCategoryId).orElse(null);
+
+                    DiscountSmallStaticEntity discountSmallStatic = discountSmallStaticRepository.findByDiscountLargeStaticIdAndSmallCategoryId(
+                            discountLargeStatic.getDiscountLargeStaticId(), smallCategoryId)
+                        .orElse(null);
+
+                    if (cardBenefitDetail.getDiscountCostType().equals("원")) {
+                        card.setDiscountAmount((int) cardBenefitDetail.getDiscountCost());
+                    } else if (cardBenefitDetail.getDiscountCostType().equals("%")) {
+                        card.setDiscountAmount((int) (requestPayRequest.getTotalAmount() * (
+                            cardBenefitDetail.getDiscountCost() / 100)));
+                    } else if (cardBenefitDetail.getDiscountCostType().equals("포인트")) {
+                        card.setDiscountAmount((int) cardBenefitDetail.getDiscountCost());
+                    }
+
+                    if (card.getDiscountAmount() > requestPayRequest.getTotalAmount()) {
+                        card.setDiscountAmount(requestPayRequest.getTotalAmount());
+                    }
+
+                    if (cardBenefitDetail.getPayMin() > requestPayRequest.getTotalAmount()) {
+                        card.setDiscountAmount(0);
+                    } else {
+                        if (discountStatic != null || discountLargeStatic != null) {
+                            if (cardBenefitDetail.getSmallCategoryId() == null) {
+                                if (discountLargeStatic.getDiscountCount()
+                                    >= cardBenefitDetail.getMonthlyLimitCount()) {
+                                    card.setDiscountAmount(0);
+                                }
+                                if (discountLargeStatic.getDiscountAmount()
+                                    > cardBenefitDetail.getDiscountLimit()) {
+                                    card.setDiscountAmount(0);
+                                }
+                            } else {
+                                if (discountSmallStatic.getDiscountCount()
+                                    >= cardBenefitDetail.getMonthlyLimitCount()) {
+                                    card.setDiscountAmount(0);
+                                }
+                                if (discountSmallStatic.getDiscount()
+                                    > cardBenefitDetail.getDiscountLimit()) {
+                                    card.setDiscountAmount(0);
+                                }
                             }
                         }
                     }
                 }
+
+                cardToDiscount.put(card.getUserCardId(), card.getDiscountAmount());
+                if(card.getDiscountCostType().equals("L")){
+                    card.setDiscountCostType("원/L");
+                }
+            }else{
+                card.setDiscountAmount(0);
             }
 
-            cardToDiscount.put(card.getUserCardId(), card.getDiscountAmount());
-            if(card.getDiscountCostType().equals("L")){
-                card.setDiscountCostType("원/L");
-            }
             list.add(card);
         }
 
