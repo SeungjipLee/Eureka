@@ -111,7 +111,6 @@ public class PayServiceImpl implements PayService {
         for (UserCardEntity userCard : userCardList) {
             CardEntity cardProd = cardRepository.findByCardId(userCard.getCardId());
 
-
             CardBenefitDetailEntity cardBenefitDetail = cardBenefitDetailRepository.findCardBenefitDetailsByCardIdAndCategory(userCard.getCardId(), largeCategory, smallCategory, PageRequest.of(0, 1))
                 .stream()
                 .findFirst().orElse(null);
@@ -150,7 +149,6 @@ public class PayServiceImpl implements PayService {
                                 discountLargeStatic.getDiscountLargeStaticId(), smallCategoryId)
                             .orElse(null);
                     }
-
 
                     if (cardBenefitDetail.getDiscountCostType().equals("원")) {
                         card.setDiscountAmount((int) cardBenefitDetail.getDiscountCost());
@@ -215,6 +213,8 @@ public class PayServiceImpl implements PayService {
 
     @Override
     public void approvePay(String userId, AprrovePayRequest aprrovePayRequest) {
+        long startTime = System.currentTimeMillis();
+
         MyDataToken myDataToken = mydataTokenRepository.findById(userId)
             .orElseThrow(() -> new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR));
 
@@ -248,6 +248,14 @@ public class PayServiceImpl implements PayService {
         String year = String.valueOf(payHistory.getApprovedDateTime().getYear());
         String month = String.format("%02d", payHistory.getApprovedDateTime().getMonthValue());
 
+//        saveStatics(userCard, payInfo, year, month);
+//        payUtil.asyncStaticMethod(userCard, payInfo, year, month);
+
+        long endTime = System.currentTimeMillis();
+        log.debug("결제 완료(통계 처리 완료 X), time : " + (endTime - startTime));
+    }
+
+    public void saveStatics(UserCardEntity userCard, PayInfo payInfo, String year, String month){
         ConsumptionStaticEntity consumptionStaticEntity = consumptionStaticRepository.findByUserCardIdAndYearAndMonth(
                 userCard.getUserCardId(), year, month)
             .orElse(new ConsumptionStaticEntity(userCard.getUserCardId(), year, month));

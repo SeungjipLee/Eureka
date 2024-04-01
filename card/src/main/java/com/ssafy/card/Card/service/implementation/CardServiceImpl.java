@@ -47,7 +47,6 @@ public class CardServiceImpl implements CardService {
 
         List<UserCardResponse> list = new ArrayList<>();
         for (int i=0; i<userCardEntityList.size(); i++){
-
             UserCardEntity userCardEntity = userCardEntityList.get(i);
             int cardId = userCardEntity.getCardId();
             String cardIdentifier = userCardEntity.getCardIdentifier();
@@ -99,3 +98,4 @@ public class CardServiceImpl implements CardService {
         return new ApprovePayResponse(cardHistory);
     }
 }
+
