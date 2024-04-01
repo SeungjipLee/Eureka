@@ -131,16 +131,26 @@ public class PayServiceImpl implements PayService {
                     int largeCategoryId = requestPayRequest.getLargeCategoryId();
                     int smallCategoryId = requestPayRequest.getSmallCategoryId();
 
-                    DiscountStaticEntity discountStatic = discountStaticRepository.findByUserCardIdAndYearAndMonth(
+
+                    DiscountStaticEntity discountStatic = null;
+                    DiscountLargeStaticEntity discountLargeStatic = null;
+                    DiscountSmallStaticEntity discountSmallStatic = null;
+
+                    discountStatic = discountStaticRepository.findByUserCardIdAndYearAndMonth(
                             userCard.getUserCardId(), yearStr, monthStr)
                         .orElse(null);
 
-                    DiscountLargeStaticEntity discountLargeStatic = discountLargeStaticRepository.findByDiscountStaticIdAndLargeCategoryId(
-                        discountStatic.getDiscountStaticId(), largeCategoryId).orElse(null);
+                    if(discountStatic != null){
+                        discountLargeStatic = discountLargeStaticRepository.findByDiscountStaticIdAndLargeCategoryId(
+                            discountStatic.getDiscountStaticId(), largeCategoryId).orElse(null);
+                    }
 
-                    DiscountSmallStaticEntity discountSmallStatic = discountSmallStaticRepository.findByDiscountLargeStaticIdAndSmallCategoryId(
-                            discountLargeStatic.getDiscountLargeStaticId(), smallCategoryId)
-                        .orElse(null);
+                    if(discountLargeStatic != null){
+                        discountSmallStatic = discountSmallStaticRepository.findByDiscountLargeStaticIdAndSmallCategoryId(
+                                discountLargeStatic.getDiscountLargeStaticId(), smallCategoryId)
+                            .orElse(null);
+                    }
+
 
                     if (cardBenefitDetail.getDiscountCostType().equals("원")) {
                         card.setDiscountAmount((int) cardBenefitDetail.getDiscountCost());
@@ -169,11 +179,11 @@ public class PayServiceImpl implements PayService {
                                     card.setDiscountAmount(0);
                                 }
                             } else {
-                                if (discountSmallStatic.getDiscountCount()
+                                if (discountSmallStatic != null && discountSmallStatic.getDiscountCount()
                                     >= cardBenefitDetail.getMonthlyLimitCount()) {
                                     card.setDiscountAmount(0);
                                 }
-                                if (discountSmallStatic.getDiscount()
+                                if (discountSmallStatic != null && discountSmallStatic.getDiscount()
                                     > cardBenefitDetail.getDiscountLimit()) {
                                     card.setDiscountAmount(0);
                                 }
@@ -188,6 +198,7 @@ public class PayServiceImpl implements PayService {
                 }
             }else{
                 card.setDiscountAmount(0);
+                cardToDiscount.put(card.getUserCardId(), 0);
             }
 
             list.add(card);

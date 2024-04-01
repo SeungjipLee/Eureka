@@ -94,7 +94,7 @@ public class CardServiceImpl implements CardService {
         }
 
         CardHistoryEntity cardHistory = CardHistoryEntity.regist(userCard.getUserCardId(), approvePayRequest);
-        cardHistoryRepository.save(cardHistory);
+            cardHistoryRepository.save(cardHistory);
 
         return new ApprovePayResponse(cardHistory);
     }
