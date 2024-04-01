@@ -185,6 +185,9 @@ public class PayServiceImpl implements PayService {
             }
 
             cardToDiscount.put(card.getUserCardId(), card.getDiscountAmount());
+            if(card.getDiscountCostType().equals("L")){
+                card.setDiscountCostType("원/L");
+            }
             list.add(card);
         }
 
