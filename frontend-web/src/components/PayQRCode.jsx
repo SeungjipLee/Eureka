@@ -45,11 +45,17 @@ export default function PayQRCode() {
     });
   };
 
-  // 64바이트 랜덤 문자열 생성
   function generateRandomString(byteLength) {
+    const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    let result = '';
     const array = new Uint8Array(byteLength);
     window.crypto.getRandomValues(array);
-    return btoa(String.fromCharCode(...array));
+  
+    array.forEach((byte) => {
+      result += chars.charAt(byte % chars.length);
+    });
+  
+    return result;
   }
 
   return (
