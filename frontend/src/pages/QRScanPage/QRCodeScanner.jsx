@@ -36,8 +36,8 @@ export default function QRcodeScanner() {
       storeName: barcodeData.orderName, 
       orderId: barcodeData.orderId,
       orderName: barcodeData.orderName,
-      largeCategoryId: 1, 
-      smallCategoryId: 1, 
+      largeCategoryId: barcodeData.largeCategoryId,
+      smallCategoryId: barcodeData.smallCategoryId, 
       totalAmount: parseInt(barcodeData.totalAmount, 10),
       vat: barcodeData.vat,
       totalInstallCnt: 0, 
@@ -54,7 +54,10 @@ export default function QRcodeScanner() {
         navigation.navigate('PayLoadingPage', {cardList: res.data.cardList, totalAmount: requestBody.totalAmount, orderId:requestBody.orderId});
       },
       (err) => {
+        console.log(requestBody)
         console.log(err)
+        alert('오류 발생! 다시 진행해주세요.')
+        navigation.navigate('Home')
       }
     );
 };
