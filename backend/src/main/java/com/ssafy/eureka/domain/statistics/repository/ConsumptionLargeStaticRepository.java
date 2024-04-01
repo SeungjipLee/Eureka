@@ -14,8 +14,6 @@ import java.util.List;
 public interface ConsumptionLargeStaticRepository extends JpaRepository<ConsumptionLargeStaticEntity, Integer> {
 
     ConsumptionLargeStaticEntity findByConsumptionStaticId(int consumptionStaticId);
-<<<<<<< HEAD
-    ConsumptionLargeStaticEntity findByConsumptionStaticIdAndLargeCategoryId(int consumptionStaticId, int largeCategoryId);
 
     @Query("SELECT c FROM ConsumptionLargeStaticEntity c WHERE c.consumptionStaticId = :consumptionStaticId ORDER BY c.consumptionAmount DESC limit 1")
     ConsumptionLargeStaticEntity findTop1ByConsumptionStaticIdOrderByConsumptionAmountDesc(@Param("consumptionStaticId") int consumptionStaticId);
@@ -23,17 +21,6 @@ public interface ConsumptionLargeStaticRepository extends JpaRepository<Consumpt
     @Query("SELECT c FROM ConsumptionLargeStaticEntity c WHERE c.consumptionStaticId = :consumptionStaticId ORDER BY c.consumptionAmount DESC limit 3")
     List<ConsumptionLargeStaticEntity> findTop3ByConsumptionStaticIdOrderByConsumptionAmountDesc(@Param("consumptionStaticId") int consumptionStaticId);
 
-=======
-    ConsumptionLargeStaticEntity findTopByOrderByConsumptionAmountDesc();
->>>>>>> 385c8fb693917301cfa1edf807359befe6594308
-    @Query("SELECT new com.ssafy.eureka.domain.statistics.dto.ConsumptionStatistics(lc.largeCategoryId, lc.categoryName, SUM(cls.consumptionAmount)) " +
-            "FROM ConsumptionLargeStaticEntity cls " +
-            "JOIN ConsumptionStaticEntity cs ON cls.consumptionStaticId = cs.consumptionStaticId " +
-            "JOIN UserCardEntity uc ON cs.userCardId = uc.userCardId " +
-            "JOIN LargeCategoryEntity lc ON cls.largeCategoryId = lc.largeCategoryId " +
-            "WHERE uc.userId = :userId AND cs.year = :year AND cs.month = :month " +
-            "GROUP BY lc.largeCategoryId, lc.categoryName " +
-            "ORDER BY SUM(cls.consumptionAmount) DESC")
     List<ConsumptionStatistics> findConsumptionStatisticsByUserIdAndDate(@Param("userId") int userId, @Param("year") String year, @Param("month") String month);
 
     @Query("SELECT new com.ssafy.eureka.domain.statistics.dto.ConsumptionStatistics(lc.largeCategoryId, lc.categoryName, cls.consumptionAmount) " +
