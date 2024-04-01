@@ -17,5 +17,4 @@ public interface CardService {
     List<CardProdListResponse> cardProdCategoryList(int categoryId);
     CardProdDetailResponse cardProdDetail(int cardId);
 
-    CardEntity cardProdRecommend();
 }

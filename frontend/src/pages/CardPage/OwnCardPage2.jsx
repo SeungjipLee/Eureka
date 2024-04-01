@@ -49,6 +49,7 @@ function OwnCardPage2 () {
         <FlatList
           style={styles.listStyle}
           data={cardList}
+          showsVerticalScrollIndicator={false}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
             <View style={styles.cardContainer}>

@@ -7,6 +7,9 @@ function Compare() {
   const navigation = useNavigation();
 
   const compareData = {
+    age: 2,
+    anotherAmt: 1040000,
+    myAmt: 610000,
     data: [
       {
         title: "통신",
@@ -39,6 +42,10 @@ function Compare() {
     ]
   };
 
+  const maxAmount = Math.max(compareData.anotherAmt, compareData.myAmt)
+  const peerBarHeight = (compareData.anotherAmt / maxAmount) * 160
+  const myBarHeight = (compareData.myAmt / maxAmount) * 160
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.backcontainer}>
@@ -61,13 +68,13 @@ function Compare() {
       <View style={{marginVertical: 20, alignSelf: 'center', flexDirection: 'row', backgroundColor: '#ffffff', width: '90%', paddingHorizontal: 80, borderRadius: 20, elevation: 5}}>
         <View style={{margin: 10, alignItems: 'center'}}>
           <Text style={{marginVertical: 10}}>104만원</Text>
-          <View style={{width: 80, height: 160, backgroundColor: '#D9D9D9', borderRadius: 20}} />
+          <View style={{ width: 80, height: peerBarHeight, backgroundColor: '#D9D9D9', borderRadius: 20 }} />
           <Text style={{marginVertical: 10, fontWeight: 'bold'}}>또래 평균</Text>
         </View>
         <View style={{margin: 10, alignItems: 'center'}}>
           <Text style={{marginVertical: 10}}>43만원</Text>
           <View style={{width: 80, height: 160}}>
-            <View style={{width: 80, height: 60, backgroundColor: '#729EFF', marginTop: 100, borderRadius: 20}}/>
+            <View style={{ width: 80, height: myBarHeight, backgroundColor: '#729EFF', marginTop: 160 - myBarHeight, borderRadius: 20 }}/>
           </View>
           <Text style={{marginVertical: 10, fontWeight: 'bold'}}>나의 소비</Text>
         </View>

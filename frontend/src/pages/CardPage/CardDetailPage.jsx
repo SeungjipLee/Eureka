@@ -141,7 +141,7 @@ function CardDetailPage({route}) {
         <Text>다음 실적까지 남은 금액</Text>
         {remaining > 0 ? (
           <Text>
-            <Text style={styles.remainingAmount}>{remaining.toLocaleString()}</Text>원
+            <Text style={styles.remainingAmount}>{remaining}</Text>원
           </Text>
         ) : (
           <Text style={styles.achievementText}>실적을 달성하였습니다!</Text>

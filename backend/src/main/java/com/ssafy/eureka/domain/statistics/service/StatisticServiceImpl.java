@@ -126,7 +126,8 @@ public class StatisticServiceImpl implements StatisticService {
         String year = parser.getYear();
         String month = parser.getMonth();
 
-        Optional<ConsumptionStaticEntity> consumptionStaticEntity = consumptionStaticRepository.findByUserCardId(userCardId);
+        Optional<ConsumptionStaticEntity> consumptionStaticEntity =
+                consumptionStaticRepository.findByUserCardIdAndYearAndMonth(userCardId, year, month);
         BigInteger totalConsumption = consumptionStaticEntity
                 .map(ConsumptionStaticEntity::getTotalConsumption).orElse(BigInteger.ZERO);
 
@@ -147,7 +148,8 @@ public class StatisticServiceImpl implements StatisticService {
         String year = parser.getYear();
         String month = parser.getMonth();
 
-        Optional<DiscountStaticEntity> discountStaticEntity = discountStaticRepository.findByUserCardId(userCardId);
+        Optional<DiscountStaticEntity> discountStaticEntity =
+                discountStaticRepository.findByUserCardIdAndYearAndMonth(userCardId, year, month);
         Long totalDiscount = Long.valueOf(discountStaticEntity
                 .map(DiscountStaticEntity::getTotalDiscount).orElse(0));
 

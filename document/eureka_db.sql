@@ -137,7 +137,7 @@ drop table if exists pay_history;
 create table if not exists pay_history
 (
     pay_history_id          int             auto_increment      primary key                 COMMENT '카드 결제 내역 관리번호',
-    order_id                char(64)        not null            unique                      COMMENT '주문 번호',
+    order_id                char(64)        not null                                        COMMENT '주문 번호',
     user_id                 int             not null                                        COMMENT '유저 관리번호',
     user_card_id            int             not null                                        COMMENT '유저 카드 관리번호',
     recommendCardId         int             not null                                        COMMENT '추천 카드 관리번호',
