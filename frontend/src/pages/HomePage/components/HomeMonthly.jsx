@@ -45,9 +45,14 @@ function HomeMonthly () {
   
   return (
     <View style={styles.container}>
-      <View>
-        <Text style={styles.subtitle}>이번달 할인 & 소비</Text>
-        {warning && <Text style={{color: 'red', marginStart: 12}}>현재 등록된 카드가 없습니다.</Text>}
+      <View style={{flexDirection:'row', alignItems:'center'}}>
+        <View>
+          <Text style={styles.subtitle}>이번달 할인 & 소비</Text>
+          {warning && <Text style={{color: 'red', marginStart: 12}}>현재 등록된 카드가 없습니다.</Text>}
+        </View>
+        <Pressable onPress={() => navigation.navigate('StatisticsPage')}>
+          <MaterialCommunityIcons name="chevron-right" size={26} style={styles.nextBtn}/>
+        </Pressable>
       </View>
         <View style={styles.midcontainer}>
           <Image style={styles.image} source={require('../../../../assets/HomeIcon/Discount.png')}/>
@@ -55,10 +60,7 @@ function HomeMonthly () {
             <Text style={styles.font}>총 할인 예상 금액</Text>
             <Text style={styles.price}>{discount}원</Text>
           </View>
-          <Pressable onPress={() => navigation.navigate('StatisticsPage')}>
-            <MaterialCommunityIcons 
-              name="chevron-right" size={26} style={styles.nextBtn}/>
-          </Pressable>
+          <View></View>
         </View>
         <View style={styles.midcontainer}>
           <Image style={styles.image} source={require('../../../../assets/HomeIcon/CoinWallet.png')}/>
@@ -66,9 +68,8 @@ function HomeMonthly () {
             <Text style={styles.font}>총 결제 예상 금액</Text>
             <Text style={styles.price}>{payAmount}원</Text>
           </View>
-          <Pressable onPress={() => navigation.navigate('StatisticsPage')}>
-            <MaterialCommunityIcons name="chevron-right" size={26} style={styles.nextBtn}/>
-          </Pressable>
+          <View></View>
+          
         </View>
     </View>
   )
@@ -99,13 +100,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     height: 80,
     alignItems: 'center',
-    padding: 12,
+    padding: 20,
     marginTop: 12,
   },
   image: {
     width: 50,
     height: 50,
-    marginLeft: 10
+    marginLeft: 20,
+    marginEnd: 20,
   },
   font : {
     fontSize: 16,
@@ -117,6 +119,7 @@ const styles = StyleSheet.create({
     alignSelf:'flex-end'
   },
   nextBtn: {
-    start: 'end',
+    marginTop: 15,
+    marginLeft: 10
   }
 })

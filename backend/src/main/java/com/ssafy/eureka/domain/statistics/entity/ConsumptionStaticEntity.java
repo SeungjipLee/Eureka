@@ -43,6 +43,14 @@ public class ConsumptionStaticEntity {
         this.totalConsumption = BigInteger.valueOf(0);
     }
 
+    public ConsumptionStaticEntity (int userCardId, String yyyy, String mm, BigInteger value){
+        this.userCardId = userCardId;
+        this.year = yyyy;
+        this.month = mm;
+        this.totalConsumption = value;
+    }
+
+
     public void addPay(int amount){
         this.totalConsumption.add(BigInteger.valueOf(amount));
     }

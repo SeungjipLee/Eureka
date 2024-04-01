@@ -59,7 +59,7 @@ function PayCardEnrollPage() {
       (res) => console.log(res),
       (err) => console.log(err)
     )
-    navigation.navigate('CardHome')
+    navigation.navigate('결제 카드')
   }
 
 

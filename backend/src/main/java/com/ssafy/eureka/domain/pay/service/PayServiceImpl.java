@@ -134,34 +134,39 @@ public class PayServiceImpl implements PayService {
                         discountLargeStatic.getDiscountLargeStaticId(), smallCategoryId)
                     .orElse(null);
 
-                if(cardBenefitDetail.getDiscountCostType().equals("원")){
+                if (cardBenefitDetail.getDiscountCostType().equals("원")) {
                     card.setDiscountAmount((int) cardBenefitDetail.getDiscountCost());
-                }else if (cardBenefitDetail.getDiscountCostType().equals("%")){
-                    card.setDiscountAmount((int) (requestPayRequest.getTotalAmount() * (cardBenefitDetail.getDiscountCost() / 100)));
-                }else if(cardBenefitDetail.getDiscountCostType().equals("포인트")) {
+                } else if (cardBenefitDetail.getDiscountCostType().equals("%")) {
+                    card.setDiscountAmount((int) (requestPayRequest.getTotalAmount() * (
+                        cardBenefitDetail.getDiscountCost() / 100)));
+                } else if (cardBenefitDetail.getDiscountCostType().equals("포인트")) {
                     card.setDiscountAmount((int) cardBenefitDetail.getDiscountCost());
                 }
 
-                if(card.getDiscountAmount() > requestPayRequest.getTotalAmount()){
+                if (card.getDiscountAmount() > requestPayRequest.getTotalAmount()) {
                     card.setDiscountAmount(requestPayRequest.getTotalAmount());
                 }
 
-                if(cardBenefitDetail.getPayMin() > requestPayRequest.getTotalAmount()){
+                if (cardBenefitDetail.getPayMin() > requestPayRequest.getTotalAmount()) {
                     card.setDiscountAmount(0);
-                }else{
-                    if(discountStatic != null || discountLargeStatic != null){
-                        if(cardBenefitDetail.getSmallCategoryId() == null){
-                            if(discountLargeStatic.getDiscountCount() >= cardBenefitDetail.getMonthlyLimitCount()){
+                } else {
+                    if (discountStatic != null || discountLargeStatic != null) {
+                        if (cardBenefitDetail.getSmallCategoryId() == null) {
+                            if (discountLargeStatic.getDiscountCount()
+                                >= cardBenefitDetail.getMonthlyLimitCount()) {
                                 card.setDiscountAmount(0);
                             }
-                            if(discountLargeStatic.getDiscountAmount() > cardBenefitDetail.getDiscountLimit()){
+                            if (discountLargeStatic.getDiscountAmount()
+                                > cardBenefitDetail.getDiscountLimit()) {
                                 card.setDiscountAmount(0);
                             }
-                        }else{
-                            if(discountSmallStatic.getDiscountCount() >= cardBenefitDetail.getMonthlyLimitCount()){
+                        } else {
+                            if (discountSmallStatic.getDiscountCount()
+                                >= cardBenefitDetail.getMonthlyLimitCount()) {
                                 card.setDiscountAmount(0);
                             }
-                            if(discountSmallStatic.getDiscount() > cardBenefitDetail.getDiscountLimit()){
+                            if (discountSmallStatic.getDiscount()
+                                > cardBenefitDetail.getDiscountLimit()) {
                                 card.setDiscountAmount(0);
                             }
                         }
@@ -296,13 +301,12 @@ public class PayServiceImpl implements PayService {
 
             MyDataCardHistoryResponse myDataCardPayList = (MyDataCardHistoryResponse) response.getData();
             log.debug("myDataCardPayList" + myDataCardPayList);
-            System.out.println("myDataCardPayList" + myDataCardPayList.getMyDataCardHistoryList());
+//            System.out.println("myDataCardPayList" + myDataCardPayList.getMyDataCardHistoryList());
 
             for (int j = 0; j < myDataCardPayList.getMyDataCardHistoryList().size(); j++) {
-
                 String approvedNum = myDataCardPayList.getMyDataCardHistoryList().get(j)
                     .getApprovedNum();
-                System.out.println("approvedNum " + approvedNum);
+//                System.out.println("approvedNum " + approvedNum);
 
                 // 카드사 결제내역에 있는 승인번호와 페이내역에 있는 승인번호가 일치하는 결제 내역만 조회
 //            List<PayHistoryEntity> payHistoryEntityList =
@@ -316,7 +320,7 @@ public class PayServiceImpl implements PayService {
                     continue; // 카드 결제 내역엔 있지만 페이 내역엔 없다면
                 }
 
-                System.out.println("payHistoryEntity " + payHistoryEntity);
+//                System.out.println("payHistoryEntity " + payHistoryEntity);
 
                 int largeCategoryId = payHistoryEntity.getLargeCategoryId();
                 int smallCategoryId = payHistoryEntity.getSmallCategoryId();

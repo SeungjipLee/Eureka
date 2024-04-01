@@ -9,9 +9,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class DiscountStatistics {
-    private int categoryId;
-    private String categoryName;
-    private Long discount;
-
+public class BestCardStatistics {
+    private int userCardId;
+    private String cardName;
+    private String imagePath;
+    private int imageAttribute;
+    private int totalDiscount;
 }

@@ -46,7 +46,6 @@ const SignupPage = () => {
       axios.post('https://j10e101.p.ssafy.io/api/user/send', userInfo)
         .then(response => {
           // 성공적으로 응답을 받았을 때
-          console.log(response.data)
           Alert.alert('인증번호가 전송되었습니다.', '인증번호를 입력해주세요.');
           setShowAuthInput(true); // 인증번호 입력란을 표시
           setTimeout(() => authNumInputRef.current.focus(), 100);
@@ -113,8 +112,6 @@ const SignupPage = () => {
               index: 0, // 새 스택의 시작 인덱스를 0으로 설정합니다.
               routes: [{ name: 'Routers' }], // 이동할 라우트의 배열을 설정합니다.
             });
-            console.log(accessToken)
-            console.log(response.data)
           } else {
             // response.data가 비어있거나 예상한 값이 없는 경우, 인증 성공 처리
             Alert.alert('인증 성공', '인증이 완료되었습니다.', [

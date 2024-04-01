@@ -11,4 +11,6 @@ public interface ConsumptionSmallStaticRepository extends JpaRepository<Consumpt
     ConsumptionSmallStaticEntity findByConsumptionLargeStaticId(int consumptionLargeStaticId);
 
     Optional<ConsumptionSmallStaticEntity> findByConsumptionLargeStaticIdAndSmallCategoryId(int consumptionLargeStaticId, Integer smallCategoryId);
+    ConsumptionSmallStaticEntity findByConsumptionLargeStaticIdAndSmallCategoryId(int consumptionLargeStaticId, int smallCategoryId);
+
 }
