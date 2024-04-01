@@ -14,8 +14,6 @@ import java.util.Optional;
 @Repository
 public interface ConsumptionStaticRepository extends JpaRepository<ConsumptionStaticEntity, Integer> {
 
-    Optional<ConsumptionStaticEntity> findByUserCardId(int userCardId);
-
     @Query("SELECT cs " +
             "from ConsumptionStaticEntity cs " +
             "WHERE cs.userCardId = :userCardId " +

@@ -14,7 +14,6 @@ import java.util.Optional;
 @Repository
 public interface DiscountStaticRepository extends JpaRepository<DiscountStaticEntity, Integer> {
 
-    Optional<DiscountStaticEntity> findByUserCardId(int userCardId);
     @Query("SELECT COALESCE(SUM(ds.totalDiscount), 0) " +
             "FROM DiscountStaticEntity ds " +
             "JOIN UserCardEntity uc ON ds.userCardId = uc.userCardId " +
