@@ -64,7 +64,7 @@ function Routers() {
           tabPress: e => {
             e.preventDefault();
             navigation.navigate('QRScanRouters', {
-              screen: 'QRScanPage',
+              screen: 'QRScanner',
             });
           },
         })}

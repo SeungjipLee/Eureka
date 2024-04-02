@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Text, View, StyleSheet, Pressable, Image } from "react-native";
 import { Camera } from 'expo-camera'
 import { MaterialIcons } from '@expo/vector-icons';
@@ -13,6 +13,7 @@ export default function QRcodeScanner() {
   const cameraRef = useRef(null);
   const [token, setToken] = useState('')
   const [cardList, setCardList] = useState([])
+  const [cameraKey, setCameraKey] = useState(0)
 
   useEffect(() => {
     (async () => {
@@ -23,9 +24,12 @@ export default function QRcodeScanner() {
     })();
   }, []);
 
-  useFocusEffect(() => {
-    setScanned(false);
-  });
+  useFocusEffect(
+    useCallback(() => {
+      setScanned(false);
+      setCameraKey(prevKey => prevKey + 1); // 카메라 컴포넌트를 리셋하기 위해 key를 업데이트합니다.
+    }, [])
+  );
 
   const handleBarCodeScanned = ({ type, data }) => {
     setScanned(true);
@@ -86,6 +90,7 @@ export default function QRcodeScanner() {
   return (
     <View style={styles.container}>
       <Camera
+        key={cameraKey} // 이 key를 사용하여 Camera 컴포넌트를 리셋합니다.
         ref={cameraRef}
         style={styles.camera}
         type={Camera.Constants.Type.back}
@@ -145,7 +150,7 @@ const styles = StyleSheet.create({
   cameraButton1: {
     position: 'absolute',
     top: 50,
-    left: 140,
+    left: 30,
     alignSelf: 'center',
   },
   cameraButton2: {
