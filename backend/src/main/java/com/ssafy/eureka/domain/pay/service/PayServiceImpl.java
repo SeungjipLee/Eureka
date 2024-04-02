@@ -119,10 +119,9 @@ public class PayServiceImpl implements PayService {
                     .findFirst().orElse(null));
 
             if(cardBenefitDetail == null){
-                CardBenefitDetailEntity tmp = cardBenefitDetailRepository.findTopByCardIdAndLargeCategoryId(userCard.getCardId(), PageRequest.of(0, 1))
-                    .orElse(null);
-                if(tmp != null){
-                    cardBenefitDetail = tmp;
+                List<CardBenefitDetailEntity> results = cardBenefitDetailRepository.findTopByCardIdAndLargeCategoryId(userCard.getCardId(), PageRequest.of(0, 1));
+                if(!results.isEmpty()){
+                    cardBenefitDetail = results.get(0);
                 }
             }
 
@@ -190,6 +189,12 @@ public class PayServiceImpl implements PayService {
             } else {
                 card.setDiscountAmount(0);
             }
+
+            if(cardBenefitDetail != null){
+                System.out.println(cardBenefitDetail.getDiscountCost() + " / " + cardBenefitDetail.getDiscountCostType() + " / ");
+            }
+
+            System.out.println(card.getCardName() + " : " + card.getDiscountAmount());
 
             cardToDiscount.put(card.getUserCardId(), card.getDiscountAmount());
             list.add(card);
