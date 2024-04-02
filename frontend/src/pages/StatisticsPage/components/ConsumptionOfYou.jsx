@@ -74,6 +74,7 @@ function ConsumptionOfYou() {
   const [token, setToken] = useState("");
   const [totalConsumption, setTotalConsumption] = useState("");
   const [categories, setCategories] = useState([]);
+  const [LastCategory, setLastCategory] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -132,7 +133,11 @@ function ConsumptionOfYou() {
     return topCategories;
   };
 
-  const LastCategory = processCategories(categories);
+  useEffect(() => {
+    if (categories.length > 0) {
+      setLastCategory(processCategories(categories));
+    }
+  }, [categories, token]);
 
   return (
     <View style={styles.container}>

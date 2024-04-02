@@ -37,36 +37,32 @@ function BenefitCategoryList() {
 
   return (
     <View style={styles.container}>
-      {categories.slice(0, -1).map(
-        (
-          category // 마지막 totalBenefit 항목 제외
-        ) => (
-          <View key={category.categoryId} style={styles.categoryContainer}>
-            <Image
-              source={
-                categoryImages[category.categoryName] ||
-                require("../../../../../assets/CategoryIcon/26.png")
-              }
-              style={styles.image}
-            />
-            <View style={styles.contentContainer}>
-              <View style={styles.itemContainer}>
-                <Text style={styles.categoryName}>{category.categoryName}</Text>
-              </View>
-              <View style={styles.itemContainer}>
-                <Text style={styles.categoryPercent}>
-                  {((category.discount / totalBenefit) * 100).toFixed(2)}%
-                </Text>
-              </View>
-              <View style={styles.itemContainer}>
-                <Text style={styles.categoryBenefit}>
-                  {category.discount.toLocaleString()}원
-                </Text>
-              </View>
+      {categories.slice(0, -1).map((category) => (
+        <View key={category.categoryId} style={styles.categoryContainer}>
+          <Image
+            source={
+              categoryImages[category.categoryName] ||
+              require("../../../../../assets/CategoryIcon/26.png")
+            }
+            style={styles.image}
+          />
+          <View style={styles.contentContainer}>
+            <View style={styles.itemContainer}>
+              <Text style={styles.categoryName}>{category.categoryName}</Text>
+            </View>
+            <View style={styles.itemContainer}>
+              <Text style={styles.categoryPercent}>
+                {((category.discount / totalBenefit) * 100).toFixed(2)}%
+              </Text>
+            </View>
+            <View style={styles.itemContainer}>
+              <Text style={styles.categoryBenefit}>
+                {category.discount.toLocaleString()}원
+              </Text>
             </View>
           </View>
-        )
-      )}
+        </View>
+      ))}
     </View>
   );
 }
