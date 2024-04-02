@@ -235,6 +235,15 @@ public class UserCardServiceImpl implements UserCardService {
     @Override
     public CardInfoResponse userCardInfo(int userCardId) {
 
+        LocalDate currentDate = LocalDate.now();
+
+        // 현재 연도와 월 가져오기
+        int currentYear = currentDate.getYear();
+        int currentMonth = currentDate.getMonthValue(); // 작년..
+
+        String year = String.format("%d", currentYear);
+        String month = String.format("%02d", currentMonth);
+
         UserCardEntity userCardEntity = userCardRepository.findByUserCardId(userCardId)
             .orElseThrow(() -> new CustomException(ResponseCode.USER_CARD_NOT_FOUND));
 
@@ -395,7 +404,6 @@ public class UserCardServiceImpl implements UserCardService {
                 findTopByLargeCategoryIdOrderByDiscountCostDesc(largeCategoryId);
 
         int benefitId = cardBenefitDetailEntity.getCardBenefitId();
-        double discountCost = cardBenefitDetailEntity.getDiscountCost();
 
         String yyyymm = year + month;
 
@@ -411,13 +419,20 @@ public class UserCardServiceImpl implements UserCardService {
 
         double totalAmt = 0;
         double afterDiscount = 0;
+        String discountCostType = cardBenefitDetailEntity.getDiscountCostType();
         for(int i=0; i<myDataCardPayList.getMyDataCardHistoryList().size(); i++){
             totalAmt += myDataCardPayList.getMyDataCardHistoryList().get(i).getApprovedAmt();
-            afterDiscount += myDataCardPayList.getMyDataCardHistoryList().get(i).getApprovedAmt()
-                    - cardBenefitDetailEntity.getDiscountCost();
+
+            if(discountCostType.equals("원")){
+                afterDiscount += myDataCardPayList.getMyDataCardHistoryList().get(i).getApprovedAmt()
+                        - cardBenefitDetailEntity.getDiscountCost();
+            }
+            else if(discountCostType.equals("%"))
+                afterDiscount += myDataCardPayList.getMyDataCardHistoryList().get(i).getApprovedAmt() -
+                        (myDataCardPayList.getMyDataCardHistoryList().get(i).getApprovedAmt()
+                    * (cardBenefitDetailEntity.getDiscountCost())/100);
         }
 
-//        int getBenefitCost = Integer.parseInt() totalAmt - afterDiscount;
         // 거래 내역 E
 
         CardBenefitEntity cardBenefitEntity = cardBenefitRepository.findFirstByCardBenefitId(benefitId);

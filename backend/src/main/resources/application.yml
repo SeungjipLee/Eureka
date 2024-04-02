@@ -6,3 +6,9 @@ server:
 spring:
   profiles:
     active: prod
+
+coolsms:
+  url : https://api.coolsms.co.kr
+  api-key: NCS4JRJYDE5VQXFF
+  api-secret: NIZTMQIUULKHTBSD9XCSZ027QFAJMRS8
+  sender-phone: 01093701938
