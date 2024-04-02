@@ -6,7 +6,7 @@ import TokenService from '../../../stores/TokenUtils';
 import axios from 'axios';
 
 const SignupPasswordChangeConfirm = ({ navigation, route }) => {
-  const { password: postpassword } = route.params;
+  const { password: postpassword, verificationInfo } = route.params;
   const initialRefs = Array(6).fill().map(() => createRef());
   const [inputValues, setInputValues] = useState(Array(6).fill(''));
   const [activeInputIndex, setActiveInputIndex] = useState(0);
@@ -22,7 +22,7 @@ const SignupPasswordChangeConfirm = ({ navigation, route }) => {
   // 비밀번호 일치 확인 및 변경 요청 함수
   const updatePassword = async (newPassword) => {
     try {
-      const accessToken = await TokenService.getAccessToken(); // 토큰 가져오기
+      const { accessToken, refreshToken, userData } = verificationInfo;
 
       const response = await axios.put('https://j10e101.p.ssafy.io/api/auth/user', { password: newPassword }, { // newPassword를 객체 형태로 전달 수정
         headers: {
@@ -31,6 +31,8 @@ const SignupPasswordChangeConfirm = ({ navigation, route }) => {
       });
 
       if (response.status === 200) {
+        await TokenService.setToken(accessToken, refreshToken);
+        await TokenService.setUserData(userData);
         await TokenService.setPassword(newPassword);
         Alert.alert("성공", "비밀번호가 변경되었습니다.", [{ text: '확인', onPress: () => navigation.navigate('Routers') }]);
       } else {

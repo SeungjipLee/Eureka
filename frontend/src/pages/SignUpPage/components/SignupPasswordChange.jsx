@@ -2,7 +2,8 @@ import React, { useState, createRef, useEffect } from 'react';
 import { StyleSheet, Text, View, Pressable, TextInput, Alert, BackHandler, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const SignupPasswordChange = ({ navigation }) => {
+const SignupPasswordChange = ({ route, navigation }) => {
+  const { verificationInfo } = route.params;
   const initialRefs = Array(6).fill().map(() => createRef());
   const [inputValues, setInputValues] = useState(Array(6).fill(''));
   const [activeInputIndex, setActiveInputIndex] = useState(0);
@@ -50,7 +51,7 @@ const SignupPasswordChange = ({ navigation }) => {
     // 여기에서 비밀번호 변경 로직을 처리하거나, 다음 페이지로 이동
     // 예시로, 비밀번호를 console에 출력하고, passwordChangeConfirm 페이지로 이동
     console.log(password); // 비밀번호 확인을 위한 로깅(실제 앱에서는 제거)
-    navigation.navigate('SignupPasswordChangeConfirm', { password: password });
+    navigation.navigate('SignupPasswordChangeConfirm', { password: password, verificationInfo: verificationInfo });
   };
 
   const handleNumberPadPress = (button, index) => {
@@ -162,7 +163,8 @@ const styles = StyleSheet.create({
   topBar: {
     width: '100%',
     height: '10%',
-    flexDirection: 'row',
+    justifyContent:'center',
+    alignItems:'center',
     paddingTop: '2%'
   },
   // 나머지 상단 바 스타일
