@@ -1,9 +1,16 @@
 import React from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
 import { useSelector } from "react-redux";
+import { createSelector } from 'reselect';
+
+const getCategories = (state) => state.staticList.twovalue || [];
+const getCategoriesMemoized = createSelector(
+  [getCategories],
+  (categories) => categories
+);
 
 function ConsumptionCategoryList() {
-  const categories = useSelector((state) => state.staticList.twovalue || []);
+  const categories = useSelector(getCategoriesMemoized);
   const totalConsumption =
     categories.length > 0
       ? categories[categories.length - 1].totalConsumption

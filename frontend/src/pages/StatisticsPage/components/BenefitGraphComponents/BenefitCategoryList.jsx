@@ -2,8 +2,10 @@ import React from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
 import { useSelector } from "react-redux";
 
+const getCategories = (state) => state.staticList.value || [];
+
 function BenefitCategoryList() {
-  const categories = useSelector((state) => state.staticList.value || []);
+  const categories = useSelector(getCategories);
   const totalBenefit =
     categories.length > 0 ? categories[categories.length - 1].totalDiscount : 0;
 

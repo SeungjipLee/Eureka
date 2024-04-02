@@ -30,7 +30,7 @@ function CardRakingList() {
         currentDate,
         (res) => {
           setTop3CardList(res.data.bestCardStatisticsList);
-          console.log(res.data.bestCardStatisticsList, "asdasd");
+          console.log(res.data.bestCardStatisticsList, "Asdas");
         },
         (err) => {
           console.log(err, "cardRanking err");
@@ -38,6 +38,22 @@ function CardRakingList() {
       );
     }
   }, [token]);
+
+  function getRotationStyle(imageAttribute) {
+    // imageAttribute가 1이면 이미지를 90도 회전시키는 스타일 반환
+    if (imageAttribute === 1) {
+      return {
+        transform: [{ rotate: "90deg" }],
+        width: 95, 
+        height: 155,
+        resizeMode: "contain",
+        marginLeft: 30 
+      };
+    } else {
+      // 그렇지 않으면, 빈 스타일 객체 반환
+      return {};
+    }
+  }
 
   return (
     <View style={styles.container}>
@@ -49,7 +65,10 @@ function CardRakingList() {
           />
           <Image
             source={{ uri: top3CardList[0]?.imagePath }}
-            style={styles.image}
+            style={[
+              styles.image,
+              getRotationStyle(top3CardList[0]?.imageAttribute),
+            ]}
           ></Image>
           <Text style={{ marginTop: 10 }}>{top3CardList[0]?.cardName}</Text>
         </View>
@@ -80,7 +99,10 @@ function CardRakingList() {
           />
           <Image
             source={{ uri: top3CardList[1]?.imagePath }}
-            style={styles.image2}
+            style={[
+              styles.image,
+              getRotationStyle(top3CardList[1]?.imageAttribute),
+            ]}
           ></Image>
           <View style={styles.otherCardInfo}>
             <Text style={styles.otherCardName}>
@@ -99,7 +121,10 @@ function CardRakingList() {
           />
           <Image
             source={{ uri: top3CardList[2]?.imagePath }}
-            style={styles.image2}
+            style={[
+              styles.image,
+              getRotationStyle(top3CardList[2]?.imageAttribute),
+            ]}
           ></Image>
           <View style={styles.otherCardInfo}>
             <Text style={styles.otherCardName}>
