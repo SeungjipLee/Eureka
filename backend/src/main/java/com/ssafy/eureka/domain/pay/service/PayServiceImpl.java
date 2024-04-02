@@ -149,8 +149,11 @@ public class PayServiceImpl implements PayService {
                         card.setCurrentMonthAmount(preConsumptionStatic.getTotalConsumption());
                     }
 
+                    String year = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy"));
+                    String month = LocalDate.now().format(DateTimeFormatter.ofPattern("MM"));
+
                     DiscountStaticEntity discountStatic = discountStaticRepository.findByUserCardIdAndYearAndMonth(
-                        userCard.getUserCardId(), yearStr, monthStr).orElse(null);
+                        userCard.getUserCardId(), year, month).orElse(null);
 
                     DiscountLargeStaticEntity discountLargeStatic = null;
                     DiscountSmallStaticEntity discountSmallStatic = null;

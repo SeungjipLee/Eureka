@@ -57,11 +57,11 @@ public class CardBenefitDetailEntity {
     private int monthlyLimitCount;
 
     public static CardBenefitDetailEntity regist(int cardBenefitId, int largeCategoryId,
-        int smallCategoryId, BenefitDetail detail) {
+        Integer smallCategoryId, BenefitDetail detail) {
         CardBenefitDetailEntity cardBenefitDetail = new CardBenefitDetailEntity();
         cardBenefitDetail.cardBenefitId = cardBenefitId;
         cardBenefitDetail.largeCategoryId = largeCategoryId;
-        if(smallCategoryId != 0){
+        if(smallCategoryId != null){
             cardBenefitDetail.smallCategoryId = smallCategoryId;
         }
         if (detail.getDiscountType().equals("즉시할인")) {

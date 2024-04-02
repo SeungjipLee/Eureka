@@ -63,7 +63,7 @@ public class CardProductDto {
             private String discountType;
 
             @SerializedName("할인 비용")
-            private int discountAmount;
+            private double discountAmount;
 
             @SerializedName("할인 비용타입")
             private String discountAmountType;
