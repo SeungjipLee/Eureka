@@ -8,11 +8,13 @@ import {
   TouchableOpacity,
   Modal,
   TouchableWithoutFeedback,
+  DeviceEventEmitter,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { getMyCardList } from "../../apis/CardAPi";
 import TokenUtils from "../../stores/TokenUtils";
+import SettingService from "../../stores/SettingUtils"
 
 function BankListModal({ visible, onClose, onSelect }) {
   const navigation = useNavigation();
@@ -87,7 +89,7 @@ function BankListModal({ visible, onClose, onSelect }) {
   };
 
   const navigateToVerifyPasswordChange = async () => {
-    const isBiometricsEnabled = await SettingService.getBiometricsEnabled();
+    const isBiometricsEnabled = await SettingService.getBiometricEnabled();
   
     if (isBiometricsEnabled) {
       const biometricAuth = await LocalAuthentication.authenticateAsync({
@@ -192,7 +194,7 @@ function BankListModal({ visible, onClose, onSelect }) {
               <View style={styles.box1}>
                 <Text style={styles.txt1}>닫기</Text>
               </View>
-              <TouchableOpacity onPress={handleSubmit}>
+              <TouchableOpacity onPress={navigateToVerifyPasswordChange}>
                 <View style={styles.box2}>
                   <Text style={styles.txt2}>계속하기</Text>
                 </View>
