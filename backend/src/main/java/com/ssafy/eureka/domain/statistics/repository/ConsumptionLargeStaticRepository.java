@@ -1,9 +1,9 @@
 package com.ssafy.eureka.domain.statistics.repository;
 
+import com.ssafy.eureka.domain.statistics.dto.ConsumptionCompareDto;
 import com.ssafy.eureka.domain.statistics.dto.ConsumptionStatistics;
 import com.ssafy.eureka.domain.statistics.entity.ConsumptionLargeStaticEntity;
 import java.util.Optional;
-import javax.swing.text.html.Option;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -41,4 +41,20 @@ public interface ConsumptionLargeStaticRepository extends JpaRepository<Consumpt
     List<ConsumptionStatistics> findConsumptionStatisticsByUserCardIdAndDate(@Param("userCardId") int userCardId, @Param("year") String year, @Param("month") String month);
 
     Optional<ConsumptionLargeStaticEntity> findByConsumptionStaticIdAndLargeCategoryId(int consumptionStaticId, int largeCategoryId);
+
+    @Query(value = "SELECT new com.ssafy.eureka.domain.statistics.dto.ConsumptionCompareDto(" +
+        "lc.largeCategoryId, lc.categoryName, SUM(cls.consumptionAmount), " +
+        "(SELECT SUM(cus.consumptionAmount) " +
+            "FROM ConsumptionUserStaticEntity cus " +
+            "WHERE cus.ageGroup = :ageGroup AND cus.gender = :gender " +
+            "AND cus.year = :year AND cus.month = :month AND cus.largeCategoryId = lc.largeCategoryId)) " +
+        "FROM ConsumptionLargeStaticEntity cls " +
+        "JOIN ConsumptionStaticEntity cs ON cls.consumptionStaticId = cs.consumptionStaticId " +
+        "JOIN UserCardEntity uc ON cs.userCardId = uc.userCardId " +
+        "JOIN LargeCategoryEntity lc ON cls.largeCategoryId = lc.largeCategoryId " +
+        "WHERE uc.userId = :userId AND cs.year = :year AND cs.month = :month " +
+        "GROUP BY lc.largeCategoryId " +
+        "ORDER BY SUM(cls.consumptionAmount) DESC ")
+    List<ConsumptionCompareDto> findConsumptionComparisonByUserAndPeriod(@Param("userId") int userId, @Param("year") String year, @Param("month") String month, @Param("ageGroup") char ageGroup, @Param("gender") char gender);
+
 }
