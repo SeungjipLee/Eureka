@@ -27,7 +27,6 @@ function CurrentBenefitMore() {
 
   useEffect(() => {
     if (selectCardBenefitInfo) {
-      console.log(selectPaycard, "asdasd");
       setCardBenefitList(selectCardBenefitInfo.discountList),
         setTotalDiscountAmount(selectCardBenefitInfo.totalDiscount);
     }

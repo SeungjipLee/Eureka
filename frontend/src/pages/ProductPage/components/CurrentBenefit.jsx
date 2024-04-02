@@ -25,7 +25,7 @@ function CurrentBenefit() {
     } else {
       setBenefitAmount("");
     }
-  }, [selectCardInfo, token]);
+  }, [selectCardInfo, token, dispatch]);
 
   useEffect(() => {
     const fetchToken = async () => {
@@ -47,7 +47,7 @@ function CurrentBenefit() {
           dispatch(selectPayCardBenefit(res.data));
         },
         (err) => {
-          console.log("CurrentBenefit, 현재결제카드혜택불러오기 실패", err);
+          console.log("CurrentBenefit11, 현재결제카드혜택불러오기 실패", err);
         }
       );
     }
