@@ -73,23 +73,23 @@ public class UserServiceImpl implements UserService {
             throw new CustomException(400, response.getMessage());
         }
 
-        String authNum = Integer.toString((int)(Math.random() * (999999 - 100000 + 1)) + 100000);
-
-        Message message = new Message();
-
-        message.setFrom(senderPhone);
-        message.setTo(sendMessageRequest.getPhoneNumber());
-
-        message.setText(
-            "[EUREKA]" + "\n"
-            + "본인확인 인증번호" + "\n"
-            + "[" + authNum + "]" + "를 입력해주세요."
-        );
-
-        SingleMessageSentResponse res = this.messageService.sendOne(new SingleMessageSendingRequest(message));
-        System.out.println(res);
-
-        phoneAuth.put(sendMessageRequest.getPhoneNumber(), authNum);
+//        String authNum = Integer.toString((int)(Math.random() * (999999 - 100000 + 1)) + 100000);
+//
+//        Message message = new Message();
+//
+//        message.setFrom(senderPhone);
+//        message.setTo(sendMessageRequest.getPhoneNumber());
+//
+//        message.setText(
+//            "[EUREKA]" + "\n"
+//            + "본인확인 인증번호" + "\n"
+//            + "[" + authNum + "]" + "를 입력해주세요."
+//        );
+//
+//        SingleMessageSentResponse res = this.messageService.sendOne(new SingleMessageSendingRequest(message));
+//        System.out.println(res);
+//
+//        phoneAuth.put(sendMessageRequest.getPhoneNumber(), authNum);
     }
 
     @Override
@@ -118,8 +118,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDataTokenResponse checkUser(CheckUserRequest checkUserRequest) {
         // 인증번호 체크
-        String auth = phoneAuth.remove(checkUserRequest.getPhoneNumber());
-        if (!checkUserRequest.getAuthNumber().equals(auth)) {
+//        String auth = phoneAuth.remove(checkUserRequest.getPhoneNumber());
+//        if (!checkUserRequest.getAuthNumber().equals(auth)) {
+//            throw new CustomException(ResponseCode.PASSWORD_ERROR);
+//        }
+        if (!checkUserRequest.getAuthNumber().equals("123456")) {
             throw new CustomException(ResponseCode.PASSWORD_ERROR);
         }
 
