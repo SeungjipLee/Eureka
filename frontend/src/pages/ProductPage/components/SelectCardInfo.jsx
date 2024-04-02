@@ -37,7 +37,6 @@ function SelectCardInfo() {
         cardId,
         (res) => {
           setCardInfo(res.data);
-          console.log(res.data, "SelectCardInfo 성공");
         },
         (err) => {
           console.log("SelectCardInfo, 카드디테일실패", err);
@@ -65,6 +64,8 @@ function SelectCardInfo() {
             navigation.navigate("ByCard");
           } else if (type === 2) {
             navigation.navigate("ByCategory");
+          } else if(type === 3){
+            navigation.navigate("FitYourConsumption")
           }
         }}
         style={{ alignSelf: "flex-start" }}

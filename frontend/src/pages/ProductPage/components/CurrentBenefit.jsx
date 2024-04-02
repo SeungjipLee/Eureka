@@ -25,7 +25,7 @@ function CurrentBenefit() {
     } else {
       setBenefitAmount("");
     }
-  }, [selectCardInfo, token, dispatch]);
+  }, [selectCardInfo, token]);
 
   useEffect(() => {
     const fetchToken = async () => {
@@ -51,7 +51,7 @@ function CurrentBenefit() {
         }
       );
     }
-  }, [token, selectCardInfo, selectCardUserCardId]);
+  }, [token, selectCardInfo]);
 
   return (
     <View>

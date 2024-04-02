@@ -44,11 +44,12 @@ function IfUseRecommendCard() {
         token,
         selectCardUserCardId,
         (res) => {
-          const cardsData = Array.isArray(res.data) ? res.data : [res.data];
+          console.log(res.data.categoryCard.imagePath, "check")
+          const cardsData = Array.isArray(res.data.categoryCard) ? res.data : [res.data.categoryCard];
           setCards(cardsData);
         },
         (err) => {
-          console.log(err, "3개의 추천카드 케러셀 실패");
+          console.log(err, "IfUseRecommendCard err");
         }
       );
     }
@@ -140,7 +141,7 @@ function IfUseRecommendCard() {
               ]}
             >
               <Image
-                source={{ uri: card.cardEntity.imagePath }}
+                source={{ uri: card.imagePath }}
                 style={
                   card.imgAttr === 0
                     ? styles.horizontalImage
@@ -150,7 +151,7 @@ function IfUseRecommendCard() {
               <View style={styles.subTextContainer}>
                 <Text style={styles.subText}>추천카드를 사용하면</Text>
                 <Text style={styles.subText}>3,300원 더 할인받아요!</Text>
-                <Text style={{ marginTop: 5 }}>{card.cardEntity.cardName}</Text>
+                <Text style={{ marginTop: 5 }}>{card.cardName}</Text>
               </View>
             </View>
           ))}
