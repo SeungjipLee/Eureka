@@ -43,23 +43,23 @@ function HomeMonthly() {
 
   return (
     <View style={styles.container}>
-      <View style={{ flexDirection: "row", alignItems: "center" }}>
-        <View>
-          <Text style={styles.subtitle}>이번달 할인 & 소비</Text>
-          {warning && (
-            <Text style={{ color: "red", marginStart: 12 }}>
-              현재 등록된 카드가 없습니다.
-            </Text>
-          )}
+      <Pressable onPress={() => navigation.navigate("StatisticsPage")}>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <View>
+            <Text style={styles.subtitle}>이번달 할인 & 소비</Text>
+            {warning && (
+              <Text style={{ color: "red", marginStart: 12 }}>
+                현재 등록된 카드가 없습니다.
+              </Text>
+            )}
+          </View>
+            <MaterialCommunityIcons
+              name="chevron-right"
+              size={26}
+              style={styles.nextBtn}
+            />
         </View>
-        <Pressable onPress={() => navigation.navigate("StatisticsPage")}>
-          <MaterialCommunityIcons
-            name="chevron-right"
-            size={26}
-            style={styles.nextBtn}
-          />
-        </Pressable>
-      </View>
+      </Pressable>
         <View style={styles.midcontainer}>
           <Image style={styles.image} source={require('../../../../assets/HomeIcon/Discount.png')}/>
           <View>

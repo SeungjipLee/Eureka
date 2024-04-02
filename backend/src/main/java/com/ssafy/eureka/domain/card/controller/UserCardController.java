@@ -108,8 +108,9 @@ public class UserCardController {
     
     @Operation(summary = "추천 카드 상위 카테고리 3개에서 카드 3개 추천")
     @GetMapping("/prod/recommend/top3")
-    public ResponseEntity<?> cardRecommendTop3(@RequestParam int userCardId){
+    public ResponseEntity<?> cardRecommendTop3(@AuthenticationPrincipal UserDetails userDetails,
+                                               @RequestParam int userCardId){
         log.debug("추천 카드 상위 3개 카테고리 : "+ userCardId);
-        return ResponseEntity.ok(userCardService.cardRecommendTop3(userCardId));
+        return ResponseEntity.ok(userCardService.cardRecommendTop3(userDetails.getUsername(), userCardId));
     }
 }
