@@ -2,9 +2,15 @@ package com.ssafy.eureka.domain.statistics.service;
 
 import com.ssafy.eureka.common.exception.CustomException;
 import com.ssafy.eureka.common.response.ResponseCode;
+import com.ssafy.eureka.domain.card.dto.CardBenefitDetailEntity;
+import com.ssafy.eureka.domain.card.dto.CardBenefitEntity;
 import com.ssafy.eureka.domain.card.repository.CardBenefitDetailRepository;
+import com.ssafy.eureka.domain.card.repository.CardBenefitRepository;
 import com.ssafy.eureka.domain.card.repository.UserCardRepository;
 import com.ssafy.eureka.domain.category.dto.LargeCategoryEntity;
+import com.ssafy.eureka.domain.category.dto.SmallCategoryEntity;
+import com.ssafy.eureka.domain.category.repository.LargeCategoryRepository;
+import com.ssafy.eureka.domain.category.repository.SmallCategoryRepository;
 import com.ssafy.eureka.domain.pay.repository.PayHistoryRepository;
 import com.ssafy.eureka.domain.statistics.dto.*;
 import com.ssafy.eureka.domain.statistics.dto.response.BestCardStatisticsResponse;
@@ -20,6 +26,8 @@ import com.ssafy.eureka.domain.user.dto.UserInfoDto;
 import com.ssafy.eureka.domain.user.repository.UserRepository;
 import com.ssafy.eureka.util.DateParserUtil;
 import com.ssafy.eureka.util.UserUtil;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -45,6 +53,9 @@ public class StatisticServiceImpl implements StatisticService {
     private final CardOwnershipStaticRepository cardOwnershipStaticRepository;
     private final CardBenefitDetailRepository cardBenefitDetailRepository;
     private final PayHistoryRepository payHistoryRepository;
+    private final CardBenefitRepository cardBenefitRepository;
+    private final LargeCategoryRepository largeCategoryRepository;
+    private final SmallCategoryRepository smallCategoryRepository;
 
     private void checkUserCardExistsByUserId(String userId) {
         int parsedUserId = Integer.parseInt(userId);
@@ -229,12 +240,12 @@ public class StatisticServiceImpl implements StatisticService {
         List<CardOwnershipDto> cardOwnershipOverviewList =
                 cardOwnershipOverviewRepository.findCardOwnershipOverviews();
 
-        for (CardOwnershipDto ownershipStatic : cardOwnershipOverviewList) {
-            Pageable pageable = PageRequest.of(0, 5);
-            List<LargeCategoryEntity> categoryList =
-                    cardBenefitDetailRepository.findByCardId(ownershipStatic.getCardId(), pageable);
-            ownershipStatic.setCategoryList(categoryList);
-        }
+//        for (CardOwnershipDto ownershipStatic : cardOwnershipOverviewList) {
+//            Pageable pageable = PageRequest.of(0, 5);
+//            List<LargeCategoryEntity> categoryList =
+//                    cardBenefitDetailRepository.findByCardId(ownershipStatic.getCardId(), pageable);
+//            ownershipStatic.setCategoryList(categoryList);
+//        }
 
         CardOwnershipResponse response = new CardOwnershipResponse();
         response.setSearchInfo(new CardOwnershipResponse.SearchInfo(0,2));
@@ -243,8 +254,21 @@ public class StatisticServiceImpl implements StatisticService {
     }
 
     @Override
-    public CardOwnershipResponse cardOwnershipStaticResponse(String userId) {
+    public CardOwnershipResponse cardOwnershipStaticResponse(String userId, int userCardId) {
         checkUserCardExistsByUserId(userId);
+
+        LocalDate lastMonth = LocalDate.now().minusMonths(1);
+
+        String yearStr = lastMonth.format(DateTimeFormatter.ofPattern("yyyy"));
+        String monthStr = lastMonth.format(DateTimeFormatter.ofPattern("MM"));
+
+        DiscountStaticEntity discountStatic = discountStaticRepository.findByUserCardIdAndYearAndMonth(userCardId, yearStr, monthStr)
+            .orElse(null);
+
+        int discount = 0;
+        if(discountStatic != null){
+            discount = discountStatic.getTotalDiscount();
+        }
 
         UserInfoDto userInfo = userRepository.findUserInfoByUserId(Integer.parseInt(userId));
         char ageGroup = UserUtil.calculateAgeGroup(userInfo.getUserBirth(), userInfo.getUserGender());
@@ -253,11 +277,41 @@ public class StatisticServiceImpl implements StatisticService {
                 cardOwnershipStaticRepository.findCardOwnershipStaticByAgeGroup(ageGroup);
 
         for (CardOwnershipDto ownershipStatic : cardOwnershipStaticList) {
-            Pageable pageable = PageRequest.of(0, 5);
-            List<LargeCategoryEntity> categoryList =
-                    cardBenefitDetailRepository.findByCardId(ownershipStatic.getCardId(), pageable);
-            ownershipStatic.setCategoryList(categoryList);
+//            Pageable pageable = PageRequest.of(0, 5);
+//            List<LargeCategoryEntity> categoryList =
+//                    cardBenefitDetailRepository.findByCardId(ownershipStatic.getCardId(), pageable);
+//            ownershipStatic.setCategoryList(categoryList);
+
+            List<Integer> benbefitIdList = cardBenefitRepository.findAllCardBenefitIdsByCardId(ownershipStatic.getCardId());
+
+            if(!benbefitIdList.isEmpty()) {
+                CardBenefitDetailEntity benefitDetail = cardBenefitDetailRepository.findHighestDiscountCostByCardBenefitIds(
+                        benbefitIdList)
+                    .orElse(null);
+
+                if (benefitDetail != null) {
+                    String largeCategoryName = largeCategoryRepository.findByLargeCategoryId(
+                        benefitDetail.getLargeCategoryId()).getCategoryName();
+
+                    SmallCategoryEntity smallCategory = smallCategoryRepository.findBySmallCategoryId(
+                        benefitDetail.getSmallCategoryId()).orElse(null);
+
+                    String smallCategoryName = "";
+                    if(smallCategory != null){
+                        smallCategoryName = smallCategory.getCategoryName();
+                    }
+
+                    ownershipStatic.setLargeCategoryName(largeCategoryName);
+                    ownershipStatic.setSmallCategoryName(smallCategoryName);
+                    ownershipStatic.setDiscountType(benefitDetail.getDiscountType());
+                    ownershipStatic.setDiscountCost(benefitDetail.getDiscountCost());
+                    ownershipStatic.setDiscountCostType(benefitDetail.getDiscountCostType());
+                    ownershipStatic.setDiscountAmount(0);
+                }
+            }
         }
+
+        cardOwnershipStaticList.removeIf(ownershipStatic -> ownershipStatic.getDiscountCost() == 0);
 
         CardOwnershipResponse response = new CardOwnershipResponse();
         response.setCardOwnershipList(cardOwnershipStaticList);

@@ -1,6 +1,5 @@
 package com.ssafy.eureka.domain.statistics.dto;
 
-import com.ssafy.eureka.domain.category.dto.LargeCategoryEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +17,13 @@ public class CardOwnershipDto {
     private String imagePath;
     private int imageAttr;
     private int ownershipCount;
-    private List<LargeCategoryEntity> categoryList;
+
+    private String largeCategoryName;
+    private String smallCategoryName;
+    private int discountType;
+    private double discountCost;
+    private String discountCostType;
+    private int discountAmount;
 
     public CardOwnershipDto(int cardId, String cardName, String imagePath, int imageAttr, int ownershipCount) {
         this.cardId = cardId;
