@@ -28,6 +28,27 @@ export default function PayQRCode() {
       smallCategoryId: 157,
       redirectUrl: "https://j10e101.p.ssafy.io/soil",
     },
+    "GS칼텍스": {
+      storeCode: "000-00-00011",
+      storeName: "GS칼텍스 명지점",
+      largeCategoryId: 3,
+      smallCategoryId: 30,
+      redirectUrl: "https://j10e101.p.ssafy.io/soil",
+    },
+    "VIPS": {
+      storeCode: "000-00-00012",
+      storeName: "VIPS 서면점",
+      largeCategoryId: 10,
+      smallCategoryId: 27,
+      redirectUrl: "https://j10e101.p.ssafy.io/soil",
+    },,
+    "에버랜드": {
+      storeCode: "000-00-00013",
+      storeName: "에버랜드",
+      largeCategoryId: 22,
+      smallCategoryId: 19,
+      redirectUrl: "https://j10e101.p.ssafy.io/soil",
+    },
   };
 
   // QR 코드에 포함될 정보

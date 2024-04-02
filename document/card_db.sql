@@ -42,7 +42,6 @@ create table if not exists user
     phone_number char(11)       not null            unique          COMMENT '휴대폰 번호("-"없이 11자리)'
 );
 
-
 #4. user_card
 drop table if exists user_card;
 create table if not exists user_card
