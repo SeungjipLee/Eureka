@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     width: 60,
     height: 85,
     resizeMode: "contain",
-    marginLeft: 10,
+    marginLeft: 20,
     marginRight: 11,
   },
 });
