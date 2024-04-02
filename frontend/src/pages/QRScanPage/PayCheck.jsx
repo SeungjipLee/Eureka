@@ -1,4 +1,4 @@
-import { View, Text, Image, StyleSheet, Pressable, Modal, FlatList, TouchableOpacity } from "react-native"
+import { View, Text, Image, StyleSheet, Pressable, Modal, FlatList, TouchableOpacity, DeviceEventEmitter  } from "react-native"
 import { useNavigation } from '@react-navigation/native';
 import { useState, useEffect } from "react";
 import TokenUtils from "../../stores/TokenUtils";
@@ -29,6 +29,16 @@ function PayCheck ({route}) {
     fetchToken();
   }, []);
   console.log(orderId)
+
+  useEffect(() => {
+    // 결제 검증 성공 시 이벤트 리스너 등록
+    const subscription = DeviceEventEmitter.addListener('paymentVerificationSuccess', handleSubmit);
+  
+    return () => {
+      // 컴포넌트 언마운트 시 이벤트 리스너 제거
+      subscription.remove();
+    };
+  }, [selectedCard, totalAmount, orderId, token]); 
 
   const navigateToVerifyPasswordChange = async () => {
     const isBiometricsEnabled = await SettingService.getBiometricEnabled();
