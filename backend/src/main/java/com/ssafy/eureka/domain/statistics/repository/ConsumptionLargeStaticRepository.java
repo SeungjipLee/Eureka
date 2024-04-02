@@ -52,7 +52,8 @@ public interface ConsumptionLargeStaticRepository extends JpaRepository<Consumpt
         "JOIN UserCardEntity uc ON cs.userCardId = uc.userCardId " +
         "JOIN LargeCategoryEntity lc ON cls.largeCategoryId = lc.largeCategoryId " +
         "WHERE uc.userId = :userId AND cs.year = :year AND cs.month = :month " +
-        "GROUP BY lc.largeCategoryId")
+        "GROUP BY lc.largeCategoryId " +
+        "ORDER BY SUM(cls.consumptionAmount) DESC ")
     List<ConsumptionCompareDto> findConsumptionComparisonByUserAndPeriod(@Param("userId") int userId, @Param("year") String year, @Param("month") String month, @Param("ageGroup") char ageGroup, @Param("gender") char gender);
 
 }

@@ -1,4 +1,4 @@
-package com.ssafy.eureka.batch;
+package com.ssafy.eureka.batch.job;
 
 import com.ssafy.eureka.domain.statistics.service.StatisticService;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +36,7 @@ public class CardOwnershipJob {
                 .build();
     }
 
+    @Bean
     public Tasklet overviewTasklet() {
         return (contribution, chunkContext) -> {
             statisticService.updateCardOwnershipOverview();
@@ -51,25 +52,11 @@ public class CardOwnershipJob {
                 .build();
     }
 
+    @Bean
     public Tasklet staticTasklet() {
         return (contribution, chunkContext) -> {
             statisticService.updateCardOwnershipStatic();
             log.info("cardOwnershipStatic");
-            return RepeatStatus.FINISHED;
-        };
-    }
-
-    @Bean
-    public Step updateConsumptionStaticStep(PlatformTransactionManager transactionManager, JobRepository jobRepository) {
-        return new StepBuilder("카테고리별 소비 통계 유저 합산", jobRepository)
-                .tasklet(consumptionTasklet(), transactionManager)
-                .build();
-    }
-
-    public Tasklet consumptionTasklet() {
-        return (contribution, chunkContext) -> {
-            statisticService.updateConsumptionUserStatic();
-            log.info("consumptionUserStatic");
             return RepeatStatus.FINISHED;
         };
     }
