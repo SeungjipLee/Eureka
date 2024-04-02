@@ -11,26 +11,26 @@ function HomeForYou () {
         <Text style={styles.date}>3월 12일 화요일</Text>
         <Text style={styles.subtitle}>김싸피님을 위해 준비했어요</Text>
       </View>
-        <View style={styles.midcontainer}>
-          <Image style={styles.image} source={require('../../../../assets/HomeIcon/BarChart.png')}/>
-          <View>
-            <Text style={styles.font}>또래와 소비 비교해보기</Text>
+        <Pressable onPress={() => navigation.navigate('Compare')}>
+          <View style={styles.midcontainer}>
+            <Image style={styles.image} source={require('../../../../assets/HomeIcon/BarChart.png')}/>
+            <View>
+              <Text style={styles.font}>또래와 소비 비교해보기</Text>
+            </View>
+              <MaterialCommunityIcons 
+                name="chevron-right" size={26} style={styles.nextBtn}/>
           </View>
-          <Pressable onPress={() => navigation.navigate('Compare')}>
-            <MaterialCommunityIcons 
-              name="chevron-right" size={26} style={styles.nextBtn}/>
-          </Pressable>
-        </View>
-        <View style={styles.midcontainer}>
-          <Image style={styles.image} source={require('../../../../assets/HomeIcon/BankCards.png')}/>
-          <View>
-            <Text style={styles.font}>내 소비에 맞는 카드 추천 받기</Text>
+        </Pressable>
+        <Pressable onPress={() => navigation.navigate('ProductPage')}>
+          <View style={styles.midcontainer}>
+            <Image style={styles.image} source={require('../../../../assets/HomeIcon/BankCards.png')}/>
+            <View>
+              <Text style={styles.font}>내 소비에 맞는 카드 추천 받기</Text>
+            </View>
+              <MaterialCommunityIcons 
+                name="chevron-right" size={26} style={styles.nextBtn}/>  
           </View>
-          <Pressable onPress={() => navigation.navigate('ProductPage')}>
-            <MaterialCommunityIcons 
-              name="chevron-right" size={26} style={styles.nextBtn}/>  
-          </Pressable>
-        </View>
+        </Pressable>
     </View>
   )
 }
