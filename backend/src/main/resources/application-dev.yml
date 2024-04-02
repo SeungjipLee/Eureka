@@ -25,8 +25,8 @@ spring:
 
   batch:
     job:
-      enabled: true
-      name: cardOwnershipJob
+      enabled: false
+      name:
 
 cloud:
   aws:
@@ -71,3 +71,4 @@ springdoc:
 #    path: /
   swagger-ui:
     display-request-duration: true
+

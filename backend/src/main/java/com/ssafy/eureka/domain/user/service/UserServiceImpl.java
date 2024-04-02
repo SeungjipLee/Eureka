@@ -24,7 +24,16 @@ import com.ssafy.eureka.util.AesUtil;
 import com.ssafy.eureka.util.UserUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
+import java.util.HashMap;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
+import net.nurigo.sdk.NurigoApp;
+import net.nurigo.sdk.message.model.Message;
+import net.nurigo.sdk.message.request.SingleMessageSendingRequest;
+import net.nurigo.sdk.message.response.SingleMessageSentResponse;
+import net.nurigo.sdk.message.service.DefaultMessageService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -42,6 +51,18 @@ public class UserServiceImpl implements UserService {
     private final MyDataFeign myDataFeign;
     private final MydataTokenRepository mydataTokenRepository;
 
+    @Value("${coolsms.sender-phone}")
+    private String senderPhone;
+    private DefaultMessageService messageService;
+
+    Map<String, String> phoneAuth = new HashMap<>();
+
+    @Autowired
+    public void setMessageService(@Value("${coolsms.api-key}") String apiKey, @Value("${coolsms.api-secret}") String apiSecret
+    , @Value("${coolsms.url}") String url){
+        this.messageService = NurigoApp.INSTANCE.initialize(apiKey, apiSecret, url);
+    }
+
     @Override
     public void sendMessage(SendMessageRequest sendMessageRequest) {
         MyDataApiResponse<?> response = myDataFeign.cechkUser(
@@ -52,9 +73,23 @@ public class UserServiceImpl implements UserService {
             throw new CustomException(400, response.getMessage());
         }
 
-        // sendMessage는 종료되고 (controller단에서 응답을 보내고)
-        // longTimeMethod는 별도로 동작하게 하고 싶어
-//        longTimeMethod(response.getData());
+//        String authNum = Integer.toString((int)(Math.random() * (999999 - 100000 + 1)) + 100000);
+//
+//        Message message = new Message();
+//
+//        message.setFrom(senderPhone);
+//        message.setTo(sendMessageRequest.getPhoneNumber());
+//
+//        message.setText(
+//            "[EUREKA]" + "\n"
+//            + "본인확인 인증번호" + "\n"
+//            + "[" + authNum + "]" + "를 입력해주세요."
+//        );
+//
+//        SingleMessageSentResponse res = this.messageService.sendOne(new SingleMessageSendingRequest(message));
+//        System.out.println(res);
+//
+//        phoneAuth.put(sendMessageRequest.getPhoneNumber(), authNum);
     }
 
     @Override
@@ -83,9 +118,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDataTokenResponse checkUser(CheckUserRequest checkUserRequest) {
         // 인증번호 체크
+//        String auth = phoneAuth.remove(checkUserRequest.getPhoneNumber());
+//        if (!checkUserRequest.getAuthNumber().equals(auth)) {
+//            throw new CustomException(ResponseCode.PASSWORD_ERROR);
+//        }
         if (!checkUserRequest.getAuthNumber().equals("123456")) {
             throw new CustomException(ResponseCode.PASSWORD_ERROR);
         }
+
 
         String encodePhoneNumber = aesUtil.encrypt(checkUserRequest.getPhoneNumber());
 

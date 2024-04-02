@@ -79,8 +79,16 @@ public class StatisticsController {
     @Operation(summary = "유저와 같은 연령대 사람들이 많이 보유한 카드 top 10",
             description = "연령대 - 0: 전체, 1: 10대 이하, 2: 20대 ... 6: 60대 이상 / 성별 - 0: 여성, 1: 남성, 2: 전체")
     @GetMapping("/most-owned/cards/ageGroup")
-    public ResponseEntity<?> getCardOwnershipStaticByAgeAndGender(@AuthenticationPrincipal UserDetails userDetails) {
+    public ResponseEntity<?> getCardOwnershipStaticByAgeAndGender(@AuthenticationPrincipal UserDetails userDetails
+    ,@RequestParam int userCardId) {
         log.debug("유저 " + userDetails.getUsername() + " : 연령대 & 성별 많이 보유한 카드 조회");
-        return ResponseEntity.ok(statisticsService.cardOwnershipStaticResponse(userDetails.getUsername()));
+        return ResponseEntity.ok(statisticsService.cardOwnershipStaticResponse(userDetails.getUsername(), userCardId));
+    }
+
+    @Operation(summary = "또래 지난달 소비 비교")
+    @GetMapping("/compare/consumption")
+    public ResponseEntity<?> getConsumptionCompare(@AuthenticationPrincipal UserDetails userDetails) {
+        log.debug("또래 소비 비교, userId : " + userDetails.getUsername());
+        return ResponseEntity.ok(statisticsService.consumptionCompareResponse(userDetails.getUsername()));
     }
 }

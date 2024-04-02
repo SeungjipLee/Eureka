@@ -13,27 +13,27 @@ const categoryColors = {
   2: "#fff6bc",
   3: "#a6fca9",
   4: "#c0c0c0",
-  5: "#FFECB3",
+  5: "#d8d8d8",
   6: "#aad5fa",
   7: "#90cad6",
   8: "#f2fd75",
-  9: "#cdeeff",
-  10: "#70fc95",
+  9: "#9cd5f2",
+  10: "#95e1ff",
   11: "#ffd586",
   12: "#ffc063",
   13: "#CFD8DC",
   14: "#aaaaaa",
   15: "#a1fcbb",
-  16: "#70ee64",
+  16: "#52d846",
   17: "#E8F5E9",
   18: "#E1F5FE",
   19: "#212121",
   20: "#CFD8DC",
   21: "#F5F5F5",
-  22: "#FFF3E0",
+  22: "#baf1a6",
   23: "#B3E5FC",
   24: "#DCEDC8",
-  25: "#cdcdcd",
+  25: "#e3e3e3",
 };
 const HorizontalBarGraph = ({ categories, totalConsump }) => {
   return (
@@ -74,7 +74,9 @@ function ConsumptionOfYou() {
   const [token, setToken] = useState("");
   const [totalConsumption, setTotalConsumption] = useState("");
   const [categories, setCategories] = useState([]);
+  const [LastCategory, setLastCategory] = useState([]);
   const dispatch = useDispatch();
+
   useEffect(() => {
     const fetchToken = async () => {
       const accessToken = await TokenUtils.getAccessToken();
@@ -82,6 +84,7 @@ function ConsumptionOfYou() {
     };
     fetchToken();
   }, []);
+
   useEffect(() => {
     if (token) {
       const getCurrentDate = () => {
@@ -99,12 +102,14 @@ function ConsumptionOfYou() {
           setCategories(res.data.consumptionList);
         },
         (err) => {
-          console.log(err, "소비 카테고리 실패");
+          console.log(err, "ConsumptionOfYou, 소비 카테고리 불러오기 실패");
         }
       );
     }
   }, [token]);
+
   const formatTotalConsumption = totalConsumption.toLocaleString("ko-KR");
+
   const processCategories = (categories) => {
     // 상위 4개 추출
     const topCategories = categories.slice(0, 4);
@@ -128,7 +133,11 @@ function ConsumptionOfYou() {
     return topCategories;
   };
 
-  const LastCategory = processCategories(categories);
+  useEffect(() => {
+    if (categories.length > 0) {
+      setLastCategory(processCategories(categories));
+    }
+  }, [categories, token]);
 
   return (
     <View style={styles.container}>

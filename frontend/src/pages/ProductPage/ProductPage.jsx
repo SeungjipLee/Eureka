@@ -65,7 +65,7 @@ function ProductPage() {
         return year * 100 + month; // YYYYMM 형태로 반환
       };
 
-      const currentDate = getCurrentDate();
+      const currentDate = 202403;
       getMyPaymentCards(
         token,
         currentDate,
@@ -73,7 +73,6 @@ function ProductPage() {
           setCards(res.data);
           dispatch(saveMyPayCard(res.data));
           dispatch(selectPayCard(res.data[0])); // 선택된 결제카드 디폴트: 첫번째 결제카드
-          console.log(res.data, "결제카드 불러오기 성공");
           if (res.data.length === 0) {
             setHasError(true);
           } else {
@@ -81,7 +80,7 @@ function ProductPage() {
           }
         },
         (err) => {
-          console.log("Error, ProductPage 결제카드 불러오기", err);
+          console.log("ProductPage, 결제카드 불러오기 실패", err);
           if (err.response && err.response.status === 404) {
             setHasError(true);
           }
@@ -100,7 +99,6 @@ function ProductPage() {
     }
   };
 
-  console.log(clickMyCardValue, "ProductPage");
   return (
     <>
       <ScrollView contentContainerStyle={styles.container}>
@@ -191,7 +189,7 @@ const styles = StyleSheet.create({
     marginTop: 50,
   },
   currentbenefit: {
-    flex: 0.5,
+    flex: 1,
     marginTop: 20,
     maxHeight: 50,
   },

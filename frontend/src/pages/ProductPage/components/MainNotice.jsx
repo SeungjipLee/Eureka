@@ -20,8 +20,19 @@ function MainNotice() {
     dispatch(clickMyCard());
   };
 
-  // 선택되었을 때만 보이니까 문제.. 그냥 결제카드가 있으면 최상단꺼를 디폴트로
-  console.log(checkChangeSelectPayCard, "MainNotice, 내 결제카드");
+  const getImageStyle = (cardInfo) => {
+    if (!cardInfo) return styles.image; // cardInfo가 없는 경우 기본 이미지 스타일
+
+    switch (cardInfo.imgAttr) {
+      case 0: // 가로 이미지
+        return { ...styles.image, width: 100, height: 70 }; // 가로 이미지에 맞는 크기 조정
+      case 1: // 세로 이미지
+        return { ...styles.image, width: 70, height: 100 }; // 세로 이미지에 맞는 크기 조정
+      default:
+        return styles.image;
+    }
+  };
+
   return (
     <View style={styles.centeredView}>
       <View style={styles.container}>
@@ -41,7 +52,7 @@ function MainNotice() {
               ? { uri: checkChangeSelectPayCard.imagePath }
               : require("../../../../assets/ThinkingFace.png") // 대체 이미지 경로
           }
-          style={styles.image}
+          style={getImageStyle(checkChangeSelectPayCard)}
         />
       </View>
     </View>
@@ -130,7 +141,7 @@ const styles = StyleSheet.create({
     width: 60,
     height: 85,
     resizeMode: "contain",
-    marginLeft: 10,
+    marginLeft: 50,
     marginRight: 11,
   },
 });

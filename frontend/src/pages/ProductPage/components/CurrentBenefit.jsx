@@ -1,19 +1,65 @@
+import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Text, Dimensions, Pressable } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { useSelector, useDispatch } from "react-redux";
+import TokenUtils from "../../../stores/TokenUtils";
+import { getMySingleCardBenefitList } from "../../../apis/ProductApi";
+import { selectPayCardBenefit } from "../../../slices/productSlice";
 
-const CurrentBenfitAmount = 6800;
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
 function CurrentBenefit() {
   const navigation = useNavigation();
+  const [benefitAmount, setBenefitAmount] = useState("");
+  const [token, setToken] = useState("");
+  const [selectCardUserCardId, setSelectCardUserCardId] = useState("");
+  const selectCardInfo = useSelector(
+    (state) => state.productList.selectPayCardInfo
+  );
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (token && selectCardInfo) {
+      setSelectCardUserCardId(selectCardInfo.userCardId);
+    } else {
+      setBenefitAmount("");
+    }
+  }, [selectCardInfo, token, dispatch]);
+
+  useEffect(() => {
+    const fetchToken = async () => {
+      const accessToken = await TokenUtils.getAccessToken();
+      setToken(accessToken);
+    };
+
+    fetchToken();
+  }, []);
+
+  useEffect(() => {
+    if (token) {
+      getMySingleCardBenefitList(
+        token,
+        202403,
+        selectCardUserCardId,
+        (res) => {
+          setBenefitAmount(res.data.totalDiscount);
+          dispatch(selectPayCardBenefit(res.data));
+        },
+        (err) => {
+          console.log("CurrentBenefit11, 현재결제카드혜택불러오기 실패", err);
+        }
+      );
+    }
+  }, [token, selectCardInfo, selectCardUserCardId]);
+
   return (
     <View>
       <View style={styles.container}>
         <Text style={styles.maintext}>현재카드 혜택</Text>
         <View style={styles.rightContainer}>
           <Text style={styles.benefitAmount}>
-            {CurrentBenfitAmount.toLocaleString()}원
+            {benefitAmount.toLocaleString()}원
           </Text>
           <Pressable onPress={() => navigation.navigate("CurrentBenefitMore")}>
             <MaterialCommunityIcons

@@ -100,25 +100,31 @@ const SignupPage = () => {
 
       try {
         const response = await axios.post('https://j10e101.p.ssafy.io/api/user/check', verificationInfo);
-        if (response.status === 200) {
-          // response.data에 값이 있는 경우, 즉 accessToken과 refreshToken이 반환된 경우
-          if (response.data && response.data.accessToken && response.data.refreshToken) {
-            // TokenUtils를 사용하여 accessToken과 refreshToken 저장 및 Routers로 이동
+
+        if (response.data) {
+          const passwordSet = await TokenService.getPassword();
+          if (!passwordSet) {
+            navigation.navigate('SignupPasswordChange', { verificationInfo: response.data })
+          } else {
             const { accessToken, refreshToken, userData } = response.data;
             await TokenService.setToken(accessToken, refreshToken);
             await TokenService.setUserData(userData);
-
-            navigation.reset({
-              index: 0, // 새 스택의 시작 인덱스를 0으로 설정합니다.
-              routes: [{ name: 'Routers' }], // 이동할 라우트의 배열을 설정합니다.
-            });
-          } else {
-            // response.data가 비어있거나 예상한 값이 없는 경우, 인증 성공 처리
             Alert.alert('인증 성공', '인증이 완료되었습니다.', [
-              { text: "확인", onPress: () => navigation.navigate('PasswordPage', { verificationInfo: verificationInfo }) }
-            ]);
+              {
+                text: "확인", onPress: () => navigation.reset({
+                  index: 0, // 새 스택의 시작 인덱스를 0으로 설정합니다.
+                  routes: [{ name: 'Routers' }], // 이동할 라우트의 배열을 설정합니다.
+                })
+              }
+            ])
           }
+        } else {
+          // response.data가 비어있거나 예상한 값이 없는 경우, 인증 성공 처리
+          Alert.alert('인증 성공', '인증이 완료되었습니다.', [
+            { text: "확인", onPress: () => navigation.navigate('PasswordPage', { verificationInfo: verificationInfo }) }
+          ]);
         }
+
       } catch (error) {
         console.error('인증 확인 실패:', error);
         Alert.alert('인증 실패', '인증번호 확인에 실패했습니다.', [

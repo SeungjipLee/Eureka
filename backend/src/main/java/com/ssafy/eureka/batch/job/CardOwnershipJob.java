@@ -1,4 +1,4 @@
-package com.ssafy.eureka.batch;
+package com.ssafy.eureka.batch.job;
 
 import com.ssafy.eureka.domain.statistics.service.StatisticService;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +36,7 @@ public class CardOwnershipJob {
                 .build();
     }
 
+    @Bean
     public Tasklet overviewTasklet() {
         return (contribution, chunkContext) -> {
             statisticService.updateCardOwnershipOverview();
@@ -51,6 +52,7 @@ public class CardOwnershipJob {
                 .build();
     }
 
+    @Bean
     public Tasklet staticTasklet() {
         return (contribution, chunkContext) -> {
             statisticService.updateCardOwnershipStatic();

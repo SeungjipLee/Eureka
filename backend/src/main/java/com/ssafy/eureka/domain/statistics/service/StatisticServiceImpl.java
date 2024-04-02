@@ -2,24 +2,26 @@ package com.ssafy.eureka.domain.statistics.service;
 
 import com.ssafy.eureka.common.exception.CustomException;
 import com.ssafy.eureka.common.response.ResponseCode;
+import com.ssafy.eureka.domain.card.dto.CardBenefitDetailEntity;
+import com.ssafy.eureka.domain.card.dto.CardBenefitEntity;
 import com.ssafy.eureka.domain.card.repository.CardBenefitDetailRepository;
+import com.ssafy.eureka.domain.card.repository.CardBenefitRepository;
 import com.ssafy.eureka.domain.card.repository.UserCardRepository;
 import com.ssafy.eureka.domain.category.dto.LargeCategoryEntity;
+import com.ssafy.eureka.domain.category.dto.SmallCategoryEntity;
+import com.ssafy.eureka.domain.category.repository.LargeCategoryRepository;
+import com.ssafy.eureka.domain.category.repository.SmallCategoryRepository;
 import com.ssafy.eureka.domain.pay.repository.PayHistoryRepository;
 import com.ssafy.eureka.domain.statistics.dto.*;
-import com.ssafy.eureka.domain.statistics.dto.response.BestCardStatisticsResponse;
-import com.ssafy.eureka.domain.statistics.dto.response.CardOwnershipResponse;
-import com.ssafy.eureka.domain.statistics.dto.response.ConsumptionStatisticsResponse;
-import com.ssafy.eureka.domain.statistics.dto.response.DiscountStatisticsResponse;
-import com.ssafy.eureka.domain.statistics.entity.CardOwnershipOverviewEntity;
-import com.ssafy.eureka.domain.statistics.entity.CardOwnershipStaticEntity;
-import com.ssafy.eureka.domain.statistics.entity.ConsumptionStaticEntity;
-import com.ssafy.eureka.domain.statistics.entity.DiscountStaticEntity;
+import com.ssafy.eureka.domain.statistics.dto.response.*;
+import com.ssafy.eureka.domain.statistics.entity.*;
 import com.ssafy.eureka.domain.statistics.repository.*;
 import com.ssafy.eureka.domain.user.dto.UserInfoDto;
 import com.ssafy.eureka.domain.user.repository.UserRepository;
 import com.ssafy.eureka.util.DateParserUtil;
 import com.ssafy.eureka.util.UserUtil;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -28,6 +30,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigInteger;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Slf4j
@@ -43,8 +47,12 @@ public class StatisticServiceImpl implements StatisticService {
     private final DiscountLargeStaticRepository discountLargeStaticRepository;
     private final CardOwnershipOverviewRepository cardOwnershipOverviewRepository;
     private final CardOwnershipStaticRepository cardOwnershipStaticRepository;
+    private final ConsumptionUserStaticRepository consumptionUserStaticRepository;
     private final CardBenefitDetailRepository cardBenefitDetailRepository;
     private final PayHistoryRepository payHistoryRepository;
+    private final CardBenefitRepository cardBenefitRepository;
+    private final LargeCategoryRepository largeCategoryRepository;
+    private final SmallCategoryRepository smallCategoryRepository;
 
     private void checkUserCardExistsByUserId(String userId) {
         int parsedUserId = Integer.parseInt(userId);
@@ -226,15 +234,17 @@ public class StatisticServiceImpl implements StatisticService {
 
     @Override
     public CardOwnershipResponse cardOwnershipOverviewResponse() {
-        List<CardOwnershipDto> cardOwnershipOverviewList =
-                cardOwnershipOverviewRepository.findCardOwnershipOverviews();
+        LocalDate date = cardOwnershipOverviewRepository.findLatestCreatedDate();
 
-        for (CardOwnershipDto ownershipStatic : cardOwnershipOverviewList) {
-            Pageable pageable = PageRequest.of(0, 5);
-            List<LargeCategoryEntity> categoryList =
-                    cardBenefitDetailRepository.findByCardId(ownershipStatic.getCardId(), pageable);
-            ownershipStatic.setCategoryList(categoryList);
-        }
+        List<CardOwnershipDto> cardOwnershipOverviewList =
+                cardOwnershipOverviewRepository.findCardOwnershipOverviews(date);
+
+//        for (CardOwnershipDto ownershipStatic : cardOwnershipOverviewList) {
+//            Pageable pageable = PageRequest.of(0, 5);
+//            List<LargeCategoryEntity> categoryList =
+//                    cardBenefitDetailRepository.findByCardId(ownershipStatic.getCardId(), pageable);
+//            ownershipStatic.setCategoryList(categoryList);
+//        }
 
         CardOwnershipResponse response = new CardOwnershipResponse();
         response.setSearchInfo(new CardOwnershipResponse.SearchInfo(0,2));
@@ -243,25 +253,143 @@ public class StatisticServiceImpl implements StatisticService {
     }
 
     @Override
-    public CardOwnershipResponse cardOwnershipStaticResponse(String userId) {
+    public CardOwnershipResponse cardOwnershipStaticResponse(String userId, int userCardId) {
         checkUserCardExistsByUserId(userId);
+
+        LocalDate lastMonth = LocalDate.now().minusMonths(1);
+
+        String yearStr = lastMonth.format(DateTimeFormatter.ofPattern("yyyy"));
+        String monthStr = lastMonth.format(DateTimeFormatter.ofPattern("MM"));
+
+        DiscountStaticEntity discountStatic = discountStaticRepository.findByUserCardIdAndYearAndMonth(userCardId, yearStr, monthStr)
+            .orElse(null);
+
+        int discount = 0;
+        if(discountStatic != null){
+            discount = discountStatic.getTotalDiscount();
+        }
 
         UserInfoDto userInfo = userRepository.findUserInfoByUserId(Integer.parseInt(userId));
         char ageGroup = UserUtil.calculateAgeGroup(userInfo.getUserBirth(), userInfo.getUserGender());
 
+        LocalDate date = cardOwnershipStaticRepository.findLatestCreatedDate();
+
         List<CardOwnershipDto> cardOwnershipStaticList =
-                cardOwnershipStaticRepository.findCardOwnershipStaticByAgeGroup(ageGroup);
+                cardOwnershipStaticRepository.findCardOwnershipStaticByAgeGroup(ageGroup, date);
 
         for (CardOwnershipDto ownershipStatic : cardOwnershipStaticList) {
-            Pageable pageable = PageRequest.of(0, 5);
-            List<LargeCategoryEntity> categoryList =
-                    cardBenefitDetailRepository.findByCardId(ownershipStatic.getCardId(), pageable);
-            ownershipStatic.setCategoryList(categoryList);
+//            Pageable pageable = PageRequest.of(0, 5);
+//            List<LargeCategoryEntity> categoryList =
+//                    cardBenefitDetailRepository.findByCardId(ownershipStatic.getCardId(), pageable);
+//            ownershipStatic.setCategoryList(categoryList);
+
+            List<Integer> benbefitIdList = cardBenefitRepository.findAllCardBenefitIdsByCardId(ownershipStatic.getCardId());
+
+            if(!benbefitIdList.isEmpty()) {
+                CardBenefitDetailEntity benefitDetail = cardBenefitDetailRepository.findHighestDiscountCostByCardBenefitIds(
+                        benbefitIdList)
+                    .orElse(null);
+
+                if (benefitDetail != null) {
+                    String largeCategoryName = largeCategoryRepository.findByLargeCategoryId(
+                        benefitDetail.getLargeCategoryId()).getCategoryName();
+
+                    SmallCategoryEntity smallCategory = smallCategoryRepository.findBySmallCategoryId(
+                        benefitDetail.getSmallCategoryId()).orElse(null);
+
+                    String smallCategoryName = "";
+                    if(smallCategory != null){
+                        smallCategoryName = smallCategory.getCategoryName();
+                    }
+
+                    ownershipStatic.setLargeCategoryName(largeCategoryName);
+                    ownershipStatic.setSmallCategoryName(smallCategoryName);
+                    ownershipStatic.setDiscountType(benefitDetail.getDiscountType());
+                    ownershipStatic.setDiscountCost(benefitDetail.getDiscountCost());
+                    ownershipStatic.setDiscountCostType(benefitDetail.getDiscountCostType());
+                    ownershipStatic.setDiscountAmount(0);
+                }
+            }
         }
+
+        cardOwnershipStaticList.removeIf(ownershipStatic -> ownershipStatic.getDiscountCost() == 0);
 
         CardOwnershipResponse response = new CardOwnershipResponse();
         response.setCardOwnershipList(cardOwnershipStaticList);
         response.setSearchInfo(new CardOwnershipResponse.SearchInfo(Integer.parseInt(String.valueOf(ageGroup)), 2));
+        return response;
+    }
+
+    @Override
+    @Transactional
+    public void updateConsumptionUserStatic() {
+        List<UserInfoDto> userList = userRepository.findActiveUserInfo();
+
+        Map<ConsumptionUserStaticKey, BigInteger> consumptionUserStaticMap = new HashMap<>();
+        Map<ConsumptionUserStaticKey, Integer> countMap = new HashMap<>();
+
+        for (UserInfoDto user : userList) {
+            char ageGroup = UserUtil.calculateAgeGroup(user.getUserBirth(), user.getUserGender());
+            int numericGender = Character.getNumericValue(user.getUserGender()) % 2;
+            char gender = String.valueOf(numericGender).charAt(0);
+
+            LocalDate lastMonth = LocalDate.now().minusMonths(1);
+            String year = lastMonth.format(DateTimeFormatter.ofPattern("yyyy"));
+            String month = lastMonth.format(DateTimeFormatter.ofPattern("MM"));
+
+            List<Integer> userCardList = userCardRepository.findUserCardIdByUserId(user.getUserId());
+
+            for (Integer userCardId : userCardList) {
+                List<Object[]> statisticsList =
+                        consumptionStaticRepository.findStaticByUserCardIdAndYearAndMonth(userCardId, year, month);
+
+                for (Object[] result : statisticsList) {
+                    int categoryId = (int) result[0];
+                    BigInteger consumptionAmount = (BigInteger) result[1];
+                    ConsumptionUserStaticKey key = new ConsumptionUserStaticKey(categoryId, ageGroup, gender, year, month);
+                    consumptionUserStaticMap.merge(key, consumptionAmount, BigInteger::add);
+                    countMap.merge(key, 1, Integer::sum);
+                }
+            }
+        }
+
+        consumptionUserStaticMap.forEach((key, consumptionAmount) -> {
+            // 소비금액 평균 계산
+            Integer count = countMap.getOrDefault(key, 0);
+            BigInteger consumptionAverage = count > 0 ? consumptionAmount.divide(BigInteger.valueOf(count)) : BigInteger.ZERO;
+
+            ConsumptionUserStaticEntity entity = ConsumptionUserStaticEntity
+                    .register(key.getCategoryId(), key.getAgeGroup(), key.getGender(), key.getYear(), key.getMonth(), consumptionAverage);
+            consumptionUserStaticRepository.save(entity);
+        });
+    }
+
+    @Override
+    public ConsumptionCompareResponse consumptionCompareResponse(String userId) {
+        checkUserCardExistsByUserId(userId);
+
+        UserInfoDto userInfo = userRepository.findUserInfoByUserId(Integer.parseInt(userId));
+        char ageGroup = UserUtil.calculateAgeGroup(userInfo.getUserBirth(), userInfo.getUserGender());
+        int numericGender = Character.getNumericValue(userInfo.getUserGender()) % 2;
+        char gender = String.valueOf(numericGender).charAt(0);
+
+        LocalDate lastMonth = LocalDate.now().minusMonths(1);
+        String year = lastMonth.format(DateTimeFormatter.ofPattern("yyyy"));
+        String month = lastMonth.format(DateTimeFormatter.ofPattern("MM"));
+
+        List<ConsumptionCompareDto> consumptionCompareList =
+                consumptionLargeStaticRepository.findConsumptionComparisonByUserAndPeriod(Integer.parseInt(userId), year, month, ageGroup, gender);
+
+        BigInteger userTotalConsumption = consumptionStaticRepository.findTotalConsumptionByUserIdAndDate(Integer.parseInt(userId), year, month);
+        BigInteger averageTotalConsumption = consumptionUserStaticRepository.findTotalConsumptionByUserInfoAndDate(ageGroup, gender, year, month);
+
+        ConsumptionCompareResponse response = new ConsumptionCompareResponse();
+        response.setData(consumptionCompareList);
+        response.setAge(ageGroup);
+        response.setGender(gender);
+        response.setUserAmt(userTotalConsumption);
+        response.setAnotherAmt(averageTotalConsumption);
+
         return response;
     }
 }

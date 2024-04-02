@@ -113,9 +113,6 @@ const PasswordPage = ({ route, navigation }) => {
   return (
     <SafeAreaView style={styles.safeAreaView}>
       <View style={styles.topBar}>
-        <Pressable style={styles.pressable} onPress={() => navigation.goBack()}>
-          <MaterialCommunityIcons name="chevron-left" size={40} color="white" />
-        </Pressable>
         <View style={styles.titleContainer}>
           <Text style={styles.title}>간편비밀번호 등록</Text>
         </View>
@@ -162,8 +159,9 @@ const styles = StyleSheet.create({
   topBar: {
     width: '100%',
     height: '10%',
-    flexDirection: 'row',
-    paddingTop: '2%'
+    paddingTop: '2%',
+    justifyContent:'center',
+    alignItems:'center'
   },
   // 나머지 상단 바 스타일
   pressable: {

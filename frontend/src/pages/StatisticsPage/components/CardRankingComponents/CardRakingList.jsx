@@ -108,7 +108,7 @@ function CardRakingList() {
               <Text style={styles.otherCardAmount}>0원</Text>
             ) : (
               <Text style={styles.otherCardAmount}>
-                약 {top3CardList[2]?.totalDiscount.toLocaleString()}
+                약 {top3CardList[2]?.totalDiscount.toLocaleString()}원
               </Text>
             )}
           </View>

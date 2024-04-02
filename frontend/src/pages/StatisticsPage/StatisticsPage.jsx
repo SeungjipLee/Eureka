@@ -4,15 +4,12 @@ import {
   View,
   StatusBar,
   Platform,
-  Dimensions,
 } from "react-native";
 import BenefitAmountOfYou from "./components/BenefitAmountOfYou";
 import ConsumptionOfYou from "./components/ConsumptionOfYou";
 import AkaOfYou from "./components/AkaOfYou";
 import BenefitGraph from "./components/BenefitGraph";
 import CardRanking from "./components/CardRanking";
-
-const screenHeight = Dimensions.get("window").height;
 
 function StatisticsPage() {
   return (

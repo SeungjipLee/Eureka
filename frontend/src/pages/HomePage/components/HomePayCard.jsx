@@ -12,7 +12,7 @@ function HomePayCard () {
           <Text style={{fontSize: 16, fontWeight: 'bold', color: '#00BFFF'}}>당신을 위한</Text>
           <Text style={{fontSize: 16, fontWeight: 'bold', color: '#00BFFF'}}>카드 추천 서비스</Text>
         </View>
-        <Pressable onPress={() => navigation.navigate('SettingRouters')}>
+        <Pressable onPress={() => navigation.navigate('SettingPage')}>
           <View style={styles.settingIcon}>
             <MaterialCommunityIcons 
               name="cog-outline" size={36} color={'#9E9797'}/>

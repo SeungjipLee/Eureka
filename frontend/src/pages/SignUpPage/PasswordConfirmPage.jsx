@@ -29,6 +29,7 @@ const PasswordConfirmPage = ({ route, navigation }) => {
         const { accessToken, refreshToken, userData } = response.data;
         await TokenService.setToken(accessToken, refreshToken);
         await TokenService.setUserData(userData);
+        await TokenService.setPassword(currentPassword);
         
         Alert.alert("성공", "회원가입이 완료되었습니다.", [{ text: '확인', onPress: () => navigation.navigate('Routers') }]);
         console.log(response.data)

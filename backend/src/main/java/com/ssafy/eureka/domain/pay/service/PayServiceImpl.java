@@ -136,7 +136,12 @@ public class PayServiceImpl implements PayService {
                     BigInteger.valueOf(card.getPreviousPerformance())) < 0)) {
                     card.setDiscountAmount(0);
                 } else {
-                    card.setCurrentMonthAmount(consumptionStatic.getTotalConsumption());
+                    ConsumptionStaticEntity preConsumptionStatic = consumptionStaticRepository.findByUserCardIdAndYearAndMonth(
+                        userCard.getUserCardId(), LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy")), LocalDate.now().format(DateTimeFormatter.ofPattern("MM"))).orElse(null);
+
+                    if(preConsumptionStatic != null){
+                        card.setCurrentMonthAmount(preConsumptionStatic.getTotalConsumption());
+                    }
 
                     DiscountStaticEntity discountStatic = discountStaticRepository.findByUserCardIdAndYearAndMonth(
                         userCard.getUserCardId(), yearStr, monthStr).orElse(null);

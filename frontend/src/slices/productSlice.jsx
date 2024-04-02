@@ -5,6 +5,7 @@ const initialState = {
   selectCardValue: false,
   payCards: [],
   selectPayCardInfo: null,
+  payCardBenefit: null,
 };
 
 export const productSlice = createSlice({
@@ -19,7 +20,7 @@ export const productSlice = createSlice({
     clickMyCard: (state) => {
       state.selectCardValue = !state.selectCardValue;
     },
-    // "ProductPag에서 사용 => 결제카드 목록저장"
+    // "ProductPage에서 사용 => 결제카드 목록저장"
     saveMyPayCard: (state, action) => {
       state.payCards = action.payload;
     },
@@ -27,10 +28,18 @@ export const productSlice = createSlice({
     selectPayCard: (state, action) => {
       state.selectPayCardInfo = action.payload;
     },
+    selectPayCardBenefit: (state, action) => {
+      state.payCardBenefit = action.payload;
+    },
   },
 });
 
-export const { selectCardId, clickMyCard, saveMyPayCard, selectPayCard } =
-  productSlice.actions;
+export const {
+  selectCardId,
+  clickMyCard,
+  saveMyPayCard,
+  selectPayCard,
+  selectPayCardBenefit,
+} = productSlice.actions;
 
 export default productSlice.reducer;
