@@ -20,6 +20,14 @@ function Routers() {
       <Tab.Screen
         name="HomePage"
         component={HomeRouters}
+        listeners={({ navigation, route }) => ({
+          tabPress: e => {
+            e.preventDefault();
+            navigation.navigate('HomePage', {
+              screen: 'Home',
+            });
+          },
+        })}
         options={{
           tabBarLabel: "홈",
           tabBarIcon: ({ color }) => (
@@ -30,6 +38,14 @@ function Routers() {
       <Tab.Screen
         name="CardPage"
         component={CardRouters}
+        listeners={({ navigation, route }) => ({
+          tabPress: e => {
+            e.preventDefault();
+            navigation.navigate('CardPage', {
+              screen: 'CardHome',
+            });
+          },
+        })}
         options={{
           tabBarLabel: "카드",
           tabBarIcon: ({ color }) => (
@@ -44,6 +60,14 @@ function Routers() {
       <Tab.Screen
         name="QRScanRouters"
         component={QRScanRouters}
+        listeners={({ navigation, route }) => ({
+          tabPress: e => {
+            e.preventDefault();
+            navigation.navigate('QRScanRouters', {
+              screen: 'QRScanPage',
+            });
+          },
+        })}
         options={{
           tabBarLabel: "QR결제",
           tabBarIcon: ({ color }) => (
@@ -54,6 +78,14 @@ function Routers() {
       <Tab.Screen
         name="StatisticsPage"
         component={StatisticsRouters}
+        listeners={({ navigation, route }) => ({
+          tabPress: e => {
+            e.preventDefault();
+            navigation.navigate('StatisticsPage', {
+              screen: 'StatisticsPage1',
+            });
+          },
+        })}
         options={{
           tabBarLabel: "통계",
           tabBarIcon: ({ color }) => (
@@ -64,6 +96,14 @@ function Routers() {
       <Tab.Screen
         name="ProductPage"
         component={ProductRouters}
+        listeners={({ navigation, route }) => ({
+          tabPress: e => {
+            e.preventDefault();
+            navigation.navigate('ProductPage', {
+              screen: 'ProductPage1',
+            });
+          },
+        })}
         options={{
           tabBarLabel: "카드상품",
           tabBarIcon: ({ color }) => (

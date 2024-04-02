@@ -28,7 +28,7 @@ function PayCardPage() {
         token,
         currentYear+currentMonth,
         (res) => {
-          setCardList(res.data);
+          setCardList(res.data)
         },
         (err) => console.log(err)
       );
