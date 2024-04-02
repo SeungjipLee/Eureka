@@ -8,6 +8,8 @@ import com.ssafy.eureka.domain.card.dto.request.RegistPayCardRequest;
 import com.ssafy.eureka.domain.card.dto.request.RegistUserCardRequest;
 import com.ssafy.eureka.domain.card.dto.request.RegistUserCardRequest.RegistUserCard;
 import com.ssafy.eureka.domain.card.dto.response.*;
+import com.ssafy.eureka.domain.card.dto.response.CardRecommendMainResponse.CategoryCard;
+import com.ssafy.eureka.domain.card.dto.response.CardRecommendMainResponse.DdoraeCard;
 import com.ssafy.eureka.domain.card.dto.response.MyDataCardListResponse.MyDataCard;
 import com.ssafy.eureka.domain.card.dto.response.MyDataCardListResponse.MyDataCard.Card;
 import com.ssafy.eureka.domain.card.repository.*;
@@ -600,9 +602,23 @@ public class UserCardServiceImpl implements UserCardService {
           }
             tlcnrList.add(new Top3ListAndLargeCategoryNameResponse(largeCategoryName, top3List));
         }
+
         return new CardRecommendTop3(cardName, imagePath, imgAttr, tlcnrList);
     }
 
+    @Override
+    public CardRecommendMainResponse cardRecommendMain(String userId, int userCardId) {
+
+        CardEntity topCategoryCard;
+        CardEntity topDdoraeCard;
+
+        CardRecommendMainResponse cardRecommendMainResponse = new CardRecommendMainResponse(
+            new CategoryCard(),
+            new DdoraeCard()
+        );
+
+        return cardRecommendMainResponse;
+    }
 
     public void addStatistics(String userId, String cardIdentifier){
 

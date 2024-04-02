@@ -10,9 +10,9 @@ import SettingService from '../../stores/SettingUtils';
 
 function SettingPage() {
   const navigation = useNavigation();
-  const [username, setUsername] = useState('');
-  const [userbirth, setUserbirth] = useState('');
-  const [userphonenumber, setUserphonenumber] = useState('');
+  const [userName, setUserName] = useState('');
+  const [userBirth, setUserBirth] = useState('');
+  const [userPhoneNumber, setUserPhoneNumber] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
   const [isBiometricEnabled, setIsBiometricEnabled] = useState(false);
 
@@ -77,9 +77,9 @@ function SettingPage() {
     const fetchUserData = async () => {
       const userData = await TokenService.getUserData();
       if (userData && userData.userName && userData.userBirth && userData.phoneNumber) {
-        setUsername(userData.userName);
-        setUserbirth(userData.userBirth);
-        setUserphonenumber(userData.phoneNumber);
+        setUserName(userData.userName);
+        setUserBirth(userData.userBirth);
+        setUserPhoneNumber(userData.phoneNumber);
       }
     };
 
@@ -152,15 +152,15 @@ function SettingPage() {
         <View style={styles.profileContainer}>
           <View style={styles.profileData}>
             <Text style={styles.profileTitle}>이름</Text>
-            <Text style={styles.profileVlue}>{username}</Text>
+            <Text style={styles.profileVlue}>{userName}</Text>
           </View>
           <View style={styles.profileData}>
             <Text style={styles.profileTitle}>나이</Text>
-            <Text style={styles.profileVlue}>{formatBirth(userbirth)}</Text>
+            <Text style={styles.profileVlue}>{formatBirth(userBirth)}</Text>
           </View>
           <View style={styles.profileData}>
             <Text style={styles.profileTitle}>전화번호</Text>
-            <Text style={styles.profileVlue}>{formatPhoneNumber(userphonenumber)}</Text>
+            <Text style={styles.profileVlue}>{formatPhoneNumber(userPhoneNumber)}</Text>
           </View>
         </View>
       </View>

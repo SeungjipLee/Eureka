@@ -5,6 +5,8 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import TokenService from '../../stores/TokenUtils'
 import axios from 'axios';
 import { BackHandler } from 'react-native';
+import * as LocalAuthentication from 'expo-local-authentication';
+import SettingService from '../../stores/SettingUtils'
 
 
 const PasswordConfirmPage = ({ route, navigation }) => {
@@ -31,7 +33,17 @@ const PasswordConfirmPage = ({ route, navigation }) => {
         await TokenService.setUserData(userData);
         await TokenService.setPassword(currentPassword);
         
-        Alert.alert("성공", "회원가입이 완료되었습니다.", [{ text: '확인', onPress: () => navigation.navigate('Routers') }]);
+        Alert.alert("성공", "생체 인식 인증을 사용하시겠습니까?", [
+          {
+            text: '아니오',
+            onPress: () => navigation.navigate('Routers'),
+            style: 'cancel',
+          },
+          {
+            text: '예',
+            onPress: () => authenticateBiometrics(),
+          },
+        ]);
         console.log(response.data)
       } catch (error) {
         console.error('회원가입 실패:', error);
@@ -45,6 +57,25 @@ const PasswordConfirmPage = ({ route, navigation }) => {
       // 비밀번호 입력 칸 초기화
       setInputValues(Array(6).fill(''));
       setActiveInputIndex(0);
+    }
+  };
+
+  const authenticateBiometrics = async () => {
+    let result = await LocalAuthentication.authenticateAsync({
+      promptMessage: "인증",
+    });
+
+    if (result.success) {
+      const setBiometricSuccess = await SettingService.setBiometricEnabled(true);
+      if(setBiometricSuccess) {
+        console.log("생체 인식 설정 저장 성공");
+        navigation.navigate('Routers');
+      } else {
+        console.log("생체 인식 설정 저장 실패");
+      }
+    } else {
+      Alert.alert("인증 실패", "생체 인식 인증에 실패했습니다.");
+      navigation.navigate('Routers');
     }
   };
 

@@ -11,22 +11,21 @@ create table if not exists card_company
     image_path      varchar(255)    not null                            COMMENT '카드사 이미지 경로'
 );
 
-
 # 2. card
 drop table if exists card;
 create table if not exists card
 (
-    card_id              int         auto_increment     primary key     COMMENT '카드 관리번호',
-    card_company_id      int         not null                           COMMENT '카드사 관리번호',
-    card_type            int         not null                           COMMENT '카드 타입(0:신용, 1:체크, 2:소액신용체크)',
-    card_name            varchar(300) not null                           COMMENT '카드 이름',
-    annual_fee           int         not null                           COMMENT '연회비',
-    previous_performance int         not null                           COMMENT '전월실적',
-    caution              text        null                               COMMENT '유의사항',
-    image_path           text        not null                           COMMENT '카드 이미지 경로',
-    img_attr             int         not null                           COMMENT '카드 이미지 방향',
-    join_path            text        null                               COMMENT '카드 가입 경로',
-    is_expired           boolean     not null           default  0      COMMENT '카드 만료 여부(가입)'
+    card_id              int            auto_increment     primary key     COMMENT '카드 관리번호',
+    card_company_id      int            not null                           COMMENT '카드사 관리번호',
+    card_type            int            not null                           COMMENT '카드 타입(0:신용, 1:체크, 2:소액신용체크)',
+    card_name            varchar(300)   not null                           COMMENT '카드 이름',
+    annual_fee           int            not null                           COMMENT '연회비',
+    previous_performance int            not null                           COMMENT '전월실적',
+    caution              text           null                               COMMENT '유의사항',
+    image_path           varchar(255)   not null                           COMMENT '카드 이미지 경로',
+    img_attr             int            not null                           COMMENT '카드 이미지 방향',
+    join_path            text           null                               COMMENT '카드 가입 경로',
+    is_expired           boolean        not null           default  0      COMMENT '카드 만료 여부(가입)'
 );
 
 create index idx_card_company ON card(card_company_id);
@@ -41,7 +40,6 @@ create table if not exists user
     name         varchar(30)    not null                            COMMENT '이름',
     phone_number char(11)       not null            unique          COMMENT '휴대폰 번호("-"없이 11자리)'
 );
-
 
 #4. user_card
 drop table if exists user_card;

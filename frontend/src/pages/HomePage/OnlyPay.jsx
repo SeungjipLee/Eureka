@@ -147,7 +147,7 @@ function OnlyPay () {
           <Text style={styles.place}>{item.title}</Text>
           <Text style={styles.anotherinfo}>{item.category} | {item.card}</Text>           
         </View>
-        <Text style={styles.price}>{item.price}원</Text>
+        <Text style={styles.price}>{item.price.toLocaleString()}원</Text>
       </View>
     );
 };
@@ -174,7 +174,7 @@ function OnlyPay () {
 
       <View style={styles.wholecontainer}>
         <Text style={styles.wholetext}>어플 결제 총 금액</Text>
-        <Text style={styles.wholeprice}>{payAmount} 원</Text>
+        <Text style={styles.wholeprice}>{payAmount.toLocaleString()} 원</Text>
       </View>
 
       <FlatList

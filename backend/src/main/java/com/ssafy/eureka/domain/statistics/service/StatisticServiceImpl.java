@@ -13,6 +13,7 @@ import com.ssafy.eureka.domain.category.repository.LargeCategoryRepository;
 import com.ssafy.eureka.domain.category.repository.SmallCategoryRepository;
 import com.ssafy.eureka.domain.pay.repository.PayHistoryRepository;
 import com.ssafy.eureka.domain.statistics.dto.*;
+import com.ssafy.eureka.domain.statistics.dto.CardOwnershipDto.BenefitCompareInfo;
 import com.ssafy.eureka.domain.statistics.dto.response.*;
 import com.ssafy.eureka.domain.statistics.entity.*;
 import com.ssafy.eureka.domain.statistics.repository.*;
@@ -264,11 +265,6 @@ public class StatisticServiceImpl implements StatisticService {
         DiscountStaticEntity discountStatic = discountStaticRepository.findByUserCardIdAndYearAndMonth(userCardId, yearStr, monthStr)
             .orElse(null);
 
-        int discount = 0;
-        if(discountStatic != null){
-            discount = discountStatic.getTotalDiscount();
-        }
-
         UserInfoDto userInfo = userRepository.findUserInfoByUserId(Integer.parseInt(userId));
         char ageGroup = UserUtil.calculateAgeGroup(userInfo.getUserBirth(), userInfo.getUserGender());
 
@@ -283,36 +279,36 @@ public class StatisticServiceImpl implements StatisticService {
 //                    cardBenefitDetailRepository.findByCardId(ownershipStatic.getCardId(), pageable);
 //            ownershipStatic.setCategoryList(categoryList);
 
-            List<Integer> benbefitIdList = cardBenefitRepository.findAllCardBenefitIdsByCardId(ownershipStatic.getCardId());
+            List<CardBenefitEntity> benbefitIdList = cardBenefitRepository.findAllCardBenefitIdsByCardId(ownershipStatic.getCardId());
 
-            if(!benbefitIdList.isEmpty()) {
-                CardBenefitDetailEntity benefitDetail = cardBenefitDetailRepository.findHighestDiscountCostByCardBenefitIds(
-                        benbefitIdList)
-                    .orElse(null);
+            List<BenefitCompareInfo> list = new ArrayList<>();
 
-                if (benefitDetail != null) {
-                    String largeCategoryName = largeCategoryRepository.findByLargeCategoryId(
-                        benefitDetail.getLargeCategoryId()).getCategoryName();
+            for(CardBenefitEntity cardBenefit : benbefitIdList){
+                List<CardBenefitDetailEntity> cardBenefitDetailList = cardBenefitDetailRepository.findByCardBenefitId(cardBenefit.getCardBenefitId());
+                BenefitCompareInfo benefitCompareInfo = new BenefitCompareInfo();
 
-                    SmallCategoryEntity smallCategory = smallCategoryRepository.findBySmallCategoryId(
-                        benefitDetail.getSmallCategoryId()).orElse(null);
+                if(!cardBenefitDetailList.isEmpty()){
+                    LargeCategoryEntity largeCategory = largeCategoryRepository.findByLargeCategoryId(cardBenefitDetailList.get(0).getLargeCategoryId());
+                    if(largeCategory != null){
+                        benefitCompareInfo.setLargeCategoryName(largeCategory.getCategoryName());
 
-                    String smallCategoryName = "";
-                    if(smallCategory != null){
-                        smallCategoryName = smallCategory.getCategoryName();
+                        DiscountLargeStaticEntity discountLargeStatic = discountLargeStaticRepository.findByDiscountStaticIdAndLargeCategoryId(discountStatic.getDiscountStaticId(), largeCategory.getLargeCategoryId())
+                            .orElse(null);
+
+                        if(discountLargeStatic != null){
+                            benefitCompareInfo.setBeforeDiscount(discountLargeStatic.getDiscountAmount());
+                        }
+
+                        benefitCompareInfo.setAfterDiscount((int)(benefitCompareInfo.getBeforeDiscount() * 1.1));
+                        list.add(benefitCompareInfo);
                     }
-
-                    ownershipStatic.setLargeCategoryName(largeCategoryName);
-                    ownershipStatic.setSmallCategoryName(smallCategoryName);
-                    ownershipStatic.setDiscountType(benefitDetail.getDiscountType());
-                    ownershipStatic.setDiscountCost(benefitDetail.getDiscountCost());
-                    ownershipStatic.setDiscountCostType(benefitDetail.getDiscountCostType());
-                    ownershipStatic.setDiscountAmount(0);
                 }
             }
-        }
 
-        cardOwnershipStaticList.removeIf(ownershipStatic -> ownershipStatic.getDiscountCost() == 0);
+            Collections.sort(list);
+
+            ownershipStatic.setBenefitComapareList(list);
+        }
 
         CardOwnershipResponse response = new CardOwnershipResponse();
         response.setCardOwnershipList(cardOwnershipStaticList);

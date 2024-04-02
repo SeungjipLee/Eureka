@@ -1,8 +1,8 @@
 import { StyleSheet, View, Text, Image, Pressable } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect  } from "@react-navigation/native";
 import TokenUtils from "../../../stores/TokenUtils";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback  } from "react";
 import { getHomeInfo } from "../../../apis/HomeApi";
 
 function HomeMonthly() {
@@ -24,21 +24,26 @@ function HomeMonthly() {
     fetchToken();
   }, []);
 
-  const response = getHomeInfo(
-    token,
-    currentYear + currentMonth,
-    (res) => {
-      setWarning(false)
-      console.log(res.data)
-      setDiscount(res.data.totalDiscount)
-      setPayAmount(res.data.totalConsumption)
-    },
-    (err) => {
-      if (err.response.status === 404) {
-        console.log(err.response.status);
-        setWarning(true);
+  useFocusEffect(
+    useCallback(() => {
+      if (token) { // 토큰이 있을 때만 getHomeInfo 호출
+        getHomeInfo(
+          token,
+          currentYear + currentMonth,
+          (res) => {
+            setWarning(false);
+            setDiscount(res.data.totalDiscount);
+            setPayAmount(res.data.totalConsumption);
+          },
+          (err) => {
+            if (err.response.status === 404) {
+              console.log(err.response.status);
+              setWarning(true);
+            }
+          }
+        );
       }
-    }
+    }, [token, currentMonth, currentYear])
   );
 
   return (
