@@ -263,3 +263,22 @@ create table if not exists card_ownership_static
     ownership_count             int             not null                            comment '카드 보유 수',
     created_date                date            not null                            comment '생성일'
 );
+
+#19. tag
+drop table if exists tag;
+create table if not exists tag(
+    tag_id              int     auto_increment      primary key     comment '태그 관리번호',
+    large_category_id   int     not null                            comment '대분류 카테고리',
+    tag_name            int     not null                            comment '태그 명',
+    tag_image_path      int     not null                            comment '태그 이미지 경로'
+);
+
+#20. user_tag
+drop table if exists user_tag;
+create table if not exists user_tag(
+    user_tag_id     int     auto_increment      primary key     comment '유저 태그 관리번호',
+    user_id         int     not null                            comment '유저 관리번호',
+    tag_id          int     not null                            comment '태그 관리번호'
+);
+
+create index idx_user_id on user_tag(user_id);

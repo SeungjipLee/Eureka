@@ -5,7 +5,7 @@ import {
   Text,
   Image,
 } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 function ConsumptionCategoryList() {
   const categories = useSelector((state) => state.staticList.twovalue)
@@ -42,23 +42,23 @@ function ConsumptionCategoryList() {
 
   return (
     <View style={styles.container}>
-      {categories.slice(0, -1).map((category) => ( // 마지막 totalConsumption 항목 제외
+      {categories.slice(0, -1).map((category) => (
         <View key={category.categoryId} style={styles.categoryContainer}>
           <Image
-            source={categoryImages[category.categoryName] || require("../../../../../assets/burger.png")} // 해당 카테고리에 맞는 이미지 또는 기본 이미지
+            source={categoryImages[category.categoryName] || require("../../../../../assets/burger.png")} 
             style={styles.image}
           />
-<View style={styles.contentContainer}>
-  <View style={styles.itemContainer}>
-    <Text style={styles.categoryName}>{category.categoryName}</Text>
-  </View>
-  <View style={styles.itemContainer}>
-    <Text style={styles.categoryPercent}>{((category.consumption / totalConsumption) * 100).toFixed(2)}%</Text>
-  </View>
-  <View style={styles.itemContainer}>
-    <Text style={styles.categoryConsumption}>{category.consumption.toLocaleString()}원</Text>
-  </View>
-</View>
+          <View style={styles.contentContainer}>
+            <View style={styles.itemContainer}>
+              <Text style={styles.categoryName}>{category.categoryName}</Text>
+            </View>
+            <View style={styles.itemContainer}>
+              <Text style={styles.categoryPercent}>{((category.consumption / totalConsumption) * 100).toFixed(2)}%</Text>
+            </View>
+            <View style={styles.itemContainer}>
+              <Text style={styles.categoryConsumption}>{category.consumption.toLocaleString()}원</Text>
+            </View>
+          </View>
 
         </View>
       ))}
@@ -85,11 +85,11 @@ const styles = StyleSheet.create({
   contentContainer: {
     marginLeft: 15,
     flexDirection: "row",
-    alignItems: "center", // 세로 정렬을 위해 추가
+    alignItems: "center",
   },
   itemContainer: {
-    flex: 1, // 모든 itemContainer가 동일한 비율을 차지하도록 설정
-    justifyContent: "center", // 세로 중앙 정렬
+    flex: 1,
+    justifyContent: "center",
   },
   categoryName: {
     fontSize: 14,

@@ -1,48 +1,57 @@
-import React, { useState, createRef, useEffect } from 'react';
+import React, { useState, createRef } from 'react';
 import { StyleSheet, Text, View, Pressable, TextInput, Alert, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import TokenService from '../../stores/TokenUtils'
+import TokenService from '../../../stores/TokenUtils';
 import axios from 'axios';
-import { BackHandler } from 'react-native';
 
-
-const PasswordConfirmPage = ({ route, navigation }) => {
-  const { verificationInfo } = route.params;
+const SignupPasswordChangeConfirm = ({ navigation, route }) => {
+  const { password: postpassword, verificationInfo } = route.params;
   const initialRefs = Array(6).fill().map(() => createRef());
   const [inputValues, setInputValues] = useState(Array(6).fill(''));
   const [activeInputIndex, setActiveInputIndex] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
 
-  const [buttonBackgrounds, setButtonBackgrounds] = useState(Array(12).fill('#3675FF')); // 12개의 버튼에 대한 배경색 상태 초기화
+  const [buttonBackgrounds, setButtonBackgrounds] = useState(Array(12).fill('#3675FF'));
 
-  // 현재 입력 필드가 채워지면 초기 비밀번호와 비교하는 함수
-  // checkPasswordMatch 함수 수정
-  const checkPasswordMatch = async (currentPassword) => {
-    if (currentPassword === verificationInfo.password) {
-      try {
-        const signupData = {
-          ...verificationInfo,
-        };
-        console.log(signupData)
-        const response = await axios.post('https://j10e101.p.ssafy.io/api/user/signup', signupData);
-        const { accessToken, refreshToken, userData } = response.data;
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  // 비밀번호 일치 확인 및 변경 요청 함수
+  // 비밀번호 일치 확인 및 변경 요청 함수
+  const updatePassword = async (newPassword) => {
+    try {
+      const { accessToken, refreshToken, userData } = verificationInfo;
+
+      const response = await axios.put('https://j10e101.p.ssafy.io/api/auth/user', { password: newPassword }, { // newPassword를 객체 형태로 전달 수정
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      });
+
+      if (response.status === 200) {
         await TokenService.setToken(accessToken, refreshToken);
         await TokenService.setUserData(userData);
-        await TokenService.setPassword(currentPassword);
-        
-        Alert.alert("성공", "회원가입이 완료되었습니다.", [{ text: '확인', onPress: () => navigation.navigate('Routers') }]);
-        console.log(response.data)
-      } catch (error) {
-        console.error('회원가입 실패:', error);
-        Alert.alert("회원가입 오류", "회원가입 과정에서 오류가 발생했습니다.");
-        // 비밀번호 입력 칸 초기화
-        setInputValues(Array(6).fill(''));
-        setActiveInputIndex(0);
+        await TokenService.setPassword(newPassword);
+        Alert.alert("성공", "비밀번호가 변경되었습니다.", [{ text: '확인', onPress: () => navigation.navigate('Routers') }]);
+      } else {
+        throw new Error('비밀번호 변경 실패');
       }
+    } catch (error) {
+      console.error('비밀번호 변경 오류:', error);
+      Alert.alert("오류", "비밀번호 변경 과정에서 오류가 발생했습니다.");
+      setInputValues(Array(6).fill('')); // 오류 발생 시 비밀번호 칸 초기화 추가
+      setActiveInputIndex(0); // 첫 번째 입력 칸으로 커서 이동 추가
+    }
+  };
+
+  // 현재 입력 필드를 확인하는 함수
+  const checkPasswordMatch = (currentPassword) => {
+    if (currentPassword === postpassword) {
+      updatePassword(currentPassword);
     } else {
       Alert.alert("오류", "비밀번호가 일치하지 않습니다.", [{ text: '확인' }]);
-      // 비밀번호 입력 칸 초기화
       setInputValues(Array(6).fill(''));
       setActiveInputIndex(0);
     }
@@ -119,37 +128,14 @@ const PasswordConfirmPage = ({ route, navigation }) => {
     );
   };
 
-  const handleGoBack = () => {
-    // 입력값 초기화
-    setInputValues(Array(6).fill(''));
-    // 이전 화면으로 네비게이션
-    navigation.goBack();
-  };
-
-  useEffect(() => {
-    const backAction = () => {
-      handleGoBack();
-      return true;
-    };
-
-    BackHandler.addEventListener('hardwareBackPress', backAction);
-
-    return () =>
-      BackHandler.removeEventListener('hardwareBackPress', backAction);
-  }, []); // 의존성 배열이 비어있으므로 컴포넌트 마운트 시 1회만 실행됩니다.
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
-
   return (
     <SafeAreaView style={styles.safeAreaView}>
       <View style={styles.topBar}>
-        <Pressable style={styles.pressable} onPress={handleGoBack}>
+        <Pressable style={styles.pressable} onPress={() => navigation.goBack()}>
           <MaterialCommunityIcons name="chevron-left" size={40} color="white" />
         </Pressable>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>간편비밀번호 등록</Text>
+          <Text style={styles.title}>비밀번호 확인</Text>
         </View>
       </View>
       <View style={styles.passwordContainer}>
@@ -293,4 +279,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default PasswordConfirmPage;
+export default SignupPasswordChangeConfirm;
