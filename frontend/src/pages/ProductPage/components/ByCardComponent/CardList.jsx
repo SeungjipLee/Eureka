@@ -36,7 +36,6 @@ function CardList() {
         selectId,
         (res) => {
           setCards(res.data);
-          console.log(res.data);
         },
         (err) => {
           console.log("Error, CardList", err);
@@ -123,5 +122,15 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
     marginLeft: 10,
     marginRight: 11,
+  },
+  horizontalImage: {
+    width: 120, // 가로 이미지의 크기 조정
+    height: 80,
+    resizeMode: "contain",
+  },
+  verticalImage: {
+    width: 85, // 세로 이미지의 크기 조정
+    height: 120,
+    resizeMode: "contain",
   },
 });

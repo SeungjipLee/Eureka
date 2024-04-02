@@ -22,8 +22,7 @@ public interface StatisticService {
     void updateCardOwnershipStatic();
 
     CardOwnershipResponse cardOwnershipOverviewResponse();
-
-    CardOwnershipResponse cardOwnershipStaticResponse(String userId);
+    CardOwnershipResponse cardOwnershipStaticResponse(String userId, int userCardId);
 
     void updateConsumptionUserStatic();
 

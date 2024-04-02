@@ -281,10 +281,10 @@ create table if not exists consumption_user_static
 #20. tag
 drop table if exists tag;
 create table if not exists tag(
-    tag_id              int     auto_increment      primary key     comment '태그 관리번호',
-    large_category_id   int     not null                            comment '대분류 카테고리',
-    tag_name            int     not null                            comment '태그 명',
-    tag_image_path      int     not null                            comment '태그 이미지 경로'
+    tag_id              int             auto_increment      primary key     comment '태그 관리번호',
+    large_category_id   int             not null                            comment '대분류 카테고리',
+    tag_name            varchar(100)    not null                            comment '태그 명',
+    tag_image_path      varchar(300)    not null                            comment '태그 이미지 경로'
 );
 
 #21. user_tag

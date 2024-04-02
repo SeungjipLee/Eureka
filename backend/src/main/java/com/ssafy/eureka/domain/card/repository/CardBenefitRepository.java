@@ -17,4 +17,10 @@ public interface CardBenefitRepository extends JpaRepository<CardBenefitEntity, 
     CardBenefitEntity findFirstByCardBenefitId(int cardBenefitId);
     @Query("SELECT c FROM CardBenefitEntity c WHERE c.cardBenefitId = :cardBenefitId")
     CardBenefitEntity findByCardBenefit(@Param("cardBenefitId") int cardBenefitId);
+
+    List<CardBenefitEntity> findAllByCardId(int cardId);
+
+    @Query("SELECT cb.cardBenefitId FROM CardBenefitEntity cb WHERE cb.cardId = :cardId")
+    List<Integer> findAllCardBenefitIdsByCardId(@Param("cardId") int cardId);
+
 }
