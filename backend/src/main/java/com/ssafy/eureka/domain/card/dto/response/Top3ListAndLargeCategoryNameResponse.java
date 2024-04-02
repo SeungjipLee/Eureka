@@ -5,17 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Getter
-@Setter
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
-public class CardRecommendTop3List {
+@Getter
+@Setter
+public class Top3ListAndLargeCategoryNameResponse {
 
-    String cardName;
-    String info;
-    String imagePath;
-    int imgAttr;
-    int discountType;
-    double discountCost;
-    int afterDiscount;
+    String largeCategoryName;
+    List<CardRecommendTop3List> list;
 }
