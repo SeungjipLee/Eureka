@@ -114,7 +114,7 @@ function CardDetailPayPage({ route }) {
           <Text style={{ fontSize: 16, marginLeft: 20, marginVertical: 10 }}>이용 내역</Text>
           <View style={{ flexDirection: 'row', alignItems: 'flex-end', marginEnd: 30}}>
             <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
-              {cardHistory.monthTotalConsumption}
+              {cardHistory.monthTotalConsumption?.toLocaleString()}
             </Text>
             <Text> 원</Text>
             </View>
@@ -124,7 +124,7 @@ function CardDetailPayPage({ route }) {
             <Text style={{ fontSize: 16, marginLeft: 20, marginVertical: 10 }}>받은 혜택</Text>
             <View style={{ flexDirection: 'row', alignItems: 'flex-end', marginEnd: 30}}>
               <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#447FFF' }}>
-                {cardHistory.monthTotalDiscount}
+                {cardHistory.monthTotalDiscount?.toLocaleString()}
               </Text>
               <Text> 원</Text>
             </View>
