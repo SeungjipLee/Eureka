@@ -429,3 +429,11 @@ VALUES  ('스타벅스', 12),
 #14-2. discount_static dummy
 #15-2. discount_detail dummy
 #16-2. discount_detail_history dummy
+#17-2. card_ownership_overview dummy
+#18-2. card_ownership_static dummy
+
+#19-2. tag dummy
+INSERT INTO tag(large_category_id, tag_name, tag_image_path)
+values ();
+
+#20-2 user_tag dummy
