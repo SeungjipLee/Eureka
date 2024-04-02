@@ -100,10 +100,9 @@ function BenefitGraph() {
         (res) => {
           setTotalDiscount(res.data.totalDiscount);
           setCategories(res.data.discountList);
-          console.log(res.data, "check");
         },
         (err) => {
-          console.log(err, "혜택 카테고리 실패");
+          console.log(err, "BenefitGraph, 혜택 카테고리 실패");
         }
       );
     }
@@ -136,8 +135,6 @@ function BenefitGraph() {
       setLastCategory(processCategories(categories));
     }
   }, [categories]);
-
-  console.log(categories[0], "cejknkase");
 
   return (
     <View style={styles.container}>
