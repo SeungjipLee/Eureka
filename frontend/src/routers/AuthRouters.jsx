@@ -11,6 +11,7 @@ import PasswordChangeConfirm from "../pages/SettingPage/components/PasswordChang
 import VerifyPasswordChange from "../pages/SettingPage/components/VerifyPasswordChange";
 import SignupPasswordChange from "../pages/SignUpPage/components/SignupPasswordChange";
 import SignupPasswordChangeConfirm from "../pages/SignUpPage/components/SignupPasswordChangeConfirm";
+import PaymentPassword from "../pages/SettingPage/components/PaymentPassword";
 
 
 function AuthenticationRouter () {
@@ -29,6 +30,7 @@ function AuthenticationRouter () {
       <AuthStack.Screen name="PasswordChangeConfirm" component={PasswordChangeConfirm}/>
       <AuthStack.Screen name='SignupPasswordChange' component={SignupPasswordChange}/>
       <AuthStack.Screen name='SignupPasswordChangeConfirm' component={SignupPasswordChangeConfirm}/>
+      <AuthStack.Screen name='PaymentPassword' component={PaymentPassword}/>
       <AuthStack.Screen name='Routers' component={Routers}/>
     </AuthStack.Navigator>
   )

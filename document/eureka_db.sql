@@ -264,7 +264,21 @@ create table if not exists card_ownership_static
     created_date                date            not null                            comment '생성일'
 );
 
-#19. tag
+#19. consumption_user_static
+drop table if exists consumption_user_static;
+create table if not exists consumption_user_static
+(
+    consumption_user_static_id  int         auto_increment      primary key     comment '소비 사용자 통계 관리번호',
+    large_category_id           int         not null                            comment '대분류 카테고리 관리번호',
+    age_group                   char(1)     not null                            comment '연령대',
+    gender                      char(1)     not null                            comment '성별',
+    year                        char(4)     not null                            COMMENT '년도 (4자리)',
+    month                       char(2)     not null                            COMMENT '월 (2자리)',
+    consumption_amount          bigint      not null                            comment '총 소비 금액',
+    created_date                date        not null                            comment '생성일'
+);
+
+#20. tag
 drop table if exists tag;
 create table if not exists tag(
     tag_id              int     auto_increment      primary key     comment '태그 관리번호',
@@ -273,7 +287,7 @@ create table if not exists tag(
     tag_image_path      int     not null                            comment '태그 이미지 경로'
 );
 
-#20. user_tag
+#21. user_tag
 drop table if exists user_tag;
 create table if not exists user_tag(
     user_tag_id     int     auto_increment      primary key     comment '유저 태그 관리번호',

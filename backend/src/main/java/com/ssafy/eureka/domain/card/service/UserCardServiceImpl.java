@@ -530,7 +530,6 @@ public class UserCardServiceImpl implements UserCardService {
         List<ConsumptionLargeStaticEntity> consumptionLargeStaticEntity = consumptionLargeStaticRepository
                 .findTop3ByConsumptionStaticIdOrderByConsumptionAmountDesc(consumptionStaticId);
 
-
         // 상위 3개 카테고리 돌려
         for (int i=0; i<consumptionLargeStaticEntity.size(); i++){
 

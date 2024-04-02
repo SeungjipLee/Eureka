@@ -1,29 +1,34 @@
-import React, { useState, createRef, useEffect } from 'react';
-import { StyleSheet, Text, View, Pressable, TextInput, TouchableOpacity } from 'react-native';
+import React, { useState, createRef } from 'react';
+import { StyleSheet, Text, View, Pressable, TextInput, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import TokenService from '../../../stores/TokenUtils';
 
 
-const PasswordPage = ({ route, navigation }) => {
-  const { verificationInfo } = route.params;
+const PaymentPassword = ({ navigation, route }) => {
+  const { onSuccess } = route.params;
   const initialRefs = Array(6).fill().map(() => createRef());
   const [inputValues, setInputValues] = useState(Array(6).fill(''));
   const [activeInputIndex, setActiveInputIndex] = useState(0);
-  const [showPassword, setShowPassword] = useState(false);
 
   const [buttonBackgrounds, setButtonBackgrounds] = useState(Array(12).fill('#3675FF')); // 12개의 버튼에 대한 배경색 상태 초기화
 
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
+  const submitPasswordChange = async (inputPassword) => {
+    const accessToken = await TokenService.getAccessToken();
+    const savedPassword = await TokenService.getPassword(); // TokenService에서 저장된 비밀번호 가져오기
+    if (!accessToken) {
+      Alert.alert('', '접근 토큰이 없습니다.');
+      return;
+    }
+
+    if (inputPassword === savedPassword) { 
+      onSuccess && onSuccess();
+    } else {
+      Alert.alert('오류', '비밀번호가 일치하지 않습니다.'); // 비밀번호 불일치시 오류 메시지 표시
       setInputValues(Array(6).fill(''));
-      setActiveInputIndex(0);
-    });
-
-    return unsubscribe;
-  }, [navigation]);
-
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
+      setActiveInputIndex(0); // 입력 필드 초기화 및 첫 번째 입력 필드로 포커스 이동
+      return;
+    }
   };
 
   const handleInputChange = (text, index) => {
@@ -62,17 +67,7 @@ const PasswordPage = ({ route, navigation }) => {
     // 수정된 부분: 상태 업데이트 함수 호출 직후가 아닌, 새로운 입력값 배열을 기반으로 검사를 실행합니다.
     // 예상되는 새로운 상태를 기반으로 모든 입력이 완료되었는지 확인합니다.
     if (newInputValues.every((value) => value !== '') && newInputValues.length === 6) {
-      // 모든 입력이 완료되었으면 비밀번호를 verificationInfo에 추가하고, authNumber를 제거합니다.
-
-      const newPassword = newInputValues.join('');
-      const updatedVerificationInfo = {
-        ...verificationInfo,
-        password: newPassword
-      };
-      delete updatedVerificationInfo.authNumber; // authNumber 키를 삭제합니다.
-
-      // PasswordConfirmPage로 네비게이션하면서 수정된 verificationInfo 데이터를 전달합니다.
-      navigation.navigate('PasswordConfirmPage', { verificationInfo: updatedVerificationInfo });
+      submitPasswordChange(newInputValues.join(''));
     }
 
     // 버튼 배경색 업데이트 로직
@@ -110,11 +105,15 @@ const PasswordPage = ({ route, navigation }) => {
     );
   };
 
+
   return (
     <SafeAreaView style={styles.safeAreaView}>
       <View style={styles.topBar}>
+        <Pressable style={styles.pressable} onPress={() => navigation.goBack()}>
+          <MaterialCommunityIcons name="chevron-left" size={40} color="white" />
+        </Pressable>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>간편비밀번호 등록</Text>
+          <Text style={styles.title}>간편 결제 비밀번호</Text>
         </View>
       </View>
       <View style={styles.passwordContainer}>
@@ -126,11 +125,7 @@ const PasswordPage = ({ route, navigation }) => {
             <TextInput
               key={index}
               ref={initialRefs[index]}
-              style={[
-                styles.input,
-                { backgroundColor: value ? 'white' : 'gray' }, // 입력 값의 유무에 따른 배경색 설정
-                showPassword && value ? { color: 'black', backgroundColor: 'transparent' } : { color: 'transparent' }, // 비밀번호 보기 활성화 및 입력 값이 있는 경우 텍스트 색상을 검정으로 변경
-              ]}
+              style={[styles.input, { backgroundColor: value ? 'white' : 'gray' }]}
               maxLength={1}
               onChangeText={(text) => handleInputChange(text, index)}
               value={value}
@@ -139,9 +134,6 @@ const PasswordPage = ({ route, navigation }) => {
             />
           ))}
         </View>
-        <TouchableOpacity style={styles.toggleButton} onPress={togglePasswordVisibility}>
-          <Text style={styles.toggleButtonText}>비밀번호 보기</Text>
-        </TouchableOpacity>
       </View>
       <View style={styles.bottomContainer}>
         {renderNumberPad()}
@@ -159,9 +151,8 @@ const styles = StyleSheet.create({
   topBar: {
     width: '100%',
     height: '10%',
-    paddingTop: '2%',
-    justifyContent:'center',
-    alignItems:'center'
+    flexDirection: 'row',
+    paddingTop: '2%'
   },
   // 나머지 상단 바 스타일
   pressable: {
@@ -259,5 +250,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default PasswordPage;
-
+export default PaymentPassword;

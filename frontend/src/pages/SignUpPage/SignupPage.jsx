@@ -120,7 +120,6 @@ const SignupPage = () => {
           }
         } else {
           // response.data가 비어있거나 예상한 값이 없는 경우, 인증 성공 처리
-          console.log(response.data)
           Alert.alert('인증 성공', '인증이 완료되었습니다.', [
             { text: "확인", onPress: () => navigation.navigate('PasswordPage', { verificationInfo: verificationInfo }) }
           ]);

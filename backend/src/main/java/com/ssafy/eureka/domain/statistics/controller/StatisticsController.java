@@ -83,4 +83,11 @@ public class StatisticsController {
         log.debug("유저 " + userDetails.getUsername() + " : 연령대 & 성별 많이 보유한 카드 조회");
         return ResponseEntity.ok(statisticsService.cardOwnershipStaticResponse(userDetails.getUsername()));
     }
+
+    @Operation(summary = "또래 지난달 소비 비교")
+    @GetMapping("/compare/consumption")
+    public ResponseEntity<?> getConsumptionCompare(@AuthenticationPrincipal UserDetails userDetails) {
+        log.debug("또래 소비 비교, userId : " + userDetails.getUsername());
+        return ResponseEntity.ok(statisticsService.consumptionCompareResponse(userDetails.getUsername()));
+    }
 }

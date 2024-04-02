@@ -86,6 +86,37 @@ function BankListModal({ visible, onClose, onSelect }) {
     }
   };
 
+  const navigateToVerifyPasswordChange = async () => {
+    const isBiometricsEnabled = await SettingService.getBiometricsEnabled();
+  
+    if (isBiometricsEnabled) {
+      const biometricAuth = await LocalAuthentication.authenticateAsync({
+        promptMessage: '인증을 진행해주세요',
+        cancelLabel: '취소',
+        fallbackLabel: '비밀번호 입력',
+        disableDeviceFallback: false, // disableDeviceFallback을 false로 설정
+      });
+  
+      if (biometricAuth.success) {
+        console.log('생체 인증 성공');
+        handleSubmit(); // 생체 인증 성공 시 handleSubmit 함수 실행
+      } else if (biometricAuth.error === 'user_fallback') {
+        // 사용자가 fallbackLabel을 선택한 경우
+        console.log('비밀번호 입력 선택됨');
+        navigation.navigate('PaymentPassword', {
+          onSuccess: handleSubmit,
+        });
+      } else {
+        console.log('생체 인증 실패 또는 취소됨');
+      }
+    } else {
+      // 생체 인식이 비활성화된 경우, 비밀번호 입력 페이지로 네비게이션
+      navigation.navigate('PaymentPassword', {
+        onSuccess: handleSubmit,
+      });
+    }
+  };
+
   const handleSubmit = async () => {
     const bankIds = selectedBanks.map((bank) => bank.id);
     const inputData = {

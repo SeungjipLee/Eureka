@@ -7,14 +7,8 @@ import com.ssafy.eureka.domain.card.repository.UserCardRepository;
 import com.ssafy.eureka.domain.category.dto.LargeCategoryEntity;
 import com.ssafy.eureka.domain.pay.repository.PayHistoryRepository;
 import com.ssafy.eureka.domain.statistics.dto.*;
-import com.ssafy.eureka.domain.statistics.dto.response.BestCardStatisticsResponse;
-import com.ssafy.eureka.domain.statistics.dto.response.CardOwnershipResponse;
-import com.ssafy.eureka.domain.statistics.dto.response.ConsumptionStatisticsResponse;
-import com.ssafy.eureka.domain.statistics.dto.response.DiscountStatisticsResponse;
-import com.ssafy.eureka.domain.statistics.entity.CardOwnershipOverviewEntity;
-import com.ssafy.eureka.domain.statistics.entity.CardOwnershipStaticEntity;
-import com.ssafy.eureka.domain.statistics.entity.ConsumptionStaticEntity;
-import com.ssafy.eureka.domain.statistics.entity.DiscountStaticEntity;
+import com.ssafy.eureka.domain.statistics.dto.response.*;
+import com.ssafy.eureka.domain.statistics.entity.*;
 import com.ssafy.eureka.domain.statistics.repository.*;
 import com.ssafy.eureka.domain.user.dto.UserInfoDto;
 import com.ssafy.eureka.domain.user.repository.UserRepository;
@@ -28,6 +22,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigInteger;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Slf4j
@@ -43,6 +39,7 @@ public class StatisticServiceImpl implements StatisticService {
     private final DiscountLargeStaticRepository discountLargeStaticRepository;
     private final CardOwnershipOverviewRepository cardOwnershipOverviewRepository;
     private final CardOwnershipStaticRepository cardOwnershipStaticRepository;
+    private final ConsumptionUserStaticRepository consumptionUserStaticRepository;
     private final CardBenefitDetailRepository cardBenefitDetailRepository;
     private final PayHistoryRepository payHistoryRepository;
 
@@ -226,8 +223,10 @@ public class StatisticServiceImpl implements StatisticService {
 
     @Override
     public CardOwnershipResponse cardOwnershipOverviewResponse() {
+        LocalDate date = cardOwnershipOverviewRepository.findLatestCreatedDate();
+
         List<CardOwnershipDto> cardOwnershipOverviewList =
-                cardOwnershipOverviewRepository.findCardOwnershipOverviews();
+                cardOwnershipOverviewRepository.findCardOwnershipOverviews(date);
 
         for (CardOwnershipDto ownershipStatic : cardOwnershipOverviewList) {
             Pageable pageable = PageRequest.of(0, 5);
@@ -249,8 +248,10 @@ public class StatisticServiceImpl implements StatisticService {
         UserInfoDto userInfo = userRepository.findUserInfoByUserId(Integer.parseInt(userId));
         char ageGroup = UserUtil.calculateAgeGroup(userInfo.getUserBirth(), userInfo.getUserGender());
 
+        LocalDate date = cardOwnershipStaticRepository.findLatestCreatedDate();
+
         List<CardOwnershipDto> cardOwnershipStaticList =
-                cardOwnershipStaticRepository.findCardOwnershipStaticByAgeGroup(ageGroup);
+                cardOwnershipStaticRepository.findCardOwnershipStaticByAgeGroup(ageGroup, date);
 
         for (CardOwnershipDto ownershipStatic : cardOwnershipStaticList) {
             Pageable pageable = PageRequest.of(0, 5);
@@ -262,6 +263,79 @@ public class StatisticServiceImpl implements StatisticService {
         CardOwnershipResponse response = new CardOwnershipResponse();
         response.setCardOwnershipList(cardOwnershipStaticList);
         response.setSearchInfo(new CardOwnershipResponse.SearchInfo(Integer.parseInt(String.valueOf(ageGroup)), 2));
+        return response;
+    }
+
+    @Override
+    @Transactional
+    public void updateConsumptionUserStatic() {
+        List<UserInfoDto> userList = userRepository.findActiveUserInfo();
+
+        Map<ConsumptionUserStaticKey, BigInteger> consumptionUserStaticMap = new HashMap<>();
+        Map<ConsumptionUserStaticKey, Integer> countMap = new HashMap<>();
+
+        for (UserInfoDto user : userList) {
+            char ageGroup = UserUtil.calculateAgeGroup(user.getUserBirth(), user.getUserGender());
+            int numericGender = Character.getNumericValue(user.getUserGender()) % 2;
+            char gender = String.valueOf(numericGender).charAt(0);
+
+            LocalDate lastMonth = LocalDate.now().minusMonths(1);
+            String year = lastMonth.format(DateTimeFormatter.ofPattern("yyyy"));
+            String month = lastMonth.format(DateTimeFormatter.ofPattern("MM"));
+
+            List<Integer> userCardList = userCardRepository.findUserCardIdByUserId(user.getUserId());
+
+            for (Integer userCardId : userCardList) {
+                List<Object[]> statisticsList =
+                        consumptionStaticRepository.findStaticByUserCardIdAndYearAndMonth(userCardId, year, month);
+
+                for (Object[] result : statisticsList) {
+                    int categoryId = (int) result[0];
+                    BigInteger consumptionAmount = (BigInteger) result[1];
+                    ConsumptionUserStaticKey key = new ConsumptionUserStaticKey(categoryId, ageGroup, gender, year, month);
+                    consumptionUserStaticMap.merge(key, consumptionAmount, BigInteger::add);
+                    countMap.merge(key, 1, Integer::sum);
+                }
+            }
+        }
+
+        consumptionUserStaticMap.forEach((key, consumptionAmount) -> {
+            // 소비금액 평균 계산
+            Integer count = countMap.getOrDefault(key, 0);
+            BigInteger consumptionAverage = count > 0 ? consumptionAmount.divide(BigInteger.valueOf(count)) : BigInteger.ZERO;
+
+            ConsumptionUserStaticEntity entity = ConsumptionUserStaticEntity
+                    .register(key.getCategoryId(), key.getAgeGroup(), key.getGender(), key.getYear(), key.getMonth(), consumptionAverage);
+            consumptionUserStaticRepository.save(entity);
+        });
+    }
+
+    @Override
+    public ConsumptionCompareResponse consumptionCompareResponse(String userId) {
+        checkUserCardExistsByUserId(userId);
+
+        UserInfoDto userInfo = userRepository.findUserInfoByUserId(Integer.parseInt(userId));
+        char ageGroup = UserUtil.calculateAgeGroup(userInfo.getUserBirth(), userInfo.getUserGender());
+        int numericGender = Character.getNumericValue(userInfo.getUserGender()) % 2;
+        char gender = String.valueOf(numericGender).charAt(0);
+
+        LocalDate lastMonth = LocalDate.now().minusMonths(1);
+        String year = lastMonth.format(DateTimeFormatter.ofPattern("yyyy"));
+        String month = lastMonth.format(DateTimeFormatter.ofPattern("MM"));
+
+        List<ConsumptionCompareDto> consumptionCompareList =
+                consumptionLargeStaticRepository.findConsumptionComparisonByUserAndPeriod(Integer.parseInt(userId), year, month, ageGroup, gender);
+
+        BigInteger userTotalConsumption = consumptionStaticRepository.findTotalConsumptionByUserIdAndDate(Integer.parseInt(userId), year, month);
+        BigInteger averageTotalConsumption = consumptionUserStaticRepository.findTotalConsumptionByUserInfoAndDate(ageGroup, gender, year, month);
+
+        ConsumptionCompareResponse response = new ConsumptionCompareResponse();
+        response.setData(consumptionCompareList);
+        response.setAge(ageGroup);
+        response.setGender(gender);
+        response.setUserAmt(userTotalConsumption);
+        response.setAnotherAmt(averageTotalConsumption);
+
         return response;
     }
 }
