@@ -1,3 +1,5 @@
+-- 22 ~ 27
+
 INSERT INTO card_db.card_history (user_card_id, status, pay_type, approved_num, approved_date_time, approved_amt, trans_date_time, modified_amt, merchant_name, merchant_reg_no, total_install_cnt, large_category_id, small_category_id)
 VALUES
 (25, 0, 0, '97658822', '2023-12-01 03:46:00', 46000, null, null, 'NC백화점 명지점', '000-00-00025', null, 8, 374),

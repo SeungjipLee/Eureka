@@ -694,7 +694,8 @@
     "register_path": "https://www.samsungcard.com/home/card/apply/PGHPPCPCardApplyNewGeneral001?affcode=cardgorilla&alncmpC=CYBERBR&bgdAlncPdC=AAP1671&cmpid=cardgorilla#apply_step01",
     "state": "발급가능",
     "img_attr": "가로"
-  },{
+  },
+  {
     "index": 5,
     "카드이름": "삼성 iD ENERGY 카드",
     "카드사": "삼성카드",

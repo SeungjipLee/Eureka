@@ -45,4 +45,8 @@ public interface CardBenefitDetailRepository extends JpaRepository<CardBenefitDe
 
     @Query(value = "SELECT * FROM card_benefit_detail cbd WHERE cbd.card_benefit_id IN :cardBenefitIds ORDER BY cbd.discount_cost DESC LIMIT 1", nativeQuery = true)
     Optional<CardBenefitDetailEntity> findHighestDiscountCostByCardBenefitIds(@Param("cardBenefitIds") List<Integer> cardBenefitIds);
+
+
+    @Query("SELECT cbd FROM CardBenefitDetailEntity cbd WHERE cbd.cardBenefitId IN (SELECT cb.cardBenefitId FROM CardBenefitEntity cb WHERE cb.cardId = :cardId) AND cbd.largeCategoryId = 1")
+    Optional<CardBenefitDetailEntity> findTopByCardIdAndLargeCategoryId(@Param("cardId") int cardId, Pageable pageable);
 }

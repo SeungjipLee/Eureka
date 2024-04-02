@@ -118,8 +118,15 @@ public class PayServiceImpl implements PayService {
                     .stream()
                     .findFirst().orElse(null));
 
-            RecommendCard card = new RecommendCard(cardProd, userCard, cardBenefitDetail);
+            if(cardBenefitDetail == null){
+                CardBenefitDetailEntity tmp = cardBenefitDetailRepository.findTopByCardIdAndLargeCategoryId(userCard.getCardId(), PageRequest.of(0, 1))
+                    .orElse(null);
+                if(tmp != null){
+                    cardBenefitDetail = tmp;
+                }
+            }
 
+            RecommendCard card = new RecommendCard(cardProd, userCard, cardBenefitDetail);
             if (cardBenefitDetail != null) {
                 if (cardBenefitDetail.getDiscountCostType().equals("원")) {
                     card.setDiscountAmount((int) cardBenefitDetail.getDiscountCost());
@@ -167,7 +174,7 @@ public class PayServiceImpl implements PayService {
                         card.setDiscountAmount(0);
                     } else {
                         if (discountSmallStatic != null) {
-                            if ((cardBenefitDetail.getMonthlyLimitCount() != 0&& (discountSmallStatic.getDiscountCount() >= cardBenefitDetail.getMonthlyLimitCount())) ||
+                            if ((cardBenefitDetail.getMonthlyLimitCount() != 0 && (discountSmallStatic.getDiscountCount() >= cardBenefitDetail.getMonthlyLimitCount())) ||
                                 (cardBenefitDetail.getDiscountLimit() != 0 && (discountSmallStatic.getDiscount() > cardBenefitDetail.getDiscountLimit()))) {
                                 card.setDiscountAmount(0);
                             }
