@@ -1,8 +1,8 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import QRScanPage from '../pages/QRScanPage/QRScanPage'
 import PayCheck from '../pages/QRScanPage/PayCheck'
 import PayLoadingPage from '../pages/QRScanPage/PayLoadingPage'
 import PayComplete from '../pages/QRScanPage/PayComplete'
+import QRcodeScanner from "../pages/QRScanPage/QRCodeScanner";
 
 
 function QRScanRouters () {
@@ -10,7 +10,7 @@ function QRScanRouters () {
   return (
     <QRStack.Navigator
       screenOptions={{ headerShown: false }}>
-      <QRStack.Screen name="QRScanPage" component={QRScanPage}/>
+      <QRStack.Screen name="QRScanner" component={QRcodeScanner}/>
       <QRStack.Screen name="PayLoadingPage" component={PayLoadingPage}/>
       <QRStack.Screen name="PayCheck" component={PayCheck}/>
       <QRStack.Screen name="PayComplete" component={PayComplete}/>

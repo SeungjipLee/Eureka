@@ -33,10 +33,9 @@ function BenefitAmountOfYou() {
         currentDate,
         (res) => {
           setBenefitAmount(res.data.totalDiscount);
-          console.log(res.data, "혜택금액불러오기성공 BenefitAmountOfYou");
         },
         (err) => {
-          console.log(err, "혜택금액불러오기 실패");
+          console.log(err, "BenefitAmountOfyou, 혜택금액불러오기 실패");
         }
       );
     }

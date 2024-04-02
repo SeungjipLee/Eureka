@@ -5,7 +5,7 @@ import BankListModal from "./BankListModal";
 import { getOwnCard } from "../../apis/CardAPi";
 import TokenUtils from '../../stores/TokenUtils';
 
-function OwnCardPage2 () {
+function OwnCardPage2() {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
   const [token, setToken] = useState('');
@@ -17,12 +17,12 @@ function OwnCardPage2 () {
       const accessToken = await TokenUtils.getAccessToken();
       setToken(accessToken);
     };
-  
+
     fetchToken();
   }, []);
-  
+
   const fetchCardList = async () => {
-    if (token) { 
+    if (token) {
       getOwnCard(
         token,
         (res) => {
@@ -32,11 +32,11 @@ function OwnCardPage2 () {
       );
     }
   };
-  
+
   useFocusEffect(
     React.useCallback(() => {
       fetchCardList();
-      return () => {};
+      return () => { };
     }, [token])
   );
 
@@ -45,41 +45,41 @@ function OwnCardPage2 () {
   };
 
   return (
-    <View style={{backgroundColor:'#ffffff'}}>
-        <FlatList
-          style={styles.listStyle}
-          data={cardList}
-          showsVerticalScrollIndicator={false}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => (
-            <View style={styles.cardContainer}>
-              <Image
-                source={{ uri: item.imagePath }}
-                style={[
-                  item.imageAttr === 0
-                    ? { width: 80, height: 52, marginStart: -15, borderRadius: 10, transform: [{ rotate: '90deg' }] } 
-                    : styles.cardImage, 
-                ]}
-              />
-              <View style={{flex: 1}}>
-                <Text style={styles.cardTitle}>{item.cardName}</Text>
-                <View style={styles.benefitsContainer}>
-                  {item.list.map((benefit, index) => (
-                    <View key={index} style={styles.benefitRow}>
-                      <Text style={styles.benefitKey}>{benefit.largeCategoryName}</Text>
-                      <Text style={styles.benefitValue}>
-                        {benefit.discountCostType === "%" ? `${benefit.discountCost}% 할인` : `${benefit.discountCost}원 할인`}
-                      </Text>
-                    </View>
-                  ))}
-                </View>
+    <View style={{ backgroundColor: '#ffffff' }}>
+      <FlatList
+        style={styles.listStyle}
+        data={cardList}
+        showsVerticalScrollIndicator={false}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item }) => (
+          <View style={styles.cardContainer}>
+            <Image
+              source={{ uri: item.imagePath }}
+              style={[
+                item.imageAttr === 0
+                  ? { width: 80, height: 52, marginStart: -15, borderRadius: 10, transform: [{ rotate: '90deg' }] }
+                  : styles.cardImage,
+              ]}
+            />
+            <View style={{ flex: 1 }}>
+              <Text style={styles.cardTitle}>{item.cardName}</Text>
+              <View style={styles.benefitsContainer}>
+                {item.list.map((benefit, index) => (
+                  <View key={index} style={styles.benefitRow}>
+                    <Text style={styles.benefitKey}>{benefit.largeCategoryName}</Text>
+                    <Text style={styles.benefitValue}>
+                      {benefit.discountCostType === "%" ? `${benefit.discountCost}% 할인` : `${benefit.discountCost}원 할인`}
+                    </Text>
+                  </View>
+                ))}
               </View>
-              <TouchableOpacity style={styles.detailButton} onPress={() => navigation.navigate('CardDetail', { userCardId: item.userCardId })}>
-                <Text style={styles.detailButtonText}>자세히 보기</Text>
-              </TouchableOpacity>
             </View>
-          )}
-        />
+            <TouchableOpacity style={styles.detailButton} onPress={() => navigation.navigate('CardDetail', { userCardId: item.userCardId })}>
+              <Text style={styles.detailButtonText}>자세히 보기</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+      />
       <Pressable onPress={() => setModalVisible(true)}>
         <View style={styles.btn}>
           <Text style={styles.btnTxt}>보유 카드 불러오기</Text>

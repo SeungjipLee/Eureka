@@ -22,7 +22,8 @@ const PaymentPassword = ({ navigation, route }) => {
     }
 
     if (inputPassword === savedPassword) { 
-      onSuccess && onSuccess();
+      DeviceEventEmitter.emit('paymentVerificationSuccess');
+      navigation.goBack();
     } else {
       Alert.alert('오류', '비밀번호가 일치하지 않습니다.'); // 비밀번호 불일치시 오류 메시지 표시
       setInputValues(Array(6).fill(''));

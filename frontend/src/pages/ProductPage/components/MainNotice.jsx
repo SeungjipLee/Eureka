@@ -33,7 +33,6 @@ function MainNotice() {
     }
   };
 
-  // 선택되었을 때만 보이니까 문제.. 그냥 결제카드가 있으면 최상단꺼를 디폴트로
   return (
     <View style={styles.centeredView}>
       <View style={styles.container}>
@@ -142,7 +141,7 @@ const styles = StyleSheet.create({
     width: 60,
     height: 85,
     resizeMode: "contain",
-    marginLeft: 20,
+    marginLeft: 50,
     marginRight: 11,
   },
 });

@@ -1,14 +1,9 @@
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  Image,
-} from "react-native";
+import { StyleSheet, View, Text, Image } from "react-native";
 import { useSelector } from "react-redux";
 
 function ConsumptionCategoryList() {
-  const categories = useSelector((state) => state.staticList.twovalue)
+  const categories = useSelector((state) => state.staticList.twovalue);
   const totalConsumption = categories[categories.length - 1].totalConsumption;
 
   const categoryImages = {
@@ -45,7 +40,10 @@ function ConsumptionCategoryList() {
       {categories.slice(0, -1).map((category) => (
         <View key={category.categoryId} style={styles.categoryContainer}>
           <Image
-            source={categoryImages[category.categoryName] || require("../../../../../assets/burger.png")} 
+            source={
+              categoryImages[category.categoryName] ||
+              require("../../../../../assets/CategoryIcon/26.png")
+            }
             style={styles.image}
           />
           <View style={styles.contentContainer}>
@@ -53,13 +51,16 @@ function ConsumptionCategoryList() {
               <Text style={styles.categoryName}>{category.categoryName}</Text>
             </View>
             <View style={styles.itemContainer}>
-              <Text style={styles.categoryPercent}>{((category.consumption / totalConsumption) * 100).toFixed(2)}%</Text>
+              <Text style={styles.categoryPercent}>
+                {((category.consumption / totalConsumption) * 100).toFixed(2)}%
+              </Text>
             </View>
             <View style={styles.itemContainer}>
-              <Text style={styles.categoryConsumption}>{category.consumption.toLocaleString()}원</Text>
+              <Text style={styles.categoryConsumption}>
+                {category.consumption.toLocaleString()}원
+              </Text>
             </View>
           </View>
-
         </View>
       ))}
     </View>
