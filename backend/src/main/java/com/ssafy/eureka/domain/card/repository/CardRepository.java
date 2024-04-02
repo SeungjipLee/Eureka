@@ -10,7 +10,7 @@ import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
-public interface CardRepository extends JpaRepository<CardEntity, String> {
+public interface CardRepository extends JpaRepository<CardEntity, Integer> {
 
     CardEntity findByCardId(int cardId);
     List<CardEntity> findAllBy();

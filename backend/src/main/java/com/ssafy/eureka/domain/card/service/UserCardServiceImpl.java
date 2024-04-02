@@ -217,11 +217,17 @@ public class UserCardServiceImpl implements UserCardService {
             String cardName = cardEntity.getCardName();
             String imagePath = cardEntity.getImagePath();
             int imgAttr = cardEntity.getImgAttr();
+            int cardType = cardEntity.getCardType();
+            int cardCompanyId = cardEntity.getCardCompanyId();
+
+            CardCompanyEntity cardCompanyEntity = cardCompanyRepository.findByCardCompanyId(cardCompanyId);
+            String cardCompanyName = cardCompanyEntity.getCompanyName();
 
             payUserCardResponseList.add(new PayUserCardResponse(
                 userCardId, Integer.parseInt(userId),
                 cardId, cardName, previousPerformance,
-                firstCardNumber, lastCardNumber, imagePath, imgAttr, totalAmt));
+                firstCardNumber, lastCardNumber, imagePath, imgAttr,
+                    cardType, cardCompanyName, totalAmt));
         }
         return payUserCardResponseList;
     }
@@ -352,10 +358,15 @@ public class UserCardServiceImpl implements UserCardService {
     }
 
     @Override
-    public CardEntity cardProdRecommend(String userId, int userCardId) {
+    public CardProdRecommendResponse cardProdRecommend(String userId, int userCardId) {
 
         UserCardEntity userCardEntity = userCardRepository.findByUserCardId(userCardId)
                 .orElseThrow(() -> new CustomException(ResponseCode.USER_CARD_NOT_FOUND));
+
+        MyDataToken myDataToken = mydataTokenRepository.findById(userId)
+                .orElseThrow(() -> new CustomException(ResponseCode.MY_DATA_TOKEN_ERROR));
+
+        String accessToken = myDataToken.getAccessToken();
 
         LocalDate currentDate = LocalDate.now();
 
@@ -384,6 +395,30 @@ public class UserCardServiceImpl implements UserCardService {
                 findTopByLargeCategoryIdOrderByDiscountCostDesc(largeCategoryId);
 
         int benefitId = cardBenefitDetailEntity.getCardBenefitId();
+        double discountCost = cardBenefitDetailEntity.getDiscountCost();
+
+        String yyyymm = year + month;
+
+        // 거래 내역 S
+        MyDataApiResponse<?> response = myDataFeign.searchCardPayList(accessToken,
+                userCardEntity.getCardIdentifier(), yyyymm);
+
+        if (response.getStatus() != 200) {
+            throw new CustomException(400, response.getMessage());
+        }
+
+        MyDataCardHistoryResponse myDataCardPayList = (MyDataCardHistoryResponse) response.getData();
+
+        double totalAmt = 0;
+        double afterDiscount = 0;
+        for(int i=0; i<myDataCardPayList.getMyDataCardHistoryList().size(); i++){
+            totalAmt += myDataCardPayList.getMyDataCardHistoryList().get(i).getApprovedAmt();
+            afterDiscount += myDataCardPayList.getMyDataCardHistoryList().get(i).getApprovedAmt()
+                    - cardBenefitDetailEntity.getDiscountCost();
+        }
+
+//        int getBenefitCost = Integer.parseInt() totalAmt - afterDiscount;
+        // 거래 내역 E
 
         CardBenefitEntity cardBenefitEntity = cardBenefitRepository.findFirstByCardBenefitId(benefitId);
 
@@ -391,7 +426,8 @@ public class UserCardServiceImpl implements UserCardService {
 
         CardEntity cardEntity = cardRepository.findByCard(cardId)
                 .orElseThrow(() -> new CustomException(ResponseCode.CARD_NOT_FOUND));
-        return cardEntity;
+
+        return new CardProdRecommendResponse(cardEntity, (int)totalAmt- (int)afterDiscount);
     }
 
     @Override
@@ -457,7 +493,6 @@ public class UserCardServiceImpl implements UserCardService {
         String imagePath = cardEntity1.getImagePath();
         int imgAttr = cardEntity1.getImgAttr();
 
-
         List<CardRecommendTop3List> top3List = new ArrayList<>();
 
         // 추천 카드 3개 받기
@@ -465,7 +500,7 @@ public class UserCardServiceImpl implements UserCardService {
 
         // 현재 연도와 월 가져오기
         int currentYear = currentDate.getYear();
-        int currentMonth = currentDate.getMonthValue(); // 작년..
+        int currentMonth = currentDate.getMonthValue();
 
         String year = String.format("%d", currentYear);
         String month = String.format("%02d", currentMonth-1);
@@ -491,6 +526,7 @@ public class UserCardServiceImpl implements UserCardService {
         for(int j=0; j<cardBenefitDetailEntityList.size(); j++){
 
         int benefitId = cardBenefitDetailEntityList.get(j).getCardBenefitId();
+        log.debug("cardBenefitDetailEntityList.get(j).getCardBenefitId() : " + cardBenefitDetailEntityList.get(j).getCardBenefitId());
 
         CardBenefitEntity cardBenefitEntity = cardBenefitRepository.findFirstByCardBenefitId(benefitId);
 
@@ -498,6 +534,8 @@ public class UserCardServiceImpl implements UserCardService {
 
         CardEntity cardEntity2 = cardRepository.findByCardId(cardId);
         LargeCategoryEntity largeCategoryEntity = largeCategoryRepository.findByLargeCategoryId(largeCategoryId);
+
+//        if(j!=0 && cardBenefitDetailEntityList.get(j-1).getCardBenefitId() == benefitId) continue;
 
         String cardName2 = cardEntity2.getCardName();
         String imagePath2 = cardEntity2.getImagePath();
