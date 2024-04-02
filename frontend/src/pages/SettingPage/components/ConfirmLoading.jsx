@@ -1,10 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react'
+import { useNavigation } from '@react-navigation/native'
 import { View, Text, Image, StyleSheet } from 'react-native';
 
-const ConfirmLoading = () => {
+
+const ConfirmLoading = ({route}) => {
+  const { message, style, redirect } = route.params || {}
+  const navigation = useNavigation()
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigation.navigate(redirect) 
+    }, 3000);
+    return () => clearTimeout(timer); 
+  }, []);
+
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>인증 완료!</Text>
+      <Text style={style}>{message}</Text>
       <Image
         source={require('../../../../assets/Ok.png')}
         style={styles.image}
@@ -21,13 +33,13 @@ const styles = StyleSheet.create({
     backgroundColor:'#3675FF'
   },
   text: {
-    marginBottom: 20, // 텍스트와 이미지 사이의 간격을 조정합니다.
+    marginBottom: 20,
     fontSize: 50,
     color: 'white'
   },
   image: {
-    width: 100, // 이미지의 너비를 설정합니다.
-    height: 100, // 이미지의 높이를 설정합니다.
+    width: 100, 
+    height: 100, 
   },
 });
 

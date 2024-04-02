@@ -31,7 +31,6 @@ function HomeOnlyPay () {
 
     try {
       const res = await getHomeOnlyPay(token, currentYear+currentMonth);
-      console.log(res.data);
       setPayAmout(res.data.totalAmt);
       setPayHistory(res.data.list);
     } catch (err) {
@@ -51,7 +50,7 @@ function HomeOnlyPay () {
           <Image style={styles.image} source={require('../../../../assets/HomeIcon/CardPayment.png')}/>
           <View>
             <Text style={styles.font}>이번달 페이 결제 금액</Text>
-            <Text style={styles.price}>{payAmount}원</Text>
+            <Text style={styles.price}>{payAmount.toLocaleString()}원</Text>
           </View>
           <Pressable onPress={() => navigation.navigate('OnlyPay')}>
             <MaterialCommunityIcons 

@@ -29,7 +29,6 @@ function HomeMonthly () {
     currentYear+currentMonth,
     (res) => {
       setWarning(false)
-      console.log(res.data)
       setDiscount(res.data.totalDiscount)
       setPayAmount(res.data.totalConsumption)
     },
@@ -58,7 +57,7 @@ function HomeMonthly () {
           <Image style={styles.image} source={require('../../../../assets/HomeIcon/Discount.png')}/>
           <View>
             <Text style={styles.font}>총 할인 예상 금액</Text>
-            <Text style={styles.price}>{discount}원</Text>
+            <Text style={styles.price}>{discount.toLocaleString()}원</Text>
           </View>
           <View></View>
         </View>
@@ -66,7 +65,7 @@ function HomeMonthly () {
           <Image style={styles.image} source={require('../../../../assets/HomeIcon/CoinWallet.png')}/>
           <View>
             <Text style={styles.font}>총 결제 예상 금액</Text>
-            <Text style={styles.price}>{payAmount}원</Text>
+            <Text style={styles.price}>{payAmount.toLocaleString()}원</Text>
           </View>
           <View></View>
           
