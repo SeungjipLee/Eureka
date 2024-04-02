@@ -3,8 +3,9 @@ import { StyleSheet, View, Text, Image } from "react-native";
 import { useSelector } from "react-redux";
 
 function BenefitCategoryList() {
-  const categories = useSelector((state) => state.staticList.value);
-  const totalBenefit = categories[categories.length - 1].totalDiscount;
+  const categories = useSelector((state) => state.staticList.value || []);
+  const totalBenefit =
+    categories.length > 0 ? categories[categories.length - 1].totalDiscount : 0;
 
   const categoryImages = {
     모든가맹점: require("../../../../../assets/CategoryIcon/0.png"),

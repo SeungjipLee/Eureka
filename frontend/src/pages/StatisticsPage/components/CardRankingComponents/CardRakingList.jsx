@@ -30,6 +30,7 @@ function CardRakingList() {
         currentDate,
         (res) => {
           setTop3CardList(res.data.bestCardStatisticsList);
+          console.log(res.data.bestCardStatisticsList, "asdasd");
         },
         (err) => {
           console.log(err, "cardRanking err");
@@ -151,15 +152,17 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     width: 120,
   },
+  // 변경된 스타일 예시
   image: {
-    height: 95,
-    width: 155,
+    height: 95, // 높이를 유지
+    width: 155, // 너비를 유지
+    resizeMode: "contain", // 이미지가 컨테이너에 맞게 조정되도록 설정
   },
   image2: {
-    flexDirection: "column",
     marginTop: 30,
-    height: 80,
-    width: 130,
+    height: 80, // 높이를 유지
+    width: 130, // 너비를 유지
+    resizeMode: "contain", // 이미지가 컨테이너에 맞게 조정되도록 설정
   },
   otherCardName: {
     fontSize: 13,

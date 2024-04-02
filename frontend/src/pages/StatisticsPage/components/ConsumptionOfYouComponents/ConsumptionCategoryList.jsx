@@ -3,8 +3,11 @@ import { StyleSheet, View, Text, Image } from "react-native";
 import { useSelector } from "react-redux";
 
 function ConsumptionCategoryList() {
-  const categories = useSelector((state) => state.staticList.twovalue);
-  const totalConsumption = categories[categories.length - 1].totalConsumption;
+  const categories = useSelector((state) => state.staticList.twovalue || []);
+  const totalConsumption =
+    categories.length > 0
+      ? categories[categories.length - 1].totalConsumption
+      : 0;
 
   const categoryImages = {
     모든가맹점: require("../../../../../assets/CategoryIcon/0.png"),

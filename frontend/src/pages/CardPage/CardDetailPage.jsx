@@ -13,7 +13,7 @@ function CardDetailPage({route}) {
   const [token, setToken] = useState('');
   const [cardInfo, setCardInfo] = useState([]);
   const [cardHistory, setCardHistory] = useState([])
-  const [month, setMonth] = useState('03')
+  const [month, setMonth] = useState('04')
   const [year, setYear] = useState('2024')
   const [ historyTop3, setHistoryTop3 ] = useState([])
 

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import TokenUtils from "../../stores/TokenUtils";
 import { proceedPay } from "../../apis/CardAPi";
 import * as LocalAuthentication from 'expo-local-authentication';
+import SettingService from '../../stores/SettingUtils'
 
 
 function PayCheck ({route}) {
@@ -30,7 +31,7 @@ function PayCheck ({route}) {
   console.log(orderId)
 
   const navigateToVerifyPasswordChange = async () => {
-    const isBiometricsEnabled = await SettingService.getBiometricsEnabled();
+    const isBiometricsEnabled = await SettingService.getBiometricEnabled();
   
     if (isBiometricsEnabled) {
       const biometricAuth = await LocalAuthentication.authenticateAsync({
