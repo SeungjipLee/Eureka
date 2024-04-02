@@ -41,7 +41,7 @@ export default function PayQRCode() {
       largeCategoryId: 10,
       smallCategoryId: 27,
       redirectUrl: "https://j10e101.p.ssafy.io/soil",
-    },,
+    },
     "에버랜드": {
       storeCode: "000-00-00013",
       storeName: "에버랜드",
