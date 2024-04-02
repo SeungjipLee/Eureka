@@ -1,29 +1,60 @@
-import React, { useState, createRef, useEffect } from 'react';
-import { StyleSheet, Text, View, Pressable, TextInput, TouchableOpacity } from 'react-native';
+import React, { useState, createRef } from 'react';
+import { StyleSheet, Text, View, Pressable, TextInput, Alert, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import TokenService from '../../../stores/TokenUtils';
+import axios from 'axios';
 
-
-const PasswordPage = ({ route, navigation }) => {
-  const { verificationInfo } = route.params;
+const SignupPasswordChangeConfirm = ({ navigation, route }) => {
+  const { password: postpassword, verificationInfo } = route.params;
   const initialRefs = Array(6).fill().map(() => createRef());
   const [inputValues, setInputValues] = useState(Array(6).fill(''));
   const [activeInputIndex, setActiveInputIndex] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
 
-  const [buttonBackgrounds, setButtonBackgrounds] = useState(Array(12).fill('#3675FF')); // 12개의 버튼에 대한 배경색 상태 초기화
-
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      setInputValues(Array(6).fill(''));
-      setActiveInputIndex(0);
-    });
-
-    return unsubscribe;
-  }, [navigation]);
+  const [buttonBackgrounds, setButtonBackgrounds] = useState(Array(12).fill('#3675FF'));
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
+  };
+
+  // 비밀번호 일치 확인 및 변경 요청 함수
+  // 비밀번호 일치 확인 및 변경 요청 함수
+  const updatePassword = async (newPassword) => {
+    try {
+      const { accessToken, refreshToken, userData } = verificationInfo;
+
+      const response = await axios.put('https://j10e101.p.ssafy.io/api/auth/user', { password: newPassword }, { // newPassword를 객체 형태로 전달 수정
+        headers: {
+          Authorization: `Bearer ${accessToken}`
+        }
+      });
+
+      if (response.status === 200) {
+        await TokenService.setToken(accessToken, refreshToken);
+        await TokenService.setUserData(userData);
+        await TokenService.setPassword(newPassword);
+        Alert.alert("성공", "비밀번호가 변경되었습니다.", [{ text: '확인', onPress: () => navigation.navigate('Routers') }]);
+      } else {
+        throw new Error('비밀번호 변경 실패');
+      }
+    } catch (error) {
+      console.error('비밀번호 변경 오류:', error);
+      Alert.alert("오류", "비밀번호 변경 과정에서 오류가 발생했습니다.");
+      setInputValues(Array(6).fill('')); // 오류 발생 시 비밀번호 칸 초기화 추가
+      setActiveInputIndex(0); // 첫 번째 입력 칸으로 커서 이동 추가
+    }
+  };
+
+  // 현재 입력 필드를 확인하는 함수
+  const checkPasswordMatch = (currentPassword) => {
+    if (currentPassword === postpassword) {
+      updatePassword(currentPassword);
+    } else {
+      Alert.alert("오류", "비밀번호가 일치하지 않습니다.", [{ text: '확인' }]);
+      setInputValues(Array(6).fill(''));
+      setActiveInputIndex(0);
+    }
   };
 
   const handleInputChange = (text, index) => {
@@ -59,20 +90,8 @@ const PasswordPage = ({ route, navigation }) => {
 
     setInputValues(newInputValues);
 
-    // 수정된 부분: 상태 업데이트 함수 호출 직후가 아닌, 새로운 입력값 배열을 기반으로 검사를 실행합니다.
-    // 예상되는 새로운 상태를 기반으로 모든 입력이 완료되었는지 확인합니다.
     if (newInputValues.every((value) => value !== '') && newInputValues.length === 6) {
-      // 모든 입력이 완료되었으면 비밀번호를 verificationInfo에 추가하고, authNumber를 제거합니다.
-
-      const newPassword = newInputValues.join('');
-      const updatedVerificationInfo = {
-        ...verificationInfo,
-        password: newPassword
-      };
-      delete updatedVerificationInfo.authNumber; // authNumber 키를 삭제합니다.
-
-      // PasswordConfirmPage로 네비게이션하면서 수정된 verificationInfo 데이터를 전달합니다.
-      navigation.navigate('PasswordConfirmPage', { verificationInfo: updatedVerificationInfo });
+      checkPasswordMatch(newInputValues.join(''));
     }
 
     // 버튼 배경색 업데이트 로직
@@ -86,7 +105,6 @@ const PasswordPage = ({ route, navigation }) => {
       setButtonBackgrounds(resetBackgrounds);
     }, 50);
   };
-
 
   const renderNumberPad = () => {
     const buttons = [
@@ -113,13 +131,16 @@ const PasswordPage = ({ route, navigation }) => {
   return (
     <SafeAreaView style={styles.safeAreaView}>
       <View style={styles.topBar}>
+        <Pressable style={styles.pressable} onPress={() => navigation.goBack()}>
+          <MaterialCommunityIcons name="chevron-left" size={40} color="white" />
+        </Pressable>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>간편비밀번호 등록</Text>
+          <Text style={styles.title}>비밀번호 확인</Text>
         </View>
       </View>
       <View style={styles.passwordContainer}>
         <View style={styles.promptContainer}>
-          <Text style={styles.prompt}>비밀번호를 눌러주세요</Text>
+          <Text style={styles.prompt}>비밀번호 확인</Text>
         </View>
         <View style={styles.inputContainer}>
           {inputValues.map((value, index) => (
@@ -159,9 +180,8 @@ const styles = StyleSheet.create({
   topBar: {
     width: '100%',
     height: '10%',
-    paddingTop: '2%',
-    justifyContent:'center',
-    alignItems:'center'
+    flexDirection: 'row',
+    paddingTop: '2%'
   },
   // 나머지 상단 바 스타일
   pressable: {
@@ -259,5 +279,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default PasswordPage;
-
+export default SignupPasswordChangeConfirm;

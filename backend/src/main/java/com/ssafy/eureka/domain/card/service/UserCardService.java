@@ -25,7 +25,7 @@ public interface UserCardService {
 
     void deleteUserCard(String userId, int userCardId);
 
-    CardEntity cardProdRecommend(String userId, int userCardId);
+    CardProdRecommendResponse cardProdRecommend(String userId, int userCardId);
 
     CardCompareResponse cardProdCompare(String userId, int userCardId);
     CardRecommendTop3 cardRecommendTop3(int userCardId);

@@ -277,3 +277,22 @@ create table if not exists consumption_user_static
     consumption_amount          bigint      not null                            comment '총 소비 금액',
     created_date                date        not null                            comment '생성일'
 );
+
+#20. tag
+drop table if exists tag;
+create table if not exists tag(
+    tag_id              int     auto_increment      primary key     comment '태그 관리번호',
+    large_category_id   int     not null                            comment '대분류 카테고리',
+    tag_name            int     not null                            comment '태그 명',
+    tag_image_path      int     not null                            comment '태그 이미지 경로'
+);
+
+#21. user_tag
+drop table if exists user_tag;
+create table if not exists user_tag(
+    user_tag_id     int     auto_increment      primary key     comment '유저 태그 관리번호',
+    user_id         int     not null                            comment '유저 관리번호',
+    tag_id          int     not null                            comment '태그 관리번호'
+);
+
+create index idx_user_id on user_tag(user_id);

@@ -1,27 +1,34 @@
 import React, { useState, createRef, useEffect } from 'react';
-import { StyleSheet, Text, View, Pressable, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Pressable, TextInput, Alert, BackHandler, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-
-const PasswordPage = ({ route, navigation }) => {
+const SignupPasswordChange = ({ route, navigation }) => {
   const { verificationInfo } = route.params;
   const initialRefs = Array(6).fill().map(() => createRef());
   const [inputValues, setInputValues] = useState(Array(6).fill(''));
   const [activeInputIndex, setActiveInputIndex] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
 
-  const [buttonBackgrounds, setButtonBackgrounds] = useState(Array(12).fill('#3675FF')); // 12개의 버튼에 대한 배경색 상태 초기화
+  const [buttonBackgrounds, setButtonBackgrounds] = useState(Array(12).fill('#3675FF'));
 
   useEffect(() => {
+    const backAction = () => {
+      return true;
+    };
+  
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+  
     const unsubscribe = navigation.addListener('focus', () => {
       setInputValues(Array(6).fill(''));
       setActiveInputIndex(0);
     });
-
-    return unsubscribe;
-  }, [navigation]);
-
+  
+    return () => {
+      backHandler.remove();
+      unsubscribe();
+    };
+  }, [navigation]); // 의존성 배열에 navigation을 포함시켜줍니다.
+  
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -38,6 +45,13 @@ const PasswordPage = ({ route, navigation }) => {
       setActiveInputIndex(index - 1);
       initialRefs[index - 1].current.focus();
     }
+  };
+
+  const submitPasswordChange = (password) => {
+    // 여기에서 비밀번호 변경 로직을 처리하거나, 다음 페이지로 이동
+    // 예시로, 비밀번호를 console에 출력하고, passwordChangeConfirm 페이지로 이동
+    console.log(password); // 비밀번호 확인을 위한 로깅(실제 앱에서는 제거)
+    navigation.navigate('SignupPasswordChangeConfirm', { password: password, verificationInfo: verificationInfo });
   };
 
   const handleNumberPadPress = (button, index) => {
@@ -62,17 +76,7 @@ const PasswordPage = ({ route, navigation }) => {
     // 수정된 부분: 상태 업데이트 함수 호출 직후가 아닌, 새로운 입력값 배열을 기반으로 검사를 실행합니다.
     // 예상되는 새로운 상태를 기반으로 모든 입력이 완료되었는지 확인합니다.
     if (newInputValues.every((value) => value !== '') && newInputValues.length === 6) {
-      // 모든 입력이 완료되었으면 비밀번호를 verificationInfo에 추가하고, authNumber를 제거합니다.
-
-      const newPassword = newInputValues.join('');
-      const updatedVerificationInfo = {
-        ...verificationInfo,
-        password: newPassword
-      };
-      delete updatedVerificationInfo.authNumber; // authNumber 키를 삭제합니다.
-
-      // PasswordConfirmPage로 네비게이션하면서 수정된 verificationInfo 데이터를 전달합니다.
-      navigation.navigate('PasswordConfirmPage', { verificationInfo: updatedVerificationInfo });
+      submitPasswordChange(newInputValues.join('')); // 비밀번호 제출 함수 호출
     }
 
     // 버튼 배경색 업데이트 로직
@@ -114,12 +118,12 @@ const PasswordPage = ({ route, navigation }) => {
     <SafeAreaView style={styles.safeAreaView}>
       <View style={styles.topBar}>
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>간편비밀번호 등록</Text>
+          <Text style={styles.title}>비밀번호 등록</Text>
         </View>
       </View>
       <View style={styles.passwordContainer}>
         <View style={styles.promptContainer}>
-          <Text style={styles.prompt}>비밀번호를 눌러주세요</Text>
+          <Text style={styles.prompt}>비밀번호를 입력해주세요</Text>
         </View>
         <View style={styles.inputContainer}>
           {inputValues.map((value, index) => (
@@ -159,9 +163,9 @@ const styles = StyleSheet.create({
   topBar: {
     width: '100%',
     height: '10%',
-    paddingTop: '2%',
     justifyContent:'center',
-    alignItems:'center'
+    alignItems:'center',
+    paddingTop: '2%'
   },
   // 나머지 상단 바 스타일
   pressable: {
@@ -259,5 +263,5 @@ const styles = StyleSheet.create({
   }
 });
 
-export default PasswordPage;
+export default SignupPasswordChange;
 

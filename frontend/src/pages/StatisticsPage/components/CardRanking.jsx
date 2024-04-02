@@ -3,10 +3,10 @@ import {
   View,
   Text,
   Dimensions,
-  StatusBar,
   Platform,
 } from "react-native";
 import CardRakingList from "./CardRankingComponents/CardRakingList";
+
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
