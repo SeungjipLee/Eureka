@@ -25,13 +25,10 @@ function CurrentBenefitMore() {
     (state) => state.productList.selectPayCardInfo
   );
 
-  useEffect(
-    () => (
-      setCardBenefitList(selectCardBenefitInfo.discountList),
-      setTotalDiscountAmount(selectCardBenefitInfo.totalDiscount)
-    ),
-    [selectCardBenefitInfo]
-  );
+  useEffect(() => {
+    setCardBenefitList(selectCardBenefitInfo.discountList),
+      setTotalDiscountAmount(selectCardBenefitInfo.totalDiscount);
+  }, [selectCardBenefitInfo]);
 
   // 이미지 스타일을 동적으로 결정하는 함수
   function getImageStyle(imgAttr) {
