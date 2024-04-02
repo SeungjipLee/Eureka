@@ -1,15 +1,30 @@
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, Image, Pressable } from "react-native"
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import TokenService from "../../../stores/TokenUtils";
 
 
 function HomeForYou () {
   const navigation = useNavigation()
+  const [userName, setUserName] = useState('');
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const userData = await TokenService.getUserData();
+      if (userData && userData.userName) { 
+        setUserName(userData.userName);
+      }
+    };
+
+    fetchUserData(); 
+  }, []);
+
   return (
     <View style={styles.container}>
       <View>
         <Text style={styles.date}>3월 12일 화요일</Text>
-        <Text style={styles.subtitle}>김싸피님을 위해 준비했어요</Text>
+        <Text style={styles.subtitle}>{userName} 님을 위해 준비했어요</Text>
       </View>
         <Pressable onPress={() => navigation.navigate('Compare')}>
           <View style={styles.midcontainer}>
