@@ -1,15 +1,14 @@
-# 카테고리 이름 / 라지 카테고리 / 스몰 카테고리
-#  스타벅스          12             1
-#  S-OIL            3             157
-#  GS25             5              8
-#  에버랜드          22             19
+
 
 use eureka_db;
 
 #4-2. card dummy
 
+select * from card;
+
 INSERT INTO eureka_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, view, join_path, is_expired)
-VALUES (1, 0, '노리2 체크카드(KB Pay)', 0, 200000, '월간 통합할인한도
+VALUES
+(1, 0, '노리2 체크카드(KB Pay)', 0, 200000, '월간 통합할인한도
 전월 이용실적 구간 20만원 미만 20만원 이상 40만원 이상 60만원 이상 80만원 이상
 월간 통합할인한도 일상혜택 커피 할인 20,000원 30,000원 40,000원 50,000원
 
@@ -36,8 +35,9 @@ VALUES (1, 0, '노리2 체크카드(KB Pay)', 0, 200000, '월간 통합할인한
 - 본 상품을 국내외겸용(Master, Visa)으로 발급 시 해당 국제브랜드사의 플래티늄(Platinum) 서비스가 제공됩니다.
 · 단, 공통 서비스만 제공되며 발급사 선택서비스는 제공되지 않습니다.
 · 별도의 국제브랜드사 서비스 안내장을 참조하시기 바랍니다.
-- 플래티늄(Platinum) 서비스에 대한 세부내용 및 유의사항은 각 국제브랜드사 홈페이지를 통해 확인하실 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2422/card_img/27141/2422card.png', 1, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?mainCC=a&cooperationcode=07964&solicitorcode=7030084002', 0);
-INSERT INTO eureka_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, view, join_path, is_expired) VALUES (1, 0, '노리2 체크카드(Global)', 0, 200000, '월간 통합할인한도
+- 플래티늄(Platinum) 서비스에 대한 세부내용 및 유의사항은 각 국제브랜드사 홈페이지를 통해 확인하실 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2422/card_img/27141/2422card.png', 1, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?mainCC=a&cooperationcode=07964&solicitorcode=7030084002', 0),
+
+(1, 0, '노리2 체크카드(Global)', 0, 200000, '월간 통합할인한도
 전월 이용실적 구간 20만원 미만 20만원 이상 40만원 이상 60만원 이상 80만원 이상
 월간 통합할인한도 일상혜택 커피 할인 20,000원 30,000원 40,000원 50,000원
 
@@ -64,8 +64,9 @@ INSERT INTO eureka_db.card (card_company_id, card_type, card_name, annual_fee, p
 - 본 상품을 국내외겸용(Master)으로 발급 시 해당 국제브랜드사의 플래티늄(Platinum) 서비스가 제공됩니다.
 · 단, 공통 서비스만 제공되며 발급사 선택서비스는 제공되지 않습니다.
 · 별도의 국제브랜드사 서비스 안내장을 참조하시기 바랍니다.
-- 플래티늄(Platinum) 서비스에 대한 세부내용 및 유의사항은 각 국제브랜드사 홈페이지를 통해 확인하실 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2423/card_img/27142/2423card.png', 1, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?mainCC=a&cooperationcode=07972&solicitorcode=7030084002', 0);
-INSERT INTO eureka_db.card (card_company_id, card_type, card_name, annual_fee, previous_performance, caution, image_path, img_attr, view, join_path, is_expired) VALUES (1, 0, '노리체크카드', 0, 200000, '월간 통합할인한도
+- 플래티늄(Platinum) 서비스에 대한 세부내용 및 유의사항은 각 국제브랜드사 홈페이지를 통해 확인하실 수 있습니다.', 'https://api.card-gorilla.com:8080/storage/card/2423/card_img/27142/2423card.png', 1, 0, 'https://card.kbcard.com/CRD/DVIEW/HCAMCXPRICAC0076?mainCC=a&cooperationcode=07972&solicitorcode=7030084002', 0),
+
+(1, 0, '노리체크카드', 0, 200000, '월간 통합할인한도
 - 전월 이용실적 20만원 이상: 1만원
 - 전월 이용실적 30만원 이상: 2만원
 - 전월 이용실적 50만원 이상: 3만원
@@ -209,7 +210,7 @@ INSERT INTO eureka_db.card (card_company_id, card_type, card_name, annual_fee, p
 - KB국민 나라사랑카드(체크) 발급신청 대상은 만 18세 이상 남자로 2007년 1월 29일 이후 징병검사를 받은 고객님입니다.
 - 세부 발급대상 기준은 가까운 KB국민은행 영업점이나 KB국민카드 고객센터(1588-1688)로 문의하시기 바랍니다.', 'https://api.card-gorilla.com:8080/storage/card/739/card_img/22213/739card.png', 0, 0, '', 0),
 
-(1, 0, '민 체크카드', 0, 300000, '카드발급
+(1, 0, '국민 체크카드', 0, 300000, '카드발급
 - 인터넷을 통한 체크카드 발급은 만 17세 이상으로 KB국민은행 요구불 계좌를 보유한 고객이면 신청 가능 합니다. (단, 후불교통카드는 만 18세 이상만 가능)
 - 만 14세 이상~만 17세 미만 고객은 KB국민카드 영업점 방문 시 비교통카드에 한해 발급 가능합니다.
   * 특수채권 잔액 보유 또는 은행연합회 신용관리 대상 등 일부 고객은 후불교통기능이 탑재된 KB국민 체크카드의 발급이 제한 될 수 있습니다.
@@ -5503,5 +5504,4 @@ Two-in-One 결제서비스
 - 할부 이용 전체 금액은 할부 이용한 달의 이용금액으로 반영됩니다.
 
 서비스 제외 대상
-- 국세, 지방세, 공과금(인터넷/모바일앱을 통한 공과금 납부금액 포함), 국민연금/고용보험료/산재보험료/건강보험료 납부금액, 상품권 및 기프트카드 구매, 선불카드 및 선불전자지급수단(하나머니 등) 충전 금액, 수도요금, 대학등록금, 대학원등록금, 스쿨뱅킹, 부동산임대료, 초/중/고 학교납입금, 무이자할부 및 부분무이자할부 이용금액 전체', 'https://api.card-gorilla.com:8080/storage/card/2447/card_img/27742/2447card.png', 0, 0, '', 0)
-;
+- 국세, 지방세, 공과금(인터넷/모바일앱을 통한 공과금 납부금액 포함), 국민연금/고용보험료/산재보험료/건강보험료 납부금액, 상품권 및 기프트카드 구매, 선불카드 및 선불전자지급수단(하나머니 등) 충전 금액, 수도요금, 대학등록금, 대학원등록금, 스쿨뱅킹, 부동산임대료, 초/중/고 학교납입금, 무이자할부 및 부분무이자할부 이용금액 전체', 'https://api.card-gorilla.com:8080/storage/card/2447/card_img/27742/2447card.png', 0, 0, '', 0);

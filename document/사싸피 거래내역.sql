@@ -1,4 +1,4 @@
--- 16 ~ 21
+-- 19 ~ 24
 
 INSERT INTO card_db.card_history (user_card_id, status, pay_type, approved_num, approved_date_time, approved_amt, trans_date_time, modified_amt, merchant_name, merchant_reg_no, total_install_cnt, large_category_id, small_category_id)
 VALUES
