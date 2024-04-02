@@ -151,7 +151,7 @@ function IfUseRecommendCard() {
               <View style={styles.subTextContainer}>
                 <Text style={styles.subText}>추천카드를 사용하면</Text>
                 <Text style={styles.subText}>3,300원 더 할인받아요!</Text>
-                <Text style={{marginTop: 5}}>{card.cardName}</Text>
+                <Text style={{ marginTop: 5 }}>{card.cardName}</Text>
               </View>
             </View>
           ))}

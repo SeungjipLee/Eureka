@@ -20,10 +20,12 @@ function CurrentBenefit() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (selectCardInfo) {
+    if (token && selectCardInfo) {
       setSelectCardUserCardId(selectCardInfo.userCardId);
+    } else {
+      setBenefitAmount("");
     }
-  }, [selectCardInfo]);
+  }, [selectCardInfo, token]);
 
   useEffect(() => {
     const fetchToken = async () => {
@@ -49,7 +51,7 @@ function CurrentBenefit() {
         }
       );
     }
-  }, [token, selectCardInfo]);
+  }, [token, selectCardInfo, selectCardUserCardId]);
 
   return (
     <View>
