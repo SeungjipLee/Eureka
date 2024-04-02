@@ -1,18 +1,39 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, TouchableOpacity, Text, Alert, View, Pressable, Image } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, Alert, View, Pressable, Image, Switch } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import TokenService from '../../stores/TokenUtils';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as ImagePicker from 'expo-image-picker';
+import SettingService from '../../stores/SettingUtils';
 
 
 function SettingPage() {
   const navigation = useNavigation();
   const [username, setUsername] = useState('');
-  const [userbirth, setuserbirth] = useState('');
-  const [userphonenumber, setuserphonenumber] = useState('');
+  const [userbirth, setUserbirth] = useState('');
+  const [userphonenumber, setUserphonenumber] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
+  const [isBiometricEnabled, setIsBiometricEnabled] = useState(false);
+
+  const formatBirth = (birth) => {
+    // 생년월일 형식: YYYYMMDD
+    const year = birth.substring(0, 4);
+    const month = birth.substring(4, 6);
+    const day = birth.substring(6);
+
+    return `${year}.${month}.${day}`;
+  };
+
+  const formatPhoneNumber = (phoneNumber) => {
+    // 전화번호 형식: XXXXXXXXXX (10자리 또는 11자리)
+    const part1 = phoneNumber.substring(0, 3);
+    const part2 = phoneNumber.substring(3, 7);
+    const part3 = phoneNumber.substring(7);
+
+    return `${part1}-${part2}-${part3}`;
+  };
+
 
   const handleLogout = () => {
     // 로그아웃 확인 다이얼로그 표시
@@ -35,23 +56,60 @@ function SettingPage() {
   const logout = async () => {
     try {
       await TokenService.clearAllData(); // 모든 토큰을 삭제합니다.
-      navigation.navigate('SplashPage'); // SplashPage로 이동합니다.
+      navigation.reset({
+        index: 0, // 초기화 후의 스택 인덱스를 지정합니다. 0은 스택의 첫 번째 페이지를 의미합니다.
+        routes: [{ name: 'SplashPage' }], // 이동할 경로의 배열을 지정합니다. 이 경우 SplashPage가 스택의 첫 번째이자 유일한 페이지가 됩니다.
+      });
+  
     } catch (error) {
       Alert.alert("로그아웃 실패", "로그아웃 중 문제가 발생했습니다."); // 오류가 발생하면 사용자에게 알립니다.
     }
   };
 
+  const toggleBiometricEnabled = async () => {
+    const newValue = !isBiometricEnabled;
+    setIsBiometricEnabled(newValue);
+    await SettingService.setBiometricEnabled('biometricEnabled', newValue.toString());
+  };
+
   useEffect(() => {
+    // 사용자 데이터 불러오기
     const fetchUserData = async () => {
       const userData = await TokenService.getUserData();
       if (userData && userData.userName && userData.userBirth && userData.phoneNumber) {
         setUsername(userData.userName);
-        setuserbirth(userData.userBirth);
-        setuserphonenumber(userData.phoneNumber);
+        setUserbirth(userData.userBirth);
+        setUserphonenumber(userData.phoneNumber);
       }
     };
-    fetchUserData();
+
+    // 선택된 이미지 URI 불러오기
+    const fetchSelectedImageUri = async () => {
+      const uri = await TokenService.getSelectedImageUri();
+      if (uri) {
+        setSelectedImage(uri);
+      }
+    };
+
+    // 생체 인식 사용 설정 불러오기
+    const loadBiometricPreference = async () => {
+      const isEnabled = await SettingService.getBiometricEnabled();
+      setIsBiometricEnabled(isEnabled !== null ? isEnabled : false);
+    };
+
+    // 모든 데이터를 비동기적으로 불러오기
+    const initializeData = async () => {
+      await Promise.all([
+        fetchUserData(),
+        fetchSelectedImageUri(),
+        loadBiometricPreference(),
+      ]);
+    };
+
+    initializeData();
   }, []);
+
+
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -62,9 +120,13 @@ function SettingPage() {
     });
 
     if (!result.canceled) {
-      setSelectedImage(result.uri); // 이미지 선택 후 상태 업데이트
+      setSelectedImage(result.assets[0].uri); // 상태 업데이트
+      TokenService.setSelectedImageUri(result.assets[0].uri); // AsyncStorage에 저장
+    } else {
+      alert('You did not select any image.');
     }
   };
+
 
   return (
     <SafeAreaView style={styles.safeAreaView}>
@@ -94,15 +156,26 @@ function SettingPage() {
           </View>
           <View style={styles.profileData}>
             <Text style={styles.profileTitle}>나이</Text>
-            <Text style={styles.profileVlue}>{userbirth}</Text>
+            <Text style={styles.profileVlue}>{formatBirth(userbirth)}</Text>
           </View>
           <View style={styles.profileData}>
             <Text style={styles.profileTitle}>전화번호</Text>
-            <Text style={styles.profileVlue}>{userphonenumber}</Text>
+            <Text style={styles.profileVlue}>{formatPhoneNumber(userphonenumber)}</Text>
           </View>
         </View>
       </View>
       <View style={styles.bottomContainer}>
+        <View style={styles.switchContainer}>
+          <Text style={[styles.buttonText, { paddingLeft: 20 }]}>생체 인식 사용</Text>
+          <Switch
+            style={{ transform: [{ scaleX: 1.3 }, { scaleY: 1.3 }] }}
+            trackColor={{ false: "#767577", true: "#81b0ff" }}
+            thumbColor={isBiometricEnabled ? "#f5dd4b" : "#f4f3f4"}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={toggleBiometricEnabled}
+            value={isBiometricEnabled}
+          />
+        </View>
         <TouchableOpacity
           style={styles.button}
           onPress={() => navigation.navigate('VerifyPasswordChange')}>
@@ -110,9 +183,6 @@ function SettingPage() {
         </TouchableOpacity>
         <TouchableOpacity onPress={handleLogout} style={styles.button}>
           <Text style={styles.buttonText}>로그아웃</Text>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('ConfirmLoading')} style={styles.button}>
-          <Text style={styles.buttonText}>로딩</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -153,8 +223,8 @@ const styles = StyleSheet.create({
     height: '45%',
     marginLeft: ' 2.5%',
     borderWidth: 2,
-    borderColor: '#D7D7D7',
     borderRadius: 20,
+    borderColor: '#D7D7D7',
     shadowColor: '#D7D7D7',
   },
   imageContainer: {
@@ -162,8 +232,9 @@ const styles = StyleSheet.create({
     height: '40%',
     justifyContent: 'center',
     alignItems: 'center',
-    borderBottomColor: 'black',
+    borderBottomColor: '#b0b0b0',
     borderBottomWidth: 2,
+    shadowColor: '#b0b0b0',
     position: 'relative',
   },
   profileImage: {
@@ -197,16 +268,31 @@ const styles = StyleSheet.create({
     flex: 1,
     // textAlign: 'left',
     fontSize: 24,
+    paddingLeft: 10,
+    fontWeight: '600'
   },
   profileVlue: {
     flex: 3,
     textAlign: 'right',
-    fontSize: 24
+    fontSize: 24,
+    paddingRight: 10,
+    fontWeight: '600'
   },
   bottomContainer: {
     width: '100%',
     height: '45%',
     paddingTop: '5%',
+  },
+  switchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '95%',
+    height: '15%',
+    marginTop: '5%',
+    marginLeft: '2.5%',
+    backgroundColor: '#007AFF',
+    borderRadius: 10,
   },
   button: {
     width: '95%',

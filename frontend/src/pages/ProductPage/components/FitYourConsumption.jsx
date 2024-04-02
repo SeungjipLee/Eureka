@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
 // 데이터 더미
 const categoriesData = [
   {
@@ -88,6 +89,30 @@ const categoriesData = [
 
 function FitYourConsumption() {
   const navigation = useNavigation();
+  const selectCardInfo = useSelector(
+    (state) => state.productList.selectPayCardInfo
+  );
+  const [selectCardInfoImage, setSelectCardInfoImage] = useState("");
+  const [selectCardInfoImgAttr, setSelectCardInfoImgAttr] = useState("");
+  useEffect(() => {
+    if (selectCardInfo) {
+      setSelectCardInfoImage(selectCardInfo.imagePath);
+      setSelectCardInfoImgAttr(selectCardInfo.imgAttr);
+    }
+  }, [selectCardInfo]);
+
+  function getImageStyle(imgAttr) {
+    if (imgAttr === 0) {
+      // 가로 이미지
+      return styles.horizontalImage;
+    } else if (imgAttr === 1) {
+      // 세로 이미지
+      return styles.verticalImage;
+    } else {
+      return styles.defaultImage; // 기본 스타일
+    }
+  }
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Pressable
@@ -110,8 +135,13 @@ function FitYourConsumption() {
         </View>
 
         <Image
-          source={require("../../../../assets/card2.png")}
-          style={styles.image}
+          source={
+            selectCardInfoImage
+              ? { uri: selectCardInfoImage }
+              : require("../../../../assets/card2.png")
+          } // 조건부 연산자 사용
+          style={getImageStyle(selectCardInfoImgAttr)}
+          resizeMode="contain"
         />
       </View>
 
@@ -238,7 +268,21 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     marginTop: 15,
   },
-  cardInfo: {},
+  horizontalImage: {
+    width: 140,
+    height: 80,
+    marginLeft: 20,
+  },
+  verticalImage: {
+    width: 80,
+    height: 140,
+    marginLeft: 55,
+    marginRight: 15,
+  },
+  defaultImage: {
+    width: 50,
+    height: 80,
+  },
 });
 
 export default FitYourConsumption;
