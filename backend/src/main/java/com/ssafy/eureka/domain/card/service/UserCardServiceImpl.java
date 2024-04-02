@@ -220,12 +220,14 @@ public class UserCardServiceImpl implements UserCardService {
             int cardType = cardEntity.getCardType();
             int cardCompanyId = cardEntity.getCardCompanyId();
 
+            CardCompanyEntity cardCompanyEntity = cardCompanyRepository.findByCardCompanyId(cardCompanyId);
+            String cardCompanyName = cardCompanyEntity.getCompanyName();
 
             payUserCardResponseList.add(new PayUserCardResponse(
                 userCardId, Integer.parseInt(userId),
                 cardId, cardName, previousPerformance,
                 firstCardNumber, lastCardNumber, imagePath, imgAttr,
-                    cardType, cardCompanyId, totalAmt));
+                    cardType, cardCompanyName, totalAmt));
         }
         return payUserCardResponseList;
     }
