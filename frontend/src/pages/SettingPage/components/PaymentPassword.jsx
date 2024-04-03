@@ -17,7 +17,7 @@ const PaymentPassword = ({ navigation, route }) => {
     try {
       const accessToken = await TokenService.getAccessToken();
       const savedPassword = await TokenService.getPassword(); // TokenService에서 저장된 비밀번호 가져오기
-
+      console.log(frompage)
       if (!accessToken) {
         Alert.alert('', '접근 토큰이 없습니다.');
         return;
