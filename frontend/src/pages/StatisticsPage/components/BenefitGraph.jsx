@@ -233,8 +233,8 @@ const styles = StyleSheet.create({
   navigationText: {
     fontSize: 26,
     fontWeight: "bold",
-    color: "#4D85FF",
-    marginHorizontal: 15,
+    color: "#bbbbbb",
+    marginHorizontal: 20,
   },
   myConsumptionContainer: {
     flexDirection: "row",
@@ -291,9 +291,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   line: {
-    height: 0.7,
+    height: 0.6,
     width: 300,
-    backgroundColor: "gray",
+    backgroundColor: "#cfcfcf",
     marginBottom: 10,
   },
   monthInfo: {

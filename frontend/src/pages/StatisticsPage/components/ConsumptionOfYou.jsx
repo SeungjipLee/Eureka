@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
   navigationText: {
     fontSize: 26,
     fontWeight: "bold",
-    color: "#4D85FF",
+    color: "#bbbbbb",
     marginHorizontal: 20,
   },
   myConsumptionContainer: {

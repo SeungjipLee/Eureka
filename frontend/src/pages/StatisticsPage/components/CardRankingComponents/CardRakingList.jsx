@@ -30,7 +30,6 @@ function CardRakingList() {
         currentDate,
         (res) => {
           setTop3CardList(res.data.bestCardStatisticsList);
-          console.log(res.data.bestCardStatisticsList, "Asdas");
         },
         (err) => {
           console.log(err, "cardRanking err");
@@ -174,7 +173,7 @@ const styles = StyleSheet.create({
   },
   otherCardInfo: {
     flexDirection: "column",
-    marginLeft: 40,
+    marginLeft: 24,
     justifyContent: "center",
     alignItems: "flex-end",
     width: 120,
