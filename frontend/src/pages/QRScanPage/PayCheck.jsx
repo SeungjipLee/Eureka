@@ -12,6 +12,8 @@ function PayCheck({ route }) {
   const { cardList, totalAmount, orderId } = route.params || {}
   const [modalVisible, setModalVisible] = useState(false)
   const [selectedCard, setSelectedCard] = useState(cardList[0])
+  const [progress, setProgress] = useState(-1)
+  const [remaining, setRemaining] = useState(0)
   const [token, setToken] = useState('')
   const [completeData, setCompleteData] = useState('')
   const discountTypes = {
@@ -28,7 +30,7 @@ function PayCheck({ route }) {
 
     fetchToken();
   }, []);
-  console.log(orderId)
+  // console.log(orderId)
 
   useEffect(() => {
     // 결제 검증 성공 시 이벤트 리스너 등록
@@ -78,8 +80,20 @@ function PayCheck({ route }) {
     }
   };
 
-  const progress = (selectedCard.currentMonthAmount / selectedCard.previousPerformance) * 100
-  const remaining = selectedCard.previousPerformance - selectedCard.currentMonthAmount
+    
+  useEffect(() => {
+    let newProgress;
+    if (selectedCard.previousPerformance > 0) {
+      newProgress = (selectedCard.currentMonthAmount / selectedCard.previousPerformance) * 100;
+    } else {
+      newProgress = -1;
+    }
+    setProgress(newProgress);
+
+    const newRemaining = selectedCard.previousPerformance - selectedCard.currentMonthAmount;
+    setRemaining(newRemaining);
+
+  }, [selectedCard]);
 
   function handleSubmit() {
     const inputData = { orderId: orderId, userCardId: selectedCard.userCardId }
@@ -91,8 +105,7 @@ function PayCheck({ route }) {
         navigation.navigate('PayComplete', {
           selectedCard: selectedCard,
           totalAmount: totalAmount,
-          discountInfo: `${selectedCard.discountCost}${selectedCard.discountCostType === '%' ? '%' : '원'} ${discountTypes[selectedCard.discountType]}`,
-          progress: progress,
+          discountTypes: discountTypes,
           remaining: Math.max(0, remaining - totalAmount)
         });
       },
@@ -117,10 +130,10 @@ function PayCheck({ route }) {
 
         <View style={styles.midContainer}>
           <Text>
-            <Text style={{ fontWeight: 'bold', fontSize: 20 }}>{selectedCard.cardName}</Text> 로 결제하면
+            <Text style={{ fontWeight: 'bold', fontSize: 20 }}>{selectedCard.cardName}</Text> {selectedCard.discountAmount ? '로 결제하면' : '에는'}
           </Text>
 
-          {selectedCard.discountCost !== 0 ? 
+          {selectedCard.discountAmount !== 0 ? 
           (<Text style={{ marginVertical: 10 }}>
             <Text style={{ fontWeight: 'bold', fontSize: 20 }}>
               <Text style={{ fontWeight: 'bold', fontSize: 20, color: '#3675FF' }}>{selectedCard.discountCost} {selectedCard.discountCostType}</Text>
@@ -128,32 +141,44 @@ function PayCheck({ route }) {
             </Text> 가능해요
           </Text>)
           :(<Text style={{ marginVertical: 10 }}>
-            <Text style={{ fontWeight: 'bold', fontSize: 20 }}>
-              할인 가능한 카드 혜택이 없어요.
+            <Text style={{ fontWeight: 'bold', fontSize: 18, color: '#EB7979' }}>
+              할인 가능한 혜택이 없어요 😥
             </Text>
           </Text>)
           }
 
-          <Text style={{ fontWeight: 'bold', fontSize: 20, marginBottom: 10 }}>다음 실적까지 남은 금액</Text>
+          {
+            selectedCard.previousPerformance ? 
+            <Text style={{ fontSize: 16 }}>이번 달 실적까지</Text>
+            :  <Text></Text>
+          }
           {remaining > 0 ? (
-            <Text>
-              <Text style={styles.remainingAmount}>{remaining.toLocaleString()}</Text>원
+            <Text style={{ fontSize: 18 }}>
+              <Text style={styles.remainingAmount}>{remaining.toLocaleString()}</Text> 원 남았어요
             </Text>
           ) : (
-            <Text style={styles.achievementText}>실적을 달성하였습니다!</Text>
+            <Text style={selectedCard.previousPerformance ? styles.achievementText : { fontSize: 20, fontWeight: 'bold' }}>실적을 달성하였습니다!</Text>
           )}
           <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
-            <Text>
-              <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#578CFF' }}>{selectedCard.currentMonthAmount.toLocaleString()}</Text>원
+            <Text style={{fontSize : 18}}>
+              <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#578CFF' }}>{selectedCard.currentMonthAmount.toLocaleString()}</Text> 원
             </Text>
             <Text style={{ marginHorizontal: 10, fontSize: 20, fontWeight: 'bold' }}>/</Text>
-            <Text>
-              <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#578CFF' }}>{selectedCard.previousPerformance.toLocaleString()}</Text>원
+            <Text style={{fontSize : 18}}>
+              {
+                selectedCard.previousPerformance ?
+                <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#578CFF' }}>{selectedCard.previousPerformance.toLocaleString()}</Text> :
+                <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#578CFF' }}>무실적 카드</Text>
+              }{selectedCard.previousPerformance ? ' 원' : ''}
             </Text>
           </View>
           <View style={styles.progressBarContainer}>
-            <View style={[styles.progressBar, { width: `${Math.min(progress, 100)}%` }]} />
-            <Text style={styles.progressPercentage}>{progress.toFixed(0)}%</Text>
+            <View style={[styles.progressBar, { width: progress >= 0 ? `${Math.min(progress, 100)}%` : '100%'}]} />
+            {progress >= 0 ? (
+                <Text style={styles.progressPercentage}>{progress.toFixed(0)}%</Text>
+              ) : (
+                ''
+              )}
           </View>
         </View>
 
@@ -187,7 +212,10 @@ function PayCheck({ route }) {
                     <Image source={{ uri: item.imagePath }} style={[styles.cardImage, item.imgAttr === 1 ? styles.verticalImage : styles.horizontalImage]} />
                     <View style={{ marginLeft: 10 }}>
                       <Text style={styles.modalText}>{item.cardName}</Text>
-                      <Text>{item.discountAmount.toLocaleString()}원 할인</Text>
+                      {item.discountAmount ? 
+                      <Text style={{ color: 'green' }}>{item.discountAmount.toLocaleString()}원 할인 가능</Text> :
+                      <Text style={{ color: '#EB7979' }}>할인 혜택 없음</Text>
+                      }
                     </View>
                   </View>
                 </TouchableOpacity>
