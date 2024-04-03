@@ -8,11 +8,14 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CardBenefitRepository extends JpaRepository<CardBenefitEntity, String> {
 
     List<CardBenefitEntity> findByCardId(int cardId);
     List<CardBenefitEntity> findByCardBenefitId(int cardBenefitId);
+
+    Optional<CardBenefitEntity> findTopByCardId(int cardBenefitId);
 
     CardBenefitEntity findFirstByCardBenefitId(int cardBenefitId);
     @Query("SELECT c FROM CardBenefitEntity c WHERE c.cardBenefitId = :cardBenefitId")

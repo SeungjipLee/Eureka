@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, Image, Pressable } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import TokenUtils from "../../../stores/TokenUtils";
-import { getHomeInfo, getHomeOnlyPay } from "../../../apis/HomeApi";
+import { getHomeInfo } from "../../../apis/HomeApi";
 
 function HomeOnlyPay() {
   const navigation = useNavigation();
@@ -28,7 +28,6 @@ function HomeOnlyPay() {
           token,
           currentYear + currentMonth,
           (res) => {
-            console.log(res.data)
             setPayAmout(res.data.payApprovedAmt);
           },
           (err) => console.log(err.response ? err.response.status : err)
