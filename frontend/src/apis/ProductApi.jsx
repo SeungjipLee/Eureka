@@ -92,6 +92,26 @@ async function getConsumptionCompareTop3(token, userCardId, success, fail) {
   }
 }
 
+async function getUserTop10(token, success, fail) {
+  try {
+    const response = await API(token).get(`/static/most-owned/cards`);
+    success(response);
+  } catch (error) {
+    fail(error);
+  }
+}
+
+async function getDdoraeTop10(token, userCardId, success, fail) {
+  try {
+    const response = await API(token).get(
+      `/static/most-owned/cards/ageGroup?userCardId=${userCardId}`
+    );
+    success(response);
+  } catch (error) {
+    fail(error);
+  }
+}
+
 export {
   getProductCardListByCompany,
   getProductCardListByCategory,
@@ -101,4 +121,6 @@ export {
   getCompareMycardAndRecommendCard,
   get3RecommendCard,
   getConsumptionCompareTop3,
+  getUserTop10,
+  getDdoraeTop10,
 };
