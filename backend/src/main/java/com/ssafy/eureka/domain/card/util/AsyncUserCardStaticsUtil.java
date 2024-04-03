@@ -53,7 +53,7 @@ public class AsyncUserCardStaticsUtil {
     private final DiscountLargeStaticRepository discountLargeStaticRepository;
     private final DiscountSmallStaticRepository discountSmallStaticRepository;
 
-//    @Async
+    @Async
     public void asyncStaticMethod(String userId, String cardIdentifier) {
         addStatistics(userId, cardIdentifier);
     }

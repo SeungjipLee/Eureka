@@ -679,9 +679,12 @@ public class UserCardServiceImpl implements UserCardService {
 
                 int discountType = cardBenefitDetailEntityList.get(j).getDiscountType();
                 double discountCost = cardBenefitDetailEntityList.get(j).getDiscountCost();
+                int afterDiscount = maxDiscount - discount;
+                if(afterDiscount < 0) afterDiscount *= -1;
+                if(afterDiscount > 20000) afterDiscount = 20000;
                 top3List.add(
                     new CardRecommendTop3List(cardId2, cardName2, info, imagePath2, imgAttr2,
-                        discountType, discountCost, (int) discount - (int) maxDiscount));
+                        discountType, discountCost, discount - maxDiscount));
             }
             tlcnrList.add(new Top3ListAndLargeCategoryNameResponse(largeCategoryName, top3List));
         }
