@@ -13,7 +13,7 @@ const PayLoadingPage = ({ route }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigation.navigate('PayCheck', {cardList: cardList, totalAmount: totalAmount, orderId: orderId});
-    }, 3000); 
+    }, 2000); 
 
     return () => clearTimeout(timer)
   }, [navigation])

@@ -18,11 +18,25 @@ function PayComplete({ route, navigation }) {
           <Text style={{fontWeight:'bold', fontSize: 20}}> {selectedCard.cardName}</Text>로</Text>
           <Text style={styles.detail}>{discountInfo} 받아서</Text>
           <Text style={styles.detail}><Text style={{fontWeight: 'bold', fontSize: 20}}>{totalAmount.toLocaleString()}원</Text>을 결제하였습니다!</Text>
-          <Text style={styles.detail}>다음 실적까지 남은 금액: <Text style={{fontSize: 20}}>{remaining.toLocaleString()}원</Text></Text>
-          <View style={styles.progressBarContainer}>
-            <View style={[styles.progressBar, { width: `${Math.min(progress, 100)}%`}]} />
-            <Text style={styles.progressPercentage}>{progress.toFixed(0)}%</Text>
-          </View>
+          
+          {
+            remaining !== 0 ? (
+              <>
+                <Text style={styles.detail}>다음 실적까지 남은 금액: <Text style={{fontSize: 20}}>{remaining.toLocaleString()}원</Text></Text>
+                <View style={styles.progressBarContainer}>
+                  <View style={[styles.progressBar, { width: progress >= 0 ? `${Math.min(progress, 100)}%` : '0%'}]} />
+                  {progress >= 0 ? (
+                    <Text style={styles.progressPercentage}>{progress.toFixed(0)}%</Text>
+                  ) : (
+                    <Text style={styles.progressPercentage}>카드 실적 없음</Text>
+                  )}
+                </View>
+              </>
+            ) : (
+              <Text style={styles.achievementText}>카드 실적을 달성하였습니다.</Text>
+            )
+          }
+
           <Pressable onPress={() => navigation.navigate('Home')}>
             <View style={styles.button}>
               <Text style={{textAlign:'center', color: '#ffffff', height: 40, fontSize: 20}}>확인</Text>
@@ -73,7 +87,13 @@ const styles = StyleSheet.create({
     marginTop: 20,
     borderRadius: 10,
     backgroundColor:'#4D85FF',
-    paddingTop: 12
+    paddingTop: 12,
+  },
+  achievementText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginTop: 20,
+    color: 'green', // 색상은 원하는 대로 조정 가능
   },
 });
 

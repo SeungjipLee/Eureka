@@ -15,12 +15,14 @@ import com.ssafy.eureka.domain.card.util.CardDataUtil;
 import com.ssafy.eureka.domain.category.dto.LargeCategoryEntity;
 import com.ssafy.eureka.domain.category.repository.LargeCategoryRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CardServiceImpl implements CardService{
@@ -44,6 +46,7 @@ public class CardServiceImpl implements CardService{
 
     @Override
     public List<CardProdListResponse> cardProdCompanyList(int companyId) {
+        long startTime = System.currentTimeMillis();
 
         List<CardProdListResponse> cardProdCompanyList = new ArrayList<>();
         List<CardDetailBenefitList> cardDetailBenefitList;
@@ -54,6 +57,7 @@ public class CardServiceImpl implements CardService{
         List<CardEntity> cardEntityList = cardRepository.findByCardCompanyId(companyId);
 
         for(int i=0; i<cardEntityList.size(); i++){
+            long asdf = System.currentTimeMillis();
 
             cardDetailBenefitList = new ArrayList<>();
             int cardId = cardEntityList.get(i).getCardId();
@@ -78,7 +82,7 @@ public class CardServiceImpl implements CardService{
 
 //                int cardBenefitDetailId = cardBenefitDetailEntity.getCardBenefitDetailId(); // 카드 혜택 상세 id;
                 int largeCategoryId = cardBenefitDetailEntityList.get(k).getLargeCategoryId(); // 대분류 카테고리 id
-                int smallCategoryId = cardBenefitDetailEntityList.get(k).getSmallCategoryId(); // 소분류 카테고리 id
+                Integer smallCategoryId = cardBenefitDetailEntityList.get(k).getSmallCategoryId(); // 소분류 카테고리 id
                 String discountCostType = cardBenefitDetailEntityList.get(k).getDiscountCostType(); // %, 원, L
                 double discountCost = cardBenefitDetailEntityList.get(k).getDiscountCost(); // 할인 비용
 
@@ -87,8 +91,8 @@ public class CardServiceImpl implements CardService{
 
                 // discountCostType, discountCostType,largeCategoryEntity
                 // 3개의 값이 같은 상세 혜택이 여러 개라 같은 값 2개가 들어감, 소분류 상으로 들어가야 구분될 듯
-                    cardDetailBenefitList.add(new CardDetailBenefitList(discountCostType, discountCost, largeCategoryName));
-                    if(cardDetailBenefitList.size() == 2) break;
+                cardDetailBenefitList.add(new CardDetailBenefitList(discountCostType, discountCost, largeCategoryName));
+                if(cardDetailBenefitList.size() == 2) break;
 
                 // 카드 혜택 상세 2개 채웠으면 그만, 1개만 있다면 카드 혜택 상세 리스트 사이즈가 1이라 한 번만 찾고 끝
                 }// 카드 혜택 상세
@@ -101,7 +105,13 @@ public class CardServiceImpl implements CardService{
                     break;
                 }
             } // 카드 혜택
+
+            long dfgh = System.currentTimeMillis();
+            log.debug(" 카드 한 개당 : " + (dfgh - asdf));
         }
+        long endTime = System.currentTimeMillis();
+        log.debug("카드사 별 카드 조회 개수 : " + cardProdCompanyList.size() + ", 시간 : " +(endTime - startTime));
+
         return cardProdCompanyList;
     }
 

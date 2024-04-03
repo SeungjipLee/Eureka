@@ -18,8 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PayHistoryResponse {
-
     private int totalAmt;
-
+    private int totalDiscount;
     List<PayHistoryListResponse> list;
 }

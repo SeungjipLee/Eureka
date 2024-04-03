@@ -38,6 +38,8 @@ function HomeMonthly() {
           (err) => {
             if (err.response.status === 404) {
               console.log(err.response.status);
+              setDiscount(0)
+              setPayAmount(0)
               setWarning(true);
             }
           }
