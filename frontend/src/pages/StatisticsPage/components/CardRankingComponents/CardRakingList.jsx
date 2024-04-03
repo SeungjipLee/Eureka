@@ -160,6 +160,7 @@ const styles = StyleSheet.create({
   imageContainer2: {
     flexDirection: "row",
     alignItems: "center",
+    margin: 5,
   },
   topCardText: {
     marginTop: 20,
@@ -167,7 +168,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   bottomCard: {
-    marginTop: 15,
+    marginTop: 20,
   },
   otherCardInfo: {
     flexDirection: "column",
