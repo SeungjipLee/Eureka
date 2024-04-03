@@ -144,15 +144,15 @@ public class PayServiceImpl implements PayService {
                     BigInteger.valueOf(card.getPreviousPerformance())) < 0)) {
                     card.setDiscountAmount(0);
                 } else {
-                    ConsumptionStaticEntity preConsumptionStatic = consumptionStaticRepository.findByUserCardIdAndYearAndMonth(
-                        userCard.getUserCardId(), LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy")), LocalDate.now().format(DateTimeFormatter.ofPattern("MM"))).orElse(null);
-
-                    if(preConsumptionStatic != null){
-                        card.setCurrentMonthAmount(preConsumptionStatic.getTotalConsumption());
-                    }
-
                     String year = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy"));
                     String month = LocalDate.now().format(DateTimeFormatter.ofPattern("MM"));
+
+                    ConsumptionStaticEntity curConsumptionStatic = consumptionStaticRepository.findByUserCardIdAndYearAndMonth(
+                        userCard.getUserCardId(), year, month).orElse(null);
+
+                    if(curConsumptionStatic != null){
+                        card.setCurrentMonthAmount(curConsumptionStatic.getTotalConsumption());
+                    }
 
                     DiscountStaticEntity discountStatic = discountStaticRepository.findByUserCardIdAndYearAndMonth(
                         userCard.getUserCardId(), year, month).orElse(null);
@@ -380,7 +380,6 @@ public class PayServiceImpl implements PayService {
                 payHistoryListResponseList.add(new PayHistoryListResponse(cardName,
                     payHistoryEntity, largeCategoryName, smallCategoryName
                 ));
-
             }
         }
 

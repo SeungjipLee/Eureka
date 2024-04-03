@@ -4,8 +4,10 @@ import com.ssafy.eureka.common.exception.CustomException;
 import com.ssafy.eureka.common.response.MyDataApiResponse;
 import com.ssafy.eureka.common.response.ResponseCode;
 import com.ssafy.eureka.domain.card.dto.CardBenefitDetailEntity;
+import com.ssafy.eureka.domain.card.dto.CardEntity;
 import com.ssafy.eureka.domain.card.dto.UserCardEntity;
 import com.ssafy.eureka.domain.card.repository.CardBenefitDetailRepository;
+import com.ssafy.eureka.domain.card.repository.CardRepository;
 import com.ssafy.eureka.domain.card.repository.MydataTokenRepository;
 import com.ssafy.eureka.domain.card.repository.UserCardRepository;
 import com.ssafy.eureka.domain.mydata.dto.MyDataToken;
@@ -26,6 +28,7 @@ import com.ssafy.eureka.domain.statistics.repository.DiscountStaticRepository;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -43,13 +46,14 @@ public class AsyncUserCardStaticsUtil {
     private final ConsumptionLargeStaticRepository consumptionLargeStaticRepository;
     private final ConsumptionSmallStaticRepository consumptionSmallStaticRepository;
     private final MyDataFeign myDataFeign;
+    private final CardRepository cardRepository;
 
     private final CardBenefitDetailRepository cardBenefitDetailRepository;
     private final DiscountStaticRepository discountStaticRepository;
     private final DiscountLargeStaticRepository discountLargeStaticRepository;
     private final DiscountSmallStaticRepository discountSmallStaticRepository;
 
-        @Async
+    @Async
     public void asyncStaticMethod(String userId, String cardIdentifier) {
         addStatistics(userId, cardIdentifier);
     }
@@ -124,7 +128,7 @@ public class AsyncUserCardStaticsUtil {
 
                 int largeCategoryId = myDataCardPayList.getMyDataCardHistoryList().get(j)
                     .getLargeCategoryId();
-                int smallCategoryId = myDataCardPayList.getMyDataCardHistoryList().get(j)
+                Integer smallCategoryId = myDataCardPayList.getMyDataCardHistoryList().get(j)
                     .getSmallCategoryId();
 
                 ConsumptionLargeStaticEntity consumptionLargeStaticEntity =
@@ -141,6 +145,7 @@ public class AsyncUserCardStaticsUtil {
                         discountStatic.getDiscountStaticId(), largeCategoryId)
                     .orElse(new DiscountLargeStaticEntity(discountStatic.getDiscountStaticId(),
                         largeCategoryId));
+
                 discountLargeStaticRepository.save(discountLargeStatic);
 
                 consumptionLargeStaticEntity =
@@ -173,10 +178,11 @@ public class AsyncUserCardStaticsUtil {
     public void saveConsumptionSmall(int userCardId, int cardId,
         DiscountStaticEntity discountStatic,
         DiscountLargeStaticEntity discountLargeStatic,
-        int consumptionLargeStaticId, int largeCategoryId, int smallCategoryId, BigInteger amount) {
+        int consumptionLargeStaticId, int largeCategoryId, Integer smallCategoryId, BigInteger amount) {
         ConsumptionSmallStaticEntity consumptionLargeStatic =
             consumptionSmallStaticRepository.findByConsumptionLargeStaticIdAndSmallCategoryId(
-                consumptionLargeStaticId, smallCategoryId);
+                consumptionLargeStaticId, smallCategoryId).orElse(null);
+
 
         if (consumptionLargeStatic == null) {
             consumptionLargeStatic = new ConsumptionSmallStaticEntity(
@@ -198,15 +204,31 @@ public class AsyncUserCardStaticsUtil {
             new DiscountSmallStaticEntity(discountLargeStatic.getDiscountLargeStaticId(),
                 smallCategoryId));
 
-        CardBenefitDetailEntity cardBenefitDetail = cardBenefitDetailRepository.findCardBenefitDetailsByCardIdAndCategory(
-                cardId, largeCategoryId, smallCategoryId, PageRequest.of(0, 1))
+        if(cardId == 90){
+            int kkasdas = 1;
+        }
+
+        CardBenefitDetailEntity cardBenefitDetail = cardBenefitDetailRepository.findCardBenefitDetailsByCardIdAndCategory(cardId, largeCategoryId, smallCategoryId, PageRequest.of(0, 1))
             .stream()
-            .findFirst().orElse(null);
+            .findFirst()
+            .orElse(cardBenefitDetailRepository.findCardBenefitDetailsByCardIdAndCategory(cardId, largeCategoryId, null, PageRequest.of(0, 1))
+                .stream()
+                .findFirst().orElse(null));
+
+        if(cardBenefitDetail == null){
+            List<CardBenefitDetailEntity> results = cardBenefitDetailRepository.findTopByCardIdAndLargeCategoryId(cardId, PageRequest.of(0, 1));
+            if(!results.isEmpty()){
+                cardBenefitDetail = results.get(0);
+            }
+        }
 
         LocalDate lastMonth = LocalDate.now().minusMonths(1);
 
+
         String yearStr = lastMonth.format(DateTimeFormatter.ofPattern("yyyy"));
         String monthStr = lastMonth.format(DateTimeFormatter.ofPattern("MM"));
+
+        CardEntity cardEntity = cardRepository.findByCardId(cardId);
 
         int discount = 0;
         if (cardBenefitDetail != null) {
@@ -215,38 +237,36 @@ public class AsyncUserCardStaticsUtil {
             } else if (cardBenefitDetail.getDiscountCostType().equals("%")) {
                 discount = (int) (amount.intValue() * (cardBenefitDetail.getDiscountCost() / 100));
             } else if (cardBenefitDetail.getDiscountCostType().equals("L")) {
-                discount = ((int) cardBenefitDetail.getDiscountCost() * (amount.intValue() / 2000));
+                discount = ((int) cardBenefitDetail.getDiscountCost() * (amount.intValue() / 1800));
             }
 
-            if (discount > amount.intValue()) {
-                discount = amount.intValue();
-            }
+            ConsumptionStaticEntity consumptionStatic = consumptionStaticRepository.findByUserCardIdAndYearAndMonth(
+                userCardId, yearStr, monthStr).orElse(null);
 
-            if (cardBenefitDetail.getPayMin() > amount.intValue()) {
+            if ((consumptionStatic == null) || (consumptionStatic.getTotalConsumption().compareTo(
+                BigInteger.valueOf(cardEntity.getPreviousPerformance())) < 0)) {
                 discount = 0;
-            } else {
-                if (discountSmallStatic != null) {
-                    if ((cardBenefitDetail.getMonthlyLimitCount() != 0 && (
-                        discountSmallStatic.getDiscountCount()
-                            >= cardBenefitDetail.getMonthlyLimitCount())) ||
-                        (cardBenefitDetail.getDiscountLimit() != 0 && (
-                            discountSmallStatic.getDiscount()
-                                > cardBenefitDetail.getDiscountLimit()))) {
+            }else{
+                String year = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy"));
+                String month = LocalDate.now().format(DateTimeFormatter.ofPattern("MM"));
+
+                if (discount > amount.intValue()) {
+                    discount = amount.intValue();
+                }
+
+                if (cardBenefitDetail.getPayMin() > amount.intValue()) {
+                    discount = 0;
+                } else {
+                    if ((cardBenefitDetail.getMonthlyLimitCount() != 0 && (discountSmallStatic.getDiscountCount() >= cardBenefitDetail.getMonthlyLimitCount())) ||
+                        (cardBenefitDetail.getDiscountLimit() != 0 && (discountSmallStatic.getDiscount() > cardBenefitDetail.getDiscountLimit()))) {
                         discount = 0;
                     }
-                } else if (discountLargeStatic != null) {
-                    if ((cardBenefitDetail.getMonthlyLimitCount() != 0 && (
-                        discountLargeStatic.getDiscountCount()
-                            >= cardBenefitDetail.getMonthlyLimitCount())) ||
-                        (cardBenefitDetail.getDiscountLimit() != 0 && (
-                            discountLargeStatic.getDiscountAmount()
-                                > cardBenefitDetail.getDiscountLimit()))) {
+                    if ((cardBenefitDetail.getMonthlyLimitCount() != 0&& (discountLargeStatic.getDiscountCount() >= cardBenefitDetail.getMonthlyLimitCount())) ||
+                        (cardBenefitDetail.getDiscountLimit() != 0 && (discountLargeStatic.getDiscountAmount() > cardBenefitDetail.getDiscountLimit()))) {
                         discount = 0;
                     }
                 }
             }
-        } else {
-            discount = 0;
         }
 
         if (discount != 0) {
