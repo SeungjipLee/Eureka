@@ -25,14 +25,6 @@ function Compare() {
   const [compareAmt, setCompareAmt] = useState(0);
   const [maxDifferenceIndex, setMaxDifferenceIndex] = useState(-1);
 
-  const currentDate = new Date();
-  const lastMonth = new Date(
-    currentDate.getFullYear(),
-    currentDate.getMonth() - 1,
-    currentDate.getDate()
-  );
-  const lastMonthNumber = lastMonth.getMonth() + 1;
-
   useEffect(() => {
     const fetchToken = async () => {
       const accessToken = await TokenUtils.getAccessToken();
@@ -47,6 +39,7 @@ function Compare() {
       getCompare(
         token,
         (res) => {
+          console.log(res.data)
           const numAge = parseInt(res.data.age, 10);
           setAge(numAge);
           setGender(res.data.gender);
@@ -203,7 +196,7 @@ function Compare() {
             }}
           >
             <Image
-              source={CATEGORY[item.categoryId].path} // 실제 경로로 변경해주세요
+              source={CATEGORY[item.categoryId-1].path}
               style={{ width: 50, height: 50 }}
             />
             <Text style={{ fontWeight: "bold", flex: 1, marginHorizontal: 20 }}>
