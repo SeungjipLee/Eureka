@@ -81,15 +81,30 @@ async function getCompareMycardAndRecommendCard(
   }
 }
 
-async function getConsumptionCompareTop3(
-  token,
-  userCardId,
-  success,
-  fail
-) {
+async function getConsumptionCompareTop3(token, userCardId, success, fail) {
   try {
     const response = await API(token).get(
       `/ucard/prod/recommend/top3?userCardId=${userCardId}`
+    );
+    success(response);
+  } catch (error) {
+    fail(error);
+  }
+}
+
+async function getUserTop10(token, success, fail) {
+  try {
+    const response = await API(token).get(`/static/most-owned/cards`);
+    success(response);
+  } catch (error) {
+    fail(error);
+  }
+}
+
+async function getDdoraeTop10(token, userCardId, success, fail) {
+  try {
+    const response = await API(token).get(
+      `/static/most-owned/cards/ageGroup?userCardId=${userCardId}`
     );
     success(response);
   } catch (error) {
@@ -105,5 +120,7 @@ export {
   getMySingleCardBenefitList,
   getCompareMycardAndRecommendCard,
   get3RecommendCard,
-  getConsumptionCompareTop3
+  getConsumptionCompareTop3,
+  getUserTop10,
+  getDdoraeTop10,
 };

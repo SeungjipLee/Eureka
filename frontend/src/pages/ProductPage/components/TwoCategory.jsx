@@ -42,10 +42,10 @@ function TwoCategory() {
           <Text style={{ fontSize: 13, fontWeight: "600", marginRight: 15 }}>
             20대들이 좋아하는 카드
           </Text>
-          <Text style={{ marginRight: 15 }}>디자인, 인기, 캐릭터</Text>
+          <Text style={{ marginRight: 15 }}>또래별, 유저별</Text>
         </View>
         <Pressable
-          onPress={() => navigation.navigate("FitYourConsumption")}
+          onPress={() => navigation.navigate("PopularCard")}
           style={styles.pressableStyle}
         >
           <MaterialCommunityIcons name="chevron-right" size={26} />

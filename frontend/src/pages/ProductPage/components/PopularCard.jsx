@@ -12,54 +12,23 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import TokenUtils from "../../../stores/TokenUtils";
 import { useSelector } from "react-redux";
-import { getConsumptionCompareTop3 } from "../../../apis/ProductApi";
+import { getUserTop10, getDdoraeTop10 } from "../../../apis/ProductApi";
 
-const categoryImages = {
-  모든가맹점: require("../../../../assets/CategoryIcon/0.png"),
-  대중교통: require("../../../../assets/CategoryIcon/1.png"),
-  주유: require("../../../../assets/CategoryIcon/2.png"),
-  마트: require("../../../../assets/CategoryIcon/3.png"),
-  편의점: require("../../../../assets/CategoryIcon/4.png"),
-  통신: require("../../../../assets/CategoryIcon/5.png"),
-  온라인쇼핑: require("../../../../assets/CategoryIcon/6.png"),
-  쇼핑: require("../../../../assets/CategoryIcon/7.png"),
-  배달앱: require("../../../../assets/CategoryIcon/8.png"),
-  음식점: require("../../../../assets/CategoryIcon/9.png"),
-  주점: require("../../../../assets/CategoryIcon/10.png"),
-  카페: require("../../../../assets/CategoryIcon/11.png"),
-  디저트: require("../../../../assets/CategoryIcon/12.png"),
-  "뷰티/피트니스": require("../../../../assets/CategoryIcon/13.png"),
-  공과금: require("../../../../assets/CategoryIcon/14.png"),
-  "병원/약국": require("../../../../assets/CategoryIcon/15.png"),
-  애완동물: require("../../../../assets/CategoryIcon/16.png"),
-  교육: require("../../../../assets/CategoryIcon/17.png"),
-  자동차: require("../../../../assets/CategoryIcon/18.png"),
-  "레저/스포츠": require("../../../../assets/CategoryIcon/19.png"),
-  영화: require("../../../../assets/CategoryIcon/20.png"),
-  "문화/여가": require("../../../../assets/CategoryIcon/21.png"),
-  간편결제: require("../../../../assets/CategoryIcon/22.png"),
-  항공: require("../../../../assets/CategoryIcon/23.png"),
-  "여행/숙박": require("../../../../assets/CategoryIcon/24.png"),
-  기타: require("../../../../assets/CategoryIcon/25.png"),
-};
-
-function FitYourConsumption() {
+function PopularCard() {
   const navigation = useNavigation();
   const [token, setToken] = useState("");
   const selectCardInfo = useSelector(
     (state) => state.productList.selectPayCardInfo
   );
-  const [selectCardInfoImage, setSelectCardInfoImage] = useState("");
-  const [selectCardInfoImgAttr, setSelectCardInfoImgAttr] = useState("");
   const [userCardId, setUserCardId] = useState("");
-  const [cards, setCards] = useState([]);
+
   useEffect(() => {
     if (selectCardInfo) {
-      setSelectCardInfoImage(selectCardInfo.imagePath);
-      setSelectCardInfoImgAttr(selectCardInfo.imgAttr);
       setUserCardId(selectCardInfo.userCardId);
+      console.log(selectCardInfo.userCardId);
     }
   }, [selectCardInfo]);
+
   useEffect(() => {
     const fetchToken = async () => {
       const accessToken = await TokenUtils.getAccessToken();
@@ -72,14 +41,24 @@ function FitYourConsumption() {
   useEffect(() => {
     // 토큰과 selectId가 유효할 때만 API 호출
     if (token && userCardId) {
-      getConsumptionCompareTop3(
+      getUserTop10(
+        token,
+        (res) => {
+          console.log(res.data, "Popularcard");
+        },
+        (err) => {
+          console.log("PopularCard, err", err);
+        }
+      );
+
+      getDdoraeTop10(
         token,
         userCardId,
         (res) => {
-          setCards(res.data.tlcnrList);
+          console.log(res.data, "DdoraeCard");
         },
         (err) => {
-          console.log("FitYourConsumption, err", err);
+          console.log("PopularCard, err", err);
         }
       );
     }
@@ -112,52 +91,39 @@ function FitYourConsumption() {
 
       <View style={styles.topcontainer}>
         <View style={styles.maintextContainer}>
-          <Text style={styles.notice}>내 카드 대신</Text>
-          <Text style={styles.notice}>추천카드를 썼다면?</Text>
-          <Text style={styles.subText}>결제카드의 상위 3개의</Text>
-          <Text style={styles.subText}>카테고리를 분석했어요</Text>
+          <Text style={styles.notice}>또래들은</Text>
+          <Text style={styles.notice}>어떤 카드를 좋아할까요?</Text>
+          <Text style={styles.subText}>또래 인기카드와</Text>
+          <Text style={styles.subText}>유레카 인기카드를 가져왔어요</Text>
         </View>
 
         <Image
-          source={
-            selectCardInfoImage
-              ? { uri: selectCardInfoImage }
-              : require("../../../../assets/card2.png")
-          } // 조건부 연산자 사용
-          style={getImageStyle(selectCardInfoImgAttr)}
-          resizeMode="contain"
+          source={require("../../../../assets/GrinningFace.png")}
+          style={{ width: 100, height: 100 }}
         />
       </View>
 
-      {cards.map((category, index) => (
-        <View key={index} style={styles.mainContent}>
-          <View style={styles.titleConatiner}>
-            <View style={styles.titleTextContainer}>
-              <Text style={{ fontSize: 18, fontWeight: "700", marginTop: 15 }}>
-                {category.largeCategoryName}할인 BEST
-              </Text>
-              <Text
-                style={{
-                  fontSize: 13,
-                  fontWeight: "500",
-                  color: "#8a8a8a",
-                  marginTop: 5,
-                }}
-              >
-                {/* 총 {category.totalAmount} 썼어요 */}
-              </Text>
-            </View>
-            <Image
-              source={
-                categoryImages[category.largeCategoryName]
-                  ? categoryImages[category.largeCategoryName]
-                  : require("../../../../assets/favicon.png")
-              }
-              style={styles.categoriesImage}
-            ></Image>
+      {/* {cards.map((category, index) => ( */}
+      <View style={styles.mainContent}>
+        <View style={styles.titleConatiner}>
+          <View style={styles.titleTextContainer}>
+            <Text style={{ fontSize: 18, fontWeight: "700", marginTop: 15 }}>
+              {/* {category.largeCategoryName}할인 BEST */}
+            </Text>
+            <Text
+              style={{
+                fontSize: 13,
+                fontWeight: "500",
+                color: "#8a8a8a",
+                marginTop: 5,
+              }}
+            >
+              {/* 총 {category.totalAmount} 썼어요 */}
+            </Text>
           </View>
+        </View>
 
-          {category.list.map((card, cardIdx) => (
+        {/* {category.list.map((card, cardIdx) => (
             <Pressable
               key={cardIdx}
               style={styles.cardContainer}
@@ -187,10 +153,10 @@ function FitYourConsumption() {
                 </Text>
               </View>
             </Pressable>
-          ))}
-          <View style={styles.separator}></View>
-        </View>
-      ))}
+          ))} */}
+        <View style={styles.separator}></View>
+      </View>
+      {/* ))} */}
     </ScrollView>
   );
 }
@@ -289,4 +255,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FitYourConsumption;
+export default PopularCard;
