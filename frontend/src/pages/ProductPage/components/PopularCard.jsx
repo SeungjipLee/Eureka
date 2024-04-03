@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   StyleSheet,
   View,
@@ -7,6 +7,7 @@ import {
   StatusBar,
   ScrollView,
   Image,
+  TouchableOpacity,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -21,11 +22,16 @@ function PopularCard() {
     (state) => state.productList.selectPayCardInfo
   );
   const [userCardId, setUserCardId] = useState("");
+  const [popularCards, setPopularCards] = useState([]);
+  const [ddoraeCards, setDdoraeCards] = useState([]);
+
+  const scrollViewRef = useRef(null);
+  const popularRef = useRef(null);
+  const ddoraeRef = useRef(null);
 
   useEffect(() => {
     if (selectCardInfo) {
       setUserCardId(selectCardInfo.userCardId);
-      console.log(selectCardInfo.userCardId);
     }
   }, [selectCardInfo]);
 
@@ -34,17 +40,16 @@ function PopularCard() {
       const accessToken = await TokenUtils.getAccessToken();
       setToken(accessToken);
     };
-
     fetchToken();
   }, []);
 
   useEffect(() => {
-    // 토큰과 selectId가 유효할 때만 API 호출
     if (token && userCardId) {
       getUserTop10(
         token,
         (res) => {
-          console.log(res.data, "Popularcard");
+          setPopularCards(res.data.cardOwnershipList);
+          // console.log(res.data.cardOwnershipList, "sdaasd");
         },
         (err) => {
           console.log("PopularCard, err", err);
@@ -55,7 +60,7 @@ function PopularCard() {
         token,
         userCardId,
         (res) => {
-          console.log(res.data, "DdoraeCard");
+          setDdoraeCards(res.data.cardOwnershipList);
         },
         (err) => {
           console.log("PopularCard, err", err);
@@ -64,20 +69,19 @@ function PopularCard() {
     }
   }, [token, userCardId]);
 
-  function getImageStyle(imgAttr) {
-    if (imgAttr === 0) {
-      // 가로 이미지
-      return styles.horizontalImage;
-    } else if (imgAttr === 1) {
-      // 세로 이미지
-      return styles.verticalImage;
-    } else {
-      return styles.defaultImage; // 기본 스타일
+  const scrollToSection = (sectionRef) => {
+    if (sectionRef.current && scrollViewRef.current) {
+      sectionRef.current.measureLayout(
+        scrollViewRef.current,
+        (x, y, width, height) => {
+          scrollViewRef.current.scrollTo({ x: 0, y, animated: true });
+        }
+      );
     }
-  }
+  };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <View style={styles.container}>
       <Pressable
         onPress={() => navigation.navigate("ProductPage1")}
         style={{ alignSelf: "flex-start" }}
@@ -103,79 +107,138 @@ function PopularCard() {
         />
       </View>
 
-      {/* {cards.map((category, index) => ( */}
-      <View style={styles.mainContent}>
-        <View style={styles.titleConatiner}>
-          <View style={styles.titleTextContainer}>
-            <Text style={{ fontSize: 18, fontWeight: "700", marginTop: 15 }}>
-              {/* {category.largeCategoryName}할인 BEST */}
-            </Text>
-            <Text
-              style={{
-                fontSize: 13,
-                fontWeight: "500",
-                color: "#8a8a8a",
-                marginTop: 5,
-              }}
-            >
-              {/* 총 {category.totalAmount} 썼어요 */}
-            </Text>
-          </View>
-        </View>
-
-        {/* {category.list.map((card, cardIdx) => (
+      <View style={styles.topTabs}>
+        <TouchableOpacity onPress={() => scrollToSection(popularRef)}>
+          <Text style={styles.tabText}>인기카드</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => scrollToSection(ddoraeRef)}>
+          <Text style={styles.tabText}>또래추천카드</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.separator}></View>
+      <ScrollView
+        ref={scrollViewRef}
+        contentContainerStyle={styles.contentContainer}
+      >
+        <View ref={popularRef}>
+          <Text style={styles.sectionTitle}>인기카드</Text>
+          {popularCards.map((card, index) => (
             <Pressable
-              key={cardIdx}
-              style={styles.cardContainer}
+              key={`popular_${card.cardId}_${index}`}
+              style={styles.cardItem}
               onPress={() =>
                 navigation.navigate("SelectCardInfo", {
                   cardId: card.cardId,
-                  type: 3,
-                  cardd: card,
+                  type: 5,
                 })
               }
             >
-              <Image source={{ uri: card.imagePath }} style={styles.image2} />
-              <View style={styles.cardInfo}>
-                <Text style={{ fontSize: 12, color: "#707070" }}>
-                  {card.cardName}
-                </Text>
-                <Text
-                  style={{ fontSize: 14, fontWeight: "600", flexShrink: 1 }}
-                >
-                  {card.info}
-                </Text>
-                <Text style={{ fontSize: 14, fontWeight: "800" }}>
-                  {card.afterDiscount}
-                  <Text style={{ fontSize: 12, fontWeight: "600" }}>
-                    원 더 할인받아요!
-                  </Text>
-                </Text>
+              <View style={styles.cardImageContainer}>
+                <Image
+                  source={{ uri: card.imagePath }}
+                  style={styles.cardImage}
+                />
+              </View>
+              <View style={styles.cardDetail}>
+                <Text style={styles.cardName}>{card.cardName}</Text>
+                <Text style={styles.cardInfo}>{card.info}</Text>
               </View>
             </Pressable>
-          ))} */}
-        <View style={styles.separator}></View>
-      </View>
-      {/* ))} */}
-    </ScrollView>
+          ))}
+        </View>
+
+        <View style={styles.separator} />
+
+        <View ref={ddoraeRef}>
+          <Text style={styles.sectionTitle}>또래추천카드</Text>
+          {ddoraeCards.map((card, index) => (
+            <Pressable
+              key={`ddorae_${card.cardId}_${index}`}
+              style={styles.cardItem}
+              onPress={() =>
+                navigation.navigate("SelectCardInfo", {
+                  cardId: card.cardId,
+                  type: 5,
+                })
+              }
+            >
+              <View style={styles.cardImageContainer}>
+                <Image
+                  source={{ uri: card.imagePath }}
+                  style={styles.cardImage}
+                />
+              </View>
+              <View style={styles.cardDetail}>
+                <Text style={styles.cardName}>{card.cardName}</Text>
+                <Text style={styles.cardInfo}>{card.info}</Text>
+              </View>
+            </Pressable>
+          ))}
+        </View>
+      </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  separator: {
-    height: 0.7,
-    width: "95%",
-    backgroundColor: "#d8d8d8",
-    marginLeft: 10,
-    marginTop: 25,
-    marginBottom: 35,
-  },
   container: {
-    paddingTop: StatusBar.currentHeight + 50,
+    flex: 1,
+    paddingTop: StatusBar.currentHeight,
   },
-  nextBtn: {
-    color: "#b0b0b0",
-    marginLeft: 15,
+  contentContainer: {
+    paddingBottom: 50,
+  },
+  topTabs: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginTop: 10,
+    marginBottom: 20,
+  },
+  tabText: {
+    fontSize: 16,
+    fontWeight: "600",
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: "400",
+    marginVertical: 10,
+    marginLeft: 10,
+  },
+  cardItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 20,
+    paddingHorizontal: 10,
+  },
+  cardImageContainer: {
+    width: 80, // 이미지 컨테이너 너비 설정
+    height: 100, // 이미지 컨테이너 높이 설정
+    marginRight: 15,
+    justifyContent: "center", // 이미지를 중앙에 위치시킴
+    alignItems: "center", // 이미지를 중앙에 위치시킴
+  },
+  cardImage: {
+    width: 80,
+    height: 100,
+    resizeMode: "contain", // 원본 이미지 비율 유지
+  },
+  cardDetail: {
+    flexDirection: "column",
+    flex: 1,
+  },
+  cardName: {
+    fontSize: 16,
+    fontWeight: "600",
+    marginBottom: 5,
+  },
+  cardInfo: {
+    fontSize: 14,
+    color: "#666",
+  },
+  separator: {
+    height: 1,
+    backgroundColor: "#eee",
+    marginVertical: 20,
   },
   topcontainer: {
     flexDirection: "row",
@@ -197,61 +260,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "600",
   },
-  image: {
-    height: 80,
-    width: 50,
-    marginRight: 15,
-    marginLeft: 80,
-    marginTop: 20,
-  },
-  image2: {
-    height: 70,
-    width: 40,
-  },
-  cardInfo: {
-    flex: 1,
-    marginLeft: 50,
-  },
-  mainContent: {},
-  titleConatiner: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 30,
-    marginBottom: 25,
-    marginLeft: 25,
-  },
-  titleTextContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  categoriesImage: {
-    marginRight: 40,
-    width: 70,
-    height: 70,
-  },
-  cardContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 15,
-    marginTop: 15,
-    width: "100%",
-    marginLeft: 30,
-  },
-  horizontalImage: {
-    width: 120,
-    height: 60,
-    marginLeft: 20,
-  },
-  verticalImage: {
-    width: 60,
-    height: 120,
-    marginLeft: 55,
-    marginRight: 15,
-  },
-  defaultImage: {
-    width: 50,
-    height: 80,
+  separator: {
+    height: 0.8,
+    width: "95%",
+    backgroundColor: "#d8d8d8",
+    marginLeft: 10,
   },
 });
 

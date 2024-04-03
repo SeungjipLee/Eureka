@@ -35,13 +35,11 @@ function CurrentBenefitMore() {
   // 이미지 스타일을 동적으로 결정하는 함수
   function getImageStyle(imgAttr) {
     if (imgAttr === 0) {
-      // 가로 이미지
       return styles.horizontalImage;
     } else if (imgAttr === 1) {
-      // 세로 이미지
       return styles.verticalImage;
     } else {
-      return styles.defaultImage; // 기본 스타일
+      return styles.defaultImage;
     }
   }
   return (
@@ -58,8 +56,18 @@ function CurrentBenefitMore() {
       </Pressable>
       <View style={styles.topcontainer}>
         <View style={styles.maintextContainer}>
-          <Text style={styles.maintext}>삼성카드 | 신용</Text>
-          <Text style={styles.cardName}>{selectPaycard.cardName}</Text>
+          <Text style={styles.maintext}>
+            {selectPaycard.cardCompanyName} |{" "}
+            {selectPaycard.cardType === 1 ? (
+              <Text>신용</Text>
+            ) : (
+              <Text>체크</Text>
+            )}
+          </Text>
+
+          <Text style={styles.cardName} numberOfLines={2} ellipsizeMode="tail">
+            {selectPaycard.cardName}
+          </Text>
         </View>
 
         <Image
@@ -71,7 +79,7 @@ function CurrentBenefitMore() {
 
       <View style={styles.midContainer}>
         <View style={styles.midUpTitle}>
-          <Text style={{ fontSize: 15, fontWeight: "400" }}>
+          <Text style={{ fontSize: 16, fontWeight: "600" }}>
             혜택 별 할인금액
           </Text>
         </View>
@@ -80,7 +88,7 @@ function CurrentBenefitMore() {
         <View style={styles.benefitList}>
           {cardBenefitList.map((benefit) => (
             <View key={benefit.categoryId} style={styles.benefitItem}>
-              <Text style={styles.benefitContent}>
+              <Text style={{ fontSize: 15, fontWeight: "500" }}>
                 * {benefit.categoryName}
               </Text>
               <Text style={styles.discount}>
@@ -92,8 +100,10 @@ function CurrentBenefitMore() {
         <View style={styles.bottom}>
           <View style={styles.separator} />
           <View style={styles.resultContainer}>
-            <Text>* 합계</Text>
-            <Text>{totalDiscountAmount.toLocaleString()}원</Text>
+            <Text style={{ fontSize: 16 }}>* 합계</Text>
+            <Text style={{ fontSize: 16 }}>
+              {totalDiscountAmount.toLocaleString()}원
+            </Text>
           </View>
         </View>
         <View style={styles.totalContainer}>
@@ -107,7 +117,15 @@ function CurrentBenefitMore() {
         </View>
       </View>
       <View style={styles.bottomContainer}>
-        <Pressable style={styles.applyBtn}>
+        <Pressable
+          style={styles.applyBtn}
+          onPress={() =>
+            navigation.navigate("SelectCardInfo", {
+              cardId: selectPaycard.cardId,
+              type: 4,
+            })
+          }
+        >
           <Text style={{ fontSize: 15, fontWeight: "600", color: "white" }}>
             혜택 더보기
           </Text>
@@ -125,16 +143,17 @@ const styles = StyleSheet.create({
   },
   topcontainer: {
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "space-between", // 컨테이너 내 아이템을 양 끝으로 분산 배치
     alignItems: "center",
+    padding: 10, // 컨테이너 내부 여백 추가
   },
   midContainer: {
     maxWidth: width - 20,
-    maxHeight: 700,
+    maxHeight: 1000,
     backgroundColor: "#e5e5e5",
-    marginTop: 50,
+    marginTop: 20,
     marginHorizontal: 15,
-    borderRadius: 5,
+    borderRadius: 10,
   },
   image: {
     height: 80,
@@ -143,17 +162,18 @@ const styles = StyleSheet.create({
     marginLeft: 100,
   },
   maintextContainer: {
-    flexDirection: "column",
-    marginRight: 40,
-    marginTop: 15,
-  },
-  maintext: {
-    fontSize: 17,
-    fontWeight: "400",
+    flex: 1,
+    marginRight: 20,
+    padding: 20,
   },
   cardName: {
     fontSize: 20,
     fontWeight: "600",
+    flexShrink: 1,
+  },
+  maintext: {
+    fontSize: 17,
+    fontWeight: "400",
   },
   nextBtn: {
     color: "#b0b0b0",
