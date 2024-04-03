@@ -27,6 +27,7 @@ import {
 import TokenUtils from "../../stores/TokenUtils";
 import { getMyPaymentCards } from "../../apis/ProductApi";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useFocusEffect } from "@react-navigation/native";
 
 const screenHeight = Dimensions.get("window").height;
 
@@ -56,7 +57,7 @@ function ProductPage() {
     setModalVisible(clickMyCardValue);
   }, [clickMyCardValue]);
 
-  useEffect(() => {
+  const fetchCardList = async () => {
     if (token) {
       // 현재 날짜를 얻기 위한 함수
       const getCurrentDate = () => {
@@ -88,6 +89,11 @@ function ProductPage() {
         }
       );
     }
+  };
+
+  useEffect(() => {
+    fetchCardList();
+    return () => {};
   }, [token]);
 
   const handleSelectCard = (card, index) => {

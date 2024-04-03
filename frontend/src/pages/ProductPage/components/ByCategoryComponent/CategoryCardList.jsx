@@ -35,8 +35,8 @@ function CategoryCardList() {
         token,
         selectId,
         (res) => {
-          setCards(res.data);
-          console.log(res.data);
+          // setCards(res.data);
+          // console.log(res.data, "category CarList");
         },
         (err) => {
           console.log("Error, CategoryCardList", err);

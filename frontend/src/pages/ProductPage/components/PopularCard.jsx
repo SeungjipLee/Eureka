@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   StyleSheet,
   View,
@@ -7,6 +7,7 @@ import {
   StatusBar,
   ScrollView,
   Image,
+  TouchableOpacity,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -21,6 +22,8 @@ function PopularCard() {
     (state) => state.productList.selectPayCardInfo
   );
   const [userCardId, setUserCardId] = useState("");
+  const [popularCards, setPopularCards] = useState([]);
+  const [ddoraeCards, setDdoraeCards] = useState([]);
 
   useEffect(() => {
     if (selectCardInfo) {
@@ -44,23 +47,25 @@ function PopularCard() {
       getUserTop10(
         token,
         (res) => {
-          console.log(res.data, "Popularcard");
+          console.log(res.data.cardOwnershipList, "Popularcard111111111111");
+          setPopularCards(res.data);
         },
         (err) => {
           console.log("PopularCard, err", err);
         }
       );
 
-      getDdoraeTop10(
-        token,
-        userCardId,
-        (res) => {
-          console.log(res.data, "DdoraeCard");
-        },
-        (err) => {
-          console.log("PopularCard, err", err);
-        }
-      );
+      // getDdoraeTop10(
+      //   token,
+      //   userCardId,
+      //   (res) => {
+      //     setDdoraeCards(res.data);
+      //     console.log(res.data, "DdoraeCard22222222222222222222");
+      //   },
+      //   (err) => {
+      //     console.log("PopularCard, err", err);
+      //   }
+      // );
     }
   }, [token, userCardId]);
 
@@ -76,8 +81,22 @@ function PopularCard() {
     }
   }
 
+  const popularRef = useRef();
+  const ddoraeRef = useRef();
+  const scrollViewRef = useRef();
+
+  // 특정 섹션으로 스크롤하는 함수
+  const scrollToSection = (sectionRef) => {
+    sectionRef.current.measureLayout(
+      scrollViewRef.current,
+      (x, y, width, height) => {
+        scrollViewRef.current.scrollTo({ x: 0, y, animated: true });
+      }
+    );
+  };
+
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <View style={styles.container}>
       <Pressable
         onPress={() => navigation.navigate("ProductPage1")}
         style={{ alignSelf: "flex-start" }}
@@ -103,79 +122,106 @@ function PopularCard() {
         />
       </View>
 
-      {/* {cards.map((category, index) => ( */}
-      <View style={styles.mainContent}>
-        <View style={styles.titleConatiner}>
-          <View style={styles.titleTextContainer}>
-            <Text style={{ fontSize: 18, fontWeight: "700", marginTop: 15 }}>
-              {/* {category.largeCategoryName}할인 BEST */}
-            </Text>
-            <Text
-              style={{
-                fontSize: 13,
-                fontWeight: "500",
-                color: "#8a8a8a",
-                marginTop: 5,
-              }}
-            >
-              {/* 총 {category.totalAmount} 썼어요 */}
-            </Text>
-          </View>
+      <ScrollView
+        ref={scrollViewRef}
+        contentContainerStyle={styles.contentContainer}
+      >
+        <View style={styles.topTabs}>
+          <TouchableOpacity onPress={() => scrollToSection(popularRef)}>
+            <Text style={styles.tabText}>인기카드</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => scrollToSection(ddoraeRef)}>
+            <Text style={styles.tabText}>또래추천카드</Text>
+          </TouchableOpacity>
         </View>
 
-        {/* {category.list.map((card, cardIdx) => (
-            <Pressable
-              key={cardIdx}
-              style={styles.cardContainer}
-              onPress={() =>
-                navigation.navigate("SelectCardInfo", {
-                  cardId: card.cardId,
-                  type: 3,
-                  cardd: card,
-                })
-              }
-            >
-              <Image source={{ uri: card.imagePath }} style={styles.image2} />
-              <View style={styles.cardInfo}>
-                <Text style={{ fontSize: 12, color: "#707070" }}>
-                  {card.cardName}
-                </Text>
-                <Text
-                  style={{ fontSize: 14, fontWeight: "600", flexShrink: 1 }}
-                >
-                  {card.info}
-                </Text>
-                <Text style={{ fontSize: 14, fontWeight: "800" }}>
-                  {card.afterDiscount}
-                  <Text style={{ fontSize: 12, fontWeight: "600" }}>
-                    원 더 할인받아요!
-                  </Text>
-                </Text>
-              </View>
-            </Pressable>
-          ))} */}
-        <View style={styles.separator}></View>
-      </View>
-      {/* ))} */}
-    </ScrollView>
+        <View ref={popularRef}>
+          <Text style={styles.sectionTitle}>인기카드</Text>
+          {popularCards.map(
+            (card, index) =>
+              index < 5 && (
+                <View key={card.cardId} style={styles.cardItem}>
+                  <Image
+                    source={{ uri: card.imagePath }}
+                    style={styles.cardImage}
+                  />
+                  <Text style={styles.cardName}>{card.cardName}</Text>
+                  <Text style={styles.cardInfo}>{card.info}</Text>
+                </View>
+              )
+          )}
+        </View>
+        <View style={styles.separator} />
+
+        {/* <View ref={ddoraeRef}>
+          <Text style={styles.sectionTitle}>또래추천카드</Text>
+          {ddoraeCards.map(
+            (card, index) =>
+              index < 5 && (
+                <View key={card.cardId} style={styles.cardItem}>
+                  <Image
+                    source={{ uri: card.imagePath }}
+                    style={styles.cardImage}
+                  />
+                  <Text style={styles.cardName}>{card.cardName}</Text>
+                  <Text style={styles.cardInfo}>{card.info}</Text>
+                </View>
+              )
+          )}
+        </View> */}
+      </ScrollView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  separator: {
-    height: 0.7,
-    width: "95%",
-    backgroundColor: "#d8d8d8",
-    marginLeft: 10,
-    marginTop: 25,
-    marginBottom: 35,
-  },
+  // 스타일 정의 부분
   container: {
-    paddingTop: StatusBar.currentHeight + 50,
+    flex: 1,
+    paddingTop: StatusBar.currentHeight,
   },
-  nextBtn: {
-    color: "#b0b0b0",
-    marginLeft: 15,
+  contentContainer: {
+    paddingBottom: 50,
+  },
+  topTabs: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginTop: 10,
+    marginBottom: 20,
+  },
+  tabText: {
+    fontSize: 18,
+    fontWeight: "600",
+  },
+  sectionTitle: {
+    fontSize: 22,
+    fontWeight: "700",
+    marginVertical: 10,
+    marginLeft: 10,
+  },
+  cardItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 15,
+    paddingHorizontal: 10,
+  },
+  cardImage: {
+    width: 100,
+    height: 60,
+    marginRight: 10,
+  },
+  cardName: {
+    fontSize: 18,
+    fontWeight: "600",
+  },
+  cardInfo: {
+    fontSize: 14,
+    color: "#666",
+  },
+  separator: {
+    height: 1,
+    backgroundColor: "#eee",
+    marginVertical: 20,
   },
   topcontainer: {
     flexDirection: "row",
@@ -197,61 +243,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "600",
   },
-  image: {
-    height: 80,
-    width: 50,
-    marginRight: 15,
-    marginLeft: 80,
-    marginTop: 20,
-  },
-  image2: {
-    height: 70,
-    width: 40,
-  },
-  cardInfo: {
-    flex: 1,
-    marginLeft: 50,
-  },
-  mainContent: {},
-  titleConatiner: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 30,
-    marginBottom: 25,
-    marginLeft: 25,
-  },
-  titleTextContainer: {
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  categoriesImage: {
-    marginRight: 40,
-    width: 70,
-    height: 70,
-  },
-  cardContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: 15,
-    marginTop: 15,
-    width: "100%",
-    marginLeft: 30,
-  },
-  horizontalImage: {
-    width: 120,
-    height: 60,
-    marginLeft: 20,
-  },
-  verticalImage: {
-    width: 60,
-    height: 120,
-    marginLeft: 55,
-    marginRight: 15,
-  },
-  defaultImage: {
-    width: 50,
-    height: 80,
+  separator: {
+    height: 0.7,
+    width: "95%",
+    backgroundColor: "#d8d8d8",
+    marginLeft: 10,
+    marginTop: 25,
+    marginBottom: 35,
   },
 });
 
