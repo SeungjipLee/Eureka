@@ -20,8 +20,12 @@ function PayComplete({ route, navigation }) {
           <Text style={styles.detail}><Text style={{fontWeight: 'bold', fontSize: 20}}>{totalAmount.toLocaleString()}원</Text>을 결제하였습니다!</Text>
           <Text style={styles.detail}>다음 실적까지 남은 금액: <Text style={{fontSize: 20}}>{remaining.toLocaleString()}원</Text></Text>
           <View style={styles.progressBarContainer}>
-            <View style={[styles.progressBar, { width: `${Math.min(progress, 100)}%`}]} />
-            <Text style={styles.progressPercentage}>{progress.toFixed(0)}%</Text>
+            <View style={[styles.progressBar, { width: progress >= 0 ? `${Math.min(progress, 100)}%` : '0%'}]} />
+            {progress >= 0 ? (
+              <Text style={styles.progressPercentage}>{progress.toFixed(0)}%</Text>
+            ) : (
+              <Text style={styles.progressPercentage}>카드 실적 없음</Text>
+            )}
           </View>
           <Pressable onPress={() => navigation.navigate('Home')}>
             <View style={styles.button}>
