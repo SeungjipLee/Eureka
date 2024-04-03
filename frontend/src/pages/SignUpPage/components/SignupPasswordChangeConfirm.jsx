@@ -64,7 +64,7 @@ const SignupPasswordChangeConfirm = ({ navigation, route }) => {
     });
 
     if (result.success) {
-      const setBiometricSuccess = await SettingService.setBiometricEnabled(true);
+      const setBiometricSuccess = await SettingService.setBiometricEnabled('true');
       if (setBiometricSuccess) {
         console.log("생체 인식 설정 저장 성공");
         navigation.navigate('Routers');
