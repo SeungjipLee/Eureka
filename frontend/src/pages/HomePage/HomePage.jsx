@@ -28,7 +28,7 @@ export default HomePage
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 40,
+    marginTop: 40,
     marginHorizontal: 10,
     flex: 1,
   },

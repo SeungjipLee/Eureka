@@ -56,7 +56,12 @@ function CardDetailPage({route}) {
     }, [token])
   );
 
-  const progress = (cardHistory.monthTotalConsumption / cardInfo.previousPerformance) * 100
+  let progress;
+  if (cardInfo.previousPerformance > 0) {
+    progress = (cardHistory.monthTotalConsumption / cardInfo.previousPerformance) * 100;
+  } else {
+    progress = -1;
+  }
   const remaining = cardInfo.previousPerformance - cardHistory.monthTotalConsumption
   const formatDate = (dateString) => {
     const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false };
@@ -156,8 +161,12 @@ function CardDetailPage({route}) {
           </Text>
         </View>
         <View style={styles.progressBarContainer}>
-          <View style={[styles.progressBar, { width: `${Math.min(progress, 100)}%`}]} />
+        <View style={[styles.progressBar, { width: progress >= 0 ? `${Math.min(progress, 100)}%` : '0%'}]} />
+        {progress >= 0 ? (
           <Text style={styles.progressPercentage}>{progress.toFixed(0)}%</Text>
+        ) : (
+          <Text style={styles.progressPercentage}>카드 실적 없음</Text>
+        )}
         </View>
       </View>
 

@@ -42,7 +42,4 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginRight: 20,
   },
-  carousel: {
-    marginBottom: 12,
-  }
 })
