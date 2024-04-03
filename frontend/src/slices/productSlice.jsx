@@ -7,6 +7,8 @@ const initialState = {
   selectPayCardInfo: null,
   currentBenefiterr: null,
   payCardBenefit: null,
+  cardListLen: null,
+  profit: [],
 };
 
 export const productSlice = createSlice({
@@ -36,6 +38,14 @@ export const productSlice = createSlice({
     selectPayCardBenefit: (state, action) => {
       state.payCardBenefit = action.payload;
     },
+    // 결제카드 등록 감시
+    saveMyPayCard: (state, action) => {
+      state.cardListLen = action.payload.length;
+    },
+    // 카테고리 추천 카드 이익 계산
+    recommendCateCardProfit: (state, action) => {
+      state.profit = action.payload;
+    },
   },
 });
 
@@ -45,7 +55,9 @@ export const {
   saveMyPayCard,
   selectPayCard,
   selectPayCardBenefit,
-  selectPayCard2
+  selectPayCard2,
+  checkPayCardList,
+  recommendCateCardProfit,
 } = productSlice.actions;
 
 export default productSlice.reducer;

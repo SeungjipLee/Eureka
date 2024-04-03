@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   View,
@@ -8,12 +8,38 @@ import {
   Image,
   Pressable,
 } from "react-native";
+import TokenUtils from "../../../stores/TokenUtils";
 import { useNavigation } from "@react-navigation/native";
+import { getMyTags } from "../../../apis/StatisticsApi";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
 function AkaOfYou() {
   const navigation = useNavigation();
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    const fetchToken = async () => {
+      const accessToken = await TokenUtils.getAccessToken();
+      setToken(accessToken);
+    };
+    fetchToken();
+  }, []);
+
+  useEffect(() => {
+    if (token) {
+      getMyTags(
+        token,
+        (res) => {
+          console.log(res.data, "AkaOfYou");
+        },
+        (err) => {
+          console.log(err, "AkaOfYou err");
+        }
+      );
+    }
+  }, [token]);
+
   return (
     <View style={styles.container}>
       <View style={styles.noticeContainer}>

@@ -46,14 +46,16 @@ function MainNotice() {
           <Text style={styles.maintext}>분석했어요!</Text>
         </View>
 
-        <Image
-          source={
-            checkChangeSelectPayCard && checkChangeSelectPayCard.imagePath
-              ? { uri: checkChangeSelectPayCard.imagePath }
-              : require("../../../../assets/ThinkingFace.png") // 대체 이미지 경로
-          }
-          style={getImageStyle(checkChangeSelectPayCard)}
-        />
+        <Pressable onPress={handleClickMyCard}>
+          <Image
+            source={
+              checkChangeSelectPayCard && checkChangeSelectPayCard.imagePath
+                ? { uri: checkChangeSelectPayCard.imagePath }
+                : require("../../../../assets/ThinkingFace.png") // 대체 이미지 경로
+            }
+            style={getImageStyle(checkChangeSelectPayCard)}
+          />
+        </Pressable>
       </View>
     </View>
   );
@@ -122,12 +124,12 @@ const styles = StyleSheet.create({
     marginTop: 15,
   },
   maintext: {
-    fontSize: 17,
+    fontSize: 18,
     fontWeight: "400",
   },
   underlineText: {
-    fontSize: 20,
-    fontWeight: "400",
+    fontSize: 22,
+    fontWeight: "500",
     textDecorationLine: "underline",
   },
   image: {

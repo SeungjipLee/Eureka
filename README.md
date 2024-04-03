@@ -11,11 +11,9 @@
 
 ## 💬 프로젝트 개요
 
-**목표**
+- QR 코드 간편 결제
 
-- QR코드 간편 결제
-
-- 할인 및 실적 고려을 고려하여 결제 시 최적의 카드 추천
+- 할인 및 실적을 고려하여 결제 시 최적의 카드 추천
 
 - 소비 통계를 기반으로 카드 상품 추천
 
@@ -23,29 +21,37 @@
 
 ## 💻 서비스 화면
 
-1. 메인화면
 
-2. 회원가입
-
-3. 보유카드 등록
-
-4. 결제 카드 등록
-
-5. 결제 내역 보기
-
-6. 간편 결제 (여러 장)
-
-7. 통계 페이지 확인
-
-8. 태그 확인
-
-9. 카드 상품 메인 페이지
-
-10. 카드 상품 추천 상세
-
-11. 등등
+| 1. 메인화면 | 2. 보유카드 등록 | 3. 결제카드 등록 |
+|:-----:|:-----:|:-----:|
+| <img src="./document/eureka/메인 화면.gif" style="height:300px; margin:10px;"> | <img src="./document/eureka/보유카드 등록.gif" style="height:300px; margin:10px;"> | <img src="./document/eureka/결제카드 등록.gif" style="height:300px; margin:10px;"> |
 
 <br />
+
+| 4. 간편 결제 | 5. 결제 내역 |
+|:-----:|:-----:|
+| <img src="./document/eureka/QR 결제.gif" style="height:300px; margin:10px;"> | <img src="./document/eureka/결제내역.gif" style="height:300px; margin:10px;"> |
+
+<br />
+
+| 6. 또래 소비 비교 | 7. 통계 페이지 |
+|:-----:|:-----:|
+| <img src="./document/eureka/또래 소비 비교.gif" style="height:300px; margin:10px;"> | <img src="./document/eureka/통계 페이지.gif" style="height:300px; margin:10px;"> |
+
+<br />
+
+| 8. 카드 상품 추천 | 9. 카드 혜택 비교 |
+|:-----:|:-----:|
+| <img src="./document/eureka/카드 상품 페이지.gif" style="height:300px; margin:10px;"> | <img src="./document/eureka/카드 비교 페이지.gif" style="height:300px; margin:10px;"> |
+
+<br />
+
+| 10. 카드사별 카드 조회 | 11. 카테고리별 카드 조회 |
+|:-----:|:-----:|
+| <img src="./document/eureka/카드사별 카드 상품.gif" style="height:300px; margin:10px;"> | <img src="./document/eureka/카테고리별 카드 상품.gif" style="height:300px; margin:10px;"> |
+
+<br />
+
 
 ## 👩‍💻 개발 환경
 
@@ -58,11 +64,12 @@
 #### Frontend
 
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) 
-![React](https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=white)  
+![React](https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=white) 
+
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) 
 ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) 
 ![JavaScript](https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white) 
-![Tailwind](https://img.shields.io/badge/TailwindCSS-06B6D4?style=for-the-badge&logo=TailwindCSS&logoColor=white)  
+
 
 <br>
 
@@ -547,8 +554,9 @@
 - [기능 명세서](./document/기능명세서.pdf)
 - [API 명세서](./document/API명세서.pdf)
 - [와이어프레임](./document/와이어프레임.png)
-- [ER Diagram](./document/erd.png)
-- [포팅메뉴얼](./exec/PortingManual.md)  
+- [ER Diagram 1](./document/eureka_erd_diagram.png)
+- [ER Diagram 2](./document/card_erd_diagram.png)
+- [포팅메뉴얼](./exec/portingmanual.md)
 
 <br />
 
@@ -556,6 +564,5 @@
 
 |Name|김해인|김동우|김영대|옥세훈|이승집|최용훈|
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| **Profile**  | <img src="" style="height: 100px"> | <img src="" style="height: 100px"> | <img src="" style="height: 100px"> | <img src="" style="height: 100px"> | <img src="" style="height: 100px"> | <img src="" style="height: 100px"> |
 | **Position** | CI/CD <br/> Backend | Backend | Backend | Frontend | Frontend | Frontend |
 | **Git**      | [GitHub]() | [GitHub]() | [GitHub](https://github.com/0dyk) | [GitHub]() | [GitHub](https://github.com/SeungjipLee) | [GitHub]() |

@@ -64,8 +64,12 @@ function SelectCardInfo() {
             navigation.navigate("ByCard");
           } else if (type === 2) {
             navigation.navigate("ByCategory");
-          } else if(type === 3){
-            navigation.navigate("FitYourConsumption")
+          } else if (type === 3) {
+            navigation.navigate("FitYourConsumption");
+          } else if (type === 4) {
+            navigation.navigate("CurrentBenefitMore");
+          } else if (type === 5) {
+            navigation.navigate("PopularCard");
           }
         }}
         style={{ alignSelf: "flex-start" }}
@@ -117,7 +121,11 @@ function SelectCardInfo() {
         }}
         style={styles.applyButton}
       >
-        <Text style={styles.applyButtonText}>온라인 신청하기</Text>
+        {type === 4 ? (
+          <Text style={styles.applyButtonText}>해당 카드사 홈페이지 가기</Text>
+        ) : (
+          <Text style={styles.applyButtonText}>온라인 신청하기</Text>
+        )}
       </Pressable>
     </ScrollView>
   );

@@ -204,9 +204,9 @@ function SettingPage() {
       </View>
       <View style={styles.bottomContainer}>
         <View style={styles.switchContainer}>
-          <Text style={[styles.buttonText, { paddingLeft: 20 }]}>생체 인식 사용</Text>
+          <Text style={[styles.buttonText, {marginTop: 8}]}>생체 인식 사용</Text>
           <Switch
-            style={{ transform: [{ scaleX: 1.3 }, { scaleY: 1.3 }] }}
+            style={[{ transform: [{ scaleX: 1.3 }, { scaleY: 1.3 }] }, {marginTop: -10}]}
             trackColor={{ false: "#767577", true: "white" }}
             thumbColor={isBiometricEnabled ? "#f5dd4b" : "rgb(247,250,255)"} rufwp
             ios_backgroundColor="#3e3e3e"
@@ -257,9 +257,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   middleContainer: {
-    width: '95%',
+    width: '90%',
     height: '45%',
-    marginLeft: ' 2.5%',
+    marginLeft: '5%',
     borderWidth: 2,
     borderRadius: 20,
     borderColor: '#D7D7D7',
@@ -276,8 +276,8 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   profileImage: {
-    width: 120,
-    height: 120,
+    width: 100,
+    height: 100,
     borderRadius: 60,
     backgroundColor: 'black',
     justifyContent: 'center',
@@ -287,13 +287,14 @@ const styles = StyleSheet.create({
   },
   crossIcon: {
     position: 'absolute',
-    right: 0,
-    top: 100,
+    left: 85,
+    top: 80,
     transform: [{ rotate: '45deg' }],
   },
   profileContainer: {
     width: '100%',
     height: '60%',
+    padding: 10,
     // backgroundColor:'blue',
   },
   profileData: {
@@ -307,14 +308,14 @@ const styles = StyleSheet.create({
   profileTitle: {
     flex: 1,
     // textAlign: 'left',
-    fontSize: 24,
+    fontSize: 20,
     paddingLeft: 10,
     fontWeight: '600'
   },
   profileVlue: {
     flex: 3,
     textAlign: 'right',
-    fontSize: 24,
+    fontSize: 20,
     paddingRight: 10,
     fontWeight: '600'
   },
@@ -324,22 +325,22 @@ const styles = StyleSheet.create({
     paddingTop: '5%',
   },
   switchContainer: {
-    flexDirection: 'row',
+    // flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '95%',
-    height: '15%',
+    // justifyContent: 'space-between',
+    width: '90%',
+    height: '25%',
     marginTop: '5%',
-    marginLeft: '2.5%',
+    marginLeft: '5%',
     backgroundColor: '#007AFF',
     borderRadius: 10,
   },
   button: {
-    width: '95%',
-    height: '15%',
+    width: '90%',
+    height: '18%',
     backgroundColor: '#007AFF',
     marginTop: '5%',
-    marginLeft: '2.5%',
+    marginLeft: '5%',
     borderRadius: 10,
     justifyContent: 'center',
   },

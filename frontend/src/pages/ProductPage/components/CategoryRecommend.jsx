@@ -9,7 +9,10 @@ function CategoryRecommend() {
       <View style={styles.noticeTextContainer}>
         <Text style={styles.noticeText}>다른 카드들이 궁금하다면?</Text>
       </View>
-      <View style={styles.byCard}>
+      <Pressable
+        style={styles.byCard}
+        onPress={() => navigation.navigate("ByCard")}
+      >
         <View style={styles.innerContainer}>
           <Text style={styles.byCardText}>카드사별로 찾아보기</Text>
           <Pressable onPress={() => navigation.navigate("ByCard")}>
@@ -20,8 +23,12 @@ function CategoryRecommend() {
             />
           </Pressable>
         </View>
-      </View>
-      <View style={styles.byCatergory}>
+      </Pressable>
+
+      <Pressable
+        style={styles.byCatergory}
+        onPress={() => navigation.navigate("ByCategory")}
+      >
         <View style={styles.innerContainer}>
           <Text style={styles.byCardText}>카테고리별로 찾아보기</Text>
           <Pressable onPress={() => navigation.navigate("ByCategory")}>
@@ -32,7 +39,7 @@ function CategoryRecommend() {
             />
           </Pressable>
         </View>
-      </View>
+      </Pressable>
     </View>
   );
 }

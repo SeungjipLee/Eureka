@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, View, Text, Dimensions, Platform } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Dimensions,
+  Platform,
+  TouchableOpacity,
+} from "react-native";
 import BenefitCategoryList from "./BenefitGraphComponents/BenefitCategoryList";
 import { useDispatch } from "react-redux";
 import { benefitTop5Category } from "../../../slices/staticSlice";
@@ -37,36 +44,44 @@ const categoryColors = {
 };
 const HorizontalBarGraph = ({ categories, totalBenefit }) => {
   return (
-    <View style={styles.rowGraph}>
-      <View
-        style={{
-          flexDirection: "row",
-          height: "100%",
-          alignItems: "center",
-          width: "100%",
-        }}
-      >
-        {categories.map((category, index) => {
-          const width = `${(category.discount / totalBenefit) * 100}%`;
-          const color = categoryColors[category.categoryId] || "#E0E0E0";
-          const barStyle = {
-            height: "100%",
-            width,
-            backgroundColor: color,
-            ...(index === 0 && {
-              borderTopLeftRadius: 20,
-              borderBottomLeftRadius: 20,
-            }),
-            ...(index === categories.length - 1 && {
-              borderTopRightRadius: 20,
-              borderBottomRightRadius: 20,
-            }),
-          };
+    <>
+      {totalBenefit === 0 ? (
+        <Text style={{ fontSize: 20, fontWeight: "400" }}>
+          받은 혜택이 없어요 ㅠㅠ
+        </Text>
+      ) : (
+        <View style={styles.rowGraph}>
+          <View
+            style={{
+              flexDirection: "row",
+              height: "100%",
+              alignItems: "center",
+              width: "100%",
+            }}
+          >
+            {categories.map((category, index) => {
+              const width = `${(category.discount / totalBenefit) * 100}%`;
+              const color = categoryColors[category.categoryId] || "#E0E0E0";
+              const barStyle = {
+                height: "100%",
+                width,
+                backgroundColor: color,
+                ...(index === 0 && {
+                  borderTopLeftRadius: 20,
+                  borderBottomLeftRadius: 20,
+                }),
+                ...(index === categories.length - 1 && {
+                  borderTopRightRadius: 20,
+                  borderBottomRightRadius: 20,
+                }),
+              };
 
-          return <View key={index} style={barStyle} />;
-        })}
-      </View>
-    </View>
+              return <View key={index} style={barStyle} />;
+            })}
+          </View>
+        </View>
+      )}
+    </>
   );
 };
 
@@ -75,6 +90,8 @@ function BenefitGraph() {
   const [totalDiscount, setTotalDiscount] = useState("");
   const [categories, setCategories] = useState([]);
   const [LastCategory, setLastCategory] = useState([]);
+  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth() + 1);
+  const maxMonth = new Date().getMonth() + 1;
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -87,13 +104,10 @@ function BenefitGraph() {
 
   useEffect(() => {
     if (token) {
-      const getCurrentDate = () => {
-        const date = new Date();
-        const year = date.getFullYear();
-        const month = date.getMonth() + 1;
-        return year * 100 + month;
-      };
-      const currentDate = 202403;
+      const selectedDate =
+        currentMonth < 10 ? `0${currentMonth}` : `${currentMonth}`;
+      const currentDate = `${new Date().getFullYear()}${selectedDate}`;
+
       getMyBenefitAmountOfCategory(
         token,
         currentDate,
@@ -106,7 +120,7 @@ function BenefitGraph() {
         }
       );
     }
-  }, [token]);
+  }, [token, currentMonth]);
 
   const formatTotalDiscount = totalDiscount.toLocaleString("ko-KR");
 
@@ -136,16 +150,33 @@ function BenefitGraph() {
     }
   }, [categories]);
 
+  const moveToPreviousMonth = () =>
+    setCurrentMonth(currentMonth > 1 ? currentMonth - 1 : currentMonth);
+  const moveToNextMonth = () =>
+    setCurrentMonth(currentMonth < maxMonth ? currentMonth + 1 : currentMonth);
+
   return (
     <View style={styles.container}>
       <View style={styles.monthInfo}>
-        <Text style={styles.monthText}>내 혜택</Text>
+        <TouchableOpacity
+          onPress={moveToPreviousMonth}
+          disabled={currentMonth === 1}
+        >
+          <Text style={styles.navigationText}>{"<"}</Text>
+        </TouchableOpacity>
+        <Text style={styles.monthText}>{currentMonth}월달의 혜택</Text>
+        <TouchableOpacity
+          onPress={moveToNextMonth}
+          disabled={currentMonth === maxMonth}
+        >
+          <Text style={styles.navigationText}>{">"}</Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.line}></View>
       <View style={styles.topContainer}>
         {categories && categories.length > 0 ? (
           <Text style={styles.BenefitText}>
-            이번달에는{" "}
+            {currentMonth}월달에는{" "}
             <Text style={{ fontWeight: "bold" }}>
               {categories[0].categoryName}
             </Text>
@@ -159,7 +190,11 @@ function BenefitGraph() {
         )}
 
         <View style={styles.amountContainer}>
-          <Text style={styles.BenefitText}>가장 많은 혜택을 누렸어요!</Text>
+          {totalDiscount === 0 ? (
+            <Text>혜택을 받지 못했어요</Text>
+          ) : (
+            <Text style={styles.BenefitText}>가장 많은 혜택을 누렸어요!</Text>
+          )}
         </View>
       </View>
       <HorizontalBarGraph
@@ -195,9 +230,20 @@ const styles = StyleSheet.create({
       },
     }),
   },
+  navigationText: {
+    fontSize: 26,
+    fontWeight: "bold",
+    color: "#bbbbbb",
+    marginHorizontal: 20,
+  },
   myConsumptionContainer: {
-    marginBottom: 35,
-    marginTop: 20,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: 30,
+    marginBottom: 15,
+    width: "100%",
+    paddingHorizontal: 30,
   },
   myConsumptionText: {
     fontSize: 22,
@@ -245,22 +291,23 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   line: {
-    height: 0.7,
+    height: 0.6,
     width: 300,
-    backgroundColor: "gray",
+    backgroundColor: "#cfcfcf",
     marginBottom: 10,
   },
   monthInfo: {
+    flexDirection: "row",
     marginBottom: 15,
     marginTop: 22,
   },
   monthText: {
-    fontSize: 22,
-    fontWeight: "400",
+    fontSize: 20,
+    fontWeight: "500",
   },
   BenefitText: {
     fontSize: 15,
-    fontWeight: "100",
+    fontWeight: "400",
     color: "black",
   },
 });
