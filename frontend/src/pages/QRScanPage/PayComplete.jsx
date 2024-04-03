@@ -31,14 +31,14 @@ function PayComplete({ route, navigation }) {
             </Text>
             : '' } 
 
-          <Text style={styles.detail}><Text style={{fontWeight: 'bold', fontSize: 24 }}>{totalAmount.toLocaleString()}</Text> 원을 결제했어요!</Text>
+          <Text style={styles.detail}><Text style={{fontWeight: 'bold', fontSize: 26 }}>{totalAmount.toLocaleString()}</Text> 원을 결제했어요!</Text>
           
           {
             remaining !== 0 ? (
               <>
                 <Text style={{ fontSize: 18, marginTop: 8 }}>실적 달성까지</Text> 
                   <Text style={styles.detail}>
-                    <Text style={{fontSize: 24, fontWeight: 'bold', color: '#EB7979' }}>{remaining.toLocaleString()}</Text> 원 남았어요</Text>
+                    <Text style={{fontSize: 22, fontWeight: 'bold', color: 'green' }}>{remaining.toLocaleString()}</Text> 원 남았어요</Text>
                 <View style={styles.progressBarContainer}>
                   <View style={[styles.progressBar, { width: progress >= 0 ? `${Math.min(progress, 100)}%` : '100%'}]} />
                   {progress >= 0 ? (
