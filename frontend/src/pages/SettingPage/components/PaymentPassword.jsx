@@ -6,7 +6,7 @@ import TokenService from '../../../stores/TokenUtils';
 
 
 const PaymentPassword = ({ navigation, route }) => {
-  const { frompage, cardListWithImages } = route.params || {};
+  const { frompage, responseData } = route.params || {};
   const initialRefs = Array(6).fill().map(() => createRef());
   const [inputValues, setInputValues] = useState(Array(6).fill(''));
   const [activeInputIndex, setActiveInputIndex] = useState(0);
@@ -36,8 +36,9 @@ const PaymentPassword = ({ navigation, route }) => {
       } else if (frompage === "BankListModal") {
         if (inputPassword === savedPassword) {
           navigation.navigate('OwnCardEnroll', {
-            resposeData: cardListWithImages,
+            responseData: responseData,
           });
+          console.log(responseData)
         } else {
           Alert.alert('오류', '비밀번호가 일치하지 않습니다.'); // 비밀번호 불일치시 오류 메시지 표시
           setInputValues(Array(6).fill(''));
