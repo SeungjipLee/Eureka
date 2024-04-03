@@ -51,7 +51,7 @@ function CurrentBenefit() {
         }
       );
     }
-  }, [token, selectCardInfo]);
+  }, [token, selectCardUserCardId]);
 
   return (
     <View>

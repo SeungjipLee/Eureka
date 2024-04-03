@@ -21,13 +21,13 @@ const CARD_WIDTH = (SCREEN_WIDTH - 80) / 2;
 function IfUseRecommendCard() {
   const navigation = useNavigation();
   const [token, setToken] = useState("");
-  const [cards, setCards] = useState([]);
-  const [currentIndex, setCurrentIndex] = useState(0); // 현재 인덱스 상태 관리
-  const scrollViewRef = useRef(); // ScrollView 참조
-  const autoScrollRef = useRef();
+  const [categoryCard, setCategoryCard] = useState([]);
+  const [ddoraeCard, setDdoraeCard] = useState([]);
   const selectCard = useSelector(
     (state) => state.productList.selectPayCardInfo
   );
+  const scrollViewRef = useRef(); // ScrollView 참조 생성
+  const [currentPage, setCurrentPage] = useState(0); // 현재 페이지 상태
 
   useEffect(() => {
     const fetchToken = async () => {
@@ -44,9 +44,9 @@ function IfUseRecommendCard() {
         token,
         selectCardUserCardId,
         (res) => {
-          console.log(res.data.categoryCard.imagePath, "check")
-          const cardsData = Array.isArray(res.data.categoryCard) ? res.data : [res.data.categoryCard];
-          setCards(cardsData);
+          const cardsData = Array.isArray(res.data) ? res.data : [res.data];
+          setCategoryCard(cardsData[0].categoryCard);
+          setDdoraeCard(cardsData[0].ddoraeCard);
         },
         (err) => {
           console.log(err, "IfUseRecommendCard err");
@@ -55,109 +55,109 @@ function IfUseRecommendCard() {
     }
   }, [token, selectCard]);
 
-  const scrollTo = (index) => {
-    setCurrentIndex(index);
+  // 다음 카드로 이동
+  const handleNext = () => {
+    // 다음 페이지 인덱스 계산. 만약 현재 페이지가 마지막 카드라면, 첫 번째 카드(0)로 돌아갑니다.
+    const nextPage = (currentPage + 1) % 2; // 카드가 두 개 뿐이므로, 2로 나눈 나머지를 사용
     scrollViewRef.current.scrollTo({
-      x: (CARD_WIDTH + 40) * index,
+      x: nextPage * (CARD_WIDTH + 40), // 40은 각 카드 사이의 마진을 가정한 값
       animated: true,
     });
+    setCurrentPage(nextPage);
   };
 
-  // 왼쪽 버튼 핸들러
-  const handleLeftPress = () => {
-    if (currentIndex > 0) {
-      scrollTo(currentIndex - 1);
-    }
-    resetAutoScroll();
+  // 이전 카드로 이동
+  const handlePrev = () => {
+    // 이전 페이지 인덱스 계산. 현재 페이지가 첫 번째 카드라면 마지막 카드로 이동합니다.
+    const prevPage = (currentPage - 1 + 2) % 2; // 카드가 두 개 뿐이므로, 2로 나눈 나머지를 사용
+    scrollViewRef.current.scrollTo({
+      x: prevPage * (CARD_WIDTH + 40), // 40은 각 카드 사이의 마진을 가정한 값
+      animated: true,
+    });
+    setCurrentPage(prevPage);
   };
 
-  const handleRightPress = () => {
-    const nextIndex = (currentIndex + 1) % 3; // 여기서 3은 카드의 개수입니다. 실제 카드 개수에 맞게 조정해야 합니다.
-    scrollTo(nextIndex);
-    resetAutoScroll();
-  };
-
+  // 자동 슬라이드를 위한 useEffect
   useEffect(() => {
-    if (cards.length > 1) {
-      startAutoScroll();
-    }
-    return () => stopAutoScroll();
-  }, [cards.length]);
+    const intervalId = setInterval(() => {
+      handleNext(); // 3초마다 다음 카드로 자동 전환
+    }, 4000);
 
-  const startAutoScroll = () => {
-    if (cards.length <= 1) return;
-    stopAutoScroll();
-    autoScrollRef.current = setInterval(() => {
-      setCurrentIndex((prevIndex) => {
-        const nextIndex = (prevIndex + 1) % cards.length;
-        scrollTo(nextIndex, true);
-        return nextIndex;
-      });
-    }, 5000);
-  };
-
-  const stopAutoScroll = () => {
-    if (autoScrollRef.current) {
-      clearInterval(autoScrollRef.current);
-    }
-  };
-
-  const resetAutoScroll = () => {
-    stopAutoScroll();
-    startAutoScroll();
-  };
+    return () => clearInterval(intervalId); // 컴포넌트 언마운트 시 인터벌 정리
+  }, [currentPage]); // currentPage가 변경될 때마다 이펙트를 다시 실행
 
   return (
     <View style={styles.container}>
       <View style={styles.maintextContainer}>
         <Text style={styles.maintext}>
-          김싸피님! <Text style={styles.maintext}>이번달에는</Text>
+          김싸피님의 카드를 분석했어요 <Text style={styles.maintext}></Text>
         </Text>
-        <Text style={{ fontSize: 18, fontWeight: "600" }}>
-          대중교통<Text style={styles.maintext}>에서 많이 사용하셨네요!</Text>
-        </Text>
+        <Text style={styles.maintext}>이런 카드는 어떠세요?</Text>
       </View>
 
       <View style={styles.carouselContainer}>
-        <TouchableOpacity onPress={handleLeftPress} style={styles.arrowButton}>
+        <TouchableOpacity style={styles.arrowButton} onPress={handlePrev}>
           <MaterialCommunityIcons name="chevron-left" size={24} color="black" />
         </TouchableOpacity>
 
         <ScrollView
+          ref={scrollViewRef}
           horizontal
           pagingEnabled
           showsHorizontalScrollIndicator={false}
           decelerationRate="normal"
           style={styles.midContainer}
-          ref={scrollViewRef}
         >
-          {cards.map((card, index) => (
-            <View
-              key={index}
-              style={[
-                styles.card,
-                index === 0 ? { marginLeft: 20 } : {},
-                index === cards.length - 1 ? { marginRight: 20 } : {},
-              ]}
-            >
-              <Image
-                source={{ uri: card.imagePath }}
-                style={
-                  card.imgAttr === 0
-                    ? styles.horizontalImage
-                    : styles.verticalImage
-                }
-              />
-              <View style={styles.subTextContainer}>
-                <Text style={styles.subText}>추천카드를 사용하면</Text>
-                <Text style={styles.subText}>3,300원 더 할인받아요!</Text>
-                <Text style={{ marginTop: 5 }}>{card.cardName}</Text>
-              </View>
+          <View style={styles.card}>
+            <Image
+              source={{ uri: categoryCard.imagePath }}
+              style={
+                categoryCard.imgAttr === 0
+                  ? styles.horizontalImage
+                  : styles.verticalImage
+              }
+            />
+            <Text style={{ marginTop: 10, fontSize: 10 }}>
+              {categoryCard.cardName}
+            </Text>
+            <View style={styles.subTextContainer}>
+              <Text style={styles.subText1}>
+                {categoryCard.largeCategoryName
+                  ? `${categoryCard.largeCategoryName}에서 많이 사용하셨네요!`
+                  : ""}
+              </Text>
+              <Text style={styles.subText2}>추천카드를 사용하면</Text>
+              <Text style={styles.subText2}>
+                {categoryCard.afterDiscount - categoryCard.beforeDiscount}원 더
+                할인받아요!
+              </Text>
             </View>
-          ))}
+          </View>
+
+          <View style={styles.card}>
+            <Image
+              source={{ uri: ddoraeCard.imagePath }}
+              style={
+                ddoraeCard.imgAttr === 0
+                  ? styles.horizontalImage
+                  : styles.verticalImage
+              }
+            />
+            <Text style={{ marginTop: 5 }}>{ddoraeCard.cardName}</Text>
+            <View style={styles.subTextContainer}>
+              <Text style={styles.subText1}>
+                또래들이 많이 사용하는 카드에요!
+              </Text>
+              {/* <Text style={styles.subText2}>추천카드를 사용하면</Text>
+              <Text style={styles.subText2}>
+                {ddoraeCard.afterDiscount - ddoraeCard.beforeDiscount}원 더
+                할인받아요!
+              </Text> */}
+            </View>
+          </View>
         </ScrollView>
 
-        <TouchableOpacity onPress={handleRightPress} style={styles.arrowButton}>
+        <TouchableOpacity style={styles.arrowButton} onPress={handleNext}>
           <MaterialCommunityIcons
             name="chevron-right"
             size={24}
@@ -204,15 +204,14 @@ const styles = StyleSheet.create({
   },
   midContainer: {
     flex: 1,
+    paddingVertical: 20,
   },
   card: {
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
-  },
-  cardText: {
-    fontSize: 20,
-    fontWeight: "bold",
+    width: CARD_WIDTH,
+    marginHorizontal: 20,
   },
   arrowButton: {
     padding: 15,
@@ -223,9 +222,15 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  subText: {
-    fontSize: 16,
-    fontWeight: "600",
+  subText1: {
+    fontSize: 13,
+    fontWeight: "500",
+    alignItems: "center",
+  },
+  subText2: {
+    fontSize: 11,
+    fontWeight: "400",
+    alignItems: "center",
   },
   compareCard: {
     justifyContent: "center",
@@ -238,6 +243,7 @@ const styles = StyleSheet.create({
     height: 50,
     backgroundColor: "#6c98ff",
     borderRadius: 15,
+    marginTop: 30,
   },
   compareCardBtnText: {
     fontSize: 15,
