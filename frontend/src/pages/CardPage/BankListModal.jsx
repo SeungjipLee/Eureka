@@ -13,6 +13,8 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { getMyCardList } from "../../apis/CardAPi";
 import TokenUtils from "../../stores/TokenUtils";
+import SettingService from "../../stores/SettingUtils"
+import * as LocalAuthentication from 'expo-local-authentication';
 
 
 function BankListModal({ visible, onClose, onSelect }) {
@@ -96,18 +98,51 @@ function BankListModal({ visible, onClose, onSelect }) {
     getMyCardList(
       token,
       inputData,
-      (res) => {
+      async (res) => {
         const cardListWithImages = res.data.cardList.map((card) => {
           const bank = banks.find((bank) => bank.name === card.bankName);
           const imgUrl = bank ? bank.imgUrl : undefined;
           return { ...card, imgUrl };
         });
-        navigation.navigate("PaymentPassword", {
-          frompage: "BankListModal",
-          responseData: cardListWithImages,
-        });
+
+        const useBiometrics = await SettingService.getBiometricEnabled();
+        console.log(useBiometrics)
+
+        if (useBiometrics == 'true') {
+          const biometricAuth = await LocalAuthentication.authenticateAsync({
+            promptMessage: '인증을 진행해주세요',
+            cancelLabel: '취소',
+            fallbackLabel: '비밀번호 입력',
+            disableDeviceFallback: false, // disableDeviceFallback을 false로 설정
+          });
+
+          if (biometricAuth.success) {
+            console.log('생체 인증 성공');
+            navigation.navigate('OwnCardEnroll', {
+              responseData: cardListWithImages,
+            });
+          } else if (biometricAuth.error === 'user_fallback') {
+            // 사용자가 fallbackLabel을 선택한 경우
+            console.log('비밀번호 입력 선택됨');
+            navigation.navigate("PaymentPassword", {
+              frompage: "BankListModal",
+            });
+          } else {
+            console.log('생체 인증 실패 또는 취소됨');
+            navigation.navigate("PaymentPassword", {
+              frompage: "BankListModal",
+              responseData: cardListWithImages,
+            });
+          }
+        } else {
+          // 생체 인식 사용 설정이 false일 때 현재 로직 수행
+          navigation.navigate("PaymentPassword", {
+            frompage: "BankListModal",
+            responseData: cardListWithImages,
+          });
+        }
       },
-      (err) => console.log(err)
+      (err) => console.log(err) // 에러 처리
     );
   };
 

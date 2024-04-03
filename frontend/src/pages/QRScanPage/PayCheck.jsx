@@ -43,7 +43,7 @@ function PayCheck({ route }) {
   const navigateToVerifyPasswordChange = async () => {
     const isBiometricsEnabled = await SettingService.getBiometricEnabled();
 
-    if (isBiometricsEnabled) {
+    if (isBiometricsEnabled == 'true') {
       const biometricAuth = await LocalAuthentication.authenticateAsync({
         promptMessage: '인증을 진행해주세요',
         cancelLabel: '취소',
@@ -62,6 +62,11 @@ function PayCheck({ route }) {
         });
       } else {
         console.log('생체 인증 실패 또는 취소됨');
+        navigation.navigate("PaymentPassword", {
+          params: {
+            frompage: "PayCheck",
+          },
+        });
       }
     } else {
       // 생체 인식이 비활성화된 경우, 비밀번호 입력 페이지로 네비게이션

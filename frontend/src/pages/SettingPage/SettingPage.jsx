@@ -187,8 +187,8 @@ function SettingPage() {
           <Text style={[styles.buttonText, { paddingLeft: 20 }]}>생체 인식 사용</Text>
           <Switch
             style={{ transform: [{ scaleX: 1.3 }, { scaleY: 1.3 }] }}
-            trackColor={{ false: "#767577", true: "#81b0ff" }}
-            thumbColor={isBiometricEnabled ? "#f5dd4b" : "#f4f3f4"}
+            trackColor={{ false: "#767577", true: "white" }}
+            thumbColor={isBiometricEnabled ? "#f5dd4b" : "rgb(247,250,255)"}
             ios_backgroundColor="#3e3e3e"
             onValueChange={toggleBiometricEnabled}
             value={isBiometricEnabled}
