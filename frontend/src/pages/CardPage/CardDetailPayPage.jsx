@@ -63,8 +63,18 @@ function CardDetailPayPage({ route }) {
   };
 
   const goToNextMonth = () => {
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth() + 1;
+
     let newYear = parseInt(year);
     let newMonth = parseInt(month) + 1;
+
+    if (newYear > currentYear || (newYear === currentYear && newMonth > currentMonth)) {
+      console.log("현재 월 이후로는 변경할 수 없습니다.");
+      return; // 여기서 함수 실행을 중단
+    }
+  
     if (newMonth === 13) {
       newMonth = 1;
       newYear += 1;

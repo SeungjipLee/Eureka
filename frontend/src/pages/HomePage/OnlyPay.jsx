@@ -75,7 +75,7 @@ function OnlyPay() {
     // 현재 날짜 정보를 가져옴
     const currentDate = new Date();
     const currentYear = currentDate.getFullYear();
-    const currentMonth = currentDate.getMonth() + 1; 
+    const currentMonth = currentDate.getMonth() + 1;
 
     // 미래로 넘어가려는 경우를 체크하여 막음
     if (newYear > currentYear || (newYear === currentYear && newMonth > currentMonth)) {
@@ -142,7 +142,7 @@ function OnlyPay() {
   const renderDateItem = ({ item }) => {
     return (
       <View style={{ marginVertical: 20 }}>
-        <Text style={{ fontSize: 18, fontWeight: 'bold', marginLeft: 20, color: '#999999' }}>
+        <Text style={{ fontSize: 18, fontWeight: 'bold', marginLeft: 30, color: '#999999' }}>
           {item?.date}일 {item?.day}
         </Text>
         <View style={{ marginVertical: 10, alignSelf: 'center', width: 360, height: 1, backgroundColor: '#999999' }}></View>
@@ -158,14 +158,16 @@ function OnlyPay() {
   const renderInfoItem = ({ item }) => {
     const imagePath = imgPath.find(path => path.categoryId === item.category)?.path || require('../../../assets/favicon.png');
     return (
-      <View style={{ marginLeft: 20, marginTop: 10, flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center' }}>
+      <View style={{ marginLeft: 20, marginTop: 10, flexDirection: 'row', alignItems: 'center' }}>
         <Image source={imagePath} style={{ width: 50, height: 50 }} />
         {/* 찾은 이미지 경로를 사용 */}
-        <View>
+        <View style={{ paddingLeft: 10, width: '45%'}}>
           <Text style={styles.place}>{item.title}</Text>
           <Text style={styles.anotherinfo}>{item.category} | {item.card}</Text>
         </View>
-        <Text style={styles.price}>{item.price.toLocaleString()}원</Text>
+        <View style={{ width: '40%', height:'100%', alignItems:'flex-end', paddingTop: 5}}>
+          <Text style={[styles.price, {fontSize:18}]}>{item.price.toLocaleString()}원</Text>
+        </View>
       </View>
     );
   };
