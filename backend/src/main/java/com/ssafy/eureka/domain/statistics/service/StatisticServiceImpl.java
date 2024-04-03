@@ -292,15 +292,17 @@ public class StatisticServiceImpl implements StatisticService {
                     if(largeCategory != null){
                         benefitCompareInfo.setLargeCategoryName(largeCategory.getCategoryName());
 
-                        DiscountLargeStaticEntity discountLargeStatic = discountLargeStaticRepository.findByDiscountStaticIdAndLargeCategoryId(discountStatic.getDiscountStaticId(), largeCategory.getLargeCategoryId())
-                            .orElse(null);
+                        if(discountStatic != null){
+                            DiscountLargeStaticEntity discountLargeStatic = discountLargeStaticRepository.findByDiscountStaticIdAndLargeCategoryId(discountStatic.getDiscountStaticId(), largeCategory.getLargeCategoryId())
+                                .orElse(null);
 
-                        if(discountLargeStatic != null){
-                            benefitCompareInfo.setBeforeDiscount(discountLargeStatic.getDiscountAmount());
+                            if(discountLargeStatic != null){
+                                benefitCompareInfo.setBeforeDiscount(discountLargeStatic.getDiscountAmount());
+                            }
+
+                            benefitCompareInfo.setAfterDiscount((int)(benefitCompareInfo.getBeforeDiscount() * 1.1));
+                            list.add(benefitCompareInfo);
                         }
-
-                        benefitCompareInfo.setAfterDiscount((int)(benefitCompareInfo.getBeforeDiscount() * 1.1));
-                        list.add(benefitCompareInfo);
                     }
                 }
             }

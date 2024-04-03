@@ -312,7 +312,8 @@ public class PayServiceImpl implements PayService {
     @Override
     public PayHistoryResponse payHistory(String userId, String yyyymm) {
 
-        List<PayHistoryEntity> payHistoryList = payHistoryRepository.findByUserIdAndYearAndMonthAsString(Integer.parseInt(userId), yyyymm.substring(0, 4), yyyymm.substring(5, 6));
+        List<PayHistoryEntity> payHistoryList = payHistoryRepository.findByUserIdAndYearAndMonthAsString
+            (Integer.parseInt(userId), yyyymm.substring(0, 4), yyyymm.substring(4, 6));
 
         List<PayHistoryListResponse> list = new ArrayList<>();
 
