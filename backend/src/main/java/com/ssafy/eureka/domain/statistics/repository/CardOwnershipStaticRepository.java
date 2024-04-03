@@ -18,21 +18,24 @@ public interface CardOwnershipStaticRepository extends JpaRepository<CardOwnersh
 //            "ORDER BY co.ownershipCount DESC LIMIT 10")
 //    List<CardOwnershipDto> findCardOwnershipStaticsByAgeGroupAndGender(@Param("ageGroup") char ageGroup, @Param("gender") char gender);
 
-//    @Query("SELECT new com.ssafy.eureka.domain.statistics.dto.CardOwnershipDto(co.cardId, c.cardName, cb.info, c.imagePath, c.imgAttr, COALESCE(SUM(co.ownershipCount), 0) ) " +
-//            "FROM CardOwnershipStaticEntity co JOIN CardEntity c ON co.cardId = c.cardId " +
-//            "JOIN CardBenefitEntity cb ON c.cardId = cb.cardId "+
-//            "WHERE co.ageGroup = :ageGroup AND co.createdDate = :date GROUP BY co.cardId " +
-//            "ORDER BY COALESCE(SUM(co.ownershipCount), 0) DESC LIMIT 10")
-//    List<CardOwnershipDto> findCardOwnershipStaticByAgeGroup(@Param("ageGroup") char ageGroup, @Param("date") LocalDate date);
-
-    @Query("SELECT NEW com.ssafy.eureka.domain.statistics.dto.CardOwnershipDto(co.cardId, c.cardName, cb.info, c.imagePath, c.imgAttr, COALESCE(SUM(co.ownershipCount), 0)) " +
+    @Query("SELECT NEW com.ssafy.eureka.domain.statistics.dto.CardOwnershipDto(co.cardId, c.cardName, (SELECT cb.info FROM CardBenefitEntity cb WHERE cb.cardId = c.cardId AND cb.id = (SELECT MAX(cb2.id) FROM CardBenefitEntity cb2 WHERE cb2.cardId = c.cardId)), c.imagePath, c.imgAttr, COALESCE(SUM(co.ownershipCount), 0)) " +
             "FROM CardOwnershipStaticEntity co " +
             "JOIN CardEntity c ON co.cardId = c.cardId " +
-            "INNER JOIN CardBenefitEntity cb ON c.cardId = cb.cardId " +
             "WHERE co.ageGroup = :ageGroup AND co.createdDate = :date " +
-            "GROUP BY co.cardId, c.cardName, cb.info, c.imagePath, c.imgAttr " +
+            "GROUP BY co.cardId, c.cardName, c.imagePath, c.imgAttr " +
             "ORDER BY COALESCE(SUM(co.ownershipCount), 0) DESC")
     List<CardOwnershipDto> findCardOwnershipStaticByAgeGroup(@Param("ageGroup") char ageGroup, @Param("date") LocalDate date);
+
+
+
+//    @Query("SELECT NEW com.ssafy.eureka.domain.statistics.dto.CardOwnershipDto(co.cardId, c.cardName, cb.info, c.imagePath, c.imgAttr, COALESCE(SUM(co.ownershipCount), 0)) " +
+//            "FROM CardOwnershipStaticEntity co " +
+//            "JOIN CardEntity c ON co.cardId = c.cardId " +
+//            "JOIN CardBenefitEntity cb ON c.cardId = cb.cardId " +
+//            "WHERE co.ageGroup = :ageGroup AND co.createdDate = :date " +
+//            "GROUP BY co.cardId, c.cardName, cb.info, c.imagePath, c.imgAttr " +
+//            "ORDER BY COALESCE(SUM(co.ownershipCount), 0) DESC")
+//    List<CardOwnershipDto> findCardOwnershipStaticByAgeGroup(@Param("ageGroup") char ageGroup, @Param("date") LocalDate date);
 
 
 

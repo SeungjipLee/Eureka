@@ -272,6 +272,7 @@ public class StatisticServiceImpl implements StatisticService {
 //                    cardBenefitDetailRepository.findByCardId(ownershipStatic.getCardId(), pageable);
 //            ownershipStatic.setCategoryList(categoryList);
 
+
             List<CardBenefitEntity> benbefitIdList = cardBenefitRepository.findAllCardBenefitIdsByCardId(ownershipStatic.getCardId());
 
             List<BenefitCompareInfo> list = new ArrayList<>();
