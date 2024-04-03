@@ -31,10 +31,12 @@ import com.ssafy.eureka.domain.statistics.dto.CardOwnershipDto;
 import com.ssafy.eureka.domain.statistics.entity.ConsumptionLargeStaticEntity;
 import com.ssafy.eureka.domain.statistics.entity.ConsumptionSmallStaticEntity;
 import com.ssafy.eureka.domain.statistics.entity.ConsumptionStaticEntity;
+import com.ssafy.eureka.domain.statistics.entity.DiscountStaticEntity;
 import com.ssafy.eureka.domain.statistics.repository.CardOwnershipStaticRepository;
 import com.ssafy.eureka.domain.statistics.repository.ConsumptionLargeStaticRepository;
 import com.ssafy.eureka.domain.statistics.repository.ConsumptionSmallStaticRepository;
 import com.ssafy.eureka.domain.statistics.repository.ConsumptionStaticRepository;
+import com.ssafy.eureka.domain.statistics.repository.DiscountStaticRepository;
 import com.ssafy.eureka.domain.user.dto.UserEntity;
 import com.ssafy.eureka.domain.user.dto.UserInfoDto;
 import com.ssafy.eureka.domain.user.repository.UserRepository;
@@ -67,6 +69,7 @@ public class UserCardServiceImpl implements UserCardService {
     private final ConsumptionStaticRepository consumptionStaticRepository;
     private final ConsumptionLargeStaticRepository consumptionLargeStaticRepository;
     private final ConsumptionSmallStaticRepository consumptionSmallStaticRepository;
+    private final DiscountStaticRepository discountStaticRepository;
 
     private final MyDataFeign myDataFeign;
     private final PaymentFeign paymentFeign;
@@ -294,16 +297,17 @@ public class UserCardServiceImpl implements UserCardService {
         MyDataCardHistoryResponse myDataCardPayList = (MyDataCardHistoryResponse) response.getData();
         // 총 결제 금액, 할인 금액 넣어서 리턴하기
 
-        int totalConsumption = 0;
-        // 레퍼지토리에서 가져오기
         int totalDiscount = 0;
 
-        for(MyDataCardHistory card : myDataCardPayList.getMyDataCardHistoryList()){
-            totalConsumption += card.getApprovedAmt();
-        }
 
-        myDataCardPayList.setMonthTotalConsumption(totalConsumption);
-        myDataCardPayList.setMonthTotalDiscount(totalDiscount);
+        ConsumptionStaticEntity consumptionStatic = consumptionStaticRepository.findByUserCardIdAndYearAndMonth(userCardId, yyyymm.substring(0, 4), yyyymm.substring(4, 6))
+            .orElse(null);
+
+        DiscountStaticEntity discountStatic = discountStaticRepository.findByUserCardIdAndYearAndMonth(userCardId, yyyymm.substring(0, 4), yyyymm.substring(4, 6))
+                .orElse(null);
+
+        myDataCardPayList.setMonthTotalConsumption(consumptionStatic != null ? consumptionStatic.getTotalConsumption().intValue() : 0);
+        myDataCardPayList.setMonthTotalDiscount(discountStatic != null ? discountStatic.getTotalDiscount() : 0);
 
         return myDataCardPayList;
     }

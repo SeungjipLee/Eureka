@@ -32,9 +32,7 @@ public interface PayHistoryRepository extends JpaRepository<PayHistoryEntity, In
             "JOIN UserCardEntity uc ON ph.userCardId = uc.userCardId " +
             "WHERE ph.userId = :userId AND ph.status <> 1 " +
             "AND FUNCTION('YEAR', ph.approvedDateTime) = :year AND FUNCTION('MONTH', ph.approvedDateTime) = :month")
-    BigInteger findPayApprovedAmtByUserIdAndDate(@Param("userId") int userId,
-                                                   @Param("year") String year,
-                                                   @Param("month") String month);
+    BigInteger findPayApprovedAmtByUserIdAndDate(@Param("userId") int userId, @Param("year") String year, @Param("month") String month);
 
     @Query(value = "SELECT ph.* FROM pay_history ph " +
         "JOIN user_card uc ON ph.user_card_id = uc.user_card_id " +
@@ -43,5 +41,4 @@ public interface PayHistoryRepository extends JpaRepository<PayHistoryEntity, In
         "AND DATE_FORMAT(ph.approved_date_time, '%m') = :month",
         nativeQuery = true)
     List<PayHistoryEntity> findByUserIdAndYearAndMonthAsString(int userId, String year, String month);
-
 }

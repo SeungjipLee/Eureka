@@ -53,7 +53,7 @@ public class AsyncUserCardStaticsUtil {
     private final DiscountLargeStaticRepository discountLargeStaticRepository;
     private final DiscountSmallStaticRepository discountSmallStaticRepository;
 
-    @Async
+//    @Async
     public void asyncStaticMethod(String userId, String cardIdentifier) {
         addStatistics(userId, cardIdentifier);
     }
@@ -73,28 +73,12 @@ public class AsyncUserCardStaticsUtil {
 
         String accessToken = myDataToken.getAccessToken();
 
-        for (int i = 0; i < 4; i++) {
-            String yyyymm = String.format("%d%02d", currentYear, currentMonth);
+        for (int i = 3; i >= 0; i--) {
+            LocalDate lastMonth = LocalDate.now().minusMonths(i);
 
-            int yyyy = Integer.parseInt(yyyymm.substring(0, 4));
-            int mm = Integer.parseInt(yyyymm.substring(4, 6));
-
-            if (mm - i <= 0) {
-                mm = 13 - i;
-                yyyy -= 1;
-            } else {
-                mm = mm - i;
-            }
-
-            String year = String.valueOf(yyyy);
-            String month = "";
-            if (mm == 10 || mm == 11 || mm == 12) {
-                month = String.valueOf(mm);
-            } else {
-                month = "0" + String.valueOf(mm);
-            }
-
-            yyyymm = year + month;
+            String year = lastMonth.format(DateTimeFormatter.ofPattern("yyyy"));
+            String month = lastMonth.format(DateTimeFormatter.ofPattern("MM"));
+            String yyyymm = year + month;
 
             MyDataApiResponse<?> response = myDataFeign.searchCardPayList(accessToken,
                 userCardEntity.getCardIdentifier(), yyyymm);
@@ -203,10 +187,6 @@ public class AsyncUserCardStaticsUtil {
             discountLargeStatic.getDiscountLargeStaticId(), smallCategoryId).orElse(
             new DiscountSmallStaticEntity(discountLargeStatic.getDiscountLargeStaticId(),
                 smallCategoryId));
-
-        if(cardId == 90){
-            int kkasdas = 1;
-        }
 
         CardBenefitDetailEntity cardBenefitDetail = cardBenefitDetailRepository.findCardBenefitDetailsByCardIdAndCategory(cardId, largeCategoryId, smallCategoryId, PageRequest.of(0, 1))
             .stream()
