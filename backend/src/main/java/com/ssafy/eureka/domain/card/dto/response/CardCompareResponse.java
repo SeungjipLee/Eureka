@@ -16,7 +16,7 @@ public class CardCompareResponse {
     CompareCard categoryCard;
     CompareCard ddoraeCard;
 
-    public CardCompareResponse(CardEntity entity1, CardEntity entity2, CardEntity entity3){
+    public CardCompareResponse(CardEntity entity1, int discount, CardEntity entity2, int discount2, CardEntity entity3, int discount3){
         this.myCard = new CompareCard();
         this.myCard.cardId = entity1.getCardId();
         this.myCard.cardCompanyId = entity1.getCardCompanyId();
@@ -27,6 +27,7 @@ public class CardCompareResponse {
         this.myCard.imagePath = entity1.getImagePath();
         this.myCard.imgAttr = entity1.getImgAttr();
         this.myCard.joinPath = entity1.getJoinPath();
+        this.myCard.discount = discount;
 
         this.categoryCard = new CompareCard();
         this.categoryCard.cardId = entity2.getCardId();
@@ -38,6 +39,7 @@ public class CardCompareResponse {
         this.categoryCard.imagePath = entity2.getImagePath();
         this.categoryCard.imgAttr = entity2.getImgAttr();
         this.categoryCard.joinPath = entity2.getJoinPath();
+        this.categoryCard.discount = discount2;
 
         this.ddoraeCard = new CompareCard();
         this.ddoraeCard.cardId = entity3.getCardId();
@@ -49,6 +51,7 @@ public class CardCompareResponse {
         this.ddoraeCard.imagePath = entity3.getImagePath();
         this.ddoraeCard.imgAttr = entity3.getImgAttr();
         this.ddoraeCard.joinPath = entity3.getJoinPath();
+        this.ddoraeCard.discount = discount3;
     }
 }
 
@@ -66,4 +69,5 @@ class CompareCard{
    String imagePath;
    int imgAttr;
    String joinPath;
+   int discount;
 }

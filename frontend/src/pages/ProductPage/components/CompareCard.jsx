@@ -158,7 +158,7 @@ function CompareCard() {
         )}
       </View>
       <View style={styles.top}>
-        <Text style={styles.maintext}>현재카드 이번달 혜택</Text>
+        <Text style={styles.maintext}>현재카드 지난달 혜택</Text>
         {selectCardBenefit?.totalDiscount ? (
           <Text style={styles.benefitAmount}>
             {selectCardBenefit.totalDiscount.toLocaleString()}원

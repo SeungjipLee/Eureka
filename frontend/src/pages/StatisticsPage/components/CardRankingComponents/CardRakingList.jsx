@@ -160,8 +160,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     flexDirection: "row",
     alignItems: "center",
-    marginLeft: 10,
-    padding: 2,
+    margin: 5,
   },
   topCardText: {
     marginTop: 20,
@@ -169,7 +168,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   bottomCard: {
-    marginTop: 30,
+    marginTop: 20,
   },
   otherCardInfo: {
     flexDirection: "column",
