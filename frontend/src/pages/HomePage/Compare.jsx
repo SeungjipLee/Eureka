@@ -39,7 +39,6 @@ function Compare() {
       getCompare(
         token,
         (res) => {
-          console.log(res.data)
           const numAge = parseInt(res.data.age, 10);
           setAge(numAge);
           setGender(res.data.gender);
