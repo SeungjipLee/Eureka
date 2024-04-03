@@ -27,14 +27,18 @@ import com.ssafy.eureka.domain.pay.repository.PayHistoryRepository;
 import com.ssafy.eureka.domain.payment.dto.request.PayTokenRequest;
 import com.ssafy.eureka.domain.payment.dto.response.PayTokenResponse;
 import com.ssafy.eureka.domain.payment.feign.PaymentFeign;
+import com.ssafy.eureka.domain.statistics.dto.CardOwnershipDto;
 import com.ssafy.eureka.domain.statistics.entity.ConsumptionLargeStaticEntity;
 import com.ssafy.eureka.domain.statistics.entity.ConsumptionSmallStaticEntity;
 import com.ssafy.eureka.domain.statistics.entity.ConsumptionStaticEntity;
+import com.ssafy.eureka.domain.statistics.repository.CardOwnershipStaticRepository;
 import com.ssafy.eureka.domain.statistics.repository.ConsumptionLargeStaticRepository;
 import com.ssafy.eureka.domain.statistics.repository.ConsumptionSmallStaticRepository;
 import com.ssafy.eureka.domain.statistics.repository.ConsumptionStaticRepository;
 import com.ssafy.eureka.domain.user.dto.UserEntity;
+import com.ssafy.eureka.domain.user.dto.UserInfoDto;
 import com.ssafy.eureka.domain.user.repository.UserRepository;
+import com.ssafy.eureka.util.UserUtil;
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 
@@ -67,6 +71,8 @@ public class UserCardServiceImpl implements UserCardService {
     private final MyDataFeign myDataFeign;
     private final PaymentFeign paymentFeign;
     private final AsyncUserCardStaticsUtil asyncUserCardStaticsUtil;
+
+    private final CardOwnershipStaticRepository cardOwnershipStaticRepository;
 
     private Map<Integer, String> cardCompany;
 
@@ -489,11 +495,25 @@ public class UserCardServiceImpl implements UserCardService {
 
         cardId = cardBenefitEntity.getCardId();
 
-        // 카상추 카드
-        CardEntity cardEntity2 = cardRepository.findByCard(cardId)
-                .orElseThrow(() -> new CustomException(ResponseCode.CARD_NOT_FOUND));
-        return new CardCompareResponse(cardEntity1, cardEntity2, cardEntity2);
+        //
+        UserInfoDto userInfo = userRepository.findUserInfoByUserId(Integer.parseInt(userId));
+        char ageGroup = UserUtil.calculateAgeGroup(userInfo.getUserBirth(), userInfo.getUserGender());
+        LocalDate date = cardOwnershipStaticRepository.findLatestCreatedDate();
 
+        List<CardOwnershipDto> cardOwnershipStaticList =
+            cardOwnershipStaticRepository.findCardOwnershipStaticByAgeGroup(ageGroup, date);
+
+        // 또래 카드
+        CardEntity cardEntity2 = cardRepository.findByCard(cardOwnershipStaticList.get(0).getCardId())
+            .orElseThrow(() -> new CustomException(ResponseCode.CARD_NOT_FOUND));
+
+        // 카상추 카드
+        CardEntity cardEntity3 = cardRepository.findByCard(cardId)
+                .orElseThrow(() -> new CustomException(ResponseCode.CARD_NOT_FOUND));
+
+        CardCompareResponse cardCompareResponse = new CardCompareResponse(cardEntity1, cardEntity2, cardEntity3);
+
+        return cardCompareResponse;
     }
 
     @Override
