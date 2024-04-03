@@ -17,7 +17,6 @@ const PaymentPassword = ({ navigation, route }) => {
     try {
       const accessToken = await TokenService.getAccessToken();
       const savedPassword = await TokenService.getPassword(); // TokenService에서 저장된 비밀번호 가져오기
-      console.log(frompage)
       if (!accessToken) {
         Alert.alert('', '접근 토큰이 없습니다.');
         return;
@@ -38,7 +37,6 @@ const PaymentPassword = ({ navigation, route }) => {
           navigation.navigate('OwnCardEnroll', {
             responseData: responseData,
           });
-          console.log(responseData)
         } else {
           Alert.alert('오류', '비밀번호가 일치하지 않습니다.'); // 비밀번호 불일치시 오류 메시지 표시
           setInputValues(Array(6).fill(''));

@@ -106,7 +106,6 @@ function BankListModal({ visible, onClose, onSelect }) {
         });
 
         const useBiometrics = await SettingService.getBiometricEnabled();
-        console.log(useBiometrics)
 
         if (useBiometrics == 'true') {
           const biometricAuth = await LocalAuthentication.authenticateAsync({
@@ -140,7 +139,6 @@ function BankListModal({ visible, onClose, onSelect }) {
             frompage: "BankListModal",
             responseData: cardListWithImages,
           });
-          console.log(cardListWithImages)
         }
       },
       (err) => console.log(err) // 에러 처리

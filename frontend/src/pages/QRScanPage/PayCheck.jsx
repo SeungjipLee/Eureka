@@ -28,7 +28,6 @@ function PayCheck({ route }) {
 
     fetchToken();
   }, []);
-  console.log(orderId)
 
   useEffect(() => {
     // 결제 검증 성공 시 이벤트 리스너 등록
@@ -83,7 +82,6 @@ function PayCheck({ route }) {
       token,
       inputData,
       (res) => {
-        console.log(res)
         navigation.navigate('PayComplete', {
           selectedCard: selectedCard,
           totalAmount: totalAmount,
@@ -94,7 +92,6 @@ function PayCheck({ route }) {
       },
 
       (err) => {
-        console.log(selectedCard.userCardId)
         console.log(err)
         alert('오류 발생! 다시 진행해 주세요.')
         navigation.navigate('Home')
