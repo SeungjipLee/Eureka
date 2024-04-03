@@ -58,7 +58,7 @@ public class CardController {
     @GetMapping("/admin/regist")
     public ResponseEntity<?> registAllCardProduct (){
         log.debug("카드 상품 등록");
-        cardService.registAllCardProduct();
+//        cardService.registAllCardProduct();
         return ResponseEntity.ok().build();
     }
 

@@ -490,6 +490,7 @@ public class UserCardServiceImpl implements UserCardService {
         CardBenefitDetailEntity cardBenefitDetailEntity = cardBenefitDetailRepository.
                 findTopByLargeCategoryIdOrderByDiscountCostDesc(largeCategoryId);
 
+
         int benefitId = cardBenefitDetailEntity.getCardBenefitId();
 
         CardBenefitEntity cardBenefitEntity = cardBenefitRepository.findFirstByCardBenefitId(benefitId);
