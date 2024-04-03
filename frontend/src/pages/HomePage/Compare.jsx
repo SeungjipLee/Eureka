@@ -22,6 +22,7 @@ function Compare() {
   const [anotherAmt, setAnotherAmt] = useState(0);
   const [maxAmount, setMaxAmount] = useState(1);
   const [data, setData] = useState([]);
+  const [compareAmt, setCompareAmt] = useState(0);
   const [maxDifferenceIndex, setMaxDifferenceIndex] = useState(-1);
 
   const currentDate = new Date();
@@ -46,7 +47,6 @@ function Compare() {
       getCompare(
         token,
         (res) => {
-          console.log(res.data);
           const numAge = parseInt(res.data.age, 10);
           setAge(numAge);
           setGender(res.data.gender);
@@ -54,6 +54,12 @@ function Compare() {
           setUserAmt(res.data.userAmt);
           setData(res.data.data);
           setMaxAmount(Math.max(res.data.anotherAmt, res.data.userAmt));
+
+          const compareAmt = parseInt(
+            (res.data.userAmt - res.data.anotherAmt) / 10000,
+            10
+          );
+          setCompareAmt(compareAmt);
 
           let maxDifference = -Infinity;
           let index = -1;
@@ -103,9 +109,17 @@ function Compare() {
       </View>
 
       <View>
-        <Text style={styles.title2}>나이가 비슷한 또래 대비</Text>
         <Text style={styles.title2}>
-          {lastMonthNumber}월에 61만원을 덜 썼어요!
+          {lastMonthNumber}월에 또래
+          {compareAmt === 0 ? "와 비슷한 금액을 소비했어요!" : "보다  "}
+        {compareAmt === 0 ? (
+          ""
+        ) : (
+          <Text style={styles.title2}>
+            {compareAmt > 0 ? compareAmt : compareAmt * -1}
+            만원을 {compareAmt > 0 ? "더" : "덜"} 썼어요!
+          </Text>
+        )}
         </Text>
       </View>
 
@@ -254,7 +268,7 @@ const styles = StyleSheet.create({
   },
   title2: {
     fontWeight: "bold",
-    fontSize: 24,
+    fontSize: 19,
     marginStart: 30,
   },
   box: {
