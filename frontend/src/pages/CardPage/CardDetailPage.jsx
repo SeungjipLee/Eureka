@@ -194,7 +194,7 @@ function CardDetailPage({route}) {
         <View style={{width: '100%', backgroundColor: '#B4B4B4', height: 3, alignSelf:'center'}}></View>
         <ScrollView style={{ maxHeight: 300 }}>
           {historyTop3.reverse().map((item) => (
-            <View key={item.approvedNum}>
+            <View key={item.cardHistoryId}>
             <View 
               style={{ 
                 flexDirection: 'row', 
