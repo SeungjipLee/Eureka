@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class CardRecommendTop3 {
 
+    int cardId;
     String cardName;
     String imagePath;
     int imgAttr;

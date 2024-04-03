@@ -587,6 +587,7 @@ public class UserCardServiceImpl implements UserCardService {
         CardEntity cardEntity2 = cardRepository.findByCardId(cardId);
         LargeCategoryEntity largeCategoryEntity = largeCategoryRepository.findByLargeCategoryId(largeCategoryId);
 
+        int cardId2 = cardEntity2.getCardId();
         String cardName2 = cardEntity2.getCardName();
         String imagePath2 = cardEntity2.getImagePath();
         int imgAttr2 = cardEntity2.getImgAttr();
@@ -595,12 +596,12 @@ public class UserCardServiceImpl implements UserCardService {
 
         int discountType = cardBenefitDetailEntityList.get(j).getDiscountType();
         double discountCost = cardBenefitDetailEntityList.get(j).getDiscountCost();
-        top3List.add(new CardRecommendTop3List(cardName2, info, imagePath2, imgAttr2,
+        top3List.add(new CardRecommendTop3List(cardId, cardName2, info, imagePath2, imgAttr2,
                 discountType, discountCost, (int)totalAmt - (int)afterDiscount));
           }
             tlcnrList.add(new Top3ListAndLargeCategoryNameResponse(largeCategoryName, top3List));
         }
-        return new CardRecommendTop3(cardName, imagePath, imgAttr, tlcnrList);
+        return new CardRecommendTop3(cardId, cardName, imagePath, imgAttr, tlcnrList);
     }
 
 

@@ -14,56 +14,51 @@ import lombok.Setter;
 @Setter
 public class CardCompareResponse {
 
-    private int myCardId;
-    private int myCardCompanyId;
-    private int myCardType;
-    private String myCardName;
-    private int myAnnualFee;
-    private int myPreviousPerformance;
-    private String myCaution;
-    private String myImagePath;
-    private int myImgAttr;
-    private int myView;
-    private String myJoinPath;
-    private boolean myIsExpired = false;
+    CompareCard myCard = new CompareCard();
+    CompareCard categoryCard;
+    CompareCard ddoraeCard;
 
-    private int recommendCardId;
-    private int recommendCardCompanyId;
-    private int recommendCardType;
-    private String recommendCardName;
-    private int recommendAnnualFee;
-    private int recommendPreviousPerformance;
-    private String recommendCaution;
-    private String recommendImagePath;
-    private int recommendImgAttr;
-    private int recommendView;
-    private String recommendJoinPath;
-    private boolean recommendIsExpired = false;
+    public CardCompareResponse(CardEntity entity1, CardEntity entity2, CardEntity entity3){
+        this.myCard.cardId = entity1.getCardId();
+        this.myCard.cardCompanyId = entity1.getCardCompanyId();
+        this.myCard.cardType = entity1.getCardType();
+        this.myCard.cardName = entity1.getCardName();
+        this.myCard.annualFee = entity1.getAnnualFee();
+        this.myCard.previousPerformance = entity1.getPreviousPerformance();
+        this.myCard.imagePath = entity1.getImagePath();
+        this.myCard.imgAttr = entity1.getImgAttr();
+        this.myCard.joinPath = entity1.getJoinPath();
 
-    public CardCompareResponse(CardEntity entity1, CardEntity entity2){
-        this.myCardId = entity1.getCardId();
-        this.myCardCompanyId = entity1.getCardCompanyId();
-        this.myCardType = entity1.getCardType();
-        this.myCardName = entity1.getCardName();
-        this.myAnnualFee = entity1.getAnnualFee();
-        this.myPreviousPerformance = entity1.getPreviousPerformance();
-        this.myCaution = entity1.getCaution();
-        this.myImagePath = entity1.getImagePath();
-        this.myImgAttr = entity1.getImgAttr();
-        this.myView = entity1.getView();
-        this.myJoinPath = entity1.getJoinPath();
+        this.categoryCard.cardId = entity2.getCardId();
+        this.categoryCard.cardCompanyId = entity2.getCardCompanyId();
+        this.categoryCard.cardType = entity2.getCardType();
+        this.categoryCard.cardName = entity2.getCardName();
+        this.categoryCard.annualFee = entity2.getAnnualFee();
+        this.categoryCard.previousPerformance = entity2.getPreviousPerformance();
+        this.categoryCard.imagePath = entity2.getImagePath();
+        this.categoryCard.imgAttr = entity2.getImgAttr();
+        this.categoryCard.joinPath = entity2.getJoinPath();
 
-        this.recommendCardId = entity2.getCardId();
-        this.recommendCardCompanyId = entity2.getCardCompanyId();
-        this.recommendCardType = entity2.getCardType();
-        this.recommendCardName = entity2.getCardName();
-        this.recommendAnnualFee = entity2.getAnnualFee();
-        this.recommendPreviousPerformance = entity2.getPreviousPerformance();
-        this.recommendCaution = entity2.getCaution();
-        this.recommendImagePath = entity2.getImagePath();
-        this.recommendImgAttr = entity2.getImgAttr();
-        this.recommendView = entity2.getView();
-        this.recommendJoinPath = entity2.getJoinPath();
-
+        this.ddoraeCard.cardId = entity3.getCardId();
+        this.ddoraeCard.cardCompanyId = entity3.getCardCompanyId();
+        this.ddoraeCard.cardType = entity3.getCardType();
+        this.ddoraeCard.cardName = entity3.getCardName();
+        this.ddoraeCard.annualFee = entity3.getAnnualFee();
+        this.ddoraeCard.previousPerformance = entity3.getPreviousPerformance();
+        this.ddoraeCard.imagePath = entity3.getImagePath();
+        this.ddoraeCard.imgAttr = entity3.getImgAttr();
+        this.ddoraeCard.joinPath = entity3.getJoinPath();
     }
+}
+
+class CompareCard{
+   int cardId;
+   int cardCompanyId;
+   int cardType;
+   String cardName;
+   int annualFee;
+   int previousPerformance;
+   String imagePath;
+   int imgAttr;
+   String joinPath;
 }
