@@ -11,7 +11,6 @@ function OwnCardPage2() {
   const [token, setToken] = useState('');
   const [cardList, setCardList] = useState([]);
 
-  console.log(token)
   useEffect(() => {
     const fetchToken = async () => {
       const accessToken = await TokenUtils.getAccessToken();
