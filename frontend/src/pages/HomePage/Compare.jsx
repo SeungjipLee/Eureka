@@ -1,155 +1,273 @@
-import React from 'react';
-import { StyleSheet, View, Text, Pressable, Image, ScrollView } from "react-native";
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
+import React, { useEffect, useState } from "react";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Pressable,
+  Image,
+  ScrollView,
+} from "react-native";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
+import { getCompare } from "../../apis/HomeApi";
+import TokenUtils from "../../stores/TokenUtils";
+import { CATEGORY } from "../../utils/ImagePath";
 
 function Compare() {
   const navigation = useNavigation();
+  const [token, setToken] = useState("");
+  const [age, setAge] = useState(0);
+  const [gender, setGender] = useState("");
+  const [userAmt, setUserAmt] = useState(0);
+  const [anotherAmt, setAnotherAmt] = useState(0);
+  const [maxAmount, setMaxAmount] = useState(1);
+  const [data, setData] = useState([]);
+  const [maxDifferenceIndex, setMaxDifferenceIndex] = useState(-1);
 
-  const compareData = {
-    age: 2,
-    anotherAmt: 1040000,
-    myAmt: 610000,
-    data: [
-      {
-        title: "통신",
-        imgUrl: require('../../../assets/CategoryIcon/5.png'),
-        category: 5,
-        myPay: 85000,
-        comparePay: 85000,
-      },
-      {
-        title: "카페",
-        imgUrl: require('../../../assets/CategoryIcon/11.png'),
-        category: 11,
-        myPay: 31000,
-        comparePay: 31000,
-      },
-      {
-        title: "온라인쇼핑",
-        imgUrl: require('../../../assets/CategoryIcon/6.png'),
-        category: 6,
-        myPay: 190000,
-        comparePay: 160000,
-      },
-      {
-        title: "대중교통",
-        imgUrl: require('../../../assets/CategoryIcon/1.png'),
-        category: 1,
-        myPay: 110000,
-        comparePay: 160000,
-      },
-    ]
-  };
+  const currentDate = new Date();
+  const lastMonth = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth() - 1,
+    currentDate.getDate()
+  );
+  const lastMonthNumber = lastMonth.getMonth() + 1;
 
-  const maxAmount = Math.max(compareData.anotherAmt, compareData.myAmt)
-  const peerBarHeight = (compareData.anotherAmt / maxAmount) * 160
-  const myBarHeight = (compareData.myAmt / maxAmount) * 160
+  useEffect(() => {
+    const fetchToken = async () => {
+      const accessToken = await TokenUtils.getAccessToken();
+      setToken(accessToken);
+    };
+
+    fetchToken();
+  }, []);
+
+  useEffect(() => {
+    if (token) {
+      getCompare(
+        token,
+        (res) => {
+          console.log(res.data);
+          const numAge = parseInt(res.data.age, 10);
+          setAge(numAge);
+          setGender(res.data.gender);
+          setAnotherAmt(res.data.anotherAmt);
+          setUserAmt(res.data.userAmt);
+          setData(res.data.data);
+          setMaxAmount(Math.max(res.data.anotherAmt, res.data.userAmt));
+
+          let maxDifference = -Infinity;
+          let index = -1;
+          res.data.data.forEach((item, i) => {
+            const difference = item.userPay - item.comparePay;
+            if (difference > maxDifference) {
+              maxDifference = difference;
+              index = i;
+            }
+          });
+          setMaxDifferenceIndex(index);
+        },
+        (err) => {
+          console.log(err);
+        }
+      );
+    }
+  }, [token]);
+
+  const peerBarHeight = parseInt((anotherAmt / maxAmount) * 160, 10);
+  const myBarHeight = parseInt((userAmt / maxAmount) * 160, 10);
 
   return (
     <ScrollView style={styles.container}>
       <View style={styles.backcontainer}>
-        <Pressable onPress={() => navigation.navigate('Home')}>
-          <MaterialCommunityIcons name="chevron-left" size={50} color="#B8B8B8" />
+        <Pressable onPress={() => navigation.navigate("Home")}>
+          <MaterialCommunityIcons
+            name="chevron-left"
+            size={50}
+            color="#B8B8B8"
+          />
         </Pressable>
         <Text style={styles.title}>또래와 소비 비교해보기</Text>
       </View>
 
       <View style={styles.midcontainer}>
-        <Text style={[styles.tag, {backgroundColor: '#BBF3FF', color: '#0050FF'}]}>남성</Text>
-        <Text style={[styles.tag, {backgroundColor: '#BBFFBE', color: '#0C9B00'}]}>20대 후반</Text>
+        <Text
+          style={[styles.tag, { backgroundColor: "#BBF3FF", color: "#0050FF" }]}
+        >
+          {gender === "0" ? "여성" : "남성"}
+        </Text>
+        <Text
+          style={[styles.tag, { backgroundColor: "#BBFFBE", color: "#0C9B00" }]}
+        >
+          {age * 10}대
+        </Text>
       </View>
 
       <View>
         <Text style={styles.title2}>나이가 비슷한 또래 대비</Text>
-        <Text style={styles.title2}>3월에 61만원을 덜 썼어요!</Text>
+        <Text style={styles.title2}>
+          {lastMonthNumber}월에 61만원을 덜 썼어요!
+        </Text>
       </View>
 
-      <View style={{marginVertical: 20, alignSelf: 'center', flexDirection: 'row', backgroundColor: '#ffffff', width: '90%', paddingHorizontal: 80, borderRadius: 20, elevation: 5}}>
-        <View style={{margin: 10, alignItems: 'center'}}>
-          <Text style={{marginVertical: 10}}>104만원</Text>
-          <View style={{ width: 80, height: peerBarHeight, backgroundColor: '#D9D9D9', borderRadius: 20 }} />
-          <Text style={{marginVertical: 10, fontWeight: 'bold'}}>또래 평균</Text>
+      <View
+        style={{
+          marginVertical: 20,
+          alignSelf: "center",
+          flexDirection: "row",
+          backgroundColor: "#ffffff",
+          width: "90%",
+          paddingHorizontal: 80,
+          borderRadius: 20,
+          elevation: 5,
+        }}
+      >
+        <View style={{ margin: 10, alignItems: "center" }}>
+          <Text style={{ marginVertical: 10 }}>
+            {anotherAmt.toLocaleString()}만원
+          </Text>
+          <View
+            style={{
+              width: 80,
+              height: peerBarHeight,
+              backgroundColor: "#D9D9D9",
+              borderRadius: 20,
+            }}
+          />
+          <Text style={{ marginVertical: 10, fontWeight: "bold" }}>
+            또래 평균
+          </Text>
         </View>
-        <View style={{margin: 10, alignItems: 'center'}}>
-          <Text style={{marginVertical: 10}}>43만원</Text>
-          <View style={{width: 80, height: 160}}>
-            <View style={{ width: 80, height: myBarHeight, backgroundColor: '#729EFF', marginTop: 160 - myBarHeight, borderRadius: 20 }}/>
+        <View style={{ margin: 10, alignItems: "center" }}>
+          <Text style={{ marginVertical: 10 }}>
+            {userAmt.toLocaleString()}만원
+          </Text>
+          <View style={{ width: 80, height: 160 }}>
+            <View
+              style={{
+                width: 80,
+                height: myBarHeight,
+                backgroundColor: "#729EFF",
+                marginTop: 160 - myBarHeight,
+                borderRadius: 20,
+              }}
+            />
           </View>
-          <Text style={{marginVertical: 10, fontWeight: 'bold'}}>나의 소비</Text>
+          <Text style={{ marginVertical: 10, fontWeight: "bold" }}>
+            나의 소비
+          </Text>
         </View>
       </View>
 
       <View style={styles.box}>
-        <Text style={{marginStart: 12, marginBottom: 5}}>또래 평균 대비</Text>
-        <Text style={{marginStart: 12, marginBottom: 5, fontSize: 16, fontWeight: 'bold'}}>
-          <Text style={{color: '#0050FF', fontSize: 20}}>쇼핑</Text>에 지출이 많은 편이에요.
-        </Text>
-
-
-        {compareData.data.map((item, index) => (
-          <View key={index} style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginHorizontal: 20, marginVertical: 10
-        }}>
-        <Image
-          source={item.imgUrl} // 실제 경로로 변경해주세요
-          style={{ width: 50, height: 50 }}
-        />
-        <Text style={{ fontWeight: 'bold', flex: 1, marginHorizontal: 20 }}>{item.title}</Text>
-        <View style={{ alignItems: 'flex-end' }}>
-          <Text style={{ fontSize: 16, textAlign: 'center' }}>{`${item.myPay.toLocaleString()}원`}</Text>
-          <Text style={{ textAlign: 'center', fontSize: 12, color: item.myPay > item.comparePay ? 'red' : item.myPay < item.comparePay ? 'green' : '#729EFF' }}>
-            {item.myPay === item.comparePay ? "평균과 유사" : `${Math.abs(item.myPay - item.comparePay).toLocaleString()}원 ${item.myPay > item.comparePay ? '더 사용' : '덜 사용'}`}
+        <Text style={{ marginStart: 12, marginBottom: 5 }}>또래 평균 대비</Text>
+        {maxDifferenceIndex !== -1 && (
+          <Text
+            style={{
+              marginStart: 12,
+              marginBottom: 5,
+              fontSize: 16,
+              fontWeight: "bold",
+            }}
+          >
+            <Text style={{ color: "#0050FF", fontSize: 20 }}>
+              {data[maxDifferenceIndex]?.categoryName}
+            </Text>
+            에 지출이 많은 편이에요.
           </Text>
-        </View>
+        )}
+
+        {data.map((item, index) => (
+          <View
+            key={index}
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginHorizontal: 20,
+              marginVertical: 10,
+            }}
+          >
+            <Image
+              source={CATEGORY[item.categoryId].path} // 실제 경로로 변경해주세요
+              style={{ width: 50, height: 50 }}
+            />
+            <Text style={{ fontWeight: "bold", flex: 1, marginHorizontal: 20 }}>
+              {item.categoryName}
+            </Text>
+            <View style={{ alignItems: "flex-end" }}>
+              <Text
+                style={{ fontSize: 16, textAlign: "center" }}
+              >{`${item.userPay.toLocaleString()}원`}</Text>
+              <Text
+                style={{
+                  textAlign: "center",
+                  fontSize: 12,
+                  color:
+                    item.userPay > item.comparePay
+                      ? "red"
+                      : item.userPay < item.comparePay
+                      ? "green"
+                      : "#729EFF",
+                }}
+              >
+                {item.userPay === item.comparePay
+                  ? "평균과 유사"
+                  : `${Math.abs(
+                      item.userPay - item.comparePay
+                    ).toLocaleString()}원 ${
+                      item.userPay > item.comparePay ? "더 사용" : "덜 사용"
+                    }`}
+              </Text>
+            </View>
+          </View>
+        ))}
       </View>
-    ))}
-  </View>
-</ScrollView>
-);
+    </ScrollView>
+  );
 }
 
 const styles = StyleSheet.create({
-container: {
-flex: 1,
-marginTop: 60,
-},
-backcontainer: {
-flexDirection: 'row',
-alignItems: 'center',
-marginLeft: 10,
-},
-title: {
-fontWeight: 'bold',
-fontSize: 24,
-marginStart: 20,
-},
-midcontainer: {
-flexDirection: 'row',
-margin: 20,
-},
-tag: {
-marginHorizontal: 12,
-borderRadius: 20,
-paddingHorizontal: 10,
-paddingVertical: 10,
-fontWeight: 'bold',
-},
-title2: {
-fontWeight: 'bold',
-fontSize: 24,
-marginStart: 30,
-},
-box: {
-marginHorizontal: 20,
-marginBottom: 30,
-borderWidth: 2,
-borderColor: '#D7D7D7',
-borderRadius: 20,
-padding: 12,
-paddingTop: 20,
-backgroundColor: '#ffffff',
-},
-// 필요에 따라 추가 스타일을 여기에 정의할 수 있습니다.
+  container: {
+    flex: 1,
+    marginTop: 60,
+  },
+  backcontainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginLeft: 10,
+  },
+  title: {
+    fontWeight: "bold",
+    fontSize: 24,
+    marginStart: 20,
+  },
+  midcontainer: {
+    flexDirection: "row",
+    margin: 20,
+  },
+  tag: {
+    marginHorizontal: 12,
+    borderRadius: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    fontWeight: "bold",
+  },
+  title2: {
+    fontWeight: "bold",
+    fontSize: 24,
+    marginStart: 30,
+  },
+  box: {
+    marginHorizontal: 20,
+    marginBottom: 30,
+    borderWidth: 2,
+    borderColor: "#D7D7D7",
+    borderRadius: 20,
+    padding: 12,
+    paddingTop: 20,
+    backgroundColor: "#ffffff",
+  },
+  // 필요에 따라 추가 스타일을 여기에 정의할 수 있습니다.
 });
 
 export default Compare;
