@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, TouchableOpacity, Text, Alert, View, Pressable, Image, Switch } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, Alert, View, Pressable, Image, Switch, Linking } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import TokenService from '../../stores/TokenUtils';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -14,7 +14,7 @@ function SettingPage() {
   const [userBirth, setUserBirth] = useState('');
   const [userPhoneNumber, setUserPhoneNumber] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
-  const [isBiometricEnabled, setIsBiometricEnabled] = useState(false);
+  const [isBiometricEnabled, setIsBiometricEnabled] = useState(null);
 
   const formatBirth = (birth) => {
     // 생년월일 형식: YYYYMMDD
@@ -22,7 +22,7 @@ function SettingPage() {
     const month = birth.substring(4, 6);
     const day = birth.substring(6);
 
-    return `${year}.${month}.${day}`;
+    return `${year}. ${month}. ${day}`;
   };
 
   const formatPhoneNumber = (phoneNumber) => {
@@ -60,7 +60,7 @@ function SettingPage() {
         index: 0, // 초기화 후의 스택 인덱스를 지정합니다. 0은 스택의 첫 번째 페이지를 의미합니다.
         routes: [{ name: 'SplashPage' }], // 이동할 경로의 배열을 지정합니다. 이 경우 SplashPage가 스택의 첫 번째이자 유일한 페이지가 됩니다.
       });
-  
+
     } catch (error) {
       Alert.alert("로그아웃 실패", "로그아웃 중 문제가 발생했습니다."); // 오류가 발생하면 사용자에게 알립니다.
     }
@@ -69,7 +69,8 @@ function SettingPage() {
   const toggleBiometricEnabled = async () => {
     const newValue = !isBiometricEnabled;
     setIsBiometricEnabled(newValue);
-    await SettingService.setBiometricEnabled('biometricEnabled', newValue.toString());
+    console.log(newValue)
+    await SettingService.setBiometricEnabled(newValue.toString());
   };
 
   useEffect(() => {
@@ -94,7 +95,9 @@ function SettingPage() {
     // 생체 인식 사용 설정 불러오기
     const loadBiometricPreference = async () => {
       const isEnabled = await SettingService.getBiometricEnabled();
-      setIsBiometricEnabled(isEnabled !== null ? isEnabled : false);
+      // 문자열 "true"나 "false"를 실제 boolean 값으로 변환
+      const isEnabledBool = isEnabled === 'true';
+      setIsBiometricEnabled(isEnabledBool);
     };
 
     // 모든 데이터를 비동기적으로 불러오기
@@ -109,9 +112,26 @@ function SettingPage() {
     initializeData();
   }, []);
 
-
-
+  const requestPermission = async () => {
+    const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (status !== 'granted') {
+      Alert.alert(
+        '권한 요청',
+        '사진 라이브러리에 접근하기 위해 권한이 필요합니다. 설정에서 권한을 허용해주세요.',
+        [
+          { text: '나중에하기', onPress: () => { } },
+          { text: '설정으로 이동', onPress: () => Linking.openSettings() }, // 사용자가 설정으로 이동하여 권한을 직접 변경할 수 있도록 합니다.
+        ],
+        { cancelable: false },
+      );
+      return false;
+    }
+    return true;
+  };
   const pickImage = async () => {
+    const hasPermission = await requestPermission();
+    if (!hasPermission) return;
+
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -122,8 +142,6 @@ function SettingPage() {
     if (!result.canceled) {
       setSelectedImage(result.assets[0].uri); // 상태 업데이트
       TokenService.setSelectedImageUri(result.assets[0].uri); // AsyncStorage에 저장
-    } else {
-      alert('You did not select any image.');
     }
   };
 
@@ -243,7 +261,9 @@ const styles = StyleSheet.create({
     borderRadius: 60,
     backgroundColor: 'black',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    borderColor: 'rgba(0,0,0,0.7)',
+    borderWidth: 2,
   },
   crossIcon: {
     position: 'absolute',

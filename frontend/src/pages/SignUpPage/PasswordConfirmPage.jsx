@@ -26,7 +26,6 @@ const PasswordConfirmPage = ({ route, navigation }) => {
         const signupData = {
           ...verificationInfo,
         };
-        console.log(signupData)
         const response = await axios.post('https://j10e101.p.ssafy.io/api/user/signup', signupData);
         const { accessToken, refreshToken, userData } = response.data;
         await TokenService.setToken(accessToken, refreshToken);
@@ -35,16 +34,15 @@ const PasswordConfirmPage = ({ route, navigation }) => {
         
         Alert.alert("성공", "생체 인식 인증을 사용하시겠습니까?", [
           {
-            text: '아니오',
+            text: '건너뛰기',
             onPress: () => navigation.navigate('Routers'),
             style: 'cancel',
           },
           {
-            text: '예',
+            text: '사용',
             onPress: () => authenticateBiometrics(),
           },
         ]);
-        console.log(response.data)
       } catch (error) {
         console.error('회원가입 실패:', error);
         Alert.alert("회원가입 오류", "회원가입 과정에서 오류가 발생했습니다.");

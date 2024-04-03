@@ -17,9 +17,6 @@ const PaymentPassword = ({ navigation, route }) => {
     try {
       const accessToken = await TokenService.getAccessToken();
       const savedPassword = await TokenService.getPassword(); // TokenService에서 저장된 비밀번호 가져오기
-      console.log(accessToken)
-      console.log(savedPassword)
-      console.log(frompage)
 
       if (!accessToken) {
         Alert.alert('', '접근 토큰이 없습니다.');
@@ -28,11 +25,9 @@ const PaymentPassword = ({ navigation, route }) => {
 
       if (frompage === "PayCheck") {
         if (inputPassword === savedPassword) {
-          console.log('ㄱ')
           DeviceEventEmitter.emit('paymentVerificationSuccess');
           navigation.goBack();
         } else {
-          console.log('ㄴ')
           Alert.alert('오류', '비밀번호가 일치하지 않습니다.'); // 비밀번호 불일치시 오류 메시지 표시
           setInputValues(Array(6).fill(''));
           setActiveInputIndex(0); // 입력 필드 초기화 및 첫 번째 입력 필드로 포커스 이동
@@ -40,13 +35,10 @@ const PaymentPassword = ({ navigation, route }) => {
         }
       } else if (frompage === "BankListModal") {
         if (inputPassword === savedPassword) {
-          console.log('ㄷ')
-          console.log(responsedata)
           navigation.navigate('OwnCardEnroll', {
             responsedata: responsedata,
           });
         } else {
-          console.log('ㄹ')
           Alert.alert('오류', '비밀번호가 일치하지 않습니다.'); // 비밀번호 불일치시 오류 메시지 표시
           setInputValues(Array(6).fill(''));
           setActiveInputIndex(0); // 입력 필드 초기화 및 첫 번째 입력 필드로 포커스 이동
@@ -98,7 +90,6 @@ const PaymentPassword = ({ navigation, route }) => {
     // 수정된 부분: 상태 업데이트 함수 호출 직후가 아닌, 새로운 입력값 배열을 기반으로 검사를 실행합니다.
     // 예상되는 새로운 상태를 기반으로 모든 입력이 완료되었는지 확인합니다.
     if (newInputValues.every((value) => value !== '') && newInputValues.length === 6) {
-      console.log('6개')
       submitPasswordChange(newInputValues.join(''));
     }
 

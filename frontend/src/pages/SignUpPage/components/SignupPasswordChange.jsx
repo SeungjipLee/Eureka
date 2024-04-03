@@ -50,7 +50,6 @@ const SignupPasswordChange = ({ route, navigation }) => {
   const submitPasswordChange = (password) => {
     // 여기에서 비밀번호 변경 로직을 처리하거나, 다음 페이지로 이동
     // 예시로, 비밀번호를 console에 출력하고, passwordChangeConfirm 페이지로 이동
-    console.log(password); // 비밀번호 확인을 위한 로깅(실제 앱에서는 제거)
     navigation.navigate('SignupPasswordChangeConfirm', { password: password, verificationInfo: verificationInfo });
   };
 

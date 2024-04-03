@@ -102,7 +102,6 @@ function BankListModal({ visible, onClose, onSelect }) {
           const imgUrl = bank ? bank.imgUrl : undefined;
           return { ...card, imgUrl };
         });
-        console.log(cardListWithImages)
         navigation.navigate("PaymentPassword", {
           frompage: "BankListModal",
           responseData: cardListWithImages,

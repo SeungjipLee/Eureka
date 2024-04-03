@@ -15,8 +15,6 @@ const VerifyPasswordChange = ({ navigation }) => {
 
   const submitPasswordChange = async (password) => {
     const accessToken = await TokenService.getAccessToken(); // TokenUtils를 통해 accessToken 조회
-    console.log(accessToken)
-    console.log(password)
     if (!accessToken) {
       Alert.alert('', '접근 토큰이 없습니다.');
       return;
@@ -30,7 +28,6 @@ const VerifyPasswordChange = ({ navigation }) => {
       .then(response => {
         // 요청 성공 시 PasswordPage로 이동
         navigation.navigate('PasswordChange');
-        console.log(response.status)
       })
       .catch(error => {
         console.error('비밀번호 변경 요청 실패', error);
