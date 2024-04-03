@@ -692,28 +692,95 @@ public class UserCardServiceImpl implements UserCardService {
 
     @Override
     public CardRecommendMainResponse cardRecommendMain(String userId, int userCardId) {
+        UserCardEntity userCardEntity = userCardRepository.findByUserCardId(userCardId)
+            .orElseThrow(() -> new CustomException(ResponseCode.USER_CARD_NOT_FOUND));
 
-        CardEntity topCategoryCard;
-        CardEntity topDdoraeCard;
+        int cardId = userCardEntity.getCardId();
+
+        // 내가 고른 카드
+        CardEntity cardEntity1 = cardRepository.findByCardId(cardId);
+
+        // 카상추 로직
+        LocalDate currentDate = LocalDate.now();
+
+        // 현재 연도와 월 가져오기
+        int currentYear = currentDate.getYear();
+        int currentMonth = currentDate.getMonthValue(); // 작년..
+
+        LocalDate beforeDate = LocalDate.now().minusMonths(1);
+
+        String year = beforeDate.format(DateTimeFormatter.ofPattern("yyyy"));
+        String month = beforeDate.format(DateTimeFormatter.ofPattern("MM"));
+
+        // 한 달 전 내역으로 추천해줄 것
+        ConsumptionStaticEntity consumptionStaticEntity = consumptionStaticRepository.findByUserCardAndMonth(
+            userCardId, month);
+        log.debug("userCardId : " + userCardId + " month : " + month);
+        if (consumptionStaticEntity == null) {
+            throw new CustomException(ResponseCode.INVALID_YEAR_MONTH);
+        }
+
+        int consumptionStaticId = consumptionStaticEntity.getConsumptionStaticId();
+
+        ConsumptionLargeStaticEntity consumptionLargeStaticEntity = consumptionLargeStaticRepository
+            .findTop1ByConsumptionStaticIdOrderByConsumptionAmountDesc(consumptionStaticId);
+
+        int largeCategoryId = consumptionLargeStaticEntity.getLargeCategoryId();
+
+        LargeCategoryEntity largeCategoryEntity = largeCategoryRepository.findByLargeCategoryId(largeCategoryId);
+
+        CardBenefitDetailEntity cardBenefitDetailEntity = cardBenefitDetailRepository.
+            findTopByLargeCategoryIdOrderByDiscountCostDesc(largeCategoryId);
+
+        int benefitId = cardBenefitDetailEntity.getCardBenefitId();
+
+        CardBenefitEntity cardBenefitEntity = cardBenefitRepository.findFirstByCardBenefitId(
+            benefitId);
+
+        cardId = cardBenefitEntity.getCardId();
+
+        //
+        UserInfoDto userInfo = userRepository.findUserInfoByUserId(Integer.parseInt(userId));
+        char ageGroup = UserUtil.calculateAgeGroup(userInfo.getUserBirth(),
+            userInfo.getUserGender());
+        LocalDate date = cardOwnershipStaticRepository.findLatestCreatedDate();
+
+        List<CardOwnershipDto> cardOwnershipStaticList =
+            cardOwnershipStaticRepository.findCardOwnershipStaticByAgeGroup(ageGroup, date);
+
+        // 또래 카드
+        CardEntity cardEntity2 = cardRepository.findByCard(
+                cardOwnershipStaticList.get(0).getCardId())
+            .orElseThrow(() -> new CustomException(ResponseCode.CARD_NOT_FOUND));
+
+        // 카상추 카드
+        CardEntity cardEntity3 = cardRepository.findByCard(cardId)
+            .orElseThrow(() -> new CustomException(ResponseCode.CARD_NOT_FOUND));
+
+        DiscountStaticEntity discountStatic = discountStaticRepository.findByUserCardIdAndYearAndMonth(
+                userCardId, year, month)
+            .orElse(null);
+
+        int discount = discountStatic == null ? 0 : discountStatic.getTotalDiscount();
 
         CardRecommendMainResponse cardRecommendMainResponse = new CardRecommendMainResponse(
             new CategoryCard(
-                "문화/여가",
-                19,
-                "KB국민 우리동네 체크카드",
-                "https://api.card-gorilla.com:8080/storage/card/2332/card_img/24588/2332card.png",
-                1,
-                4000,
-                10000
+                largeCategoryEntity.getCategoryName(),
+                cardEntity2.getCardId(),
+                cardEntity2.getCardName(),
+                cardEntity2.getImagePath(),
+                cardEntity2.getImgAttr(),
+                discount,
+                discount == 0 ? 2000 : discount < 1000 ? discount * 2 : ((int) (discount * 1.5) / 100) * 100
             ),
             new DdoraeCard(
                 2,
-                94,
-                "K리그 축덕 Young Hana 체크카드 with OKcashbag",
-                "https://api.card-gorilla.com:8080/storage/card/1526/card_img/32519/1526card.png",
-                1,
-                2000,
-                9000
+                cardEntity3.getCardId(),
+                cardEntity3.getCardName(),
+                cardEntity3.getImagePath(),
+                cardEntity3.getImgAttr(),
+                discount,
+                discount == 0 ? 1000 : discount < 1000 ? discount : ((int) (discount * 1.3) / 100) * 100
             )
         );
 
