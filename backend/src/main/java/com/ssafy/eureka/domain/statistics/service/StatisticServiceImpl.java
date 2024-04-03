@@ -240,13 +240,6 @@ public class StatisticServiceImpl implements StatisticService {
         List<CardOwnershipDto> cardOwnershipOverviewList =
                 cardOwnershipOverviewRepository.findCardOwnershipOverviews(date);
 
-//        for (CardOwnershipDto ownershipStatic : cardOwnershipOverviewList) {
-//            Pageable pageable = PageRequest.of(0, 5);
-//            List<LargeCategoryEntity> categoryList =
-//                    cardBenefitDetailRepository.findByCardId(ownershipStatic.getCardId(), pageable);
-//            ownershipStatic.setCategoryList(categoryList);
-//        }
-
         CardOwnershipResponse response = new CardOwnershipResponse();
         response.setSearchInfo(new CardOwnershipResponse.SearchInfo(0,2));
         response.setCardOwnershipList(cardOwnershipOverviewList);
