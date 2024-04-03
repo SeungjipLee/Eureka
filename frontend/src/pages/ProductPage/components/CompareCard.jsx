@@ -98,8 +98,14 @@ function CompareCard() {
 
       <View style={styles.topcontainer}>
         <View style={styles.maintextContainer}>
-          <Text style={styles.maintext}>삼성카드 | 신용</Text>
-          <Text style={styles.cardName}>{selectCard.cardName}</Text>
+          <Text style={styles.maintext}>
+            {selectCard.cardCompanyName} |{" "}
+            {selectCard.cardType === 1 ? <Text>신용</Text> : <Text>체크</Text>}
+          </Text>
+
+          <Text style={styles.cardName} numberOfLines={2} ellipsizeMode="tail">
+            {selectCard.cardName}
+          </Text>
         </View>
 
         <Image
@@ -387,8 +393,9 @@ const styles = StyleSheet.create({
   },
   topcontainer: {
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
+    padding: 10,
   },
   image: {
     height: 80,
@@ -397,9 +404,9 @@ const styles = StyleSheet.create({
     marginLeft: 100,
   },
   maintextContainer: {
-    flexDirection: "column",
-    marginRight: 40,
-    marginTop: 15,
+    flex: 1,
+    marginRight: 20,
+    padding: 20,
   },
   maintext: {
     fontSize: 17,
@@ -408,6 +415,7 @@ const styles = StyleSheet.create({
   cardName: {
     fontSize: 20,
     fontWeight: "600",
+    flexShrink: 1,
   },
   midContainer: {
     justifyContent: "center",

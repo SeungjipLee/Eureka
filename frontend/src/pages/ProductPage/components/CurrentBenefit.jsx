@@ -20,14 +20,6 @@ function CurrentBenefit() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (token && selectCardInfo) {
-      setSelectCardUserCardId(selectCardInfo.userCardId);
-    } else {
-      setBenefitAmount("");
-    }
-  }, [selectCardInfo, token]);
-
-  useEffect(() => {
     const fetchToken = async () => {
       const accessToken = await TokenUtils.getAccessToken();
       setToken(accessToken);
@@ -37,7 +29,15 @@ function CurrentBenefit() {
   }, []);
 
   useEffect(() => {
-    if (token) {
+    if (token && selectCardInfo) {
+      setSelectCardUserCardId(selectCardInfo.userCardId);
+    } else {
+      setBenefitAmount("");
+    }
+  }, [selectCardInfo, token]);
+
+  useEffect(() => {
+    if (token && selectCardInfo) {
       getMySingleCardBenefitList(
         token,
         202403,
@@ -47,7 +47,7 @@ function CurrentBenefit() {
           dispatch(selectPayCardBenefit(res.data));
         },
         (err) => {
-          console.log("CurrentBenefit11, 현재결제카드혜택불러오기 실패", err);
+          console.log("CurrentBenefit1111, 현재결제카드혜택불러오기 실패", err);
         }
       );
     }
@@ -55,12 +55,16 @@ function CurrentBenefit() {
 
   return (
     <View>
-      <View style={styles.container}>
+      <Pressable
+        onPress={() => navigation.navigate("CurrentBenefitMore")}
+        style={styles.container}
+      >
         <Text style={styles.maintext}>현재카드 혜택</Text>
         <View style={styles.rightContainer}>
           <Text style={styles.benefitAmount}>
             {benefitAmount.toLocaleString()}원
           </Text>
+
           <Pressable onPress={() => navigation.navigate("CurrentBenefitMore")}>
             <MaterialCommunityIcons
               name="chevron-right"
@@ -69,7 +73,7 @@ function CurrentBenefit() {
             />
           </Pressable>
         </View>
-      </View>
+      </Pressable>
     </View>
   );
 }
