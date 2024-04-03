@@ -18,7 +18,7 @@ public class CardOwnershipDto {
     private String info;
     private String imagePath;
     private int imageAttr;
-    private int ownershipCount;
+    private Long ownershipCount;
 
     List<BenefitCompareInfo> benefitComapareList;
 
@@ -28,15 +28,15 @@ public class CardOwnershipDto {
         this.info = info;
         this.imagePath = imagePath;
         this.imageAttr = imageAttr;
-        this.ownershipCount = ownershipCount;
+        this.ownershipCount = (long) ownershipCount;
     }
 
-    public CardOwnershipDto(int cardId, String cardName, String imagePath, int imageAttr, Long ownershipCount) {
+    public CardOwnershipDto(int cardId, String cardName, String info, String imagePath, int imageAttr, Long ownershipCount) {
         this.cardId = cardId;
         this.cardName = cardName;
         this.imagePath = imagePath;
         this.imageAttr = imageAttr;
-        this.ownershipCount = ownershipCount.intValue();
+        this.ownershipCount = ownershipCount;
     }
 
     @NoArgsConstructor
