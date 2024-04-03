@@ -11,6 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class CardRecommendTop3List {
 
+    int cardId;
     String cardName;
     String info;
     String imagePath;
