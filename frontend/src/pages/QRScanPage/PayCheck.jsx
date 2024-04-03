@@ -120,12 +120,19 @@ function PayCheck({ route }) {
             <Text style={{ fontWeight: 'bold', fontSize: 20 }}>{selectedCard.cardName}</Text> 로 결제하면
           </Text>
 
-          <Text style={{ marginVertical: 10 }}>
+          {selectedCard.discountCost !== 0 ? 
+          (<Text style={{ marginVertical: 10 }}>
             <Text style={{ fontWeight: 'bold', fontSize: 20 }}>
               <Text style={{ fontWeight: 'bold', fontSize: 20, color: '#3675FF' }}>{selectedCard.discountCost} {selectedCard.discountCostType}</Text>
               <Text> {discountTypes[selectedCard.discountType]}</Text>
             </Text> 가능해요
-          </Text>
+          </Text>)
+          :(<Text style={{ marginVertical: 10 }}>
+            <Text style={{ fontWeight: 'bold', fontSize: 20 }}>
+              할인 가능한 카드 혜택이 없어요.
+            </Text>
+          </Text>)
+          }
 
           <Text style={{ fontWeight: 'bold', fontSize: 20, marginBottom: 10 }}>다음 실적까지 남은 금액</Text>
           {remaining > 0 ? (
