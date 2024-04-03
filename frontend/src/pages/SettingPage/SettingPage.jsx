@@ -68,10 +68,21 @@ function SettingPage() {
 
   const toggleBiometricEnabled = async () => {
     const newValue = !isBiometricEnabled;
-    setIsBiometricEnabled(newValue);
-    console.log(newValue)
-    await SettingService.setBiometricEnabled(newValue.toString());
+
+    // newValue가 true일 때
+    if (newValue === true) {
+      // 바로 비밀번호 변경 화면으로 이동
+      navigation.navigate('VerifyPasswordChange', {
+        button: 'bio',
+        newValue: newValue // 여기서 newValue를 전달
+      });
+    } else {
+      // newValue가 false일 때 생체 인식 사용 설정을 false로 저장
+      await SettingService.setBiometricEnabled(newValue.toString());
+      setIsBiometricEnabled(newValue); // UI 상태 업데이트
+    }
   };
+
 
   useEffect(() => {
     // 사용자 데이터 불러오기
@@ -110,7 +121,16 @@ function SettingPage() {
     };
 
     initializeData();
-  }, []);
+
+    const unsubscribe = navigation.addListener('focus', () => {
+      // 화면이 포커스 될 때 호출될 함수
+      initializeData();
+    });
+
+    // 컴포넌트가 언마운트될 때 리스너 제거
+    return unsubscribe;
+  }, [navigation]);
+
 
   const requestPermission = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -188,7 +208,7 @@ function SettingPage() {
           <Switch
             style={{ transform: [{ scaleX: 1.3 }, { scaleY: 1.3 }] }}
             trackColor={{ false: "#767577", true: "white" }}
-            thumbColor={isBiometricEnabled ? "#f5dd4b" : "rgb(247,250,255)"}
+            thumbColor={isBiometricEnabled ? "#f5dd4b" : "rgb(247,250,255)"} rufwp
             ios_backgroundColor="#3e3e3e"
             onValueChange={toggleBiometricEnabled}
             value={isBiometricEnabled}
@@ -196,14 +216,14 @@ function SettingPage() {
         </View>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate('VerifyPasswordChange')}>
+          onPress={() => navigation.navigate('VerifyPasswordChange', { button: 'passwordchange' })}>
           <Text style={styles.buttonText}>결제 비밀번호 변경</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={handleLogout} style={styles.button}>
           <Text style={styles.buttonText}>로그아웃</Text>
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </SafeAreaView >
   );
 }
 

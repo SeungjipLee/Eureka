@@ -4,9 +4,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import axios from 'axios';
 import TokenService from '../../../stores/TokenUtils';
+import SettingService from '../../../stores/SettingUtils';
 
 
-const VerifyPasswordChange = ({ navigation }) => {
+const VerifyPasswordChange = ({ navigation, route }) => {
+  const { button, newValue } = route.params || {};
   const initialRefs = Array(6).fill().map(() => createRef());
   const [inputValues, setInputValues] = useState(Array(6).fill(''));
   const [activeInputIndex, setActiveInputIndex] = useState(0);
@@ -14,28 +16,41 @@ const VerifyPasswordChange = ({ navigation }) => {
   const [buttonBackgrounds, setButtonBackgrounds] = useState(Array(12).fill('#3675FF')); // 12개의 버튼에 대한 배경색 상태 초기화
 
   const submitPasswordChange = async (password) => {
-    const accessToken = await TokenService.getAccessToken(); // TokenUtils를 통해 accessToken 조회
-    if (!accessToken) {
-      Alert.alert('', '접근 토큰이 없습니다.');
-      return;
+
+    if (button === 'bio') {
+      const savedPassword = await TokenService.getPassword(); // TokenUtils를 통해 저장된 비밀번호 조회
+      if (password === savedPassword) {
+        await SettingService.setBiometricEnabled(newValue.toString()); // 비밀번호 일치 시 생체인식 활성화 설정 저장
+        navigation.navigate('SettingPage'); // SettingPage로 이동
+      } else {
+        Alert.alert('오류', '비밀번호가 일치하지 않습니다.');
+        setInputValues(Array(6).fill(''));
+        setActiveInputIndex(0); // 첫 번째 입력 필드로 포커스 이동
+      }
     }
 
-    axios.post('https://j10e101.p.ssafy.io/api/auth/user', {password :password}, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    })
-      .then(response => {
-        // 요청 성공 시 PasswordPage로 이동
-        navigation.navigate('PasswordChange');
-      })
-      .catch(error => {
-        console.error('비밀번호 변경 요청 실패', error);
-        Alert.alert('오류', '비밀번호가 일치하지 않습니다.');
+    else if (button === 'passwordchange') {
+      const accessToken = await TokenService.getAccessToken();
+      if (!accessToken) {
+        Alert.alert('', '접근 토큰이 없습니다.');
+        return;
+      }
 
-        setInputValues(Array(6).fill(''));
-        setActiveInputIndex(0); // 첫 번째 입력 필드로 포커스를 이동
-      });
+      axios.post('https://j10e101.p.ssafy.io/api/auth/user', { password: password }, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+        .then(response => {
+          navigation.navigate('PasswordChange');
+        })
+        .catch(error => {
+          console.error('비밀번호 변경 요청 실패', error);
+          Alert.alert('오류', '비밀번호 변경 중 오류가 발생했습니다.');
+          setInputValues(Array(6).fill(''));
+          setActiveInputIndex(0);
+        });
+    }
   };
 
   const handleInputChange = (text, index) => {
