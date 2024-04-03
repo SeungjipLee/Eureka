@@ -47,8 +47,8 @@ function HomeMonthly() {
   );
 
   return (
+    <Pressable onPress={() => navigation.navigate("StatisticsPage")}>
     <View style={styles.container}>
-      <Pressable onPress={() => navigation.navigate("StatisticsPage")}>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <View>
             <Text style={styles.subtitle}>이번달 할인 & 소비</Text>
@@ -64,7 +64,6 @@ function HomeMonthly() {
               style={styles.nextBtn}
             />
         </View>
-      </Pressable>
         <View style={styles.midcontainer}>
           <Image style={styles.image} source={require('../../../../assets/HomeIcon/Discount.png')}/>
           <View>
@@ -83,6 +82,7 @@ function HomeMonthly() {
           
         </View>
     </View>
+    </Pressable>
   );
 }
 

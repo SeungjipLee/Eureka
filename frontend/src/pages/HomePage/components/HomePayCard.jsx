@@ -9,8 +9,8 @@ function HomePayCard () {
       <View style={styles.header}>
         <Image source={require('../../../../assets/main.png')} style={{width: 100, height: 61, backgroundColor: '#00BFFF', borderRadius: 10, marginStart: 40}}/>
         <View style={{marginLeft: -40}}>
-          <Text style={{fontSize: 16, fontWeight: 'bold', color: '#00BFFF'}}>당신을 위한</Text>
-          <Text style={{fontSize: 16, fontWeight: 'bold', color: '#00BFFF'}}>카드 추천 서비스</Text>
+          <Text style={{fontSize: 16, fontWeight: 'bold', color: '#6797ff'}}>당신을 위한</Text>
+          <Text style={{fontSize: 16, fontWeight: 'bold', color: '#6797ff'}}>카드 추천 서비스</Text>
         </View>
         <Pressable onPress={() => navigation.navigate('SettingPage')}>
           <View style={styles.settingIcon}>

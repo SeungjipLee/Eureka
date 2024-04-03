@@ -110,7 +110,7 @@ function Compare() {
 
       <View>
         <Text style={styles.title2}>
-          {lastMonthNumber}월에 또래
+          지난 달에 또래
           {compareAmt === 0 ? "와 비슷한 금액을 소비했어요!" : "보다  "}
         {compareAmt === 0 ? (
           ""
@@ -144,6 +144,7 @@ function Compare() {
               width: 80,
               height: peerBarHeight,
               backgroundColor: "#D9D9D9",
+              marginTop: 160 - peerBarHeight,
               borderRadius: 20,
             }}
           />
