@@ -26,7 +26,7 @@ function BenefitAmountOfYou() {
         const month = date.getMonth() + 1;
         return year * 100 + month;
       };
-      const currentDate = 202403;
+      const currentDate = getCurrentDate();
 
       getMyTotalBenefitAmount(
         token,
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   },
   benefitText: {
     fontSize: 25,
-    fontWeight: "100",
+    fontWeight: "400",
     color: "white",
   },
   amountContainer: {
@@ -89,12 +89,12 @@ const styles = StyleSheet.create({
   },
   amountText: {
     fontSize: 40,
-    fontWeight: "400",
+    fontWeight: "600",
     color: "white",
   },
   won: {
     fontSize: 20,
-    fontWeight: "200",
+    fontWeight: "300",
     color: "white",
     marginTop: 10,
     marginLeft: 10,
