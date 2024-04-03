@@ -49,7 +49,7 @@ function PopularCard() {
         token,
         (res) => {
           setPopularCards(res.data.cardOwnershipList);
-          console.log(res.data.cardOwnershipList, "sdaasd");
+          // console.log(res.data.cardOwnershipList, "sdaasd");
         },
         (err) => {
           console.log("PopularCard, err", err);

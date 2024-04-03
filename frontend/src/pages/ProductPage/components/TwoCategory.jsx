@@ -14,7 +14,10 @@ function TwoCategory() {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      <View style={styles.category1}>
+      <Pressable
+        style={styles.category1}
+        onPress={() => navigation.navigate("FitYourConsumption")}
+      >
         <Image
           source={require("../../../../assets/goodIcon.png")}
           style={styles.image}
@@ -31,9 +34,12 @@ function TwoCategory() {
         >
           <MaterialCommunityIcons name="chevron-right" size={26} />
         </Pressable>
-      </View>
+      </Pressable>
 
-      <View style={styles.category2}>
+      <Pressable
+        style={styles.category2}
+        onPress={() => navigation.navigate("PopularCard")}
+      >
         <Image
           source={require("../../../../assets/SlightlySmilingFace.png")}
           style={styles.image}
@@ -50,7 +56,7 @@ function TwoCategory() {
         >
           <MaterialCommunityIcons name="chevron-right" size={26} />
         </Pressable>
-      </View>
+      </Pressable>
     </View>
   );
 }
