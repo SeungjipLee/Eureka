@@ -90,6 +90,8 @@ public class PayServiceImpl implements PayService {
 
     @Override
     public CardRecommendResponse requestPay(String userId, RequestPayRequest requestPayRequest) {
+        long startTime = System.nanoTime();
+
         Integer largeCategory = requestPayRequest.getLargeCategoryId();
         Integer smallCategory = requestPayRequest.getSmallCategoryId();
 
@@ -208,6 +210,10 @@ public class PayServiceImpl implements PayService {
         PayInfo payInfo = new PayInfo(userId, requestPayRequest, cardToDiscount,
             list.get(0).getUserCardId(), list.get(0).getDiscountAmount());
         payInfoRepository.save(payInfo);
+
+        long endTime = System.nanoTime();
+        long executionTime = (endTime - startTime) / 1_000_000;
+        log.debug("카드 추천 경과 시간 : " + executionTime);
 
         return new CardRecommendResponse(requestPayRequest.getOrderId(), list);
     }

@@ -613,8 +613,24 @@ public class UserCardServiceImpl implements UserCardService {
         CardEntity topDdoraeCard;
 
         CardRecommendMainResponse cardRecommendMainResponse = new CardRecommendMainResponse(
-            new CategoryCard(),
-            new DdoraeCard()
+            new CategoryCard(
+                "문화/여가",
+                19,
+                "KB국민 우리동네 체크카드",
+                "https://api.card-gorilla.com:8080/storage/card/2332/card_img/24588/2332card.png",
+                1,
+                4000,
+                10000
+            ),
+            new DdoraeCard(
+                2,
+                94,
+                "K리그 축덕 Young Hana 체크카드 with OKcashbag",
+                "https://api.card-gorilla.com:8080/storage/card/1526/card_img/32519/1526card.png",
+                1,
+                2000,
+                9000
+            )
         );
 
         return cardRecommendMainResponse;
