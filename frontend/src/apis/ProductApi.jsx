@@ -81,12 +81,7 @@ async function getCompareMycardAndRecommendCard(
   }
 }
 
-async function getConsumptionCompareTop3(
-  token,
-  userCardId,
-  success,
-  fail
-) {
+async function getConsumptionCompareTop3(token, userCardId, success, fail) {
   try {
     const response = await API(token).get(
       `/ucard/prod/recommend/top3?userCardId=${userCardId}`
@@ -105,5 +100,5 @@ export {
   getMySingleCardBenefitList,
   getCompareMycardAndRecommendCard,
   get3RecommendCard,
-  getConsumptionCompareTop3
+  getConsumptionCompareTop3,
 };

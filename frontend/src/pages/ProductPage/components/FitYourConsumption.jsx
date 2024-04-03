@@ -77,7 +77,6 @@ function FitYourConsumption() {
         userCardId,
         (res) => {
           setCards(res.data.tlcnrList);
-          console.log(res.data.tlcnrList[0].list, "check");
         },
         (err) => {
           console.log("FitYourConsumption, err", err);

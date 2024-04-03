@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useRef, useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import {
   StyleSheet,
   View,
@@ -11,9 +12,10 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import TokenUtils from "../../../stores/TokenUtils";
+import { getCompareMycardAndRecommendCard } from "../../../apis/ProductApi";
 
 const { width } = Dimensions.get("window");
-const CurrentBenfitAmount = 6800;
 
 const benefits = [
   { id: 1, content: "할인 혜택", amount: "5,000원" },
@@ -23,6 +25,41 @@ const benefits = [
 
 function CompareCard() {
   const navigation = useNavigation();
+  const [token, setToken] = useState("");
+  const [cards, setCards] = useState([]);
+  const selectCard = useSelector(
+    (state) => state.productList.selectPayCardInfo
+  );
+  const selectCardBenefit = useSelector(
+    (state) => state.productList.payCardBenefit
+  );
+
+  useEffect(() => {
+    const fetchToken = async () => {
+      const accessToken = await TokenUtils.getRefreshToken();
+      setToken(accessToken);
+    };
+    fetchToken();
+  }, []);
+
+  useEffect(() => {
+    if (token && selectCard) {
+      const selectCardUserCardId = selectCard.userCardId;
+      getCompareMycardAndRecommendCard(
+        token,
+        selectCardUserCardId,
+        (res) => {
+          const cardsData = Array.isArray(res.data) ? res.data : [res.data];
+          setCards(cardsData);
+          console.log(res.data, "확인");
+        },
+        (err) => {
+          console.log(err, "IfUseRecommendCard err");
+        }
+      );
+    }
+  }, [token, selectCard]);
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Pressable
@@ -35,27 +72,25 @@ function CompareCard() {
           style={styles.nextBtn}
         />
       </Pressable>
+
       <View style={styles.topcontainer}>
         <View style={styles.maintextContainer}>
           <Text style={styles.maintext}>삼성카드 | 신용</Text>
-          <Text style={styles.cardName}>MR.LIFE Card</Text>
+          <Text style={styles.cardName}>{selectCard.cardName}</Text>
         </View>
 
-        <Image
-          source={require("../../../../assets/card2.png")}
-          style={styles.image}
-        />
+        <Image source={{ uri: selectCard.imagePath }} style={styles.image} />
       </View>
 
-      <View style={styles.midContainer}>
-        <View style={styles.top}>
-          <Text style={styles.maintext}>현재카드 이번달 혜택</Text>
-          <Text style={styles.benefitAmount}>
-            {CurrentBenfitAmount.toLocaleString()}원
-          </Text>
-        </View>
+      <View style={styles.top}>
+        <Text style={styles.maintext}>현재카드 이번달 혜택</Text>
+        <Text style={styles.benefitAmount}>
+          {selectCardBenefit.totalDiscount.toLocaleString()}원
+        </Text>
+      </View>
 
-        <View style={styles.separator}></View>
+      {/* map으로 꺼내오기 */}
+      <View style={styles.midContainer}>
         <View style={styles.midUpTitle}>
           <Text style={{ fontSize: 15, fontWeight: "600" }}>
             내 카드 대신 추천카드를 썼다면?
@@ -66,10 +101,14 @@ function CompareCard() {
           <View style={styles.twoCardCompare}>
             <View style={styles.myCard}>
               <Text style={{ fontSize: 10 }}>내 카드</Text>
-              <Image
-                source={require("../../../../assets/card2.png")}
-                style={styles.image2}
-              />
+              {cards[0] ? (
+                <Image
+                  source={{ uri: cards[0].myImagePath }}
+                  style={styles.image2}
+                />
+              ) : (
+                <Image source={require("../../../../assets/card.png")} />
+              )}
             </View>
 
             <MaterialCommunityIcons
@@ -80,10 +119,14 @@ function CompareCard() {
 
             <View style={styles.otherCard}>
               <Text style={{ fontSize: 10 }}>추천 카드</Text>
-              <Image
-                source={require("../../../../assets/card2.png")}
-                style={styles.image2}
-              />
+              {cards[0] ? (
+                <Image
+                  source={{ uri: cards[0].recommendImagePath }}
+                  style={styles.image2}
+                />
+              ) : (
+                <Image source={require("../../../../assets/card.png")} />
+              )}
             </View>
           </View>
 
@@ -91,30 +134,54 @@ function CompareCard() {
             <View style={styles.cardInfoContainer}>
               <View style={styles.infoBox}>
                 <Text style={styles.infoTitle}>연회비</Text>
-                <Text style={styles.infoAmount}>50,000원</Text>
+                {cards[0] ? (
+                  <Text style={styles.infoAmount}>
+                    {cards[0].myAnnualFee}원
+                  </Text>
+                ) : (
+                  <Text>1,212원</Text>
+                )}
               </View>
               <View style={styles.infoBox}>
-                <Text style={styles.infoTitle}>연 할인</Text>
-                <Text style={styles.infoAmount}>100,000원</Text>
+                <Text style={styles.infoTitle}>월 할인</Text>
+                <Text style={styles.infoAmount}>10,000원</Text>
               </View>
               <View style={styles.infoBox}>
-                <Text style={styles.infoTitle}>연 적립</Text>
-                <Text style={styles.infoAmount}>200,000원</Text>
+                <Text style={styles.infoTitle}>전월 실적</Text>
+                {cards[0] ? (
+                  <Text style={styles.infoAmount}>
+                    {cards[0].myPreviousPerformance.toLocaleString()}원
+                  </Text>
+                ) : (
+                  <Text>1,500원</Text>
+                )}
               </View>
             </View>
 
             <View style={styles.cardInfoContainer}>
               <View style={styles.infoBox}>
                 <Text style={styles.infoTitle}>연회비</Text>
-                <Text style={styles.infoAmount}>60,000원</Text>
+                {cards[0] ? (
+                  <Text style={styles.infoAmount}>
+                    {cards[0].recommendAnnualFee}원
+                  </Text>
+                ) : (
+                  <Text>1,212원</Text>
+                )}
               </View>
               <View style={styles.infoBox}>
-                <Text style={styles.infoTitle}>연 할인</Text>
-                <Text style={styles.infoAmount}>150,000원</Text>
+                <Text style={styles.infoTitle}>월 할인</Text>
+                <Text style={styles.infoAmount}>20,000원</Text>
               </View>
               <View style={styles.infoBox}>
-                <Text style={styles.infoTitle}>연 적립</Text>
-                <Text style={styles.infoAmount}>250,000원</Text>
+                <Text style={styles.infoTitle}>전월 실적</Text>
+                {cards[0] ? (
+                  <Text style={styles.infoAmount}>
+                    {cards[0].recommendPreviousPerformance.toLocaleString()}원
+                  </Text>
+                ) : (
+                  <Text>1,500원</Text>
+                )}
               </View>
             </View>
           </View>
@@ -141,27 +208,30 @@ function CompareCard() {
         <View style={styles.bottom}>
           <View style={styles.separator} />
           <View style={styles.resultContainer}>
-            <Text>합계</Text>
+            <Text>*합계</Text>
             <Text>결과</Text>
           </View>
         </View>
+
         <View style={styles.totalContainer}>
-          <Text>총 100000원 이득</Text>
+          <Text style={{ fontSize: 20, fontWeight: "400" }}>
+            총 10000원 이득!
+          </Text>
         </View>
-      </View>
 
-      <View style={styles.bottomContainer}>
-        <Pressable style={styles.plusBtn}>
-          <Text style={{ fontSize: 15, fontWeight: "600", color: "white" }}>
-            혜택 더보기
-          </Text>
-        </Pressable>
+        <View style={styles.bottomContainer}>
+          <Pressable style={styles.plusBtn}>
+            <Text style={{ fontSize: 15, fontWeight: "600", color: "white" }}>
+              혜택 더보기
+            </Text>
+          </Pressable>
 
-        <Pressable style={styles.applyBtn}>
-          <Text style={{ fontSize: 15, fontWeight: "600", color: "white" }}>
-            온라인 신청하기
-          </Text>
-        </Pressable>
+          <Pressable style={styles.applyBtn}>
+            <Text style={{ fontSize: 15, fontWeight: "600", color: "white" }}>
+              온라인 신청하기
+            </Text>
+          </Pressable>
+        </View>
       </View>
     </ScrollView>
   );
@@ -201,11 +271,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flex: 3,
     maxWidth: width - 20,
-    minHeight: 1000,
     backgroundColor: "#e5e5e5",
-    marginTop: 50,
-    marginHorizontal: 15,
     borderRadius: 5,
+    minHeight: 1000,
+    marginHorizontal: 15,
   },
   bottomContainer: {
     flexDirection: "row",
@@ -261,12 +330,18 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   top: {
-    flex: 0.2,
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
-    marginLeft: 10,
-    marginRight: 15,
+    marginTop: 50,
+    marginBottom: 15,
+    padding: 10,
+    marginLeft: 18,
+    marginRight: 45,
+    justifyContent: "space-between",
+    width: 380,
+    height: 50,
+    backgroundColor: "#e5e5e5",
+    borderRadius: 5,
   },
   midUp: {
     flex: 1,
@@ -286,7 +361,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   midUpTitle: {
-    marginTop: 10,
+    marginTop: 20,
     marginLeft: 10,
     marginBottom: 5,
   },
@@ -338,7 +413,6 @@ const styles = StyleSheet.create({
     fontSize: 11,
     fontWeight: "400",
   },
-
   infoAmount: {
     fontSize: 14,
     fontWeight: "400",

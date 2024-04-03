@@ -22,6 +22,7 @@ function IfUseRecommendCard() {
   const navigation = useNavigation();
   const [token, setToken] = useState("");
   const [cards, setCards] = useState([]);
+  const [dorreCard, setDdorreCard] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0); // 현재 인덱스 상태 관리
   const scrollViewRef = useRef(); // ScrollView 참조
   const autoScrollRef = useRef();
@@ -44,8 +45,7 @@ function IfUseRecommendCard() {
         token,
         selectCardUserCardId,
         (res) => {
-          console.log(res.data.categoryCard.imagePath, "check")
-          const cardsData = Array.isArray(res.data.categoryCard) ? res.data : [res.data.categoryCard];
+          const cardsData = Array.isArray(res.data) ? res.data : [res.data];
           setCards(cardsData);
         },
         (err) => {
@@ -111,11 +111,9 @@ function IfUseRecommendCard() {
     <View style={styles.container}>
       <View style={styles.maintextContainer}>
         <Text style={styles.maintext}>
-          김싸피님! <Text style={styles.maintext}>이번달에는</Text>
+          김싸피님의 카드를 분석했어요 <Text style={styles.maintext}></Text>
         </Text>
-        <Text style={{ fontSize: 18, fontWeight: "600" }}>
-          대중교통<Text style={styles.maintext}>에서 많이 사용하셨네요!</Text>
-        </Text>
+        <Text style={styles.maintext}>이런 카드는 어떠세요?</Text>
       </View>
 
       <View style={styles.carouselContainer}>
@@ -148,10 +146,15 @@ function IfUseRecommendCard() {
                     : styles.verticalImage
                 }
               />
+              <Text style={{ marginTop: 5 }}>{card.cardName}</Text>
               <View style={styles.subTextContainer}>
+                <Text style={styles.subText}>
+                  {card.largeCategoryName}에서 많이사용하셨네요!
+                </Text>
                 <Text style={styles.subText}>추천카드를 사용하면</Text>
-                <Text style={styles.subText}>3,300원 더 할인받아요!</Text>
-                <Text style={{ marginTop: 5 }}>{card.cardName}</Text>
+                <Text style={styles.subText}>
+                  {card.afterDiscount - card.beforeDiscount}원 더 할인받아요!
+                </Text>
               </View>
             </View>
           ))}
