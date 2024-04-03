@@ -46,17 +46,17 @@ function HomeOnlyPay () {
   return (
     <View>
       <View style={styles.container}>
-        <View style={styles.midcontainer}>
-          <Image style={styles.image} source={require('../../../../assets/HomeIcon/CardPayment.png')}/>
-          <View>
-            <Text style={styles.font}>이번달 페이 결제 금액</Text>
-            <Text style={styles.price}>{payAmount.toLocaleString()}원</Text>
+        <Pressable onPress={() => navigation.navigate('OnlyPay')}>
+          <View style={styles.midcontainer}>
+            <Image style={styles.image} source={require('../../../../assets/HomeIcon/CardPayment.png')}/>
+            <View>
+              <Text style={styles.font}>이번달 페이 결제 금액</Text>
+              <Text style={styles.price}>{payAmount.toLocaleString()}원</Text>
+            </View>
+              <MaterialCommunityIcons 
+                name="chevron-right" size={26} style={styles.nextBtn}/>
           </View>
-          <Pressable onPress={() => navigation.navigate('OnlyPay')}>
-            <MaterialCommunityIcons 
-              name="chevron-right" size={26} style={styles.nextBtn}/>
-          </Pressable>
-        </View>
+        </Pressable>
       </View>
     </View>
   )

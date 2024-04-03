@@ -57,7 +57,7 @@ async function getMySingleCardBenefitList(
 async function get3RecommendCard(token, userCardId, success, fail) {
   try {
     const response = await API(token).get(
-      `/ucard/prod/recommend?userCardId=${userCardId}`
+      `/ucard/prod/recommand/main?userCardId=${userCardId}`
     );
     success(response);
   } catch (error) {
@@ -81,6 +81,22 @@ async function getCompareMycardAndRecommendCard(
   }
 }
 
+async function getConsumptionCompareTop3(
+  token,
+  userCardId,
+  success,
+  fail
+) {
+  try {
+    const response = await API(token).get(
+      `/ucard/prod/recommend/top3?userCardId=${userCardId}`
+    );
+    success(response);
+  } catch (error) {
+    fail(error);
+  }
+}
+
 export {
   getProductCardListByCompany,
   getProductCardListByCategory,
@@ -89,4 +105,5 @@ export {
   getMySingleCardBenefitList,
   getCompareMycardAndRecommendCard,
   get3RecommendCard,
+  getConsumptionCompareTop3
 };

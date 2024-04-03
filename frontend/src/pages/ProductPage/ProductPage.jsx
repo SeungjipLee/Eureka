@@ -22,6 +22,7 @@ import {
   clickMyCard,
   saveMyPayCard,
   selectPayCard,
+  selectPayCard2,
 } from "../../slices/productSlice";
 import TokenUtils from "../../stores/TokenUtils";
 import { getMyPaymentCards } from "../../apis/ProductApi";
@@ -127,7 +128,7 @@ function ProductPage() {
               <TouchableOpacity
                 key={card.cardId}
                 style={styles.cardItem}
-                onPress={() => handleSelectCard(card, index)}
+                onPress={() => {handleSelectCard(card, index), dispatch(selectPayCard2(card))}}
               >
                 <Image
                   source={{ uri: card.imagePath }}

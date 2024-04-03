@@ -1,36 +1,57 @@
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, Image, Pressable } from "react-native"
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-
+import TokenService from '../../../stores/TokenUtils'
 
 function HomeForYou () {
   const navigation = useNavigation()
+  const today = new Date();
+  const dateString = today.toLocaleDateString('ko-KR', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    weekday: 'long',
+  });
+  const [userName, setUserName] = useState('');
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const userData = await TokenService.getUserData();
+      if (userData && userData.userName) { 
+        setUserName(userData.userName);
+      }
+    };
+
+    fetchUserData(); 
+  }, []);
+
   return (
     <View style={styles.container}>
       <View>
-        <Text style={styles.date}>3월 12일 화요일</Text>
-        <Text style={styles.subtitle}>김싸피님을 위해 준비했어요</Text>
+        <Text style={styles.date}>{dateString}</Text>
+        <Text style={styles.subtitle}>{userName} 님을 위해 준비했어요</Text>
       </View>
-        <View style={styles.midcontainer}>
-          <Image style={styles.image} source={require('../../../../assets/HomeIcon/BarChart.png')}/>
-          <View>
-            <Text style={styles.font}>또래와 소비 비교해보기</Text>
+        <Pressable onPress={() => navigation.navigate('Compare')}>
+          <View style={styles.midcontainer}>
+            <Image style={styles.image} source={require('../../../../assets/HomeIcon/BarChart.png')}/>
+            <View>
+              <Text style={styles.font}>또래와 소비 비교해보기</Text>
+            </View>
+              <MaterialCommunityIcons 
+                name="chevron-right" size={26} style={styles.nextBtn}/>
           </View>
-          <Pressable onPress={() => navigation.navigate('Compare')}>
-            <MaterialCommunityIcons 
-              name="chevron-right" size={26} style={styles.nextBtn}/>
-          </Pressable>
-        </View>
-        <View style={styles.midcontainer}>
-          <Image style={styles.image} source={require('../../../../assets/HomeIcon/BankCards.png')}/>
-          <View>
-            <Text style={styles.font}>내 소비에 맞는 카드 추천 받기</Text>
+        </Pressable>
+        <Pressable onPress={() => navigation.navigate('ProductPage')}>
+          <View style={styles.midcontainer}>
+            <Image style={styles.image} source={require('../../../../assets/HomeIcon/BankCards.png')}/>
+            <View>
+              <Text style={styles.font}>내 소비에 맞는 카드 추천 받기</Text>
+            </View>
+              <MaterialCommunityIcons 
+                name="chevron-right" size={26} style={styles.nextBtn}/>  
           </View>
-          <Pressable onPress={() => navigation.navigate('ProductPage')}>
-            <MaterialCommunityIcons 
-              name="chevron-right" size={26} style={styles.nextBtn}/>  
-          </Pressable>
-        </View>
+        </Pressable>
     </View>
   )
 }

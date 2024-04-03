@@ -17,5 +17,5 @@ public class CardRecommendTop3 {
     String cardName;
     String imagePath;
     int imgAttr;
-    List<CardRecommendTop3List> list;
+    List<Top3ListAndLargeCategoryNameResponse> tlcnrList;
 }

@@ -1,12 +1,12 @@
 import React, { useState, createRef } from 'react';
-import { StyleSheet, Text, View, Pressable, TextInput, Alert } from 'react-native';
+import { StyleSheet, Text, View, Pressable, TextInput, Alert, DeviceEventEmitter } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import TokenService from '../../../stores/TokenUtils';
 
 
 const PaymentPassword = ({ navigation, route }) => {
-  const { onSuccess } = route.params;
+  const { frompage, responsedata } = route.params || {};
   const initialRefs = Array(6).fill().map(() => createRef());
   const [inputValues, setInputValues] = useState(Array(6).fill(''));
   const [activeInputIndex, setActiveInputIndex] = useState(0);
@@ -14,22 +14,53 @@ const PaymentPassword = ({ navigation, route }) => {
   const [buttonBackgrounds, setButtonBackgrounds] = useState(Array(12).fill('#3675FF')); // 12개의 버튼에 대한 배경색 상태 초기화
 
   const submitPasswordChange = async (inputPassword) => {
-    const accessToken = await TokenService.getAccessToken();
-    const savedPassword = await TokenService.getPassword(); // TokenService에서 저장된 비밀번호 가져오기
-    if (!accessToken) {
-      Alert.alert('', '접근 토큰이 없습니다.');
-      return;
-    }
+    try {
+      const accessToken = await TokenService.getAccessToken();
+      const savedPassword = await TokenService.getPassword(); // TokenService에서 저장된 비밀번호 가져오기
+      console.log(accessToken)
+      console.log(savedPassword)
+      console.log(frompage)
 
-    if (inputPassword === savedPassword) { 
-      onSuccess && onSuccess();
-    } else {
-      Alert.alert('오류', '비밀번호가 일치하지 않습니다.'); // 비밀번호 불일치시 오류 메시지 표시
+      if (!accessToken) {
+        Alert.alert('', '접근 토큰이 없습니다.');
+        return;
+      }
+
+      if (frompage === "PayCheck") {
+        if (inputPassword === savedPassword) {
+          console.log('ㄱ')
+          DeviceEventEmitter.emit('paymentVerificationSuccess');
+          navigation.goBack();
+        } else {
+          console.log('ㄴ')
+          Alert.alert('오류', '비밀번호가 일치하지 않습니다.'); // 비밀번호 불일치시 오류 메시지 표시
+          setInputValues(Array(6).fill(''));
+          setActiveInputIndex(0); // 입력 필드 초기화 및 첫 번째 입력 필드로 포커스 이동
+          return;
+        }
+      } else if (frompage === "BankListModal") {
+        if (inputPassword === savedPassword) {
+          console.log('ㄷ')
+          console.log(responsedata)
+          navigation.navigate('OwnCardEnroll', {
+            responsedata: responsedata,
+          });
+        } else {
+          console.log('ㄹ')
+          Alert.alert('오류', '비밀번호가 일치하지 않습니다.'); // 비밀번호 불일치시 오류 메시지 표시
+          setInputValues(Array(6).fill(''));
+          setActiveInputIndex(0); // 입력 필드 초기화 및 첫 번째 입력 필드로 포커스 이동
+          return;
+        }
+      }
+    } catch (error) {
+      console.error(error); // 오류 로그를 콘솔에 출력
+      Alert.alert('오류', '처리 중 오류가 발생했습니다. 다시 시도해주세요.'); // 사용자에게 오류 메시지 표시
       setInputValues(Array(6).fill(''));
-      setActiveInputIndex(0); // 입력 필드 초기화 및 첫 번째 입력 필드로 포커스 이동
-      return;
+      setActiveInputIndex(0);
     }
-  };
+  }
+
 
   const handleInputChange = (text, index) => {
     const newInputValues = [...inputValues];
@@ -67,6 +98,7 @@ const PaymentPassword = ({ navigation, route }) => {
     // 수정된 부분: 상태 업데이트 함수 호출 직후가 아닌, 새로운 입력값 배열을 기반으로 검사를 실행합니다.
     // 예상되는 새로운 상태를 기반으로 모든 입력이 완료되었는지 확인합니다.
     if (newInputValues.every((value) => value !== '') && newInputValues.length === 6) {
+      console.log('6개')
       submitPasswordChange(newInputValues.join(''));
     }
 

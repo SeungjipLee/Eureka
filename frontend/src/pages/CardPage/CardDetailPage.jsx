@@ -13,7 +13,7 @@ function CardDetailPage({route}) {
   const [token, setToken] = useState('');
   const [cardInfo, setCardInfo] = useState([]);
   const [cardHistory, setCardHistory] = useState([])
-  const [month, setMonth] = useState('03')
+  const [month, setMonth] = useState('04')
   const [year, setYear] = useState('2024')
   const [ historyTop3, setHistoryTop3 ] = useState([])
 
@@ -141,18 +141,18 @@ function CardDetailPage({route}) {
         <Text>다음 실적까지 남은 금액</Text>
         {remaining > 0 ? (
           <Text>
-            <Text style={styles.remainingAmount}>{remaining}</Text>원
+            <Text style={styles.remainingAmount}>{remaining.toLocaleString()}</Text>원
           </Text>
         ) : (
           <Text style={styles.achievementText}>실적을 달성하였습니다!</Text>
         )}
         <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 10 }}>
           <Text>
-            <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#578CFF' }}>{cardHistory.monthTotalConsumption}</Text>원
+            <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#578CFF' }}>{cardHistory.monthTotalConsumption?.toLocaleString()}</Text>원
           </Text>
           <Text style={{ marginHorizontal: 10, fontSize: 20, fontWeight: 'bold' }}>/</Text>
           <Text>
-            <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#578CFF' }}>{cardInfo.previousPerformance}</Text>원
+            <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#578CFF' }}>{cardInfo.previousPerformance?.toLocaleString()}</Text>원
           </Text>
         </View>
         <View style={styles.progressBarContainer}>
@@ -175,7 +175,7 @@ function CardDetailPage({route}) {
           <Text style={{ fontSize: 16, marginLeft: 20, marginVertical: 10 }}>이용 내역</Text>
           <View style={{ flexDirection: 'row', alignItems: 'flex-end', marginEnd: 30}}>
             <Text style={{ fontSize: 20, fontWeight: 'bold' }}>
-              {cardHistory.monthTotalConsumption}
+              {cardHistory.monthTotalConsumption?.toLocaleString()}
             </Text>
             <Text> 원</Text>
             </View>
@@ -185,7 +185,7 @@ function CardDetailPage({route}) {
             <Text style={{ fontSize: 16, marginLeft: 20, marginVertical: 10 }}>받은 혜택</Text>
             <View style={{ flexDirection: 'row', alignItems: 'flex-end', marginEnd: 30}}>
               <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#447FFF' }}>
-                {cardHistory.monthTotalDiscount}
+                {cardHistory.monthTotalDiscount?.toLocaleString()}
               </Text>
               <Text> 원</Text>
             </View>
@@ -194,7 +194,7 @@ function CardDetailPage({route}) {
         <View style={{width: '100%', backgroundColor: '#B4B4B4', height: 3, alignSelf:'center'}}></View>
         <ScrollView style={{ maxHeight: 300 }}>
           {historyTop3.reverse().map((item) => (
-            <View key={item.approvedNum}>
+            <View key={item.cardHistoryId}>
             <View 
               style={{ 
                 flexDirection: 'row', 
@@ -208,7 +208,7 @@ function CardDetailPage({route}) {
                 <Text style={{ textAlign: 'right', color: '#B4B4B4' }}>{formatDate(item.approvedDateTime)}</Text>  
               </View>
               <View>
-                <Text style={{ textAlign: 'right', fontWeight: 'bold', color: '#333', fontSize: 16,}}>{item.approvedAmt}원</Text>
+                <Text style={{ textAlign: 'right', fontWeight: 'bold', color: '#333', fontSize: 16,}}>{item.approvedAmt?.toLocaleString()}원</Text>
               </View>
             </View>
               <View style={{width: '100%', backgroundColor: '#B4B4B4', height: 1, alignSelf:'center'}}></View>

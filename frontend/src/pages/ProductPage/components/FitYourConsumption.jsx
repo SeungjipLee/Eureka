@@ -10,96 +10,81 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import TokenUtils from "../../../stores/TokenUtils";
 import { useSelector } from "react-redux";
-// 데이터 더미
-const categoriesData = [
-  {
-    categoryName: "대중교통",
-    totalAmount: 100000,
-    cards: [
-      {
-        cardName: "카드X",
-        discountContent: "대중교통 10% 할인",
-        discountAmount: 10000,
-        cardImage: "../../../../assets/card2.png",
-      },
-      {
-        cardName: "카드Y",
-        discountContent: "첫 결제 시 20% 할인",
-        discountAmount: 20000,
-        cardImage: "../../../../assets/card2.png",
-      },
-      {
-        cardName: "카드Z",
-        discountContent: "버스 전용 5% 할인",
-        discountAmount: 5000,
-        cardImage: "../../../../assets/card2.png",
-      },
-    ],
-  },
-  {
-    categoryName: "쇼핑",
-    totalAmount: 200000,
-    cards: [
-      {
-        cardName: "카드A",
-        discountContent: "온라인 쇼핑몰 5% 할인",
-        discountAmount: 10000,
-        cardImage: "../../../../assets/card2.png",
-      },
-      {
-        cardName: "카드B",
-        discountContent: "특정 브랜드 10% 할인",
-        discountAmount: 20000,
-        cardImage: "../../../../assets/card2.png",
-      },
-      {
-        cardName: "카드C",
-        discountContent: "첫 구매 15% 할인",
-        discountAmount: 30000,
-        cardImage: "../../../../assets/card2.png",
-      },
-    ],
-  },
-  {
-    categoryName: "음식점",
-    totalAmount: 150000,
-    cards: [
-      {
-        cardName: "카드1",
-        discountContent: "레스토랑 10% 할인",
-        discountAmount: 15000,
-        cardImage: "../../../../assets/card2.png",
-      },
-      {
-        cardName: "카드2",
-        discountContent: "패스트푸드 5% 캐시백",
-        discountAmount: 7500,
-        cardImage: "../../../../assets/card2.png",
-      },
-      {
-        cardName: "카드3",
-        discountContent: "카페 음료 20% 할인",
-        discountAmount: 30000,
-        cardImage: "../../../../assets/card2.png",
-      },
-    ],
-  },
-];
+import { getConsumptionCompareTop3 } from "../../../apis/ProductApi";
+
+const categoryImages = {
+  모든가맹점: require("../../../../assets/CategoryIcon/0.png"),
+  대중교통: require("../../../../assets/CategoryIcon/1.png"),
+  주유: require("../../../../assets/CategoryIcon/2.png"),
+  마트: require("../../../../assets/CategoryIcon/3.png"),
+  편의점: require("../../../../assets/CategoryIcon/4.png"),
+  통신: require("../../../../assets/CategoryIcon/5.png"),
+  온라인쇼핑: require("../../../../assets/CategoryIcon/6.png"),
+  쇼핑: require("../../../../assets/CategoryIcon/7.png"),
+  배달앱: require("../../../../assets/CategoryIcon/8.png"),
+  음식점: require("../../../../assets/CategoryIcon/9.png"),
+  주점: require("../../../../assets/CategoryIcon/10.png"),
+  카페: require("../../../../assets/CategoryIcon/11.png"),
+  디저트: require("../../../../assets/CategoryIcon/12.png"),
+  "뷰티/피트니스": require("../../../../assets/CategoryIcon/13.png"),
+  공과금: require("../../../../assets/CategoryIcon/14.png"),
+  "병원/약국": require("../../../../assets/CategoryIcon/15.png"),
+  애완동물: require("../../../../assets/CategoryIcon/16.png"),
+  교육: require("../../../../assets/CategoryIcon/17.png"),
+  자동차: require("../../../../assets/CategoryIcon/18.png"),
+  "레저/스포츠": require("../../../../assets/CategoryIcon/19.png"),
+  영화: require("../../../../assets/CategoryIcon/20.png"),
+  "문화/여가": require("../../../../assets/CategoryIcon/21.png"),
+  간편결제: require("../../../../assets/CategoryIcon/22.png"),
+  항공: require("../../../../assets/CategoryIcon/23.png"),
+  "여행/숙박": require("../../../../assets/CategoryIcon/24.png"),
+  기타: require("../../../../assets/CategoryIcon/25.png"),
+};
 
 function FitYourConsumption() {
   const navigation = useNavigation();
+  const [token, setToken] = useState("");
   const selectCardInfo = useSelector(
     (state) => state.productList.selectPayCardInfo
   );
   const [selectCardInfoImage, setSelectCardInfoImage] = useState("");
   const [selectCardInfoImgAttr, setSelectCardInfoImgAttr] = useState("");
+  const [userCardId, setUserCardId] = useState("");
+  const [cards, setCards] = useState([]);
   useEffect(() => {
     if (selectCardInfo) {
       setSelectCardInfoImage(selectCardInfo.imagePath);
       setSelectCardInfoImgAttr(selectCardInfo.imgAttr);
+      setUserCardId(selectCardInfo.userCardId);
     }
   }, [selectCardInfo]);
+  useEffect(() => {
+    const fetchToken = async () => {
+      const accessToken = await TokenUtils.getAccessToken();
+      setToken(accessToken);
+    };
+
+    fetchToken();
+  }, []);
+
+  useEffect(() => {
+    // 토큰과 selectId가 유효할 때만 API 호출
+    if (token && userCardId) {
+      getConsumptionCompareTop3(
+        token,
+        userCardId,
+        (res) => {
+          setCards(res.data.tlcnrList);
+          console.log(res.data.tlcnrList[0].list, "check");
+        },
+        (err) => {
+          console.log("FitYourConsumption, err", err);
+        }
+      );
+    }
+  }, [token, userCardId]);
 
   function getImageStyle(imgAttr) {
     if (imgAttr === 0) {
@@ -145,13 +130,12 @@ function FitYourConsumption() {
         />
       </View>
 
-      {/* 나중에 분리예정 */}
-      {categoriesData.map((category, index) => (
+      {cards.map((category, index) => (
         <View key={index} style={styles.mainContent}>
           <View style={styles.titleConatiner}>
             <View style={styles.titleTextContainer}>
-              <Text style={{ fontSize: 16, fontWeight: "700" }}>
-                {category.categoryName}할인 BEST
+              <Text style={{ fontSize: 18, fontWeight: "700", marginTop: 15 }}>
+                {category.largeCategoryName}할인 BEST
               </Text>
               <Text
                 style={{
@@ -161,37 +145,49 @@ function FitYourConsumption() {
                   marginTop: 5,
                 }}
               >
-                총 {category.totalAmount} 썼어요
+                {/* 총 {category.totalAmount} 썼어요 */}
               </Text>
             </View>
             <Image
-              source={require("../../../../assets/favicon.png")}
+              source={
+                categoryImages[category.largeCategoryName]
+                  ? categoryImages[category.largeCategoryName]
+                  : require("../../../../assets/favicon.png")
+              }
               style={styles.categoriesImage}
             ></Image>
           </View>
 
-          {category.cards.map((card, cardIdx) => (
-            <View key={cardIdx} style={styles.cardContainer}>
-              <Image
-                source={require("../../../../assets/card2.png")}
-                style={styles.image2}
-              />
-
+          {category.list.map((card, cardIdx) => (
+            <Pressable
+              key={cardIdx}
+              style={styles.cardContainer}
+              onPress={() =>
+                navigation.navigate("SelectCardInfo", {
+                  cardId: card.cardId,
+                  type: 3,
+                  cardd: card,
+                })
+              }
+            >
+              <Image source={{ uri: card.imagePath }} style={styles.image2} />
               <View style={styles.cardInfo}>
                 <Text style={{ fontSize: 12, color: "#707070" }}>
                   {card.cardName}
                 </Text>
-                <Text style={{ fontSize: 14, fontWeight: "600" }}>
-                  {card.discountContent}
+                <Text
+                  style={{ fontSize: 14, fontWeight: "600", flexShrink: 1 }}
+                >
+                  {card.info}
                 </Text>
                 <Text style={{ fontSize: 14, fontWeight: "800" }}>
-                  {card.discountAmount}
+                  {card.afterDiscount}
                   <Text style={{ fontSize: 12, fontWeight: "600" }}>
                     원 더 할인받아요!
                   </Text>
                 </Text>
               </View>
-            </View>
+            </Pressable>
           ))}
           <View style={styles.separator}></View>
         </View>
@@ -246,36 +242,45 @@ const styles = StyleSheet.create({
   image2: {
     height: 70,
     width: 40,
-    marginRight: 50,
-    marginLeft: -120,
+  },
+  cardInfo: {
+    flex: 1,
+    marginLeft: 50,
   },
   mainContent: {},
   titleConatiner: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 20,
+    marginTop: 30,
     marginBottom: 25,
-    marginLeft: 32,
+    marginLeft: 25,
   },
-  titleTextContainer: {},
+  titleTextContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
   categoriesImage: {
-    marginRight: 50,
+    marginRight: 40,
+    width: 70,
+    height: 70,
   },
   cardContainer: {
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 15,
     marginTop: 15,
+    width: "100%",
+    marginLeft: 30,
   },
   horizontalImage: {
-    width: 140,
-    height: 80,
+    width: 120,
+    height: 60,
     marginLeft: 20,
   },
   verticalImage: {
-    width: 80,
-    height: 140,
+    width: 60,
+    height: 120,
     marginLeft: 55,
     marginRight: 15,
   },

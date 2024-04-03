@@ -74,6 +74,7 @@ function BenefitGraph() {
   const [token, setToken] = useState("");
   const [totalDiscount, setTotalDiscount] = useState("");
   const [categories, setCategories] = useState([]);
+  const [LastCategory, setLastCategory] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -101,7 +102,7 @@ function BenefitGraph() {
           setCategories(res.data.discountList);
         },
         (err) => {
-          console.log(err, "혜택 카테고리 실패");
+          console.log(err, "BenefitGraph, 혜택 카테고리 실패");
         }
       );
     }
@@ -129,7 +130,11 @@ function BenefitGraph() {
     return topCategories;
   };
 
-  const LastCategory = processCategories(categories);
+  useEffect(() => {
+    if (categories.length > 0) {
+      setLastCategory(processCategories(categories));
+    }
+  }, [categories]);
 
   return (
     <View style={styles.container}>
@@ -138,13 +143,21 @@ function BenefitGraph() {
       </View>
       <View style={styles.line}></View>
       <View style={styles.topContainer}>
-        <Text style={styles.BenefitText}>
-          이번달에는{" "}
-          <Text style={{ fontWeight: "bold" }}>
-            {LastCategory[0].categoryName}
+        {categories && categories.length > 0 ? (
+          <Text style={styles.BenefitText}>
+            이번달에는{" "}
+            <Text style={{ fontWeight: "bold" }}>
+              {categories[0].categoryName}
+            </Text>
+            <Text>에서</Text>
           </Text>
-          <Text>에서</Text>
-        </Text>
+        ) : (
+          <Text style={styles.BenefitText}>
+            이번달에는 <Text style={{ fontWeight: "bold" }}>???</Text>
+            <Text>에서</Text>
+          </Text>
+        )}
+
         <View style={styles.amountContainer}>
           <Text style={styles.BenefitText}>가장 많은 혜택을 누렸어요!</Text>
         </View>

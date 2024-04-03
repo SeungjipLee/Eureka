@@ -44,12 +44,12 @@ function IfUseRecommendCard() {
         token,
         selectCardUserCardId,
         (res) => {
-          // 데이터가 배열이 아닌 경우 배열로 만들어주는 로직 추가
-          const cardsData = Array.isArray(res.data) ? res.data : [res.data];
+          console.log(res.data.categoryCard.imagePath, "check")
+          const cardsData = Array.isArray(res.data.categoryCard) ? res.data : [res.data.categoryCard];
           setCards(cardsData);
         },
         (err) => {
-          console.log(err, "3개의 추천카드 케러셀 실패");
+          console.log(err, "IfUseRecommendCard err");
         }
       );
     }
@@ -151,7 +151,7 @@ function IfUseRecommendCard() {
               <View style={styles.subTextContainer}>
                 <Text style={styles.subText}>추천카드를 사용하면</Text>
                 <Text style={styles.subText}>3,300원 더 할인받아요!</Text>
-                <Text style={{marginTop: 5}}>{card.cardName}</Text>
+                <Text style={{ marginTop: 5 }}>{card.cardName}</Text>
               </View>
             </View>
           ))}
