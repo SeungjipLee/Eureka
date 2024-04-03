@@ -79,9 +79,9 @@ public class CardRecommendResponse {
         @Override
         public int compareTo(RecommendCard card) {
             if (this.discountAmount > card.getDiscountAmount()) {
-                return 1;
-            } else if (this.discountAmount < card.getDiscountAmount()) {
                 return -1;
+            } else if (this.discountAmount < card.getDiscountAmount()) {
+                return 1;
             } else {
                 BigInteger thisPerformance = BigInteger.valueOf(this.previousPerformance).subtract(this.currentMonthAmount);
                 BigInteger cardPerformance = BigInteger.valueOf(card.getPreviousPerformance()).subtract(card.getCurrentMonthAmount());

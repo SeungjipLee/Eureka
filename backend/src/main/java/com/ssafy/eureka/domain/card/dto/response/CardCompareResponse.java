@@ -14,7 +14,7 @@ import lombok.Setter;
 @Setter
 public class CardCompareResponse {
 
-    CompareCard myCard = new CompareCard();
+    CompareCard myCard;
     CompareCard categoryCard;
     CompareCard ddoraeCard;
 

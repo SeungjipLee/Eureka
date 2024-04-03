@@ -1,8 +1,8 @@
 import { StyleSheet, View, Text, Image, Pressable } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect  } from "@react-navigation/native";
 import TokenUtils from "../../../stores/TokenUtils";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback  } from "react";
 import { getHomeInfo } from "../../../apis/HomeApi";
 
 function HomeMonthly() {
@@ -24,20 +24,26 @@ function HomeMonthly() {
     fetchToken();
   }, []);
 
-  const response = getHomeInfo(
-    token,
-    currentYear + currentMonth,
-    (res) => {
-      setWarning(false)
-      setDiscount(res.data.totalDiscount)
-      setPayAmount(res.data.totalConsumption)
-    },
-    (err) => {
-      if (err.response.status === 404) {
-        console.log(err.response.status);
-        setWarning(true);
+  useFocusEffect(
+    useCallback(() => {
+      if (token) { // 토큰이 있을 때만 getHomeInfo 호출
+        getHomeInfo(
+          token,
+          currentYear + currentMonth,
+          (res) => {
+            setWarning(false);
+            setDiscount(res.data.totalDiscount);
+            setPayAmount(res.data.totalConsumption);
+          },
+          (err) => {
+            if (err.response.status === 404) {
+              console.log(err.response.status);
+              setWarning(true);
+            }
+          }
+        );
       }
-    }
+    }, [token, currentMonth, currentYear])
   );
 
   return (
@@ -63,7 +69,7 @@ function HomeMonthly() {
           <Image style={styles.image} source={require('../../../../assets/HomeIcon/Discount.png')}/>
           <View>
             <Text style={styles.font}>총 할인 예상 금액</Text>
-            <Text style={styles.price}>{discount.toLocaleString()}원</Text>
+            <Text style={styles.price}>{discount}원</Text>
           </View>
           <View></View>
         </View>
@@ -71,7 +77,7 @@ function HomeMonthly() {
           <Image style={styles.image} source={require('../../../../assets/HomeIcon/CoinWallet.png')}/>
           <View>
             <Text style={styles.font}>총 결제 예상 금액</Text>
-            <Text style={styles.price}>{payAmount.toLocaleString()}원</Text>
+            <Text style={styles.price}>{payAmount}원</Text>
           </View>
           <View></View>
           

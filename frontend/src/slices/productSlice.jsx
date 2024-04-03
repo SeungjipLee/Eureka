@@ -5,6 +5,7 @@ const initialState = {
   selectCardValue: false,
   payCards: [],
   selectPayCardInfo: null,
+  currentBenefiterr: null,
   payCardBenefit: null,
 };
 
@@ -28,6 +29,10 @@ export const productSlice = createSlice({
     selectPayCard: (state, action) => {
       state.selectPayCardInfo = action.payload;
     },
+    // benefit err 잡아보자
+    selectPayCard2: (state, action) => {
+      state.currentBenefiterr = action.payload;
+    },
     selectPayCardBenefit: (state, action) => {
       state.payCardBenefit = action.payload;
     },
@@ -40,6 +45,7 @@ export const {
   saveMyPayCard,
   selectPayCard,
   selectPayCardBenefit,
+  selectPayCard2
 } = productSlice.actions;
 
 export default productSlice.reducer;

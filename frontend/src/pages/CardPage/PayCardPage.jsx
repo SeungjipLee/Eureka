@@ -50,7 +50,10 @@ function PayCardPage() {
         data={cardList}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
-          <View style={styles.cardContainer}>
+          <TouchableOpacity 
+            style={styles.cardContainer}
+            onPress={() => navigation.navigate('CardDetail', { userCardId: item.userCardId })}
+            >
             <Image
               source={{ uri: item.imagePath }}
               style={item.imgAttr === 1 ? [styles.cardImage, styles.rotatedImage] : styles.cardImage}
@@ -68,7 +71,7 @@ function PayCardPage() {
                 <Text style={styles.achievementText}>카드 실적을 달성하였어요!</Text>
               )}
             </View>
-          </View>
+          </TouchableOpacity>
         )}
       />
       <Pressable onPress={()=>navigation.navigate('PayCardEnroll')}>

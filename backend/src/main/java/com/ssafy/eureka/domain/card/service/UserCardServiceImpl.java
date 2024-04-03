@@ -8,6 +8,8 @@ import com.ssafy.eureka.domain.card.dto.request.RegistPayCardRequest;
 import com.ssafy.eureka.domain.card.dto.request.RegistUserCardRequest;
 import com.ssafy.eureka.domain.card.dto.request.RegistUserCardRequest.RegistUserCard;
 import com.ssafy.eureka.domain.card.dto.response.*;
+import com.ssafy.eureka.domain.card.dto.response.CardRecommendMainResponse.CategoryCard;
+import com.ssafy.eureka.domain.card.dto.response.CardRecommendMainResponse.DdoraeCard;
 import com.ssafy.eureka.domain.card.dto.response.MyDataCardListResponse.MyDataCard;
 import com.ssafy.eureka.domain.card.dto.response.MyDataCardListResponse.MyDataCard.Card;
 import com.ssafy.eureka.domain.card.repository.*;
@@ -490,7 +492,7 @@ public class UserCardServiceImpl implements UserCardService {
         // 카상추 카드
         CardEntity cardEntity2 = cardRepository.findByCard(cardId)
                 .orElseThrow(() -> new CustomException(ResponseCode.CARD_NOT_FOUND));
-        return new CardCompareResponse(cardEntity1, cardEntity2);
+        return new CardCompareResponse(cardEntity1, cardEntity2, cardEntity2);
 
     }
 
@@ -596,14 +598,28 @@ public class UserCardServiceImpl implements UserCardService {
 
         int discountType = cardBenefitDetailEntityList.get(j).getDiscountType();
         double discountCost = cardBenefitDetailEntityList.get(j).getDiscountCost();
-        top3List.add(new CardRecommendTop3List(cardId, cardName2, info, imagePath2, imgAttr2,
+        top3List.add(new CardRecommendTop3List(cardId2, cardName2, info, imagePath2, imgAttr2,
                 discountType, discountCost, (int)totalAmt - (int)afterDiscount));
           }
             tlcnrList.add(new Top3ListAndLargeCategoryNameResponse(largeCategoryName, top3List));
         }
         return new CardRecommendTop3(cardId, cardName, imagePath, imgAttr, tlcnrList);
+
     }
 
+    @Override
+    public CardRecommendMainResponse cardRecommendMain(String userId, int userCardId) {
+
+        CardEntity topCategoryCard;
+        CardEntity topDdoraeCard;
+
+        CardRecommendMainResponse cardRecommendMainResponse = new CardRecommendMainResponse(
+            new CategoryCard(),
+            new DdoraeCard()
+        );
+
+        return cardRecommendMainResponse;
+    }
 
     public void addStatistics(String userId, String cardIdentifier){
 
