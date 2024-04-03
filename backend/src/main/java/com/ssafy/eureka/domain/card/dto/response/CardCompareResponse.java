@@ -1,8 +1,6 @@
 package com.ssafy.eureka.domain.card.dto.response;
 
 import com.ssafy.eureka.domain.card.dto.CardEntity;
-import jakarta.persistence.Column;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,6 +17,7 @@ public class CardCompareResponse {
     CompareCard ddoraeCard;
 
     public CardCompareResponse(CardEntity entity1, CardEntity entity2, CardEntity entity3){
+        this.myCard = new CompareCard();
         this.myCard.cardId = entity1.getCardId();
         this.myCard.cardCompanyId = entity1.getCardCompanyId();
         this.myCard.cardType = entity1.getCardType();
@@ -29,6 +28,7 @@ public class CardCompareResponse {
         this.myCard.imgAttr = entity1.getImgAttr();
         this.myCard.joinPath = entity1.getJoinPath();
 
+        this.categoryCard = new CompareCard();
         this.categoryCard.cardId = entity2.getCardId();
         this.categoryCard.cardCompanyId = entity2.getCardCompanyId();
         this.categoryCard.cardType = entity2.getCardType();
@@ -39,6 +39,7 @@ public class CardCompareResponse {
         this.categoryCard.imgAttr = entity2.getImgAttr();
         this.categoryCard.joinPath = entity2.getJoinPath();
 
+        this.ddoraeCard = new CompareCard();
         this.ddoraeCard.cardId = entity3.getCardId();
         this.ddoraeCard.cardCompanyId = entity3.getCardCompanyId();
         this.ddoraeCard.cardType = entity3.getCardType();
@@ -51,6 +52,10 @@ public class CardCompareResponse {
     }
 }
 
+@Setter
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 class CompareCard{
    int cardId;
    int cardCompanyId;

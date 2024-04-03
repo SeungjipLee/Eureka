@@ -1,5 +1,3 @@
-
-
 use eureka_db;
 
 #4-2. card dummy
