@@ -26,7 +26,7 @@ function BenefitAmountOfYou() {
         const month = date.getMonth() + 1;
         return year * 100 + month;
       };
-      const currentDate = 202403;
+      const currentDate = getCurrentDate();
 
       getMyTotalBenefitAmount(
         token,

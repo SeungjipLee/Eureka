@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, View, Text, Dimensions, Platform } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  Dimensions,
+  Platform,
+  TouchableOpacity,
+} from "react-native";
 import ConsumptionCategoryList from "./ConsumptionOfYouComponents/ConsumptionCategoryList";
 import { useDispatch } from "react-redux";
 import { top5Category } from "../../../slices/staticSlice";
@@ -37,36 +44,44 @@ const categoryColors = {
 };
 const HorizontalBarGraph = ({ categories, totalConsump }) => {
   return (
-    <View style={styles.rowGraph}>
-      <View
-        style={{
-          flexDirection: "row",
-          height: "100%",
-          alignItems: "center",
-          width: "100%",
-        }}
-      >
-        {categories.map((category, index) => {
-          const width = `${(category.consumption / totalConsump) * 100}%`;
-          const color = categoryColors[category.categoryId] || "#E0E0E0";
-          const barStyle = {
-            height: "100%",
-            width,
-            backgroundColor: color,
-            ...(index === 0 && {
-              borderTopLeftRadius: 20,
-              borderBottomLeftRadius: 20,
-            }),
-            ...(index === categories.length - 1 && {
-              borderTopRightRadius: 20,
-              borderBottomRightRadius: 20,
-            }),
-          };
+    <>
+      {totalConsump === 0 ? (
+        <Text style={{ fontSize: 20, fontWeight: "400" }}>
+          소비 내역이 없어요 ㅠㅠ
+        </Text>
+      ) : (
+        <View style={styles.rowGraph}>
+          <View
+            style={{
+              flexDirection: "row",
+              height: "100%",
+              alignItems: "center",
+              width: "100%",
+            }}
+          >
+            {categories.map((category, index) => {
+              const width = `${(category.consumption / totalConsump) * 100}%`;
+              const color = categoryColors[category.categoryId] || "#E0E0E0";
+              const barStyle = {
+                height: "100%",
+                width,
+                backgroundColor: color,
+                ...(index === 0 && {
+                  borderTopLeftRadius: 20,
+                  borderBottomLeftRadius: 20,
+                }),
+                ...(index === categories.length - 1 && {
+                  borderTopRightRadius: 20,
+                  borderBottomRightRadius: 20,
+                }),
+              };
 
-          return <View key={index} style={barStyle} />;
-        })}
-      </View>
-    </View>
+              return <View key={index} style={barStyle} />;
+            })}
+          </View>
+        </View>
+      )}
+    </>
   );
 };
 
@@ -75,6 +90,7 @@ function ConsumptionOfYou() {
   const [totalConsumption, setTotalConsumption] = useState("");
   const [categories, setCategories] = useState([]);
   const [LastCategory, setLastCategory] = useState([]);
+  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth() + 1);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -85,15 +101,17 @@ function ConsumptionOfYou() {
     fetchToken();
   }, []);
 
+  const maxMonth = new Date().getMonth() + 1;
+
   useEffect(() => {
     if (token) {
-      const getCurrentDate = () => {
+      const getSelectedDate = () => {
         const date = new Date();
-        const year = date.getFullYear();
-        const month = date.getMonth() + 1;
-        return year * 100 + month;
+        const year = date.getFullYear(); // 현재 연도
+        // 선택된 달을 기준으로 날짜 생성 (currentMonth 상태 사용)
+        return year * 100 + currentMonth; // YYYYMM 형식
       };
-      const currentDate = 202403;
+      const currentDate = getSelectedDate();
       getMyConsumptionOfCategoryAmount(
         token,
         currentDate,
@@ -106,7 +124,7 @@ function ConsumptionOfYou() {
         }
       );
     }
-  }, [token]);
+  }, [token, currentMonth]);
 
   const formatTotalConsumption = totalConsumption.toLocaleString("ko-KR");
 
@@ -139,19 +157,42 @@ function ConsumptionOfYou() {
     }
   }, [categories, token]);
 
+  const moveToPreviousMonth = () =>
+    setCurrentMonth(currentMonth > 1 ? currentMonth - 1 : 1);
+
+  const moveToNextMonth = () => {
+    const maxMonth = new Date().getMonth() + 1; // 현재 월
+    if (currentMonth < maxMonth) {
+      setCurrentMonth(currentMonth + 1);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.myConsumptionContainer}>
+        <TouchableOpacity
+          onPress={moveToPreviousMonth}
+          disabled={currentMonth === 1}
+        >
+          <Text style={styles.navigationText}>{"<"}</Text>
+        </TouchableOpacity>
         <Text style={styles.myConsumptionText}>내 소비</Text>
+        <TouchableOpacity
+          onPress={moveToNextMonth}
+          disabled={currentMonth >= maxMonth}
+        >
+          <Text style={styles.navigationText}>{">"}</Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.topContainer}>
         <Text style={styles.consumptionText}>
-          <Text style={{ fontWeight: "bold" }}>3</Text>월달에는
+          <Text style={{ fontWeight: "bold" }}>{currentMonth}</Text>월달에는
         </Text>
         <View style={styles.amountContainer}>
           <Text style={styles.amountText}>{formatTotalConsumption}</Text>
           <Text style={styles.consumptionText}>원 썼어요!</Text>
         </View>
+        <View style={styles.navigationButtons}></View>
       </View>
       <HorizontalBarGraph
         categories={LastCategory}
@@ -184,9 +225,20 @@ const styles = StyleSheet.create({
       },
     }),
   },
+  navigationText: {
+    fontSize: 26,
+    fontWeight: "bold",
+    color: "#4D85FF",
+    marginHorizontal: 20,
+  },
   myConsumptionContainer: {
-    marginBottom: 35,
-    marginTop: 20,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: 30,
+    marginBottom: 15,
+    width: "100%",
+    paddingHorizontal: 30,
   },
   myConsumptionText: {
     fontSize: 22,
@@ -211,6 +263,8 @@ const styles = StyleSheet.create({
   topContainer: {
     flex: 1,
     marginLeft: -10,
+    height: 60,
+    width: 280,
   },
   rowGraph: {
     flexDirection: "row",

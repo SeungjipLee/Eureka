@@ -44,10 +44,10 @@ function CardRakingList() {
     if (imageAttribute === 1) {
       return {
         transform: [{ rotate: "90deg" }],
-        width: 95, 
+        width: 95,
         height: 155,
         resizeMode: "contain",
-        marginLeft: 30 
+        marginLeft: 30,
       };
     } else {
       // 그렇지 않으면, 빈 스타일 객체 반환
@@ -158,8 +158,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   imageContainer2: {
+    marginTop: 15,
     flexDirection: "row",
     alignItems: "center",
+    marginLeft: 10,
+    padding: 2,
   },
   topCardText: {
     marginTop: 20,
@@ -167,11 +170,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   bottomCard: {
-    marginTop: 15,
+    marginTop: 30,
   },
   otherCardInfo: {
     flexDirection: "column",
-    marginTop: 40,
     marginLeft: 40,
     justifyContent: "center",
     alignItems: "flex-end",
@@ -206,7 +208,7 @@ const styles = StyleSheet.create({
   },
   otherBadge: {
     position: "absolute",
-    top: 5,
+    top: -15,
     left: -20,
     zIndex: 1,
     height: 60,
