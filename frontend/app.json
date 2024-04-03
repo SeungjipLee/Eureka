@@ -19,7 +19,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/eureka-logo.png",
+        "foregroundImage": "./assets/eureka-icon.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.ssafy.eureka"
