@@ -30,7 +30,6 @@ function PayCheck({ route }) {
 
     fetchToken();
   }, []);
-  // console.log(orderId)
 
   useEffect(() => {
     // 결제 검증 성공 시 이벤트 리스너 등록
@@ -65,17 +64,13 @@ function PayCheck({ route }) {
       } else {
         console.log('생체 인증 실패 또는 취소됨');
         navigation.navigate("PaymentPassword", {
-          params: {
-            frompage: "PayCheck",
-          },
+          frompage: "PayCheck",
         });
       }
     } else {
       // 생체 인식이 비활성화된 경우, 비밀번호 입력 페이지로 네비게이션
       navigation.navigate("PaymentPassword", {
-        params: {
-          frompage: "PayCheck",
-        },
+        frompage: "PayCheck",
       });
     }
   };
@@ -101,7 +96,6 @@ function PayCheck({ route }) {
       token,
       inputData,
       (res) => {
-        console.log(res)
         navigation.navigate('PayComplete', {
           selectedCard: selectedCard,
           totalAmount: totalAmount,
@@ -111,7 +105,6 @@ function PayCheck({ route }) {
       },
 
       (err) => {
-        console.log(selectedCard.userCardId)
         console.log(err)
         alert('오류 발생! 다시 진행해 주세요.')
         navigation.navigate('Home')

@@ -62,7 +62,7 @@ export default function PayQRCode() {
       totalAmount: totalAmount,
       vat: 0,
       totalInstallCnt: 0,
-      requestedAt: new Date(),
+      requestedAt: new Date(new Date().getTime() + (9 * 60 * 60 * 1000)),
     });
   };
 
