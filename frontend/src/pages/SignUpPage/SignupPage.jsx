@@ -34,13 +34,13 @@ const SignupPage = () => {
 
   const checkAndShowAuthInput = () => {
     // 휴대폰 번호, 주민등록번호, 이름이 모두 입력되었는지 확인
-    if (PhoneNum.length === 11 && RNum.length === 6 && RNum2.length === 1 && Name.length > 0) {
+    if (PhoneNum.length === 13 && RNum.length === 6 && RNum2.length === 1 && Name.length > 0) {
       // 모든 조건이 충족되면 서버에 사용자 정보 전송
       const userInfo = {
         userName: Name,
         userBirth: RNum,
         userGender: RNum2,
-        phoneNumber: PhoneNum,
+        phoneNumber: cleanPhoneNumber(PhoneNum),
       };
 
       axios.post('https://j10e101.p.ssafy.io/api/user/send', userInfo)
@@ -62,13 +62,13 @@ const SignupPage = () => {
   };
 
   const resendAuthNumber = () => {
-    if (PhoneNum.length === 11 && RNum.length === 6 && RNum2.length === 1 && Name.length > 0) {
+    if (PhoneNum.length === 13 && RNum.length === 6 && RNum2.length === 1 && Name.length > 0) {
       // 모든 조건이 충족되면 서버에 사용자 정보 전송
       const userInfo = {
         userName: Name,
         userBirth: RNum,
         userGender: RNum2,
-        phoneNumber: PhoneNum,
+        phoneNumber: cleanPhoneNumber(PhoneNum),
       };
 
       axios.post('https://j10e101.p.ssafy.io/api/user/send', userInfo)
@@ -94,7 +94,7 @@ const SignupPage = () => {
         userName: Name,
         userBirth: RNum,
         userGender: RNum2,
-        phoneNumber: PhoneNum,
+        phoneNumber: cleanPhoneNumber(PhoneNum),
         authNumber: AuthNum,
       };
 
@@ -136,6 +136,32 @@ const SignupPage = () => {
     }
   };
 
+  const formatPhoneNumber = (value) => {
+    // 숫자만 입력되도록 정규식을 사용해 비숫자 문자를 제거합니다.
+    const numbers = value.replace(/[^\d]/g, '');
+    // 숫자를 3-4-4 형식으로 분할합니다.
+    if (numbers.length <= 3) {
+      return numbers;
+    }
+    if (numbers.length <= 7) {
+      return `${numbers.slice(0, 3)}-${numbers.slice(3)}`;
+    }
+    return `${numbers.slice(0, 3)}-${numbers.slice(3, 7)}-${numbers.slice(7, 11)}`;
+  };
+
+  const onPhoneNumChange = (value) => {
+    // 입력된 전화번호를 3-4-4 형식으로 포맷합니다.
+    const formattedPhoneNumber = formatPhoneNumber(value);
+    setPhoneNum(formattedPhoneNumber);
+
+    if (formattedPhoneNumber.length === 13) {
+      rNumInputRef.current.focus();
+    }
+  };
+
+  const cleanPhoneNumber = (formattedPhoneNumber) => {
+    return formattedPhoneNumber.replace(/-/g, '');
+  };
 
   const MiddleView = () => (
     <View
@@ -149,14 +175,9 @@ const SignupPage = () => {
         style={styles.TextInput}
         placeholder='-없이 입력해주세요'
         value={PhoneNum}
-        maxLength={11}
+        maxLength={13}
         keyboardType='numeric'
-        onChangeText={value => {
-          setPhoneNum(value);
-          if (value.length === 11) {
-            rNumInputRef.current.focus(); // 전화번호 입력이 완료되면 다음 필드로 자동 이동
-          }
-        }}
+        onChangeText={onPhoneNumChange}
         onFocus={() => {
           setBorderBottomColor1('#3675FF');
         }}
