@@ -31,7 +31,7 @@ public class CardOwnershipDto {
         this.ownershipCount = (long) ownershipCount;
     }
 
-    public CardOwnershipDto(int cardId, String cardName, String imagePath, int imageAttr, Long ownershipCount) {
+    public CardOwnershipDto(int cardId, String cardName, String info, String imagePath, int imageAttr, Long ownershipCount) {
         this.cardId = cardId;
         this.cardName = cardName;
         this.imagePath = imagePath;
