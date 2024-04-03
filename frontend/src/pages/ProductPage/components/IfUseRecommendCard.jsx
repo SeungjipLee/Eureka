@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   StyleSheet,
   View,
@@ -14,6 +14,7 @@ import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { get3RecommendCard } from "../../../apis/ProductApi";
 import TokenUtils from "../../../stores/TokenUtils";
+import { recommendCateCardProfit } from "../../../slices/productSlice";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 const CARD_WIDTH = (SCREEN_WIDTH - 80) / 2;
@@ -27,7 +28,7 @@ function IfUseRecommendCard() {
     (state) => state.productList.selectPayCardInfo
   );
   // const userInformation = useSelector((state) => state.userInfo.value);
-
+  const dispatch = useDispatch();
   const scrollViewRef = useRef();
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -50,6 +51,7 @@ function IfUseRecommendCard() {
           setCategoryCard(cardsData[0].categoryCard);
           setDdoraeCard(cardsData[0].ddoraeCard);
           // console.log(selectCardUserCardId, "IfuseReco, cardid");
+          dispatch(recommendCateCardProfit(cardsData[0].categoryCard));
         },
         (err) => {
           console.log(err, "IfUseRecommendCard err");
@@ -112,7 +114,10 @@ function IfUseRecommendCard() {
           decelerationRate="normal"
           style={styles.midContainer}
         >
-          <View style={styles.card}>
+          <Pressable
+            style={styles.card}
+            onPress={() => navigation.navigate("CompareCard")}
+          >
             <Text style={{ marginBottom: 10, fontSize: 11, fontWeight: "600" }}>
               {categoryCard.cardName ? (
                 categoryCard.cardName.length > 20 ? (
@@ -153,9 +158,12 @@ function IfUseRecommendCard() {
                 <Text style={{ fontSize: 12 }}>원 더 할인받아요!</Text>
               </Text>
             </View>
-          </View>
+          </Pressable>
 
-          <View style={styles.card}>
+          <Pressable
+            style={styles.card}
+            onPress={() => navigation.navigate("CompareCard")}
+          >
             <Text style={{ marginBottom: 10, fontSize: 11, fontWeight: "600" }}>
               {ddoraeCard.cardName ? (
                 ddoraeCard.cardName.length > 20 ? (
@@ -184,7 +192,7 @@ function IfUseRecommendCard() {
               <Text style={styles.subText3}>현재 또래들이 많이</Text>
               <Text style={styles.subText3}>사용하는 카드에요!</Text>
             </View>
-          </View>
+          </Pressable>
         </ScrollView>
 
         <TouchableOpacity style={styles.arrowButton} onPress={handleNext}>

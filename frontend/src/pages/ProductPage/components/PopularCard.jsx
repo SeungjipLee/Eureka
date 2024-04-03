@@ -25,10 +25,13 @@ function PopularCard() {
   const [popularCards, setPopularCards] = useState([]);
   const [ddoraeCards, setDdoraeCards] = useState([]);
 
+  const scrollViewRef = useRef(null);
+  const popularRef = useRef(null);
+  const ddoraeRef = useRef(null);
+
   useEffect(() => {
     if (selectCardInfo) {
       setUserCardId(selectCardInfo.userCardId);
-      console.log(selectCardInfo.userCardId);
     }
   }, [selectCardInfo]);
 
@@ -37,62 +40,44 @@ function PopularCard() {
       const accessToken = await TokenUtils.getAccessToken();
       setToken(accessToken);
     };
-
     fetchToken();
   }, []);
 
   useEffect(() => {
-    // 토큰과 selectId가 유효할 때만 API 호출
     if (token && userCardId) {
       getUserTop10(
         token,
         (res) => {
-          console.log(res.data.cardOwnershipList, "Popularcard111111111111");
-          setPopularCards(res.data);
+          setPopularCards(res.data.cardOwnershipList);
+          console.log(res.data.cardOwnershipList, "sdaasd");
         },
         (err) => {
           console.log("PopularCard, err", err);
         }
       );
 
-      // getDdoraeTop10(
-      //   token,
-      //   userCardId,
-      //   (res) => {
-      //     setDdoraeCards(res.data);
-      //     console.log(res.data, "DdoraeCard22222222222222222222");
-      //   },
-      //   (err) => {
-      //     console.log("PopularCard, err", err);
-      //   }
-      // );
+      getDdoraeTop10(
+        token,
+        userCardId,
+        (res) => {
+          setDdoraeCards(res.data.cardOwnershipList);
+        },
+        (err) => {
+          console.log("PopularCard, err", err);
+        }
+      );
     }
   }, [token, userCardId]);
 
-  function getImageStyle(imgAttr) {
-    if (imgAttr === 0) {
-      // 가로 이미지
-      return styles.horizontalImage;
-    } else if (imgAttr === 1) {
-      // 세로 이미지
-      return styles.verticalImage;
-    } else {
-      return styles.defaultImage; // 기본 스타일
-    }
-  }
-
-  const popularRef = useRef();
-  const ddoraeRef = useRef();
-  const scrollViewRef = useRef();
-
-  // 특정 섹션으로 스크롤하는 함수
   const scrollToSection = (sectionRef) => {
-    sectionRef.current.measureLayout(
-      scrollViewRef.current,
-      (x, y, width, height) => {
-        scrollViewRef.current.scrollTo({ x: 0, y, animated: true });
-      }
-    );
+    if (sectionRef.current && scrollViewRef.current) {
+      sectionRef.current.measureLayout(
+        scrollViewRef.current,
+        (x, y, width, height) => {
+          scrollViewRef.current.scrollTo({ x: 0, y, animated: true });
+        }
+      );
+    }
   };
 
   return (
@@ -122,60 +107,80 @@ function PopularCard() {
         />
       </View>
 
+      <View style={styles.topTabs}>
+        <TouchableOpacity onPress={() => scrollToSection(popularRef)}>
+          <Text style={styles.tabText}>인기카드</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => scrollToSection(ddoraeRef)}>
+          <Text style={styles.tabText}>또래추천카드</Text>
+        </TouchableOpacity>
+      </View>
+      <View style={styles.separator}></View>
       <ScrollView
         ref={scrollViewRef}
         contentContainerStyle={styles.contentContainer}
       >
-        <View style={styles.topTabs}>
-          <TouchableOpacity onPress={() => scrollToSection(popularRef)}>
-            <Text style={styles.tabText}>인기카드</Text>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => scrollToSection(ddoraeRef)}>
-            <Text style={styles.tabText}>또래추천카드</Text>
-          </TouchableOpacity>
-        </View>
-
         <View ref={popularRef}>
           <Text style={styles.sectionTitle}>인기카드</Text>
-          {popularCards.map(
-            (card, index) =>
-              index < 5 && (
-                <View key={card.cardId} style={styles.cardItem}>
-                  <Image
-                    source={{ uri: card.imagePath }}
-                    style={styles.cardImage}
-                  />
-                  <Text style={styles.cardName}>{card.cardName}</Text>
-                  <Text style={styles.cardInfo}>{card.info}</Text>
-                </View>
-              )
-          )}
+          {popularCards.map((card, index) => (
+            <Pressable
+              key={`popular_${card.cardId}_${index}`}
+              style={styles.cardItem}
+              onPress={() =>
+                navigation.navigate("SelectCardInfo", {
+                  cardId: card.cardId,
+                  type: 5,
+                })
+              }
+            >
+              <View style={styles.cardImageContainer}>
+                <Image
+                  source={{ uri: card.imagePath }}
+                  style={styles.cardImage}
+                />
+              </View>
+              <View style={styles.cardDetail}>
+                <Text style={styles.cardName}>{card.cardName}</Text>
+                <Text style={styles.cardInfo}>{card.info}</Text>
+              </View>
+            </Pressable>
+          ))}
         </View>
+
         <View style={styles.separator} />
 
-        {/* <View ref={ddoraeRef}>
+        <View ref={ddoraeRef}>
           <Text style={styles.sectionTitle}>또래추천카드</Text>
-          {ddoraeCards.map(
-            (card, index) =>
-              index < 5 && (
-                <View key={card.cardId} style={styles.cardItem}>
-                  <Image
-                    source={{ uri: card.imagePath }}
-                    style={styles.cardImage}
-                  />
-                  <Text style={styles.cardName}>{card.cardName}</Text>
-                  <Text style={styles.cardInfo}>{card.info}</Text>
-                </View>
-              )
-          )}
-        </View> */}
+          {ddoraeCards.map((card, index) => (
+            <Pressable
+              key={`ddorae_${card.cardId}_${index}`}
+              style={styles.cardItem}
+              onPress={() =>
+                navigation.navigate("SelectCardInfo", {
+                  cardId: card.cardId,
+                  type: 5,
+                })
+              }
+            >
+              <View style={styles.cardImageContainer}>
+                <Image
+                  source={{ uri: card.imagePath }}
+                  style={styles.cardImage}
+                />
+              </View>
+              <View style={styles.cardDetail}>
+                <Text style={styles.cardName}>{card.cardName}</Text>
+                <Text style={styles.cardInfo}>{card.info}</Text>
+              </View>
+            </Pressable>
+          ))}
+        </View>
       </ScrollView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  // 스타일 정의 부분
   container: {
     flex: 1,
     paddingTop: StatusBar.currentHeight,
@@ -190,29 +195,41 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   tabText: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "600",
   },
   sectionTitle: {
-    fontSize: 22,
-    fontWeight: "700",
+    fontSize: 18,
+    fontWeight: "400",
     marginVertical: 10,
     marginLeft: 10,
   },
   cardItem: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 15,
+    marginBottom: 20,
     paddingHorizontal: 10,
   },
+  cardImageContainer: {
+    width: 80, // 이미지 컨테이너 너비 설정
+    height: 100, // 이미지 컨테이너 높이 설정
+    marginRight: 15,
+    justifyContent: "center", // 이미지를 중앙에 위치시킴
+    alignItems: "center", // 이미지를 중앙에 위치시킴
+  },
   cardImage: {
-    width: 100,
-    height: 60,
-    marginRight: 10,
+    width: 80,
+    height: 100,
+    resizeMode: "contain", // 원본 이미지 비율 유지
+  },
+  cardDetail: {
+    flexDirection: "column",
+    flex: 1,
   },
   cardName: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "600",
+    marginBottom: 5,
   },
   cardInfo: {
     fontSize: 14,
@@ -244,12 +261,10 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   separator: {
-    height: 0.7,
+    height: 0.8,
     width: "95%",
     backgroundColor: "#d8d8d8",
     marginLeft: 10,
-    marginTop: 25,
-    marginBottom: 35,
   },
 });
 

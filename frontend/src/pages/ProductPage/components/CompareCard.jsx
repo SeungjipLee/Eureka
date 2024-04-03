@@ -9,6 +9,9 @@ import {
   StatusBar,
   ScrollView,
   Pressable,
+  Linking,
+  Modal,
+  TouchableWithoutFeedback,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -24,12 +27,22 @@ function CompareCard() {
   const [categoryCard, setCategoryCard] = useState([]);
   const [ddoraeCard, setDdoraeCard] = useState([]);
   const [myCard, setMyCard] = useState([]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const selectCard = useSelector(
     (state) => state.productList.selectPayCardInfo
   );
   const selectCardBenefit = useSelector(
     (state) => state.productList.payCardBenefit
   );
+  const discountProfit = useSelector((state) => state.productList.profit);
+
+  const handleOpenModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalVisible(false);
+  };
 
   // 이미지 스타일을 동적으로 결정하는 함수
   function getImageStyle(imgAttr) {
@@ -75,6 +88,8 @@ function CompareCard() {
           setCategoryCard(cardsData[0].categoryCard);
           setDdoraeCard(cardsData[0].ddoraeCard);
           setMyCard(cardsData[0].myCard);
+          // console.log(selectCardUserCardId, "CompareCard selectCardId");
+          // console.log(myCard, "mycard");
         },
         (err) => {
           console.log(err, "IfUseRecommendCard err");
@@ -85,6 +100,15 @@ function CompareCard() {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
+      <Modal visible={isModalVisible} transparent animationType="fade">
+        <TouchableWithoutFeedback onPress={handleCloseModal}>
+          <View style={styles.modalBackground}>
+            <View style={styles.modalContent}>
+              <Text style={styles.modalText}>사이트가 없어요!</Text>
+            </View>
+          </View>
+        </TouchableWithoutFeedback>
+      </Modal>
       <Pressable
         onPress={() => navigation.navigate("ProductPage1")}
         style={{ alignSelf: "flex-start" }}
@@ -95,37 +119,54 @@ function CompareCard() {
           style={styles.nextBtn}
         />
       </Pressable>
-
       <View style={styles.topcontainer}>
         <View style={styles.maintextContainer}>
-          <Text style={styles.maintext}>
-            {selectCard.cardCompanyName} |{" "}
-            {selectCard.cardType === 1 ? <Text>신용</Text> : <Text>체크</Text>}
-          </Text>
+          {selectCard.cardCompanyName ? (
+            <Text style={styles.maintext}>
+              {selectCard.cardCompanyName} |{" "}
+              {selectCard.cardType === 1 ? (
+                <Text>신용</Text>
+              ) : (
+                <Text>체크</Text>
+              )}
+            </Text>
+          ) : (
+            <Text style={styles.maintext}>선택한 결제카드</Text>
+          )}
 
-          <Text style={styles.cardName} numberOfLines={2} ellipsizeMode="tail">
-            {selectCard.cardName}
-          </Text>
+          {selectCard.cardName ? (
+            <Text
+              style={styles.cardName}
+              numberOfLines={2}
+              ellipsizeMode="tail"
+            >
+              {selectCard.cardName}
+            </Text>
+          ) : (
+            <Text style={styles.cardName}>데이터를 불러오지 못했어요..</Text>
+          )}
         </View>
 
-        <Image
-          source={{ uri: selectCard.imagePath }}
-          style={getImageStyle(selectCard.imgAttr)}
-          resizeMode="contain"
-        />
+        {selectCard.imagePath ? (
+          <Image
+            source={{ uri: selectCard.imagePath }}
+            style={getImageStyle(selectCard.imgAttr)}
+            resizeMode="contain"
+          />
+        ) : (
+          <Image source={require("../../../../assets/card2.png")} />
+        )}
       </View>
-
       <View style={styles.top}>
         <Text style={styles.maintext}>현재카드 이번달 혜택</Text>
         {selectCardBenefit?.totalDiscount ? (
           <Text style={styles.benefitAmount}>
-            {selectCardBenefit.totalDiscount}원
+            {selectCardBenefit.totalDiscount.toLocaleString()}원
           </Text>
         ) : (
-          <Text>계산중이에요..</Text>
+          <Text>데이터를 불러오지 못했어요..</Text>
         )}
       </View>
-
       <View style={styles.midContainer}>
         <View style={styles.midUpTitle}>
           <Text style={{ fontSize: 15, fontWeight: "600" }}>
@@ -137,7 +178,7 @@ function CompareCard() {
           <View style={styles.twoCardCompare}>
             <View style={styles.myCard}>
               <Text style={{ fontSize: 10 }}>내 카드</Text>
-              {cards ? (
+              {myCard.imagePath ? (
                 <Image
                   source={{ uri: myCard.imagePath }}
                   style={getImageStyle2(myCard.imgAttr)}
@@ -159,7 +200,7 @@ function CompareCard() {
 
             <View style={styles.otherCard}>
               <Text style={{ fontSize: 10 }}>카테고리 추천 카드</Text>
-              {cards ? (
+              {categoryCard.imagePath ? (
                 <Image
                   source={{ uri: categoryCard.imagePath }}
                   style={getImageStyle2(categoryCard.imgAttr)}
@@ -178,24 +219,26 @@ function CompareCard() {
             <View style={styles.cardInfoContainer}>
               <View style={styles.infoBox}>
                 <Text style={styles.infoTitle}>연회비</Text>
-                {myCard ? (
-                  <Text style={styles.infoAmount}>{myCard.annualFee}원</Text>
+                {myCard.annualFee ? (
+                  <Text style={styles.infoAmount}>
+                    {myCard.annualFee.toLocaleString()}원
+                  </Text>
                 ) : (
-                  <Text>1,212원</Text>
+                  <Text>0원</Text>
                 )}
               </View>
               <View style={styles.infoBox}>
                 <Text style={styles.infoTitle}>월 할인</Text>
-                <Text style={styles.infoAmount}>10,000원</Text>
+                <Text style={styles.infoAmount}>준비중인 기능!</Text>
               </View>
               <View style={styles.infoBox}>
                 <Text style={styles.infoTitle}>전월 실적</Text>
-                {myCard ? (
+                {myCard.previousPerformance ? (
                   <Text style={styles.infoAmount}>
-                    {myCard.previousPerformance}원
+                    {myCard.previousPerformance.toLocaleString()}원
                   </Text>
                 ) : (
-                  <Text>계산중이에요..</Text>
+                  <Text>0원</Text>
                 )}
               </View>
             </View>
@@ -203,26 +246,26 @@ function CompareCard() {
             <View style={styles.cardInfoContainer}>
               <View style={styles.infoBox}>
                 <Text style={styles.infoTitle}>연회비</Text>
-                {categoryCard ? (
+                {categoryCard.annualFee ? (
                   <Text style={styles.infoAmount}>
-                    {categoryCard.annualFee}원
+                    {categoryCard.annualFee.toLocaleString()}원
                   </Text>
                 ) : (
-                  <Text>1,212원</Text>
+                  <Text>0원</Text>
                 )}
               </View>
               <View style={styles.infoBox}>
                 <Text style={styles.infoTitle}>월 할인</Text>
-                <Text style={styles.infoAmount}>20,000원</Text>
+                <Text style={styles.infoAmount}>준비중인 기능!</Text>
               </View>
               <View style={styles.infoBox}>
                 <Text style={styles.infoTitle}>전월 실적</Text>
-                {categoryCard ? (
+                {categoryCard.previousPerformance ? (
                   <Text style={styles.infoAmount}>
-                    {categoryCard.previousPerformance}원
+                    {categoryCard.previousPerformance.toLocaleString()}원
                   </Text>
                 ) : (
-                  <Text>없어요!</Text>
+                  <Text>0원</Text>
                 )}
               </View>
             </View>
@@ -232,44 +275,83 @@ function CompareCard() {
         <View style={styles.midBottom}>
           <View style={styles.midUpTitle}>
             <Text style={{ fontSize: 15, fontWeight: "400" }}>
-              혜택 별 할인 예상금액
+              예상 혜택 금액
             </Text>
           </View>
           <View style={styles.separator}></View>
 
-          {/* <View style={styles.benefitList}>
-            {benefits.map((benefit) => (
-              <View key={benefit.id} style={styles.benefitItem}>
-                <Text style={styles.benefitContent}>* {benefit.content}</Text>
-                <Text style={styles.benefitAmount}>{benefit.amount}</Text>
-              </View>
-            ))}
-          </View> */}
-        </View>
+          <View style={styles.benefitList}>
+            <View style={styles.benefitItem}>
+              <Text style={{ fontSize: 15, fontWeight: "500" }}>
+                *추천카드 혜택
+              </Text>
+              {discountProfit.afterDiscount ? (
+                <Text style={styles.benefitAmount}>
+                  {discountProfit.afterDiscount.toLocaleString()}원
+                </Text>
+              ) : (
+                <Text style={styles.benefitAmount}>불러오지 못했어요,,</Text>
+              )}
+            </View>
 
-        <View style={styles.bottom}>
-          <View style={styles.separator} />
-          <View style={styles.resultContainer}>
-            <Text>*합계</Text>
-            <Text>결과</Text>
+            <View style={styles.benefitItem}>
+              <Text style={{ fontSize: 15, fontWeight: "500" }}>
+                *현재카드 혜택
+              </Text>
+              {discountProfit.beforeDiscount ? (
+                <Text style={styles.benefitAmount}>
+                  {discountProfit.beforeDiscount.toLocaleString()}원
+                </Text>
+              ) : (
+                <Text style={styles.benefitAmount}>불러오지 못했어요,,</Text>
+              )}
+            </View>
           </View>
         </View>
 
+        {/* <View style={styles.bottom}>
+          <View style={styles.separator} />
+          <View style={styles.resultContainer}>
+            <Text style={{ fontSize: 18, fontWeight: "600" }}>*합계</Text>
+            <Text>결과</Text>
+          </View>
+        </View> */}
+
         <View style={styles.totalContainer}>
+          {}
           <Text style={{ fontSize: 20, fontWeight: "400" }}>
-            총 10000원 이득!
+            {discountProfit.beforeDiscount ? (
+              <Text style={styles.benefitAmount}>
+                총{" "}
+                <Text style={{ fontSize: 20, fontWeight: "500" }}>
+                  {discountProfit.afterDiscount - discountProfit.beforeDiscount}
+                  원{" "}
+                </Text>
+                이득!
+              </Text>
+            ) : (
+              <Text style={styles.benefitAmount}>불러오지 못했어요,,</Text>
+            )}
           </Text>
         </View>
 
         <View style={styles.bottomContainer}>
-          <Pressable style={styles.applyBtn}>
+          <Pressable
+            style={styles.applyBtn}
+            onPress={() => {
+              if (categoryCard.joinPath) {
+                Linking.openURL(categoryCard.joinPath);
+              } else {
+                handleOpenModal();
+              }
+            }}
+          >
             <Text style={{ fontSize: 15, fontWeight: "600", color: "white" }}>
               온라인 신청하기
             </Text>
           </Pressable>
         </View>
       </View>
-
       <View style={styles.midContainer2}>
         <View style={styles.midUpTitle}>
           <Text style={{ fontSize: 15, fontWeight: "600" }}>
@@ -281,7 +363,7 @@ function CompareCard() {
           <View style={styles.twoCardCompare}>
             <View style={styles.myCard}>
               <Text style={{ fontSize: 10 }}>내 카드</Text>
-              {cards ? (
+              {myCard.imagePath ? (
                 <Image
                   source={{ uri: myCard.imagePath }}
                   style={getImageStyle2(myCard.imgAttr)}
@@ -303,7 +385,7 @@ function CompareCard() {
 
             <View style={styles.otherCard}>
               <Text style={{ fontSize: 10 }}>또래인기 추천 카드</Text>
-              {cards ? (
+              {ddoraeCard.imagePath ? (
                 <Image
                   source={{ uri: ddoraeCard.imagePath }}
                   style={getImageStyle2(ddoraeCard.imgAttr)}
@@ -322,24 +404,26 @@ function CompareCard() {
             <View style={styles.cardInfoContainer}>
               <View style={styles.infoBox}>
                 <Text style={styles.infoTitle}>연회비</Text>
-                {myCard ? (
-                  <Text style={styles.infoAmount}>{myCard.annualFee}원</Text>
+                {myCard.annualFee ? (
+                  <Text style={styles.infoAmount}>
+                    {myCard.annualFee.toLocaleString()}원
+                  </Text>
                 ) : (
-                  <Text>1,212원</Text>
+                  <Text>0원</Text>
                 )}
               </View>
               <View style={styles.infoBox}>
                 <Text style={styles.infoTitle}>월 할인</Text>
-                <Text style={styles.infoAmount}>10,000원</Text>
+                <Text style={styles.infoAmount}>준비중인 기능!</Text>
               </View>
               <View style={styles.infoBox}>
                 <Text style={styles.infoTitle}>전월 실적</Text>
-                {myCard ? (
+                {myCard.previousPerformance ? (
                   <Text style={styles.infoAmount}>
-                    {myCard.previousPerformance}원
+                    {myCard.previousPerformance.toLocaleString()}원
                   </Text>
                 ) : (
-                  <Text>계산중이에요..</Text>
+                  <Text>0원</Text>
                 )}
               </View>
             </View>
@@ -347,26 +431,26 @@ function CompareCard() {
             <View style={styles.cardInfoContainer}>
               <View style={styles.infoBox}>
                 <Text style={styles.infoTitle}>연회비</Text>
-                {ddoraeCard ? (
+                {ddoraeCard.annualFee ? (
                   <Text style={styles.infoAmount}>
-                    {ddoraeCard.annualFee}원
+                    {ddoraeCard.annualFee.toLocaleString()}원
                   </Text>
                 ) : (
-                  <Text>1,212원</Text>
+                  <Text>0원</Text>
                 )}
               </View>
               <View style={styles.infoBox}>
                 <Text style={styles.infoTitle}>월 할인</Text>
-                <Text style={styles.infoAmount}>20,000원</Text>
+                <Text style={styles.infoAmount}>준비중인 기능!</Text>
               </View>
               <View style={styles.infoBox}>
                 <Text style={styles.infoTitle}>전월 실적</Text>
-                {ddoraeCard ? (
+                {ddoraeCard.previousPerformance ? (
                   <Text style={styles.infoAmount}>
-                    {ddoraeCard.previousPerformance}원
+                    {ddoraeCard.previousPerformance.toLocaleString()}원
                   </Text>
                 ) : (
-                  <Text>없어요!</Text>
+                  <Text>0원</Text>
                 )}
               </View>
             </View>
@@ -374,7 +458,16 @@ function CompareCard() {
         </View>
 
         <View style={styles.bottomContainer2}>
-          <Pressable style={styles.applyBtn}>
+          <Pressable
+            style={styles.applyBtn}
+            onPress={() => {
+              if (ddoraeCard.joinPath) {
+                Linking.openURL(ddoraeCard.joinPath);
+              } else {
+                handleOpenModal();
+              }
+            }}
+          >
             <Text style={{ fontSize: 15, fontWeight: "600", color: "white" }}>
               온라인 신청하기
             </Text>
@@ -422,18 +515,18 @@ const styles = StyleSheet.create({
     flex: 3,
     maxWidth: width - 20,
     backgroundColor: "#e5e5e5",
-    borderRadius: 5,
-    minHeight: 1000,
+    borderRadius: 10,
+    minHeight: 800,
     marginHorizontal: 15,
   },
   midContainer2: {
     justifyContent: "center",
     maxWidth: width - 20,
     backgroundColor: "#e5e5e5",
-    borderRadius: 5,
+    borderRadius: 10,
     marginTop: 20,
     marginBottom: 20,
-    minHeight: 500,
+    minHeight: 550,
     marginHorizontal: 15,
   },
   bottomContainer: {
@@ -479,16 +572,16 @@ const styles = StyleSheet.create({
   top: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: 50,
+    marginTop: 20,
     marginBottom: 15,
-    padding: 10,
+    padding: 15,
     marginLeft: 18,
     marginRight: 45,
     justifyContent: "space-between",
     width: 380,
-    height: 50,
+    height: 60,
     backgroundColor: "#e5e5e5",
-    borderRadius: 5,
+    borderRadius: 10,
   },
   midUp: {
     flex: 1,
@@ -557,12 +650,12 @@ const styles = StyleSheet.create({
   },
 
   infoTitle: {
-    fontSize: 11,
+    fontSize: 14,
     fontWeight: "400",
   },
   infoAmount: {
-    fontSize: 14,
-    fontWeight: "400",
+    fontSize: 16,
+    fontWeight: "500",
   },
   benefitList: {
     marginBottom: -100,
@@ -600,11 +693,26 @@ const styles = StyleSheet.create({
     width: 70,
     height: 110,
     marginTop: 5,
-    marginRight: -10,
+    marginRight: -15,
   },
   verticalImage2: {
     width: 50,
     height: 80,
     marginTop: 18,
+  },
+  // 모달 관련 스타일
+  modalBackground: {
+    flex: 1,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalContent: {
+    backgroundColor: "white",
+    padding: 20,
+    borderRadius: 10,
+  },
+  modalText: {
+    fontSize: 18,
   },
 });

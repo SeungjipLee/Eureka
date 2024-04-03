@@ -68,6 +68,8 @@ function SelectCardInfo() {
             navigation.navigate("FitYourConsumption");
           } else if (type === 4) {
             navigation.navigate("CurrentBenefitMore");
+          } else if (type === 5) {
+            navigation.navigate("PopularCard");
           }
         }}
         style={{ alignSelf: "flex-start" }}
