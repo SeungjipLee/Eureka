@@ -140,6 +140,7 @@ function BankListModal({ visible, onClose, onSelect }) {
             frompage: "BankListModal",
             responseData: cardListWithImages,
           });
+          console.log(cardListWithImages)
         }
       },
       (err) => console.log(err) // 에러 처리
