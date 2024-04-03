@@ -123,12 +123,14 @@ function ProductPage() {
 
       <Modal animationType="slide" transparent={true} visible={modalVisible}>
         <View style={styles.modalView}>
-          <ScrollView style={{ flex: 1 }}>
+          <ScrollView style={{ flex: 1, marginLeft: -20 }}>
             {cards.map((card, index) => (
               <TouchableOpacity
                 key={card.cardId}
                 style={styles.cardItem}
-                onPress={() => {handleSelectCard(card, index), dispatch(selectPayCard2(card))}}
+                onPress={() => {
+                  handleSelectCard(card, index), dispatch(selectPayCard2(card));
+                }}
               >
                 <Image
                   source={{ uri: card.imagePath }}
@@ -141,14 +143,24 @@ function ProductPage() {
                   ]}
                 />
                 <Text
-                  style={{ fontSize: 14, fontWeight: "600", marginRight: 30 }}
+                  style={{
+                    fontSize: 13,
+                    fontWeight: "400",
+                    marginRight: 30,
+                    flexShrink: 1,
+                    flexWrap: "wrap", // 글자가 넘칠 경우 줄 바꿈 처리
+                    width: 95, // 최대 글자수에 맞는 고정된 너비 설정
+                  }}
+                  numberOfLines={2} // 최대 2줄로 제한
                 >
                   {card.cardName}
                 </Text>
+
                 <MaterialCommunityIcons
                   name="check"
                   size={24}
                   color={selectedCardIndex === index ? "#6396FE" : "#C5C5C5"}
+                  style={{ marginLeft: 70 }}
                 />
               </TouchableOpacity>
             ))}
