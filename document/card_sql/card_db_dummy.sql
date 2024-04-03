@@ -1,5 +1,7 @@
 use card_db;
 
+select * from card where card_name like ('The CJ KB국민카드');
+
 # 1-2. card_company dummy
 INSERT INTO card_company(company_name, org_code, card_brand, image_path)
 VALUES  ("KB국민카드", "KB1N5V9I3W", "11", ""),
@@ -12,7 +14,6 @@ VALUES  ("KB국민카드", "KB1N5V9I3W", "11", ""),
         ("IBK기업은행카드", "IB1C3M5Q7P", "3K", ""),
         ("롯데카드", "RD3L5Q8P7S", "71", "")
 ;
-
 
 #3-2. user dummy
 insert into user(birth, name, phone_number)
@@ -71,13 +72,12 @@ values ("000101", "일싸피", "01011111111"),
 # 전월 30만
 # 에버랜드 50% 할인 월 1회
 
-# The CJ KB국민카드
-# 연회비 5000
-# 전월 0원
+# 나라사랑체크카드 / 국민카드 / 125
+# VIPS
 
 select * from user;
 
-select * from user_card where user_id = 5;
+select * from card where card_name = '나라사랑체크카드';
 
 #4-2. user_card dummy
 insert into user_card(user_id, card_id, card_identifier, card_number, card_cvc, card_password, card_member, expired_year, expired_month, token)
@@ -86,21 +86,21 @@ values (1, 90, "ce42cfa3f011c5560bb6bf744a32e609bffaf2c1953f61ef92cd75d5ba1aba17
        (1, 154, "f8d75b27bb43f303c04891d4c669b5a37543b8873bcd156e65321bf645c9d92a", "1000000000000003", "000", "1234", 0, "25", "01", null),
        (1, 186, "2668d59654d6bf0acd1929f8f27aebffb1be4243079294a5c7071ed308720908", "1000000000000004", "000", "1234", 0, "25", "01", null),
        (1, 171, "cdb9d2053137920a4929560e561589e776210eb014201b6de24b998aa1e0c4fe", "1000000000000005", "000", "1234", 0, "25", "01", null),
-       (1, 125, "cdb9d205nskda20a4929560e561589e776210eb014201b6de24b998aa1e0c4fe", "1000000000000006", "000", "1234", 0, "25", "01", null),
+       (1, 6, "cdb9d205nskda20a4929560e561589e776210eb014201b6de24b998aa1e0c4fe", "1000000000000006", "000", "1234", 0, "25", "01", null),
 
        (2, 90, "793e3bb26b15a933a9505210390dac4cc57f4c0d19adebae515782a847dcfa3f", "2000000000000001", "000", "1234", 0, "25", "01", null),
        (2, 23, "e9760ae2e0f38470c98de435ffa8d53580543e9813b0e709377a94c11c0deb66", "2000000000000002", "000", "1234", 0, "25", "01", null),
        (2, 154, "f9ff9b48b39af2da105b88a6d4fa5dca364f18e913307eb1bed6671158aaa0cd", "2000000000000003", "000", "1234", 0, "25", "01", null),
        (2, 186, "440fdf94f565b75633a5b4cd530c574daf58d89784ec6bb7a69e144b23faefbe", "2000000000000004", "000", "1234", 0, "25", "01", null),
        (2, 171, "93107d63bf900ae6c2d85818c2f69deea0d13189a5f216e0999d2f707bb0c36a", "2000000000000005", "000", "1234", 0, "25", "01", null),
-       (2, 125, "93107d6amcis0ae6c2d85818c2f69deea0d13189a5f216e0999d2f707bb0c36a", "2000000000000006", "000", "1234", 0, "25", "01", null),
+       (2, 6, "93107d6amcis0ae6c2d85818c2f69deea0d13189a5f216e0999d2f707bb0c36a", "2000000000000006", "000", "1234", 0, "25", "01", null),
 
        (3, 90, "210685892aac98682648008b06df73039eb3819936f3dddae877a05fd2f7312a", "3000000000000001", "000", "1234", 0, "25", "01", null),
        (3, 23, "8742016dc40b3734eb0be058c85c93cebe6b0f37773c7306f40835c3c965653b", "3000000000000002", "000", "1234", 0, "25", "01", null),
        (3, 154, "0cfac32761a8ed21ee94509a17eb3d573646a3bf4d7bd894e3b7ef4bc4fde0c2", "3000000000000003", "000", "1234", 0, "25", "01", null),
        (3, 186, "07956d23cc706157732027953d5fb1017b9142b7f221728caf1254be1e5affe1", "3000000000000004", "000", "1234", 0, "25", "01", null),
        (3, 171, "40128a911fbde97eb0128d09f5aac92c685a7e3c3bcd62b29af89b672535c8c5", "3000000000000005", "000", "1234", 0, "25", "01", null),
-       (3, 125, "40128aamskdde97eb0128d09f5aac92c685a7e3c3bcd62b29af89b672535c8c5", "3000000000000006", "000", "1234", 0, "25", "01", null),
+       (3, 6, "40128aamskdde97eb0128d09f5aac92c685a7e3c3bcd62b29af89b672535c8c5", "3000000000000006", "000", "1234", 0, "25", "01", null),
 
        (4, 22, "02367e31067c40aa27cb97ff6645e2a84333b8fdf434b444b77aeba4161c09d9", "4000000000000001", "000", "1234", 0, "25", "01", null),
        (4, 140, "58c639c2cf67d78852ee20de39cf5018203680e50d6467f14221283e7a0bd143", "4000000000000002", "000", "1234", 0, "25", "01", null),

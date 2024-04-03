@@ -61,6 +61,8 @@ create table if not exists user_card
 create index idx_user_id ON user_card(user_id);
 
 
+
+
 #5. card_history
 drop table if exists card_history;
 create table if not exists card_history
