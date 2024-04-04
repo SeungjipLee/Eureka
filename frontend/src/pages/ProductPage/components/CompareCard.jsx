@@ -574,7 +574,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 20,
     marginBottom: 15,
-    padding: 15,
+    padding: 20,
     marginLeft: 18,
     marginRight: 45,
     justifyContent: "space-between",
@@ -602,7 +602,7 @@ const styles = StyleSheet.create({
   },
   midUpTitle: {
     marginTop: 20,
-    marginLeft: 10,
+    marginLeft: 30,
     marginBottom: 5,
   },
   twoCardCompare: {
@@ -664,7 +664,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     marginVertical: 5,
-    paddingHorizontal: 15,
+    paddingHorizontal: 30,
   },
   resultContainer: {
     flexDirection: "row",
