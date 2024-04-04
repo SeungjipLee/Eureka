@@ -2,7 +2,14 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, Button, Pressable } from 'react-native';
 
 function PayComplete({ route, navigation }) {
-  const { selectedCard, totalAmount, discountInfo, progress, remaining } = route.params;
+  const { selectedCard, totalAmount, discountTypes, remaining } = route.params;
+
+  let progress
+  if (selectedCard.previousPerformance > 0) {
+    progress = ((selectedCard.currentMonthAmount + totalAmount) / selectedCard.previousPerformance) * 100;
+  } else {
+    progress = -1;
+  }
 
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems:'center'}}>
@@ -14,26 +21,35 @@ function PayComplete({ route, navigation }) {
         />
         
         <View style={styles.midContainer}>
-          <Text>추천 받은
-          <Text style={{fontWeight:'bold', fontSize: 20}}> {selectedCard.cardName}</Text>로</Text>
-          <Text style={styles.detail}>{discountInfo} 받아서</Text>
-          <Text style={styles.detail}><Text style={{fontWeight: 'bold', fontSize: 20}}>{totalAmount.toLocaleString()}원</Text>을 결제하였습니다!</Text>
+          {/* <Text>추천 받은</Text> */}
+          <Text><Text style={{fontWeight:'bold', fontSize: 18 }}>{selectedCard.cardName}</Text>로</Text>
+          {selectedCard.discountAmount ?
+            <Text style={styles.detail}>
+              <Text style={{ fontWeight: 'bold', fontSize: 20, color: '#3675FF' }}>
+                {selectedCard.discountCostType === 'L' ? '리터 당 ' : ""}{selectedCard.discountCost}{selectedCard.discountCostType === '%' ? '%' : '원'} {discountTypes[selectedCard.discountType]} 
+              </Text>받아서
+            </Text>
+            : '' } 
+
+          <Text style={styles.detail}><Text style={{fontWeight: 'bold', fontSize: 26 }}>{totalAmount.toLocaleString()}</Text> 원을 결제했어요!</Text>
           
           {
             remaining !== 0 ? (
               <>
-                <Text style={styles.detail}>다음 실적까지 남은 금액: <Text style={{fontSize: 20}}>{remaining.toLocaleString()}원</Text></Text>
+                <Text style={{ fontSize: 18, marginTop: 8 }}>실적 달성까지</Text> 
+                  <Text style={styles.detail}>
+                    <Text style={{fontSize: 22, fontWeight: 'bold', color: 'green' }}>{remaining.toLocaleString()}</Text> 원 남았어요</Text>
                 <View style={styles.progressBarContainer}>
-                  <View style={[styles.progressBar, { width: progress >= 0 ? `${Math.min(progress, 100)}%` : '0%'}]} />
+                  <View style={[styles.progressBar, { width: progress >= 0 ? `${Math.min(progress, 100)}%` : '100%'}]} />
                   {progress >= 0 ? (
                     <Text style={styles.progressPercentage}>{progress.toFixed(0)}%</Text>
                   ) : (
-                    <Text style={styles.progressPercentage}>카드 실적 없음</Text>
+                    ''
                   )}
                 </View>
               </>
             ) : (
-              <Text style={styles.achievementText}>카드 실적을 달성하였습니다.</Text>
+              <Text style={styles.achievementText}>{selectedCard.previousPerformance ? '카드 실적을 달성했어요' : ''}</Text>
             )
           }
 
@@ -61,7 +77,7 @@ const styles = StyleSheet.create({
   },
   detail: {
     fontSize: 16,
-    marginBottom: 5,
+    marginBottom: 4,
   },
   progressBarContainer: {
     flexDirection: 'row',
@@ -90,7 +106,7 @@ const styles = StyleSheet.create({
     paddingTop: 12,
   },
   achievementText: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
     marginTop: 20,
     color: 'green', // 색상은 원하는 대로 조정 가능

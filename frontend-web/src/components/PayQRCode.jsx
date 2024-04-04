@@ -25,7 +25,7 @@ export default function PayQRCode() {
       storeCode: "000-00-00004",
       storeName: "S-OIL 명지점",
       largeCategoryId: 3,
-      smallCategoryId: 157,
+      smallCategoryId: 155,
       redirectUrl: "https://j10e101.p.ssafy.io/soil",
     },
     "GS칼텍스": {
@@ -62,7 +62,7 @@ export default function PayQRCode() {
       totalAmount: totalAmount,
       vat: 0,
       totalInstallCnt: 0,
-      requestedAt: new Date(),
+      requestedAt: new Date(new Date().getTime() + (9 * 60 * 60 * 1000)),
     });
   };
 

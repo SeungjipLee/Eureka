@@ -266,11 +266,21 @@ public class StatisticServiceImpl implements StatisticService {
         List<CardOwnershipDto> cardOwnershipStaticList =
                 cardOwnershipStaticRepository.findCardOwnershipStaticByAgeGroup(ageGroup, date);
 
+        for (int i=0; i<cardOwnershipStaticList.size(); i++) {
+            int cardId = cardOwnershipStaticList.get(i).getCardId();
+            CardBenefitEntity cardBenefitEntity = cardBenefitRepository.findTopByCardId(cardId)
+                            .orElseThrow(() -> new CustomException(ResponseCode.CARD_NOT_FOUND));
+            String info = cardBenefitEntity.getInfo();
+            cardOwnershipStaticList.get(i).setInfo(info);
+        }
+
+
         for (CardOwnershipDto ownershipStatic : cardOwnershipStaticList) {
 //            Pageable pageable = PageRequest.of(0, 5);
 //            List<LargeCategoryEntity> categoryList =
 //                    cardBenefitDetailRepository.findByCardId(ownershipStatic.getCardId(), pageable);
 //            ownershipStatic.setCategoryList(categoryList);
+
 
             List<CardBenefitEntity> benbefitIdList = cardBenefitRepository.findAllCardBenefitIdsByCardId(ownershipStatic.getCardId());
 

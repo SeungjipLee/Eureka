@@ -86,8 +86,18 @@ function CardDetailPage({route}) {
   };
 
   const goToNextMonth = () => {
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth() + 1;
+
     let newYear = parseInt(year);
     let newMonth = parseInt(month) + 1;
+
+    if (newYear > currentYear || (newYear === currentYear && newMonth > currentMonth)) {
+      console.log("현재 월 이후로는 변경할 수 없습니다.");
+      return; // 여기서 함수 실행을 중단
+    }
+  
     if (newMonth === 13) {
       newMonth = 1;
       newYear += 1;
@@ -156,16 +166,19 @@ function CardDetailPage({route}) {
             <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#578CFF' }}>{cardHistory.monthTotalConsumption?.toLocaleString()}</Text>원
           </Text>
           <Text style={{ marginHorizontal: 10, fontSize: 20, fontWeight: 'bold' }}>/</Text>
+          {
+            cardInfo.previousPerformance ?
           <Text>
             <Text style={{ fontSize: 24, fontWeight: 'bold', color: '#578CFF' }}>{cardInfo.previousPerformance?.toLocaleString()}</Text>원
-          </Text>
+          </Text> : <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#578CFF' }}>무실적 카드</Text>
+          }
         </View>
         <View style={styles.progressBarContainer}>
-        <View style={[styles.progressBar, { width: progress >= 0 ? `${Math.min(progress, 100)}%` : '0%'}]} />
+        <View style={[styles.progressBar, { width: progress >= 0 ? `${Math.min(progress, 100)}%` : '100%'}]} />
         {progress >= 0 ? (
           <Text style={styles.progressPercentage}>{progress.toFixed(0)}%</Text>
         ) : (
-          <Text style={styles.progressPercentage}>카드 실적 없음</Text>
+          ''
         )}
         </View>
       </View>
