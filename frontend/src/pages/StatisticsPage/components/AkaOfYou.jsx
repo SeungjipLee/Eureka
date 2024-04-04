@@ -89,7 +89,8 @@ function AkaOfYou() {
           </Text>
         )}
       </View>
-      <View style={styles.akaCard}>
+
+      <View style={[styles.akaCard, { backgroundColor: akaData[3].color }]}>
         <Image source={akaData[3].image} style={styles.image} />
         <View style={styles.contentContainer}>
           {selectedTagName ? (
