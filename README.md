@@ -4,10 +4,12 @@
 
 <br />
 
+
 ## 🕞 프로젝트 기간
 **2024.02.26 ~ 2024.04.05** (6주)
 
 <br />
+
 
 ## 💬 프로젝트 개요
 
@@ -18,6 +20,7 @@
 - 소비 통계를 기반으로 카드 상품 추천
 
 <br />
+
 
 ## 💻 서비스 화면
 
@@ -86,9 +89,7 @@
 ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) 
 ![JavaScript](https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=white) 
 
-
 <br>
-
 
 #### Backend
 
@@ -108,12 +109,12 @@
 
 ![docker](https://img.shields.io/badge/docker-2496ED?style=for-the-badge&logo=docker&logoColor=white) ![Jenkins](https://img.shields.io/badge/Jenkins-D24939?style=for-the-badge&logo=Jenkins&logoColor=white) ![nginx](https://img.shields.io/badge/nginx-009639?style=for-the-badge&logo=nginx&logoColor=white) ![amazonec2](https://img.shields.io/badge/amazonec2-FF9900?style=for-the-badge&logo=amazonec2&logoColor=white)
 
-
 <br />
+
 
 ## 🏢 아키텍처
 
-<img src="">
+<img src="./document/architecture.png">
 
 <br />
 
