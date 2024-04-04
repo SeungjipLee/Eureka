@@ -642,8 +642,8 @@ public class UserCardServiceImpl implements UserCardService {
             for (int j = 0; j < cardBenefitDetailEntityList.size(); j++) {
 
                 int benefitId = cardBenefitDetailEntityList.get(j).getCardBenefitId();
-                log.debug("cardBenefitDetailEntityList.get(j).getCardBenefitId() : "
-                    + cardBenefitDetailEntityList.get(j).getCardBenefitId());
+//                log.debug("cardBenefitDetailEntityList.get(j).getCardBenefitId() : "
+//                    + cardBenefitDetailEntityList.get(j).getCardBenefitId());
 
                 CardBenefitEntity cardBenefitEntity = cardBenefitRepository.findFirstByCardBenefitId(
                     benefitId);
@@ -675,16 +675,19 @@ public class UserCardServiceImpl implements UserCardService {
                 String imagePath2 = cardEntity2.getImagePath();
                 int imgAttr2 = cardEntity2.getImgAttr();
                 largeCategoryName = largeCategoryEntity.getCategoryName();
-                log.debug("상위 카테고리 : " + largeCategoryName);
+//                log.debug("상위 카테고리 : " + largeCategoryName);
 
                 int discountType = cardBenefitDetailEntityList.get(j).getDiscountType();
                 double discountCost = cardBenefitDetailEntityList.get(j).getDiscountCost();
                 int afterDiscount = maxDiscount - discount;
                 if(afterDiscount < 0) afterDiscount *= -1;
                 if(afterDiscount > 20000) afterDiscount = 20000;
+
+                afterDiscount = (afterDiscount / 10) * 10;
+
                 top3List.add(
                     new CardRecommendTop3List(cardId2, cardName2, info, imagePath2, imgAttr2,
-                        discountType, discountCost, discount - maxDiscount));
+                        discountType, discountCost, afterDiscount));
             }
             tlcnrList.add(new Top3ListAndLargeCategoryNameResponse(largeCategoryName, top3List));
         }

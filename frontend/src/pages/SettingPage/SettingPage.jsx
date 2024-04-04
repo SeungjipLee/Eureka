@@ -226,14 +226,11 @@ function SettingPage() {
       </View>
       <View style={styles.bottomContainer}>
         <View style={styles.switchContainer}>
-          <Text style={[styles.buttonText, { marginTop: 8 }]}>
+          <Text style={[styles.buttonText, { paddingLeft: 20 }]}>
             생체 인식 사용
           </Text>
           <Switch
-            style={[
-              { transform: [{ scaleX: 1.3 }, { scaleY: 1.3 }] },
-              { marginTop: -10 },
-            ]}
+            style={[{ transform: [{ scaleX: 1.3 }, { scaleY: 1.3 }] }]}
             trackColor={{ false: "#767577", true: "white" }}
             thumbColor={isBiometricEnabled ? "#f5dd4b" : "rgb(247,250,255)"}
             rufwp
@@ -358,40 +355,41 @@ const styles = StyleSheet.create({
     paddingTop: "5%",
   },
   switchContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    paddingHorizontal: 30,
     alignItems: "center",
     width: "90%",
-    height: "25%",
+    height: "20%",
     marginTop: "5%",
     marginLeft: "5%",
-    backgroundColor: "#007AFF",
+    backgroundColor: "#4D85FF",
     borderRadius: 10,
-    // iOS Shadow Properties
-    shadowColor: "#000", // Black color for the shadow to ensure it's visible on most backgrounds
-    shadowOffset: { width: 0, height: 4 }, // Places the shadow below the container
-    shadowOpacity: 0.3, // The opacity of the shadow; adjust as needed to make the shadow more subtle or pronounced
-    shadowRadius: 4.65, // The blur radius; a higher number results in a softer shadow
-    // Android Shadow Property
-    elevation: 8, // This property elevates the container, creating a shadow for a 3D effect on Android
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4.65,
+    elevation: 8,
   },
+
   button: {
     width: "90%",
     height: "18%",
-    backgroundColor: "#007AFF",
+    backgroundColor: "#4D85FF",
     marginTop: "5%",
     marginLeft: "5%",
     borderRadius: 10,
     justifyContent: "center",
-    // iOS Shadow Properties
-    shadowColor: "#000", // Consistent with switchContainer for a unified look
+    shadowColor: "#000",
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 4.65,
-    // Android Shadow Property
-    elevation: 8, // Matches the switchContainer to maintain consistent styling across the app
+    elevation: 8,
   },
   buttonText: {
     fontSize: 20,
     color: "white",
     textAlign: "center",
+    fontWeight: "700",
   },
 });

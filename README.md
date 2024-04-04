@@ -11,11 +11,9 @@
 
 ## 💬 프로젝트 개요
 
-**목표**
+- QR 코드 간편 결제
 
-- QR코드 간편 결제
-
-- 할인 및 실적 고려을 고려하여 결제 시 최적의 카드 추천
+- 할인 및 실적을 고려하여 결제 시 최적의 카드 추천
 
 - 소비 통계를 기반으로 카드 상품 추천
 
@@ -30,9 +28,17 @@
 
 <br />
 
+<br />
+
+<br />
+
 | 4. 간편 결제 | 5. 결제 내역 |
 |:-----:|:-----:|
-| <img src="./document/eureka/QR 결제.gif" style="height:300px; margin:10px;"> | <img src="./document/eureka/QR 결제.gif" style="height:300px; margin:10px;"> |
+| <img src="./document/eureka/QR 결제.gif" style="height:300px; margin:10px;"> | <img src="./document/eureka/결제내역.gif" style="height:300px; margin:10px;"> |
+
+<br />
+
+<br />
 
 <br />
 
@@ -42,9 +48,17 @@
 
 <br />
 
+<br />
+
+<br />
+
 | 8. 카드 상품 추천 | 9. 카드 혜택 비교 |
 |:-----:|:-----:|
 | <img src="./document/eureka/카드 상품 페이지.gif" style="height:300px; margin:10px;"> | <img src="./document/eureka/카드 비교 페이지.gif" style="height:300px; margin:10px;"> |
+
+<br />
+
+<br />
 
 <br />
 
