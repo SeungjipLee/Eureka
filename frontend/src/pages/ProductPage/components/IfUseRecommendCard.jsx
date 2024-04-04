@@ -50,7 +50,6 @@ function IfUseRecommendCard() {
           const cardsData = Array.isArray(res.data) ? res.data : [res.data];
           setCategoryCard(cardsData[0].categoryCard);
           setDdoraeCard(cardsData[0].ddoraeCard);
-          // console.log(selectCardUserCardId, "IfuseReco, cardid");
           dispatch(recommendCateCardProfit(cardsData[0].categoryCard));
         },
         (err) => {

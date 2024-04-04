@@ -90,6 +90,8 @@ function CompareCard() {
           setMyCard(cardsData[0].myCard);
           // console.log(selectCardUserCardId, "CompareCard selectCardId");
           // console.log(myCard, "mycard");
+          console.log(cardsData[0].categoryCard, "Sdfsdfsfd");
+          console.log(cardsData[0].myCard, "asdasdasd");
         },
         (err) => {
           console.log(err, "IfUseRecommendCard err");
@@ -160,7 +162,7 @@ function CompareCard() {
       <View style={styles.top}>
         <Text style={styles.maintext}>현재카드 지난달 혜택</Text>
         {selectCardBenefit?.totalDiscount ? (
-          <Text style={styles.benefitAmount}>
+          <Text style={{ fontSize: 16 }}>
             {selectCardBenefit.totalDiscount.toLocaleString()}원
           </Text>
         ) : (
@@ -229,7 +231,13 @@ function CompareCard() {
               </View>
               <View style={styles.infoBox}>
                 <Text style={styles.infoTitle}>월 할인</Text>
-                <Text style={styles.infoAmount}>준비중인 기능!</Text>
+                {myCard.discount ? (
+                  <Text style={styles.infoAmount}>
+                    {myCard.discount.toLocaleString()}원
+                  </Text>
+                ) : (
+                  <Text>불러오지 못했어요..</Text>
+                )}
               </View>
               <View style={styles.infoBox}>
                 <Text style={styles.infoTitle}>전월 실적</Text>
@@ -256,7 +264,13 @@ function CompareCard() {
               </View>
               <View style={styles.infoBox}>
                 <Text style={styles.infoTitle}>월 할인</Text>
-                <Text style={styles.infoAmount}>준비중인 기능!</Text>
+                {categoryCard.discount ? (
+                  <Text style={styles.infoAmount}>
+                    {categoryCard.discount.toLocaleString()}원
+                  </Text>
+                ) : (
+                  <Text>불러오지 못했어요..</Text>
+                )}
               </View>
               <View style={styles.infoBox}>
                 <Text style={styles.infoTitle}>전월 실적</Text>
@@ -282,7 +296,7 @@ function CompareCard() {
 
           <View style={styles.benefitList}>
             <View style={styles.benefitItem}>
-              <Text style={{ fontSize: 15, fontWeight: "500" }}>
+              <Text style={{ fontSize: 15, fontWeight: "500", marginTop: 15 }}>
                 *추천카드 혜택
               </Text>
               {discountProfit.afterDiscount ? (
@@ -295,7 +309,7 @@ function CompareCard() {
             </View>
 
             <View style={styles.benefitItem}>
-              <Text style={{ fontSize: 15, fontWeight: "500" }}>
+              <Text style={{ fontSize: 15, fontWeight: "500", marginTop: 15 }}>
                 *현재카드 혜택
               </Text>
               {discountProfit.beforeDiscount ? (
@@ -346,7 +360,7 @@ function CompareCard() {
               }
             }}
           >
-            <Text style={{ fontSize: 15, fontWeight: "600", color: "white" }}>
+            <Text style={{ fontSize: 18, fontWeight: "600", color: "white" }}>
               온라인 신청하기
             </Text>
           </Pressable>
@@ -414,7 +428,13 @@ function CompareCard() {
               </View>
               <View style={styles.infoBox}>
                 <Text style={styles.infoTitle}>월 할인</Text>
-                <Text style={styles.infoAmount}>준비중인 기능!</Text>
+                {myCard.discount ? (
+                  <Text style={styles.infoAmount}>
+                    {myCard.discount.toLocaleString()}원
+                  </Text>
+                ) : (
+                  <Text>불러오지 못했어요..</Text>
+                )}
               </View>
               <View style={styles.infoBox}>
                 <Text style={styles.infoTitle}>전월 실적</Text>
@@ -441,7 +461,13 @@ function CompareCard() {
               </View>
               <View style={styles.infoBox}>
                 <Text style={styles.infoTitle}>월 할인</Text>
-                <Text style={styles.infoAmount}>준비중인 기능!</Text>
+                {ddoraeCard.discount ? (
+                  <Text style={styles.infoAmount}>
+                    {ddoraeCard.discount.toLocaleString()}원
+                  </Text>
+                ) : (
+                  <Text>불러오지 못했어요..</Text>
+                )}
               </View>
               <View style={styles.infoBox}>
                 <Text style={styles.infoTitle}>전월 실적</Text>
@@ -468,7 +494,7 @@ function CompareCard() {
               }
             }}
           >
-            <Text style={{ fontSize: 15, fontWeight: "600", color: "white" }}>
+            <Text style={{ fontSize: 18, fontWeight: "600", color: "white" }}>
               온라인 신청하기
             </Text>
           </Pressable>
@@ -540,7 +566,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   applyBtn: {
-    borderRadius: 10,
+    borderRadius: 15,
     marginBottom: 40,
     width: 150,
     height: 60,
@@ -568,6 +594,7 @@ const styles = StyleSheet.create({
   },
   benefitAmount: {
     fontSize: 15,
+    marginTop: 15,
   },
   top: {
     flexDirection: "row",
