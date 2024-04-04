@@ -11,12 +11,42 @@ import {
 import TokenUtils from "../../../stores/TokenUtils";
 import { useNavigation } from "@react-navigation/native";
 import { getMyTags } from "../../../apis/StatisticsApi";
+import { useDispatch } from "react-redux";
+import { tagList } from "../../../slices/staticSlice";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
+
+const akaData = [
+  {
+    tagName: "편의점지기",
+    image: require("../../../../assets/HomerSimpson.png"),
+    color: "#ff886d",
+  },
+  {
+    tagName: "배달고수",
+    image: require("../../../../assets/MonkeyDLuffy.png"),
+    color: "#6cfe87",
+  },
+  {
+    tagName: "푸드파이터",
+    image: require("../../../../assets/foodfighter.png"),
+    color: "#FFFCBA",
+  },
+  {
+    tagName: "쇼핑홀릭",
+    image: require("../../../../assets/PrincessBubblegum.png"),
+    color: "#5ab6fc",
+  },
+];
 
 function AkaOfYou() {
   const navigation = useNavigation();
   const [token, setToken] = useState("");
+  const [akaList, setAkaList] = useState([]);
+  const currentMonth = new Date().getMonth() + 1;
+  const [selectedTagIndex, setSelectedTagIndex] = useState("");
+  const [selectedTagName, setSelectedTagName] = useState("");
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchToken = async () => {
@@ -31,7 +61,9 @@ function AkaOfYou() {
       getMyTags(
         token,
         (res) => {
-          console.log(res.data, "AkaOfYou");
+          setAkaList(res.data.tagList);
+          dispatch(tagList(res.data.tagList));
+          setSelectedTagName(res.data.tagList[3]?.tagName || "");
         },
         (err) => {
           console.log(err, "AkaOfYou err");
@@ -43,22 +75,37 @@ function AkaOfYou() {
   return (
     <View style={styles.container}>
       <View style={styles.noticeContainer}>
-        <Text style={styles.AkaText}>3월달의 당신은</Text>
-        <View style={styles.akaContainer}>
-          <Text style={{ fontSize: 30, fontWeight: "bold" }}>FoodFighter </Text>
-          <Text style={styles.AkaText}>에요</Text>
+        <Text style={styles.AkaText}>{currentMonth}월달의 당신은</Text>
+        {selectedTagName ? (
+          <View style={styles.akaContainer}>
+            <Text style={{ fontSize: 30, fontWeight: "bold" }}>
+              {selectedTagName}{" "}
+            </Text>
+            <Text style={styles.AkaText}>이에요</Text>
+          </View>
+        ) : (
+          <Text style={{ fontSize: 30, fontWeight: "bold" }}>
+            아직은 칭호가 없어요!
+          </Text>
+        )}
+      </View>
+      <View style={styles.akaCard}>
+        <Image source={akaData[3].image} style={styles.image} />
+        <View style={styles.contentContainer}>
+          {selectedTagName ? (
+            <>
+              <Text style={{ fontSize: 30, fontWeight: "800" }}>
+                {selectedTagName}{" "}
+              </Text>
+            </>
+          ) : (
+            <Text style={{ fontSize: 16, fontWeight: "bold" }}>
+              아직은 칭호가 없어요!
+            </Text>
+          )}
         </View>
       </View>
 
-      <View style={styles.akaCard}>
-        <Image
-          source={require("../../../../assets/foodfighter.png")}
-          style={styles.image}
-        ></Image>
-        <View style={styles.contentContainer}>
-          <Text style={{ fontSize: 25, fontWeight: "bold" }}>FoodFighter</Text>
-        </View>
-      </View>
       <View style={styles.getAka}>
         <Text style={{ fontSize: 20, fontWeight: "bold" }}>칭호획득!</Text>
       </View>
@@ -97,8 +144,10 @@ const styles = StyleSheet.create({
     }),
   },
   noticeContainer: {
+    width: 300,
+    height: 80,
     marginTop: 10,
-    marginRight: 50,
+    marginLeft: 20,
   },
   akaContainer: {
     flexDirection: "row",
@@ -108,14 +157,16 @@ const styles = StyleSheet.create({
     fontSize: 23,
     fontWeight: "400",
     color: "black",
+    marginLeft: 3,
   },
   akaCard: {
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
     marginTop: 20,
     height: 80,
-    width: 270,
+    width: 280,
+    padding: 10, // Added padding
     backgroundColor: "#FFFCBA",
     borderRadius: 20,
     ...Platform.select({
@@ -130,6 +181,10 @@ const styles = StyleSheet.create({
       },
     }),
   },
+  contentContainer: {
+    flex: 1, // Adjusted to take remaining space
+    marginLeft: 10, // Give some space between the image and the text
+  },
   getAka: {
     marginTop: 15,
   },
@@ -140,8 +195,5 @@ const styles = StyleSheet.create({
     height: 60,
     width: 80,
     marginRight: 20,
-  },
-  contentContainer: {
-    marginRight: 10,
   },
 });
