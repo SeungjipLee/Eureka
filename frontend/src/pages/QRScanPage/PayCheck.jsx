@@ -127,12 +127,17 @@ function PayCheck({ route }) {
           </Text>
 
           {selectedCard.discountAmount !== 0 ? 
-          (<Text style={{ marginVertical: 10 }}>
+          (<>
+          <Text style={{ marginVertical: 4 }}>
             <Text style={{ fontWeight: 'bold', fontSize: 20 }}>
               <Text style={{ fontWeight: 'bold', fontSize: 20, color: '#3675FF' }}>{selectedCard.discountCost} {selectedCard.discountCostType}</Text>
               <Text> {discountTypes[selectedCard.discountType]}</Text>
             </Text> 가능해요
-          </Text>)
+          </Text>
+          <Text style={{ marginBottom : 10, color: 'green'}}>{selectedCard.discountAmount.toLocaleString()}원 할인</Text>
+          </>
+
+          )
           :(<Text style={{ marginVertical: 10 }}>
             <Text style={{ fontWeight: 'bold', fontSize: 18, color: '#EB7979' }}>
               할인 가능한 혜택이 없어요 😥

@@ -1,9 +1,10 @@
 # 포팅메뉴얼
 
 ### TOC
+
 - [개발 환경](#개발-환경)
   - [1. 프로젝트 기술 스택 및 버전 정보](#1-프로젝트-기술-스택-및-버전-정보)
-  - [2. 환경변수 설정](#2-환경-변수-설정)    
+  - [2. 환경변수 설정](#2-환경-변수-설정)
     - [Back - 서비스 서버](#back-end-서비스-서버)
     - [Back - 카드사 서버](#back-end-카드사-서버)
 - [프로젝트 실행 가이드](#프로젝트-실행-가이드)
@@ -16,6 +17,7 @@
   - [4. Jenkins](#4-jenkins)
   - [5. Database](#5-database)
   - [6. apk 빌드](#6-apk-빌드)
+- [계정 정보](#계정-정보)
 
 # 개발 환경
 
@@ -361,19 +363,32 @@ npm install -g eas-cli
 ```
 
 ### 로컬 실행
+- 안드로이드 스튜디오
+  - `frontend` 프로젝트 열기
+  - `npm install` 실행
+  - 안드로이드 스튜디오 에뮬레이터 실행
+    - - pixel 7 pro
+    - sv2
+  - `npm start` 실행
+  - `Press a` - open Android
 
-- `frontend` 프로젝트 열기
-- `npm install` 실행
-- 안드로이드 스튜디오 에뮬레이터 실행
-  - - pixel 7 pro
-  - sv2
-- `npm start` 실행
-- `Press a` - open Android
+- expo 앱 (모바일 기기 사용 테스트)
+  - 스토어에서 expo 어플 설치, 로그인
+  - `frontend` 프로젝트 열기
+  - `npm install` 실행
+  - `npm start` 실행
+  - 콘솔에 생성된 QR코드를 expo어플로 촬영하여 시작
+    - 같은 와이파이에서 실행되어야 합니다.
 
 ### 배포된 앱 설치
 
 - `https://j10e101.p.ssafy.io/` 접속
 - 설치
+
+### 간편결제 테스트
+- [페이 테스트 페이지](https://j10e101.p.ssafy.io/pay) 접속
+- 가맹점과 금액 입력 후 QR코드 생성
+- 결제 테스트
 
 ## 2. Back-end 실행 가이드
 
@@ -389,6 +404,7 @@ npm install -g eas-cli
 - `JKD 17` 버전 확인
 - 환경 변수 설정
 - `src/main/java` `BackendApplication` / `CardApplication`실행
+
 
 # 배포 환경
 
@@ -651,7 +667,7 @@ pipeline {
 
 ## 5. Database
 
-### mySQL
+### MySQL
 
 - 서비스
 
@@ -703,3 +719,61 @@ eas init --id `아이디`
 ```bash
 eas build -p android --profile preview
 ```
+
+# 계정 정보
+
+### Jenkins
+
+- Id : admin
+- Password : 3ehfehswkq101@
+
+### MySQL
+
+- Id: eureka
+- Password : 3ehfehswkq101@
+
+### Redis
+
+- Password : 3ehfehswkq101@
+
+## 서비스 접속 정보
+
+`카드사 db에 유저 정보가 없다면 서비스에서 회원가입이 되지 않습니다!`
+
+### 유저 정보
+
+이름: 이싸피
+생년월일: 000102
+주민번호 뒷자리: 3
+휴대폰 번호: 010-2222-2222
+인증번호: 123456
+
+### 카드 번호, cvc 정보
+
+KB국민카드
+
+- LG U+ 체크카드
+
+  - 2000-0000-0000-0002
+
+- The CJ KB국민카드
+  - 2000-0000-0000-0006
+
+삼성카드
+
+- American Express Blue(아멕스블루)
+  - 2000-0000-0000-0003
+
+하나카드
+
+- 모두의 일상 체크카드
+  - 2000-0000-0000-0001
+- 원더카드 LIVING
+  - 2000-0000-0000-0004
+
+우리카드
+
+- SKT 우리카드
+  - 2000-0000-0000-0005
+
+공통 cvc: 000, 유효기간: 01/25, 비밀번호 앞2 : 12
