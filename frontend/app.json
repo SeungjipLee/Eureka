@@ -25,7 +25,7 @@
       "package": "com.ssafy.eureka"
     },
     "web": {
-      "favicon": "./assets/eureka-logo.png"
+      "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
