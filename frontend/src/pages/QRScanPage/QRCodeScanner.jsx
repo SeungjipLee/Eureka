@@ -54,7 +54,7 @@ export default function QRcodeScanner() {
       requestBody,
       (res) => {
         setCardList(res.data.cardList)
-        console.log(res.data.cardList)
+        // console.log(res.data.cardList)
         navigation.navigate('PayLoadingPage', {cardList: res.data.cardList, totalAmount: requestBody.totalAmount, orderId:requestBody.orderId});
       },
       (err) => {

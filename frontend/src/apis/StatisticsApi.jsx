@@ -36,8 +36,19 @@ async function getMyTop3Cards(token, yyyymm, success, fail) {
   }
 }
 
+async function getMyTags(token, success, fail) {
+  try {
+    const response = await API(token).get(`/tag/list`);
+    success(response);
+  } catch (error) {
+    fail(error);
+  }
+}
+
 export {
-  getMyTotalBenefitAmount,getMyConsumptionOfCategoryAmount,
+  getMyTotalBenefitAmount,
+  getMyConsumptionOfCategoryAmount,
   getMyBenefitAmountOfCategory,
-  getMyTop3Cards
+  getMyTop3Cards,
+  getMyTags,
 };

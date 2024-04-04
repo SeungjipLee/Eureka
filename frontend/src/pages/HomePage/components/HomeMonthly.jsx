@@ -1,8 +1,8 @@
 import { StyleSheet, View, Text, Image, Pressable } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useNavigation, useFocusEffect  } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import TokenUtils from "../../../stores/TokenUtils";
-import React, { useState, useEffect, useCallback  } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { getHomeInfo } from "../../../apis/HomeApi";
 
 function HomeMonthly() {
@@ -26,7 +26,8 @@ function HomeMonthly() {
 
   useFocusEffect(
     useCallback(() => {
-      if (token) { // 토큰이 있을 때만 getHomeInfo 호출
+      if (token) {
+        // 토큰이 있을 때만 getHomeInfo 호출
         getHomeInfo(
           token,
           currentYear + currentMonth,
@@ -38,8 +39,8 @@ function HomeMonthly() {
           (err) => {
             if (err.response.status === 404) {
               console.log(err.response.status);
-              setDiscount(0)
-              setPayAmount(0)
+              setDiscount(0);
+              setPayAmount(0);
               setWarning(true);
             }
           }
@@ -50,7 +51,7 @@ function HomeMonthly() {
 
   return (
     <Pressable onPress={() => navigation.navigate("StatisticsPage")}>
-    <View style={styles.container}>
+      <View style={styles.container}>
         <View style={{ flexDirection: "row", alignItems: "center" }}>
           <View>
             <Text style={styles.subtitle}>이번달 할인 & 소비</Text>
@@ -60,30 +61,35 @@ function HomeMonthly() {
               </Text>
             )}
           </View>
-            <MaterialCommunityIcons
-              name="chevron-right"
-              size={26}
-              style={styles.nextBtn}
-            />
+          <MaterialCommunityIcons
+            name="chevron-right"
+            size={26}
+            style={styles.nextBtn}
+          />
         </View>
         <View style={styles.midcontainer}>
-          <Image style={styles.image} source={require('../../../../assets/HomeIcon/Discount.png')}/>
+          <Image
+            style={styles.image}
+            source={require("../../../../assets/HomeIcon/Discount.png")}
+          />
           <View>
             <Text style={styles.font}>총 할인 예상 금액</Text>
-            <Text style={styles.price}>{discount}원</Text>
+            <Text style={styles.price}>{discount.toLocaleString()}원</Text>
           </View>
           <View></View>
         </View>
         <View style={styles.midcontainer}>
-          <Image style={styles.image} source={require('../../../../assets/HomeIcon/CoinWallet.png')}/>
+          <Image
+            style={styles.image}
+            source={require("../../../../assets/HomeIcon/CoinWallet.png")}
+          />
           <View>
             <Text style={styles.font}>총 결제 예상 금액</Text>
-            <Text style={styles.price}>{payAmount}원</Text>
+            <Text style={styles.price}>{payAmount.toLocaleString()}원</Text>
           </View>
           <View></View>
-          
         </View>
-    </View>
+      </View>
     </Pressable>
   );
 }
@@ -99,9 +105,16 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 12,
     paddingTop: 20,
-    shadowColor: "#D7D7D7",
     backgroundColor: "#ffffff",
+    // iOS Shadow Properties
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 }, // Shadow direction: here it is set to be bottom-right
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    // Android Shadow Property
+    elevation: 5, // This adds a shadow for Android
   },
+
   subtitle: {
     fontWeight: "bold",
     fontSize: 20,
@@ -115,6 +128,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 20,
     marginTop: 12,
+    marginLeft: -20,
   },
   image: {
     width: 50,

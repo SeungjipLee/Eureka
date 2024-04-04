@@ -88,7 +88,7 @@ function FitYourConsumption() {
   function getImageStyle(imgAttr) {
     if (imgAttr === 0) {
       // 가로 이미지
-      return styles.horizontalImage;
+      return [styles.horizontalImage, { transform: [{ rotate: "90deg" }] }]; // 가로 이미지를 세로로 회전
     } else if (imgAttr === 1) {
       // 세로 이미지
       return styles.verticalImage;
@@ -96,6 +96,18 @@ function FitYourConsumption() {
       return styles.defaultImage; // 기본 스타일
     }
   }
+
+  // function getCardImageStyle(imgAttr) {
+  //   if (imgAttr === 0) {
+  //     // 가로 이미지
+  //     return [styles.cardHorizontalImage, { transform: [{ rotate: "90deg" }] }]; // 가로 이미지를 세로로 회전
+  //   } else if (imgAttr === 1) {
+  //     // 세로 이미지
+  //     return styles.cardVerticalImage;
+  //   } else {
+  //     return styles.defaultCardImage; // 기본 스타일
+  //   }
+  // }
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -133,7 +145,14 @@ function FitYourConsumption() {
         <View key={index} style={styles.mainContent}>
           <View style={styles.titleConatiner}>
             <View style={styles.titleTextContainer}>
-              <Text style={{ fontSize: 18, fontWeight: "700", marginTop: 15 }}>
+              <Text
+                style={{
+                  fontSize: 18,
+                  fontWeight: "700",
+                  marginTop: 15,
+                  marginLeft: 10,
+                }}
+              >
                 {category.largeCategoryName}할인 BEST
               </Text>
               <Text
@@ -169,16 +188,29 @@ function FitYourConsumption() {
                 })
               }
             >
-              <Image source={{ uri: card.imagePath }} style={styles.image2} />
+              <Image
+                source={{ uri: card.imagePath }}
+                style={[
+                  card.imageAttr === 0 ? styles.image3 : styles.image4,
+                  {
+                    transform:
+                      card.imageAttr === 0 ? [{ rotate: "90deg" }] : [],
+                  },
+                ]}
+              />
               <View style={styles.cardInfo}>
                 <Text style={{ fontSize: 12, color: "#707070" }}>
                   {card.cardName}
                 </Text>
-                <Text
-                  style={{ fontSize: 14, fontWeight: "600", flexShrink: 1 }}
-                >
-                  {card.info}
-                </Text>
+                {card.info ? (
+                  <Text style={styles.cardText} numberOfLines={1}>
+                    {card.info.length > 15
+                      ? `${card.info.substring(0, 15)}...`
+                      : card.info}
+                  </Text>
+                ) : (
+                  <Text style={styles.cardText}>정보가 없네요..</Text>
+                )}
                 <Text style={{ fontSize: 14, fontWeight: "800" }}>
                   {card.afterDiscount}
                   <Text style={{ fontSize: 12, fontWeight: "600" }}>
@@ -188,6 +220,7 @@ function FitYourConsumption() {
               </View>
             </Pressable>
           ))}
+
           <View style={styles.separator}></View>
         </View>
       ))}
@@ -242,6 +275,20 @@ const styles = StyleSheet.create({
     height: 70,
     width: 40,
   },
+  image3: {
+    width: 85,
+    height: 55,
+    resizeMode: "contain",
+    marginBottom: 15,
+    marginTop: 12,
+  },
+  image4: {
+    width: 75,
+    height: 85,
+    resizeMode: "contain",
+    marginLeft: 10,
+    marginRight: 11,
+  },
   cardInfo: {
     flex: 1,
     marginLeft: 50,
@@ -276,6 +323,7 @@ const styles = StyleSheet.create({
     width: 120,
     height: 60,
     marginLeft: 20,
+    resizeMode: "contain",
   },
   verticalImage: {
     width: 60,
@@ -284,8 +332,25 @@ const styles = StyleSheet.create({
     marginRight: 15,
   },
   defaultImage: {
+    width: 60,
+    height: 80,
+  },
+  cardHorizontalImage: {
+    width: 70,
+    height: 40,
+  },
+  cardVerticalImage: {
+    width: 40,
+    height: 70,
+  },
+  defaultCardImage: {
     width: 50,
     height: 80,
+  },
+  cardText: {
+    fontSize: 14,
+    fontWeight: "600",
+    flexShrink: 1,
   },
 });
 
