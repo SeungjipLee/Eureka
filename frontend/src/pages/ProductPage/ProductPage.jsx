@@ -34,6 +34,9 @@ function ProductPage() {
   const clickMyCardValue = useSelector(
     (state) => state.productList.selectCardValue
   );
+  const checkPayCardList = useSelector(
+    (state) => state.productList.cardListLen
+  );
   const [cards, setCards] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const [token, setToken] = useState("");
@@ -88,7 +91,7 @@ function ProductPage() {
         }
       );
     }
-  }, [token]);
+  }, [token, checkPayCardList]);
 
   const handleSelectCard = (card, index) => {
     if (selectedCardIndex === index) {
