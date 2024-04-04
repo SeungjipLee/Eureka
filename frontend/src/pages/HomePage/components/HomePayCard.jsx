@@ -1,3 +1,4 @@
+import React from "react";
 import { StyleSheet, View, Text, Pressable, Image } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
@@ -27,14 +28,20 @@ function HomePayCard() {
             유레카!
           </Text>
         </View>
-        <Pressable onPress={() => navigation.navigate("SettingPage")}>
-          <View style={styles.settingIcon}>
-            <MaterialCommunityIcons
-              name="cog-outline"
-              size={26}
-              color={"#9E9797"}
-            />
-          </View>
+        <Pressable
+          onPress={() => navigation.navigate("SettingPage")}
+          style={({ pressed }) => [
+            {
+              opacity: pressed ? 0.5 : 1, // 눌렀을 때 시각적 피드백을 제공합니다.
+            },
+            styles.settingIcon,
+          ]}
+        >
+          <MaterialCommunityIcons
+            name="cog-outline"
+            size={30}
+            color={"#9E9797"}
+          />
         </Pressable>
       </View>
     </View>
@@ -57,6 +64,7 @@ const styles = StyleSheet.create({
     color: "#6797ff",
   },
   settingIcon: {
+    padding: 10, // 아이콘 주변의 터치 영역을 늘립니다.
     alignSelf: "center",
     marginRight: 20,
     marginTop: -50,

@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   twovalue: [],
-  value: null,
+  value: [],
   list: [],
 };
 
