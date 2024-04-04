@@ -1,18 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, TouchableOpacity, Text, Alert, View, Pressable, Image, Switch, Linking } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import TokenService from '../../stores/TokenUtils';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import * as ImagePicker from 'expo-image-picker';
-import SettingService from '../../stores/SettingUtils';
-
+import React, { useState, useEffect } from "react";
+import {
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  Alert,
+  View,
+  Pressable,
+  Image,
+  Switch,
+  Linking,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import TokenService from "../../stores/TokenUtils";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { SafeAreaView } from "react-native-safe-area-context";
+import * as ImagePicker from "expo-image-picker";
+import SettingService from "../../stores/SettingUtils";
 
 function SettingPage() {
   const navigation = useNavigation();
-  const [userName, setUserName] = useState('');
-  const [userBirth, setUserBirth] = useState('');
-  const [userPhoneNumber, setUserPhoneNumber] = useState('');
+  const [userName, setUserName] = useState("");
+  const [userBirth, setUserBirth] = useState("");
+  const [userPhoneNumber, setUserPhoneNumber] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
   const [isBiometricEnabled, setIsBiometricEnabled] = useState(null);
 
@@ -34,7 +43,6 @@ function SettingPage() {
     return `${part1}-${part2}-${part3}`;
   };
 
-
   const handleLogout = () => {
     // 로그아웃 확인 다이얼로그 표시
     Alert.alert(
@@ -43,10 +51,10 @@ function SettingPage() {
       [
         {
           text: "취소",
-          onPress: () => { }, // 취소 버튼 클릭 시 아무것도 하지 않음
+          onPress: () => {}, // 취소 버튼 클릭 시 아무것도 하지 않음
           style: "cancel",
         },
-        { text: "확인", onPress: () => logout() } // 확인 버튼 클릭 시 logout 함수 실행
+        { text: "확인", onPress: () => logout() }, // 확인 버튼 클릭 시 logout 함수 실행
       ],
       { cancelable: false } // 안드로이드에서 바깥쪽 클릭으로 닫히지 않도록 함
     );
@@ -58,9 +66,8 @@ function SettingPage() {
       await TokenService.clearAllData(); // 모든 토큰을 삭제합니다.
       navigation.reset({
         index: 0, // 초기화 후의 스택 인덱스를 지정합니다. 0은 스택의 첫 번째 페이지를 의미합니다.
-        routes: [{ name: 'SplashPage' }], // 이동할 경로의 배열을 지정합니다. 이 경우 SplashPage가 스택의 첫 번째이자 유일한 페이지가 됩니다.
+        routes: [{ name: "SplashPage" }], // 이동할 경로의 배열을 지정합니다. 이 경우 SplashPage가 스택의 첫 번째이자 유일한 페이지가 됩니다.
       });
-
     } catch (error) {
       Alert.alert("로그아웃 실패", "로그아웃 중 문제가 발생했습니다."); // 오류가 발생하면 사용자에게 알립니다.
     }
@@ -72,9 +79,9 @@ function SettingPage() {
     // newValue가 true일 때
     if (newValue === true) {
       // 바로 비밀번호 변경 화면으로 이동
-      navigation.navigate('VerifyPasswordChange', {
-        button: 'bio',
-        newValue: newValue // 여기서 newValue를 전달
+      navigation.navigate("VerifyPasswordChange", {
+        button: "bio",
+        newValue: newValue, // 여기서 newValue를 전달
       });
     } else {
       // newValue가 false일 때 생체 인식 사용 설정을 false로 저장
@@ -83,12 +90,16 @@ function SettingPage() {
     }
   };
 
-
   useEffect(() => {
     // 사용자 데이터 불러오기
     const fetchUserData = async () => {
       const userData = await TokenService.getUserData();
-      if (userData && userData.userName && userData.userBirth && userData.phoneNumber) {
+      if (
+        userData &&
+        userData.userName &&
+        userData.userBirth &&
+        userData.phoneNumber
+      ) {
         setUserName(userData.userName);
         setUserBirth(userData.userBirth);
         setUserPhoneNumber(userData.phoneNumber);
@@ -107,7 +118,7 @@ function SettingPage() {
     const loadBiometricPreference = async () => {
       const isEnabled = await SettingService.getBiometricEnabled();
       // 문자열 "true"나 "false"를 실제 boolean 값으로 변환
-      const isEnabledBool = isEnabled === 'true';
+      const isEnabledBool = isEnabled === "true";
       setIsBiometricEnabled(isEnabledBool);
     };
 
@@ -122,7 +133,7 @@ function SettingPage() {
 
     initializeData();
 
-    const unsubscribe = navigation.addListener('focus', () => {
+    const unsubscribe = navigation.addListener("focus", () => {
       // 화면이 포커스 될 때 호출될 함수
       initializeData();
     });
@@ -131,18 +142,17 @@ function SettingPage() {
     return unsubscribe;
   }, [navigation]);
 
-
   const requestPermission = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    if (status !== 'granted') {
+    if (status !== "granted") {
       Alert.alert(
-        '권한 요청',
-        '사진 라이브러리에 접근하기 위해 권한이 필요합니다. 설정에서 권한을 허용해주세요.',
+        "권한 요청",
+        "사진 라이브러리에 접근하기 위해 권한이 필요합니다. 설정에서 권한을 허용해주세요.",
         [
-          { text: '나중에하기', onPress: () => { } },
-          { text: '설정으로 이동', onPress: () => Linking.openSettings() }, // 사용자가 설정으로 이동하여 권한을 직접 변경할 수 있도록 합니다.
+          { text: "나중에하기", onPress: () => {} },
+          { text: "설정으로 이동", onPress: () => Linking.openSettings() }, // 사용자가 설정으로 이동하여 권한을 직접 변경할 수 있도록 합니다.
         ],
-        { cancelable: false },
+        { cancelable: false }
       );
       return false;
     }
@@ -165,7 +175,6 @@ function SettingPage() {
     }
   };
 
-
   return (
     <SafeAreaView style={styles.safeAreaView}>
       <View style={styles.topBar}>
@@ -180,11 +189,22 @@ function SettingPage() {
         <View style={styles.imageContainer}>
           <TouchableOpacity onPress={pickImage}>
             {selectedImage ? (
-              <Image source={{ uri: selectedImage }} style={styles.profileImage} />
+              <Image
+                source={{ uri: selectedImage }}
+                style={styles.profileImage}
+              />
             ) : (
-              <Image source={require('../../../assets/profileDefault.png')} style={styles.profileImage} />
+              <Image
+                source={require("../../../assets/profileDefault.png")}
+                style={styles.profileImage}
+              />
             )}
-            <MaterialCommunityIcons name="close-circle" size={30} color="black" style={styles.crossIcon} />
+            <MaterialCommunityIcons
+              name="close-circle"
+              size={30}
+              color="black"
+              style={styles.crossIcon}
+            />
           </TouchableOpacity>
         </View>
         <View style={styles.profileContainer}>
@@ -198,17 +218,25 @@ function SettingPage() {
           </View>
           <View style={styles.profileData}>
             <Text style={styles.profileTitle}>전화번호</Text>
-            <Text style={styles.profileVlue}>{formatPhoneNumber(userPhoneNumber)}</Text>
+            <Text style={styles.profileVlue}>
+              {formatPhoneNumber(userPhoneNumber)}
+            </Text>
           </View>
         </View>
       </View>
       <View style={styles.bottomContainer}>
         <View style={styles.switchContainer}>
-          <Text style={[styles.buttonText, {marginTop: 8}]}>생체 인식 사용</Text>
+          <Text style={[styles.buttonText, { marginTop: 8 }]}>
+            생체 인식 사용
+          </Text>
           <Switch
-            style={[{ transform: [{ scaleX: 1.3 }, { scaleY: 1.3 }] }, {marginTop: -10}]}
+            style={[
+              { transform: [{ scaleX: 1.3 }, { scaleY: 1.3 }] },
+              { marginTop: -10 },
+            ]}
             trackColor={{ false: "#767577", true: "white" }}
-            thumbColor={isBiometricEnabled ? "#f5dd4b" : "rgb(247,250,255)"} rufwp
+            thumbColor={isBiometricEnabled ? "#f5dd4b" : "rgb(247,250,255)"}
+            rufwp
             ios_backgroundColor="#3e3e3e"
             onValueChange={toggleBiometricEnabled}
             value={isBiometricEnabled}
@@ -216,14 +244,19 @@ function SettingPage() {
         </View>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate('VerifyPasswordChange', { button: 'passwordchange' })}>
+          onPress={() =>
+            navigation.navigate("VerifyPasswordChange", {
+              button: "passwordchange",
+            })
+          }
+        >
           <Text style={styles.buttonText}>결제 비밀번호 변경</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={handleLogout} style={styles.button}>
           <Text style={styles.buttonText}>로그아웃</Text>
         </TouchableOpacity>
       </View>
-    </SafeAreaView >
+    </SafeAreaView>
   );
 }
 
@@ -231,122 +264,134 @@ export default SettingPage;
 
 const styles = StyleSheet.create({
   safeAreaView: {
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
   },
   topBar: {
-    width: '100%',
-    height: '10%',
-    paddingTop: '2%',
-    flexDirection: 'row',
+    width: "100%",
+    height: "10%",
+    paddingTop: "2%",
+    flexDirection: "row",
   },
   pressable: {
-    width: '10%',
-    height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: "10%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
   },
   titleContainer: {
-    width: '80%',
-    height: '100%',
-    paddingLeft: '5%',
-    justifyContent: 'center',
+    width: "80%",
+    height: "100%",
+    paddingLeft: "5%",
+    justifyContent: "center",
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   middleContainer: {
-    width: '90%',
-    height: '45%',
-    marginLeft: '5%',
+    width: "90%",
+    height: "45%",
+    marginLeft: "5%",
     borderWidth: 2,
     borderRadius: 20,
-    borderColor: '#D7D7D7',
-    shadowColor: '#D7D7D7',
+    borderColor: "#D7D7D7",
+    shadowColor: "#D7D7D7",
   },
   imageContainer: {
-    width: '100%',
-    height: '40%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderBottomColor: '#b0b0b0',
+    width: "100%",
+    height: "40%",
+    justifyContent: "center",
+    alignItems: "center",
+    borderBottomColor: "#b0b0b0",
     borderBottomWidth: 2,
-    shadowColor: '#b0b0b0',
-    position: 'relative',
+    shadowColor: "#b0b0b0",
+    position: "relative",
   },
   profileImage: {
     width: 100,
     height: 100,
     borderRadius: 60,
-    backgroundColor: 'black',
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderColor: 'rgba(0,0,0,0.7)',
+    backgroundColor: "black",
+    justifyContent: "center",
+    alignItems: "center",
+    borderColor: "rgba(0,0,0,0.7)",
     borderWidth: 2,
   },
   crossIcon: {
-    position: 'absolute',
+    position: "absolute",
     left: 85,
     top: 80,
-    transform: [{ rotate: '45deg' }],
+    transform: [{ rotate: "45deg" }],
   },
   profileContainer: {
-    width: '100%',
-    height: '60%',
+    width: "100%",
+    height: "60%",
     padding: 10,
     // backgroundColor:'blue',
   },
   profileData: {
-    width: '100%',
-    height: '30%',
-    flexDirection: 'row',
+    width: "100%",
+    height: "30%",
+    flexDirection: "row",
     // backgroundColor: 'orange'
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   profileTitle: {
     flex: 1,
     // textAlign: 'left',
     fontSize: 20,
     paddingLeft: 10,
-    fontWeight: '600'
+    fontWeight: "600",
   },
   profileVlue: {
     flex: 3,
-    textAlign: 'right',
+    textAlign: "right",
     fontSize: 20,
     paddingRight: 10,
-    fontWeight: '600'
+    fontWeight: "600",
   },
   bottomContainer: {
-    width: '100%',
-    height: '45%',
-    paddingTop: '5%',
+    width: "100%",
+    height: "45%",
+    paddingTop: "5%",
   },
   switchContainer: {
-    // flexDirection: 'row',
-    alignItems: 'center',
-    // justifyContent: 'space-between',
-    width: '90%',
-    height: '25%',
-    marginTop: '5%',
-    marginLeft: '5%',
-    backgroundColor: '#007AFF',
+    alignItems: "center",
+    width: "90%",
+    height: "25%",
+    marginTop: "5%",
+    marginLeft: "5%",
+    backgroundColor: "#007AFF",
     borderRadius: 10,
+    // iOS Shadow Properties
+    shadowColor: "#000", // Black color for the shadow to ensure it's visible on most backgrounds
+    shadowOffset: { width: 0, height: 4 }, // Places the shadow below the container
+    shadowOpacity: 0.3, // The opacity of the shadow; adjust as needed to make the shadow more subtle or pronounced
+    shadowRadius: 4.65, // The blur radius; a higher number results in a softer shadow
+    // Android Shadow Property
+    elevation: 8, // This property elevates the container, creating a shadow for a 3D effect on Android
   },
   button: {
-    width: '90%',
-    height: '18%',
-    backgroundColor: '#007AFF',
-    marginTop: '5%',
-    marginLeft: '5%',
+    width: "90%",
+    height: "18%",
+    backgroundColor: "#007AFF",
+    marginTop: "5%",
+    marginLeft: "5%",
     borderRadius: 10,
-    justifyContent: 'center',
+    justifyContent: "center",
+    // iOS Shadow Properties
+    shadowColor: "#000", // Consistent with switchContainer for a unified look
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4.65,
+    // Android Shadow Property
+    elevation: 8, // Matches the switchContainer to maintain consistent styling across the app
   },
   buttonText: {
     fontSize: 20,
-    color: 'white',
-    textAlign: 'center',
+    color: "white",
+    textAlign: "center",
   },
 });

@@ -143,7 +143,7 @@ function IfUseRecommendCard() {
             <View style={styles.subTextContainer}>
               {categoryCard.largeCategoryName && (
                 <>
-                  <Text style={{ fontSize: 15, fontWeight: "500" }}>
+                  <Text style={{ fontSize: 16, fontWeight: "600" }}>
                     {`${categoryCard.largeCategoryName}`}{" "}
                     <Text style={styles.subText1}>에서</Text>
                   </Text>
@@ -155,7 +155,9 @@ function IfUseRecommendCard() {
                 style={{ fontSize: 14, fontWeight: "400", color: "#71b4f3" }}
               >
                 {categoryCard.afterDiscount - categoryCard.beforeDiscount}
-                <Text style={{ fontSize: 12 }}>원 더 할인받아요!</Text>
+                <Text style={{ fontSize: 12, fontWeight: "400" }}>
+                  원 더 할인받아요!
+                </Text>
               </Text>
             </View>
           </Pressable>
@@ -224,8 +226,8 @@ const styles = StyleSheet.create({
     width: "80%",
   },
   maintext: {
-    fontSize: 19,
-    fontWeight: "400",
+    fontSize: 20,
+    fontWeight: "500",
     textAlign: "center", // 텍스트 가운데 정렬
     lineHeight: 22, // 줄 간격 조절
   },
@@ -269,17 +271,17 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   subText1: {
-    fontSize: 13,
+    fontSize: 15,
     fontWeight: "500",
   },
   subText2: {
     marginTop: 10,
-    fontSize: 11,
-    fontWeight: "400",
+    fontSize: 13,
+    fontWeight: "500",
   },
   subText3: {
     fontSize: 16,
-    fontWeight: "500",
+    fontWeight: "600",
   },
   compareCard: {
     justifyContent: "center",
