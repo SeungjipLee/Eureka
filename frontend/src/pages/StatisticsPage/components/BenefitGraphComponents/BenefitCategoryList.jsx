@@ -1,11 +1,11 @@
 import React from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
 import { useSelector } from "react-redux";
-import { createSelector } from 'reselect';
+import { createSelector } from "reselect";
 
 const getCategories = createSelector(
-  state => state.staticList,
-  staticList => staticList.value || []
+  [(state) => state.staticList.value],
+  (value) => value || []
 );
 
 const categoryImages = {
