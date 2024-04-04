@@ -147,6 +147,6 @@ const styles = StyleSheet.create({
   },
   nextBtn: {
     marginTop: 15,
-    marginLeft: 10,
+    marginLeft: 120,
   },
 });

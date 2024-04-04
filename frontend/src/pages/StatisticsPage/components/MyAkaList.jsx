@@ -9,70 +9,69 @@ import {
   Image,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
+
+const akaData = [
+  {
+    tagName: "편의점지기",
+    image: require("../../../../assets/HomerSimpson.png"),
+    color: "#ff886d",
+  },
+  {
+    tagName: "배달고수",
+    image: require("../../../../assets/MonkeyDLuffy.png"),
+    color: "#6cfe87",
+  },
+  {
+    tagName: "푸드파이터",
+    image: require("../../../../assets/foodfighter.png"),
+    color: "#FFFCBA",
+  },
+  {
+    tagName: "쇼핑홀릭",
+    image: require("../../../../assets/PrincessBubblegum.png"),
+    color: "#5ab6fc",
+  },
+];
 
 function MyAkaList() {
   const navigation = useNavigation();
+  // Using useSelector if needed here to fetch userInfo or other redux state
+
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
-        <Pressable onPress={() => navigation.navigate("StatisticsPage1")}>
+        <Pressable onPress={() => navigation.goBack()}>
           <MaterialCommunityIcons
             name="chevron-left"
-            size={80}
-            style={styles.nextBtn}
+            size={40}
+            color="#cacaca"
           />
         </Pressable>
-      </View>
-
-      <View style={styles.midContainer}>
         <View style={styles.noticeContainer}>
-          <Text style={styles.noticeText}>옥세훈님이</Text>
-          <Text style={styles.noticeText}>모은 칭호는 3개</Text>
+          <Text style={styles.noticeText}>당신이 지금까지</Text>
+          <Text style={styles.noticeText}>모은 칭호는 {akaData.length}개</Text>
         </View>
       </View>
 
       <View style={styles.bottomContainer}>
-        <View style={styles.akaCard}>
-          <Image
-            source={require("../../../../assets/foodfighter.png")}
-            style={styles.image}
-          ></Image>
-          <View style={styles.contentContainer}>
-            <Text style={{ fontSize: 25, fontWeight: "bold" }}>
-              FoodFighter
-            </Text>
+        {akaData.map((aka, index) => (
+          <View
+            key={index}
+            style={[styles.akaCard, { backgroundColor: aka.color }]}
+          >
+            <Image source={aka.image} style={styles.image} />
+            <View style={styles.contentContainer}>
+              <Text style={{ fontSize: 25, fontWeight: "bold" }}>
+                {aka.tagName}
+              </Text>
+            </View>
           </View>
-        </View>
-
-        <View style={styles.akaCard}>
-          <Image
-            source={require("../../../../assets/foodfighter.png")}
-            style={styles.image}
-          ></Image>
-          <View style={styles.contentContainer}>
-            <Text style={{ fontSize: 25, fontWeight: "bold" }}>
-              FoodFighter
-            </Text>
-          </View>
-        </View>
-
-        <View style={styles.akaCard}>
-          <Image
-            source={require("../../../../assets/foodfighter.png")}
-            style={styles.image}
-          ></Image>
-          <View style={styles.contentContainer}>
-            <Text style={{ fontSize: 25, fontWeight: "bold" }}>
-              FoodFighter
-            </Text>
-          </View>
-        </View>
+        ))}
       </View>
     </View>
   );
 }
-
-export default MyAkaList;
 
 const styles = StyleSheet.create({
   container: {
@@ -80,37 +79,39 @@ const styles = StyleSheet.create({
   },
   topContainer: {
     flex: 1,
+    alignItems: "flex-start",
+    marginTop: 60,
+    marginLeft: 10,
   },
   midContainer: {
     flex: 1,
   },
   bottomContainer: {
     flex: 3,
-    marginLeft: 20,
+    alignItems: "center",
+    marginLeft: -20,
   },
   nextBtn: {
-    start: "end",
     color: "#cacaca",
-    marginTop: 80,
-    marginLeft: 5,
   },
   noticeContainer: {
     marginTop: 25,
-    marginLeft: 30,
+    alignItems: "center",
+    marginLeft: 20,
   },
   noticeText: {
-    fontSize: 35,
-    fontWeight: "semibold",
+    fontSize: 25,
+    fontWeight: "600",
   },
   akaCard: {
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
     marginTop: 15,
-    height: 90,
     width: 350,
-    backgroundColor: "#FFFCBA",
+    height: 90,
     borderRadius: 20,
+    paddingHorizontal: 20, // Added padding
     ...Platform.select({
       ios: {
         shadowColor: "#000",
@@ -129,6 +130,8 @@ const styles = StyleSheet.create({
     marginRight: 20,
   },
   contentContainer: {
-    marginRight: 10,
+    flex: 1, // Ensure content container fills the rest of the card
   },
 });
+
+export default MyAkaList;
