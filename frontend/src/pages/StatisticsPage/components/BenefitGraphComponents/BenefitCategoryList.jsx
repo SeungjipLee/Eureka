@@ -1,12 +1,12 @@
 import React from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
 import { useSelector } from "react-redux";
-import { createSelector } from "reselect";
+// import { createSelector } from "reselect";
 
-const getCategories = createSelector(
-  [(state) => state.staticList.value],
-  (value) => value || []
-);
+// const getCategories = createSelector(
+//   [(state) => state.staticList.value],
+//   (value) => value || []
+// );
 
 const categoryImages = {
   모든가맹점: require("../../../../../assets/CategoryIcon/0.png"),
@@ -38,7 +38,9 @@ const categoryImages = {
 };
 
 function BenefitCategoryList() {
-  const categories = useSelector(getCategories);
+  // createSelector 없이 직접 상태 선택
+  const categories = useSelector((state) => state.staticList.value || []);
+
   const totalBenefit =
     categories.length > 0 ? categories[categories.length - 1].totalDiscount : 0;
 
