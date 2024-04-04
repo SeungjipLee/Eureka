@@ -204,9 +204,9 @@ function SettingPage() {
       </View>
       <View style={styles.bottomContainer}>
         <View style={styles.switchContainer}>
-          <Text style={[styles.buttonText, {marginTop: 8}]}>생체 인식 사용</Text>
+          <Text style={[styles.buttonText, {paddingLeft: 20}]}>생체 인식 사용</Text>
           <Switch
-            style={[{ transform: [{ scaleX: 1.3 }, { scaleY: 1.3 }] }, {marginTop: -10}]}
+            style={[{ transform: [{ scaleX: 1.3 }, { scaleY: 1.3}] }]}
             trackColor={{ false: "#767577", true: "white" }}
             thumbColor={isBiometricEnabled ? "#f5dd4b" : "rgb(247,250,255)"} rufwp
             ios_backgroundColor="#3e3e3e"
@@ -325,15 +325,16 @@ const styles = StyleSheet.create({
     paddingTop: '5%',
   },
   switchContainer: {
-    // flexDirection: 'row',
+    flexDirection: 'row',
     alignItems: 'center',
-    // justifyContent: 'space-between',
+    justifyContent: 'space-between',
     width: '90%',
-    height: '25%',
+    height: '20%',
     marginTop: '5%',
     marginLeft: '5%',
     backgroundColor: '#007AFF',
     borderRadius: 10,
+    paddingHorizontal: 30
   },
   button: {
     width: '90%',
