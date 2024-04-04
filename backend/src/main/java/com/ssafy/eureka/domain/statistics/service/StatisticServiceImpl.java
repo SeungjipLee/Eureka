@@ -182,8 +182,11 @@ public class StatisticServiceImpl implements StatisticService {
         checkUserCardExistsByUserId(userId);
 
         DateParserUtil parser = new DateParserUtil(yyyyMM);
-        String year = parser.getYear();
-        String month = parser.getMonth();
+
+        LocalDate currentDate = LocalDate.now();
+
+        String year = currentDate.format(DateTimeFormatter.ofPattern("yyyy"));
+        String month = currentDate.format(DateTimeFormatter.ofPattern("MM"));
 
         List<BestCardStatistics> bestCardStatisticsList =
                 discountStaticRepository.findCardStatisticsByUserIdAndDate(Integer.parseInt(userId), year, month);
