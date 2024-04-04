@@ -20,7 +20,7 @@ function HomeOnlyPay() {
     };
     fetchToken();
   }, []);
-  
+
   useFocusEffect(
     useCallback(() => {
       if (token) {
@@ -71,9 +71,16 @@ const styles = StyleSheet.create({
     borderColor: "#D7D7D7",
     borderRadius: 20,
     paddingHorizontal: 12,
-    shadowColor: "#D7D7D7",
     backgroundColor: "#ffffff",
+    // iOS Shadow Properties
+    shadowColor: "#000", // A darker shadow color for better contrast
+    shadowOffset: { width: 0, height: 2 }, // This creates a shadow below the container
+    shadowOpacity: 0.25, // Adjust the opacity to make the shadow more subtle or pronounced
+    shadowRadius: 3.84, // The blur radius of the shadow; higher values make a softer shadow
+    // Android Shadow Property
+    elevation: 5, // Adds depth with a shadow, making the container stand out
   },
+
   midcontainer: {
     flexDirection: "row",
     justifyContent: "space-between",
