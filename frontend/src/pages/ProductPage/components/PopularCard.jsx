@@ -97,8 +97,8 @@ function PopularCard() {
         <View style={styles.maintextContainer}>
           <Text style={styles.notice}>또래들은</Text>
           <Text style={styles.notice}>어떤 카드를 좋아할까요?</Text>
-          <Text style={styles.subText}>또래 인기카드와</Text>
-          <Text style={styles.subText}>유레카 인기카드를 가져왔어요</Text>
+          <Text style={styles.subText}>유레카 인기카드와</Text>
+          <Text style={styles.subText}>또래 인기카드를 가져왔어요</Text>
         </View>
 
         <Image
@@ -112,7 +112,7 @@ function PopularCard() {
           <Text style={styles.tabText}>인기카드</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => scrollToSection(ddoraeRef)}>
-          <Text style={styles.tabText}>또래추천카드</Text>
+          <Text style={styles.tabText}>또래인기카드</Text>
         </TouchableOpacity>
       </View>
       <View style={styles.separator}></View>
@@ -150,7 +150,7 @@ function PopularCard() {
         <View style={styles.separator} />
 
         <View ref={ddoraeRef}>
-          <Text style={styles.sectionTitle}>또래추천카드</Text>
+          <Text style={styles.sectionTitle}>또래인기카드</Text>
           {ddoraeCards.map((card, index) => (
             <Pressable
               key={`ddorae_${card.cardId}_${index}`}
@@ -199,10 +199,12 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   sectionTitle: {
-    fontSize: 18,
+    fontSize: 25,
     fontWeight: "400",
     marginVertical: 10,
-    marginLeft: 10,
+    marginLeft: 20,
+    marginBottom: 30,
+    marginTop: 25,
   },
   cardItem: {
     flexDirection: "row",

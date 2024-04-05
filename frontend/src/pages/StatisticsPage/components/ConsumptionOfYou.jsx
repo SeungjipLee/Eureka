@@ -16,14 +16,14 @@ import TokenUtils from "../../../stores/TokenUtils";
 const SCREEN_WIDTH = Dimensions.get("window").width;
 const categoryColors = {
   0: "#ebc7fd",
-  1: "#fcb3b3",
-  2: "#fff6bc",
+  1: "#FF7674",
+  2: "#FF7674",
   3: "#a6fca9",
   4: "#c0c0c0",
-  5: "#d8d8d8",
+  5: "#FF8E8C",
   6: "#aad5fa",
   7: "#90cad6",
-  8: "#f2fd75",
+  8: "#88F2C5",
   9: "#9cd5f2",
   10: "#95e1ff",
   11: "#ffd586",
@@ -34,7 +34,7 @@ const categoryColors = {
   16: "#52d846",
   17: "#E8F5E9",
   18: "#E1F5FE",
-  19: "#212121",
+  19: "#ac7575",
   20: "#CFD8DC",
   21: "#F5F5F5",
   22: "#baf1a6",
@@ -118,6 +118,7 @@ function ConsumptionOfYou() {
         (res) => {
           setTotalConsumption(res.data.totalConsumption);
           setCategories(res.data.consumptionList);
+          console.log(res.data.consumptionList, "consumptionofyou");
         },
         (err) => {
           console.log(err, "ConsumptionOfYou, 소비 카테고리 불러오기 실패");

@@ -76,7 +76,7 @@ function SelectCardInfo() {
       >
         <MaterialCommunityIcons
           name="chevron-left"
-          size={40}
+          size={45}
           style={styles.nextBtn}
         />
       </Pressable>
@@ -135,7 +135,8 @@ export default SelectCardInfo;
 
 const styles = StyleSheet.create({
   nextBtn: {
-    marginTop: 30,
+    marginTop: 60,
+    marginLeft: 20,
     marginBottom: 20,
     color: "#b0b0b0",
   },
@@ -197,8 +198,8 @@ const styles = StyleSheet.create({
   },
   separator: {
     height: 0.7,
-    width: "95%",
+    width: "90%",
     backgroundColor: "#a2a2a2",
-    marginLeft: 10,
+    marginLeft: 20,
   },
 });

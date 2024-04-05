@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  value: null,
+  value: 1,
   selectCardValue: false,
   payCards: [],
   selectPayCardInfo: null,
