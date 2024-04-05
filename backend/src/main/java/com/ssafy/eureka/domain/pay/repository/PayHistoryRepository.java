@@ -19,10 +19,12 @@ public interface PayHistoryRepository extends JpaRepository<PayHistoryEntity, In
     BigInteger findPayApprovedAmtByUserIdAndDate(@Param("userId") int userId, @Param("year") String year, @Param("month") String month);
 
     @Query(value = "SELECT ph.* FROM pay_history ph " +
-        "JOIN user_card uc ON ph.user_card_id = uc.user_card_id " +
-        "WHERE uc.user_id = :userId " +
-        "AND DATE_FORMAT(ph.approved_date_time, '%Y') = :year " +
-        "AND DATE_FORMAT(ph.approved_date_time, '%m') = :month",
-        nativeQuery = true)
-    List<PayHistoryEntity> findByUserIdAndYearAndMonthAsString(int userId, String year, String month);
+            "JOIN user_card uc ON ph.user_card_id = uc.user_card_id " +
+            "WHERE uc.user_id = :userId " +
+            "AND DATE_FORMAT(ph.approved_date_time, '%Y') = :year " +
+            "AND DATE_FORMAT(ph.approved_date_time, '%m') = :month " +
+            "ORDER BY ph.approved_date_time DESC",
+            nativeQuery = true)
+    List<PayHistoryEntity> findByUserIdAndYearAndMonthAsString(@Param("userId") int userId, @Param("year") String year, @Param("month") String month);
+
 }

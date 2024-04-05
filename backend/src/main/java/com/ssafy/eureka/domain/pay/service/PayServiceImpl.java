@@ -62,20 +62,17 @@ import org.springframework.stereotype.Service;
 public class PayServiceImpl implements PayService {
 
     private final UserCardRepository userCardRepository;
-    private final UserRepository userRepository;
 
     private final MydataTokenRepository mydataTokenRepository;
     private final PayHistoryRepository payHistoryRepository;
     private final PayInfoRepository payInfoRepository;
     private final PaymentFeign paymentFeign;
-    private final MyDataFeign myDataFeign;
 
     private final CardBenefitDetailRepository cardBenefitDetailRepository;
     private final SmallCategoryRepository smallCategoryRepository;
     private final LargeCategoryRepository largeCategoryRepository;
     private final CardRepository cardRepository;
 
-    private final PayUtil payUtil;
 
     private final ConsumptionStaticRepository consumptionStaticRepository;
     private final ConsumptionLargeStaticRepository consumptionLargeStaticRepository;
@@ -313,6 +310,10 @@ public class PayServiceImpl implements PayService {
         List<PayHistoryEntity> payHistoryList = payHistoryRepository.findByUserIdAndYearAndMonthAsString
             (Integer.parseInt(userId), yyyymm.substring(0, 4), yyyymm.substring(4, 6));
 
+        for (PayHistoryEntity payHistory : payHistoryList){
+
+        log.debug("payHistoryList :" + payHistory.getApprovedNum());
+        }
         List<PayHistoryListResponse> list = new ArrayList<>();
 
         int totalAmount = 0;
@@ -321,7 +322,6 @@ public class PayServiceImpl implements PayService {
             totalAmount += payHistory.getApprovedAmt();
             totalDiscount += payHistory.getDiscount();
 
-            payHistory.getUserCardId();
 
             UserCardEntity userCard = userCardRepository.findByUserCardId(payHistory.getUserCardId())
                 .orElse(null);
@@ -337,8 +337,6 @@ public class PayServiceImpl implements PayService {
             list.add(new PayHistoryListResponse(
                 card.getCardName(), payHistory, largeCategoryName, smallCategoryName
             ));
-
-
         }
 
         return new PayHistoryResponse(
