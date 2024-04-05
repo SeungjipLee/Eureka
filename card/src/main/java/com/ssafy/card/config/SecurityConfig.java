@@ -78,7 +78,6 @@ public class SecurityConfig {
 
 
         // 특정 경로 요청이 왔을 때 모든 사용자가 사용할 수 있게,
-        // Admin 사용자만 사용할 수 있게,
         // 로그인 해야만 접근할 수 있게 등 로직 작성
         http
                 // csrf disable
@@ -97,7 +96,6 @@ public class SecurityConfig {
                         .requestMatchers("/join/**").permitAll()
                         .requestMatchers("/login").permitAll()
 
-//                        .requestMatchers("/admin").hasRole("ADMIN")
 
                         // requestMatchers로 특정한 경로 외에 모든 경로에 대한 처리
                         .anyRequest().authenticated()

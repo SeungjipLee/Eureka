@@ -3,9 +3,8 @@ package com.ssafy.card.Card.service.implementation;
 import com.ssafy.card.Card.dto.request.ApprovePayRequest;
 import com.ssafy.card.Card.dto.response.ApprovePayResponse;
 import com.ssafy.card.Card.dto.response.CardHistoryResponse;
-import com.ssafy.card.Card.entity.CardEntity;
 import com.ssafy.card.Card.entity.CardHistoryEntity;
-import com.ssafy.card.Card.entity.repository.CardHistoryRepository;
+import com.ssafy.card.Card.repository.CardHistoryRepository;
 import com.ssafy.card.Card.service.CardService;
 import com.ssafy.card.User.dto.response.UserCardResponse;
 import com.ssafy.card.User.entity.UserCardEntity;
@@ -21,7 +20,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j

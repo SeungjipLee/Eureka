@@ -24,7 +24,6 @@ import java.io.IOException;
 public class JwtFilter extends OncePerRequestFilter {
 
     // 토큰을 가지고 있는 유저인지 필터하는 곳
-
     private final JwtUtil jwtUtil;
 
     @Override

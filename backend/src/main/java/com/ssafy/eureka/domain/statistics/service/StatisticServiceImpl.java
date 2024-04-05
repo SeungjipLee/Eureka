@@ -279,11 +279,6 @@ public class StatisticServiceImpl implements StatisticService {
 
 
         for (CardOwnershipDto ownershipStatic : cardOwnershipStaticList) {
-//            Pageable pageable = PageRequest.of(0, 5);
-//            List<LargeCategoryEntity> categoryList =
-//                    cardBenefitDetailRepository.findByCardId(ownershipStatic.getCardId(), pageable);
-//            ownershipStatic.setCategoryList(categoryList);
-
 
             List<CardBenefitEntity> benbefitIdList = cardBenefitRepository.findAllCardBenefitIdsByCardId(ownershipStatic.getCardId());
 

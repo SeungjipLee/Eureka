@@ -19,7 +19,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
-    // 로그인하는 유저 정보 가져옴
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 

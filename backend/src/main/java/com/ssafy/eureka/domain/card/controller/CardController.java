@@ -52,13 +52,10 @@ public class CardController {
         cardService.cardProdDetail(cardId);
         return ResponseEntity.ok(cardService.cardProdDetail(cardId));
     }
-
-
     @Operation(summary = "절대 임의로 하지 말기!!!")
     @GetMapping("/admin/regist")
     public ResponseEntity<?> registAllCardProduct (){
         log.debug("카드 상품 등록");
-//        cardService.registAllCardProduct();
         return ResponseEntity.ok().build();
     }
 

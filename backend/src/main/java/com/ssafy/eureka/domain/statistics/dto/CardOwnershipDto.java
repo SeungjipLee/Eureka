@@ -22,22 +22,6 @@ public class CardOwnershipDto {
 
     List<BenefitCompareInfo> benefitComapareList;
 
-    public CardOwnershipDto(int cardId, String cardName, String info, String imagePath, int imageAttr, int ownershipCount) {
-        this.cardId = cardId;
-        this.cardName = cardName;
-        this.info = info;
-        this.imagePath = imagePath;
-        this.imageAttr = imageAttr;
-        this.ownershipCount = (long) ownershipCount;
-    }
-
-    public CardOwnershipDto(int cardId, String cardName, String imagePath, int imageAttr, Long ownershipCount) {
-        this.cardId = cardId;
-        this.cardName = cardName;
-        this.imagePath = imagePath;
-        this.imageAttr = imageAttr;
-        this.ownershipCount = ownershipCount;
-    }
 
     public CardOwnershipDto(int cardId, String cardName, String imagePath, int imageAttr, int ownershipCount) {
         this.cardId = cardId;

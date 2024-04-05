@@ -25,21 +25,7 @@ public interface CardBenefitDetailRepository extends JpaRepository<CardBenefitDe
     List<CardBenefitDetailEntity> findTop3ByLargeCategoryIdOrderByDiscountCostDesc(@Param("largeCategoryId") int largeCategoryId);
 
     @Query("SELECT cbd FROM CardBenefitDetailEntity cbd WHERE cbd.cardBenefitId IN (SELECT cb.cardBenefitId FROM CardBenefitEntity cb WHERE cb.cardId = :cardId) AND (cbd.smallCategoryId = :smallCategoryId OR (cbd.largeCategoryId = :largeCategoryId AND cbd.smallCategoryId IS NULL))")
-    Optional<CardBenefitDetailEntity> findCardBenefitDetailsByCardIdAndCategory(@Param("cardId") int cardId, @Param("largeCategoryId") int largeCategoryId, @Param("smallCategoryId") Integer smallCategoryId);
-    @Query("SELECT DISTINCT new com.ssafy.eureka.domain.category.dto.LargeCategoryEntity(cbd.largeCategoryId, lc.categoryName ) " +
-           "FROM CardBenefitDetailEntity cbd " +
-           "JOIN LargeCategoryEntity lc ON cbd.largeCategoryId = lc.largeCategoryId " +
-           "JOIN CardBenefitEntity cb ON cbd.cardBenefitId = cb.cardBenefitId " +
-           "JOIN CardEntity c ON cb.cardId = c.cardId " +
-            "WHERE c.cardId = :cardId AND cbd.largeCategoryId != 26")
-    List<LargeCategoryEntity> findByCardId(@Param("cardId") int cardId, Pageable pageable);
-
-    @Query("SELECT cbd FROM CardBenefitDetailEntity cbd WHERE cbd.cardBenefitId IN (SELECT cb.cardBenefitId FROM CardBenefitEntity cb WHERE cb.cardId = :cardId) AND (cbd.smallCategoryId = :smallCategoryId OR (cbd.largeCategoryId = :largeCategoryId AND cbd.smallCategoryId IS NULL))")
     Page<CardBenefitDetailEntity> findCardBenefitDetailsByCardIdAndCategory(@Param("cardId") int cardId, @Param("largeCategoryId") int largeCategoryId, @Param("smallCategoryId") Integer smallCategoryId, Pageable pageable);
-
-    @Query(value = "SELECT * FROM card_benefit_detail cbd WHERE cbd.card_benefit_id IN :cardBenefitIds ORDER BY cbd.discount_cost DESC LIMIT 1", nativeQuery = true)
-    Optional<CardBenefitDetailEntity> findHighestDiscountCostByCardBenefitIds(@Param("cardBenefitIds") List<Integer> cardBenefitIds);
-
 
     @Query("SELECT cbd FROM CardBenefitDetailEntity cbd WHERE cbd.cardBenefitId IN (SELECT cb.cardBenefitId FROM CardBenefitEntity cb WHERE cb.cardId = :cardId) AND cbd.largeCategoryId = 1")
     List<CardBenefitDetailEntity> findTopByCardIdAndLargeCategoryId(@Param("cardId") int cardId, Pageable pageable);

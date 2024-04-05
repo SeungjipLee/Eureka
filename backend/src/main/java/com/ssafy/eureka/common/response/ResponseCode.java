@@ -22,13 +22,11 @@ public enum ResponseCode {
     // 인증 문자 에러
     PASSWORD_ERROR(HttpServletResponse.SC_BAD_REQUEST, "인증번호 오류"),
 
-    //
     AES_ERROR(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "비밀번호 암호화 오류"),
 
     REFRESH_TOKEN_ERROR(HttpServletResponse.SC_UNAUTHORIZED, "리프레시 토큰 오류"),
     ACCESS_TOKEN_EXPIRED(HttpServletResponse.SC_UNAUTHORIZED, "액세스 토큰 만료"),
     USER_ALREADY_EXSIST(HttpServletResponse.SC_CONFLICT, "이미 가입된 회원"),
-
 
     MY_DATA_TOKEN_ERROR(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "마이데이터 토큰 에러"),
     PAY_TOKEN_ERROR(HttpServletResponse.SC_BAD_REQUEST,"카드사 토큰 발급 에러"),

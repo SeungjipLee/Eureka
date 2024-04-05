@@ -20,13 +20,10 @@ public class PayHistoryListResponse {
     private int userId;
     private int userCardId;
     private int recommendCardId;
-//    private int largeCategoryId;
-//    private int smallCategoryId;
     private String approvedNum;
     private LocalDateTime approvedDateTime;
     private int approvedAmt;
     private int status;
-//    private LocalDateTime transDateTime;
     private Integer modifiedAmt;
     private int totalInstallCnt;
     private int discount;

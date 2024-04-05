@@ -13,15 +13,11 @@ import java.util.Optional;
 public interface CardBenefitRepository extends JpaRepository<CardBenefitEntity, String> {
 
     List<CardBenefitEntity> findByCardId(int cardId);
-    List<CardBenefitEntity> findByCardBenefitId(int cardBenefitId);
-
     Optional<CardBenefitEntity> findTopByCardId(int cardBenefitId);
 
     CardBenefitEntity findFirstByCardBenefitId(int cardBenefitId);
     @Query("SELECT c FROM CardBenefitEntity c WHERE c.cardBenefitId = :cardBenefitId")
     CardBenefitEntity findByCardBenefit(@Param("cardBenefitId") int cardBenefitId);
-
-    List<CardBenefitEntity> findAllByCardId(int cardId);
 
     @Query("SELECT cb FROM CardBenefitEntity cb WHERE cb.cardId = :cardId")
     List<CardBenefitEntity> findAllCardBenefitIdsByCardId(@Param("cardId") int cardId);

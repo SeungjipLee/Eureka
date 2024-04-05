@@ -16,12 +16,10 @@ public class CustomUserDetails  implements UserDetails {
         this.userEntity = userEntity;
     }
 
-    // Role을 부여할 게 아니라면 필요없는가?
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
         Collection<GrantedAuthority> collection = new ArrayList<>();
-
         collection.add(new GrantedAuthority() {
 
             @Override

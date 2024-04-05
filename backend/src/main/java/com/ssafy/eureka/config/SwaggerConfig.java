@@ -17,7 +17,6 @@ import io.swagger.v3.oas.models.security.SecurityRequirement;
 )@Configuration
 public class SwaggerConfig {
 
-    // http://localhost:8000/swagger-ui/index.html
 
     @Bean
     public OpenAPI openAPI() {

@@ -31,7 +31,6 @@ public class UserCardController {
         return ResponseEntity.ok(userCardService.searchUserCard(userDetails.getUsername(), searchUserCardRequest));
     }
 
-    // 해당 유저 보유 카드, 결제 카드의 카드 정보 +a 조회
     @Operation(summary = "등록한 보유 카드 조회")
     @GetMapping("/list/own")
     public ResponseEntity<?> ownUserCardList(@AuthenticationPrincipal UserDetails userDetails){
@@ -113,7 +112,6 @@ public class UserCardController {
         log.debug("추천 카드 상위 3개 카테고리 : "+ userCardId);
         return ResponseEntity.ok(userCardService.cardRecommendTop3(userDetails.getUsername(), userCardId));
     }
-
     @Operation(summary = "카테고리 1위, 또래 1위 추천")
     @GetMapping("/prod/recommand/main")
     public ResponseEntity<?> cardRecommendMain(@AuthenticationPrincipal UserDetails userDetails,

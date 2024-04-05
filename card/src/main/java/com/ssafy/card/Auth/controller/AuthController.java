@@ -40,7 +40,6 @@ public class AuthController {
         return new ApiResponse(ResponseCode.SUCCESS.getMessage(), ResponseCode.SUCCESS.getStatus(), result);
     }
 
-    // redis에 refresh 저장해놓고 재발급 때 마다 불러와서 access 새로 발급해주기
     @PostMapping("/reissue")
     public ApiResponse<?> reIssueToken(HttpServletRequest request){
 
