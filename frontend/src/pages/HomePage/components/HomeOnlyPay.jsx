@@ -66,7 +66,7 @@ export default HomeOnlyPay;
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 20,
-    height: 100,
+    height: 105,
     borderWidth: 2,
     borderColor: "#D7D7D7",
     borderRadius: 20,
