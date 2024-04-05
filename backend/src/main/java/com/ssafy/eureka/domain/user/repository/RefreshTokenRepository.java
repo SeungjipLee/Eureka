@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RefreshTokenRepository extends CrudRepository<RefreshToken, String> {
-    Optional<RefreshToken> findByUserId(String userId);
     boolean existsByUserId(String userId);
     void deleteByUserId(String userId);
 }

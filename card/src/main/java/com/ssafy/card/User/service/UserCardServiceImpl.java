@@ -1,7 +1,7 @@
 package com.ssafy.card.User.service;
 
 import com.ssafy.card.Card.entity.CardHistoryEntity;
-import com.ssafy.card.Card.entity.repository.CardHistoryRepository;
+import com.ssafy.card.Card.repository.CardHistoryRepository;
 import com.ssafy.card.User.dto.response.CardPayHistoryResponse;
 import com.ssafy.card.User.dto.response.UserCardListResponse;
 import com.ssafy.card.User.dto.response.UserCardResponse;

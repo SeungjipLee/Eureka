@@ -28,10 +28,4 @@ public class CardCompanyEntity {
     @Column(columnDefinition = "TEXT", nullable = false)
     String imagePath;
 
-    public CardCompanyEntity(CardCompanyEntity entity){
-        this.companyName = entity.getCompanyName();
-        this.orgCode = entity.getOrgCode();
-        this.cardBrand = entity.getCardBrand();
-        this.imagePath = entity.getImagePath();
-    }
 }

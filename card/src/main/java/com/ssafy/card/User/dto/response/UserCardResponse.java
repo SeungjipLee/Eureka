@@ -16,10 +16,4 @@ public class UserCardResponse {
     private String firstCardNumber;
     private String lastCardNumber;
 
-    public UserCardResponse(UserCardEntity entity){
-        this.cardId = entity.getCardId();
-        this.cardIdentifier = entity.getCardIdentifier();
-        this.firstCardNumber = getFirstCardNumber();
-        this.lastCardNumber = getLastCardNumber();
-    }
 }

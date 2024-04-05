@@ -13,8 +13,6 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Integer> {
 
-    Boolean existsByName(String name);
-    Boolean existsByPhoneNumber(String phoneNumber);
     UserEntity findByName(String username);
 
     Optional<UserEntity> findByPhoneNumber(String phoneNumber);

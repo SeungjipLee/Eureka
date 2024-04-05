@@ -31,5 +31,4 @@ public interface MyDataFeign {
         @RequestHeader("Authorization") String accessToken,
         @RequestParam("cardIdentifier") String cardIdentifier,
         @RequestParam("yyyymm") String yyyymm);
-//        @RequestBody MyDataCardHistoryRequest myDataCardHistoryRequest);
 }

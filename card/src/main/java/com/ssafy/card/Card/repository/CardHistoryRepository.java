@@ -1,4 +1,4 @@
-package com.ssafy.card.Card.entity.repository;
+package com.ssafy.card.Card.repository;
 
 import com.ssafy.card.Card.entity.CardHistoryEntity;
 import java.util.List;
@@ -16,5 +16,4 @@ public interface CardHistoryRepository extends JpaRepository<CardHistoryEntity, 
         + "AND MONTH(c.approved_date_time) = :month", nativeQuery = true)
     List<CardHistoryEntity> findByUserCardIdAndMonthAndYear(@Param("userCardId") int userCardId, @Param("year") String year, @Param("month") String month);
 
-    List<CardHistoryEntity> findByUserCardId(int userCardId);
 }

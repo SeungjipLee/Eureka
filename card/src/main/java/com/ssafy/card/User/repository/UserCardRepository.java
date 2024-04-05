@@ -14,9 +14,6 @@ public interface UserCardRepository extends JpaRepository<UserCardEntity, Intege
     Optional<UserCardEntity> findByCardNumber(String cardNumber);
     List<UserCardEntity> findAllByUserId(int userId);
 
-    @Query("SELECT u FROM UserCardEntity u")
-    List<UserCardEntity> findAllById();
-
     @Query("SELECT u FROM UserCardEntity u WHERE u.cardIdentifier = :cardIdentifier")
     Optional<UserCardEntity> findByCardIdentifier(@Param("cardIdentifier") String cardIdentifier);
 

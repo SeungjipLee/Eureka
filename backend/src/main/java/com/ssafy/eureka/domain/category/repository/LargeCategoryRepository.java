@@ -11,5 +11,4 @@ public interface LargeCategoryRepository extends JpaRepository<LargeCategoryEnti
 
     LargeCategoryEntity findByLargeCategoryId(int largeCategoryId);
 
-    List<LargeCategoryEntity> findByLargeCategoryIdNot(int largeCategoryId);
 }

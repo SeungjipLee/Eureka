@@ -186,12 +186,12 @@ public class UserCardServiceImpl implements UserCardService {
                     break;
                 }
 
-            } // cardBenefit
+            }
 
             registerCardList.add(
                 new OwnUserCardResponse(userCardEntityList.get(i), imagePath, cardName, imageAttr,
                     cardDetailBenefitList));
-        }// cardEntity
+        }
 
         return registerCardList;
     }

@@ -32,22 +32,15 @@ public class AuthServiceImpl implements AuthService {
     private final JwtUtil jwtUtil;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-//    private final RefreshTokenRepository refreshTokenRepository;
 
     @Override
     public JwtTokenResponseDto reIssueToken(HttpServletRequest dto) {
         JwtTokenResponseDto jwtTokenResponseDto = jwtUtil.reIssueToken(dto);
 
-//        System.out.println(jwtTokenResponseDto.getAccessToken());
         // username값을 phoneNumber로 대체
         String username = jwtUtil.getUsername(jwtTokenResponseDto.getRefreshToken());
         System.out.println(username);
 
-//        if(refreshTokenRepository.existsByUserName(username)){
-//            refreshTokenRepository.deleteByUserName(username);
-//        }
-
-//        refreshTokenRepository.save(new RefreshToken(username, jwtTokenResponseDto.getRefreshToken()));
 
         return new JwtTokenResponseDto("Bearer ", jwtTokenResponseDto.getAccessToken(), jwtTokenResponseDto.getRefreshToken());
 
@@ -68,7 +61,6 @@ public class AuthServiceImpl implements AuthService {
         String access = jwtUtil.createJwt("access", userEntity.getPhoneNumber(), null, 2400000L);
         String refresh = jwtUtil.createJwt("refresh", userEntity.getPhoneNumber(), null,86400000L);
 
-//        refreshTokenRepository.save(new RefreshToken(userEntity.getPhoneNumber(), refresh));
 
         return new JwtTokenResponseDto("Bearer ", access, refresh);
 

@@ -13,7 +13,6 @@ import java.util.Optional;
 public interface CardRepository extends JpaRepository<CardEntity, Integer> {
 
     CardEntity findByCardId(int cardId);
-    List<CardEntity> findAllBy();
     List<CardEntity> findByCardCompanyId(int companyId);
     @Query("SELECT c FROM CardEntity c WHERE c.cardId = :cardId")
     Optional<CardEntity> findByCard(@Param("cardId") int cardId);
