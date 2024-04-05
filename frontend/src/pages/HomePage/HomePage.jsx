@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   },
   onlypay: {
     marginBottom: 10,
-    height: 100,
+    height: 105,
   },
   foryou: {
     minHeight: 140,
