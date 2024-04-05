@@ -1,14 +1,22 @@
 import React, { useState, useEffect } from "react";
-import { FlatList, StyleSheet, Text, View, Image, TouchableOpacity, Pressable } from "react-native";
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TouchableOpacity,
+  Pressable,
+} from "react-native";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import BankListModal from "./BankListModal";
 import { getOwnCard } from "../../apis/CardAPi";
-import TokenUtils from '../../stores/TokenUtils';
+import TokenUtils from "../../stores/TokenUtils";
 
 function OwnCardPage2() {
   const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
-  const [token, setToken] = useState('');
+  const [token, setToken] = useState("");
   const [cardList, setCardList] = useState([]);
 
   useEffect(() => {
@@ -35,7 +43,7 @@ function OwnCardPage2() {
   useFocusEffect(
     React.useCallback(() => {
       fetchCardList();
-      return () => { };
+      return () => {};
     }, [token])
   );
 
@@ -44,7 +52,7 @@ function OwnCardPage2() {
   };
 
   return (
-    <View style={{ backgroundColor: '#ffffff' }}>
+    <View style={{ backgroundColor: "#ffffff" }}>
       <FlatList
         style={styles.listStyle}
         data={cardList}
@@ -53,13 +61,21 @@ function OwnCardPage2() {
         renderItem={({ item }) => (
           <TouchableOpacity
             style={styles.cardContainer}
-            onPress={() => navigation.navigate('CardDetail', { userCardId: item.userCardId })}
+            onPress={() =>
+              navigation.navigate("CardDetail", { userCardId: item.userCardId })
+            }
           >
             <Image
               source={{ uri: item.imagePath }}
               style={[
                 item.imageAttr === 0
-                  ? { width: 80, height: 52, marginStart: -15, borderRadius: 10, transform: [{ rotate: '90deg' }] }
+                  ? {
+                      width: 80,
+                      height: 52,
+                      marginStart: -15,
+                      borderRadius: 10,
+                      transform: [{ rotate: "90deg" }],
+                    }
                   : styles.cardImage,
               ]}
             />
@@ -68,9 +84,13 @@ function OwnCardPage2() {
               <View style={styles.benefitsContainer}>
                 {item.list.map((benefit, index) => (
                   <View key={index} style={styles.benefitRow}>
-                    <Text style={styles.benefitKey}>{benefit.largeCategoryName}</Text>
+                    <Text style={styles.benefitKey}>
+                      {benefit.largeCategoryName}
+                    </Text>
                     <Text style={styles.benefitValue}>
-                      {benefit.discountCostType === "%" ? `${benefit.discountCost}% 할인` : `${benefit.discountCost}원 할인`}
+                      {benefit.discountCostType === "%"
+                        ? `${benefit.discountCost}% 할인`
+                        : `${benefit.discountCost}원 할인`}
                     </Text>
                   </View>
                 ))}
@@ -96,23 +116,23 @@ function OwnCardPage2() {
   );
 }
 
-export default OwnCardPage2
+export default OwnCardPage2;
 
 const styles = StyleSheet.create({
   cardContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginVertical: 8,
     padding: 10,
     paddingBottom: 20,
   },
   listStyle: {
-    height: '86%',
+    height: "86%",
     marginBottom: 10,
   },
   cardTitle: {
     fontSize: 18,
-    fontWeight: 'bold'
+    fontWeight: "bold",
   },
   cardImage: {
     width: 52,
@@ -121,46 +141,47 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   benefitsContainer: {
-    flexDirection: 'row', // 혜택들을 세로로 나열
-    alignItems: 'flex-start',
-    marginVertical: 5
+    flexDirection: "row", // 혜택들을 세로로 나열
+    alignItems: "flex-start",
+    marginVertical: 5,
   },
   benefitRow: {
-    flexDirection: 'col',
-    alignItems: 'center',
+    flexDirection: "col",
+    alignItems: "center",
     marginBottom: 4,
     marginRight: 20,
   },
   benefitKey: {
     fontSize: 14,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginRight: 5,
   },
   benefitValue: {
     fontSize: 12,
   },
   detailButton: {
-    position: 'absolute',
+    position: "absolute",
     right: 20,
     bottom: 7,
   },
   detailButtonText: {
-    color: '#007bff',
+    color: "#007bff",
     fontSize: 14,
   },
   btn: {
     marginVertical: 20,
     width: "60%",
     height: 40,
-    alignSelf: 'center',
-    backgroundColor: '#5087FF',
+    alignSelf: "center",
+    backgroundColor: "#5087FF",
     borderRadius: 10,
     padding: 10,
+    marginBottom: 30,
   },
   btnTxt: {
-    color: '#ffffff',
+    color: "#ffffff",
     fontSize: 16,
-    fontWeight: 'bold',
-    alignSelf: 'center',
+    fontWeight: "bold",
+    alignSelf: "center",
   },
 });
