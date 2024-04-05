@@ -41,13 +41,10 @@ public class PayHistoryListResponse {
         this.userId = entity.getUserId();
         this.userCardId = entity.getUserCardId();
         this.recommendCardId = entity.getRecommendCardId();
-//        this.largeCategoryId = entity.getLargeCategoryId();
-//        this.smallCategoryId = entity.getSmallCategoryId();
         this.approvedNum = entity.getApprovedNum();
         this.approvedDateTime = entity.getApprovedDateTime();
         this.approvedAmt  = entity.getApprovedAmt();
         this.status = entity.getStatus();
-//        this.transDateTime = entity.getTransDateTime();
         this.modifiedAmt = entity.getModifiedAmt();
         this.totalInstallCnt = entity.getTotalInstallCnt();
         this.discount = entity.getDiscount();
