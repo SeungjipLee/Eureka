@@ -32,6 +32,7 @@ function IfUseRecommendCard() {
   const scrollViewRef = useRef();
   const [currentPage, setCurrentPage] = useState(0);
 
+  // console.log(selectCard.userCardId);
   useEffect(() => {
     const fetchToken = async () => {
       const accessToken = await TokenUtils.getRefreshToken();
@@ -96,7 +97,7 @@ function IfUseRecommendCard() {
   return (
     <View style={styles.container}>
       <View style={styles.maintextContainer}>
-        <Text style={styles.maintext}>내 카드를 분석했어요!</Text>
+        <Text style={styles.maintext}>소비 패턴을 분석했어요!</Text>
         <Text style={styles.maintext}>이런 카드는 어떠세요?</Text>
       </View>
 

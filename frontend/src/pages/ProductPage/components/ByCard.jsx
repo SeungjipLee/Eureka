@@ -27,5 +27,5 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   chooseOne: {},
-  cardList: {},
+  cardList: { marginBottom: 50 },
 });

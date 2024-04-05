@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   },
   benefitText: {
     fontSize: 25,
-    fontWeight: "400",
+    fontWeight: "600",
     color: "white",
   },
   amountContainer: {
@@ -88,13 +88,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   amountText: {
-    fontSize: 40,
-    fontWeight: "600",
+    fontSize: 50,
+    fontWeight: "700",
     color: "white",
   },
   won: {
-    fontSize: 20,
-    fontWeight: "300",
+    fontSize: 23,
+    fontWeight: "400",
     color: "white",
     marginTop: 10,
     marginLeft: 10,
