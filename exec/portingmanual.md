@@ -1,6 +1,5 @@
 # 포팅메뉴얼
-### [DB 덤프파일](../document/sql/)
-### [시연](../document/eureka/)
+
 ### TOC
 
 - [개발 환경](#개발-환경)
@@ -364,19 +363,32 @@ npm install -g eas-cli
 ```
 
 ### 로컬 실행
+- 안드로이드 스튜디오
+  - `frontend` 프로젝트 열기
+  - `npm install` 실행
+  - 안드로이드 스튜디오 에뮬레이터 실행
+    - - pixel 7 pro
+    - sv2
+  - `npm start` 실행
+  - `Press a` - open Android
 
-- `frontend` 프로젝트 열기
-- `npm install` 실행
-- 안드로이드 스튜디오 에뮬레이터 실행
-  - - pixel 7 pro
-  - sv2
-- `npm start` 실행
-- `Press a` - open Android
+- expo 앱 (모바일 기기 사용 테스트)
+  - 스토어에서 expo 어플 설치, 로그인
+  - `frontend` 프로젝트 열기
+  - `npm install` 실행
+  - `npm start` 실행
+  - 콘솔에 생성된 QR코드를 expo어플로 촬영하여 시작
+    - 같은 와이파이에서 실행되어야 합니다.
 
 ### 배포된 앱 설치
 
 - `https://j10e101.p.ssafy.io/` 접속
 - 설치
+
+### 간편결제 테스트
+- [페이 테스트 페이지](https://j10e101.p.ssafy.io/pay) 접속
+- 가맹점과 금액 입력 후 QR코드 생성
+- 결제 테스트
 
 ## 2. Back-end 실행 가이드
 
@@ -392,6 +404,7 @@ npm install -g eas-cli
 - `JKD 17` 버전 확인
 - 환경 변수 설정
 - `src/main/java` `BackendApplication` / `CardApplication`실행
+
 
 # 배포 환경
 
