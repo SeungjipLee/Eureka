@@ -50,9 +50,9 @@ function HomeMonthly() {
   );
 
   return (
-    <Pressable onPress={() => navigation.navigate("StatisticsPage")}>
-      <View style={styles.container}>
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
+    <View style={styles.container}>
+      <Pressable onPress={() => navigation.navigate("StatisticsPage")}>
+        <View style={styles.midheader}>
           <View>
             <Text style={styles.subtitle}>이번달 할인 & 소비</Text>
             {warning && (
@@ -89,8 +89,8 @@ function HomeMonthly() {
           </View>
           <View></View>
         </View>
-      </View>
-    </Pressable>
+      </Pressable>
+    </View>
   );
 }
 
@@ -118,7 +118,6 @@ const styles = StyleSheet.create({
   subtitle: {
     fontWeight: "bold",
     fontSize: 20,
-    marginTop: 12,
     marginStart: 12,
   },
   midcontainer: {
@@ -127,13 +126,18 @@ const styles = StyleSheet.create({
     height: 80,
     alignItems: "center",
     padding: 20,
-    marginTop: 12,
-    marginLeft: -20,
+    marginBottom: 12,
+  },
+  midheader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginHorizontal: 12,
+    padding: 12,
   },
   image: {
     width: 50,
     height: 50,
-    marginLeft: 20,
     marginEnd: 20,
   },
   font: {
@@ -145,8 +149,5 @@ const styles = StyleSheet.create({
     color: "#6797ff",
     alignSelf: "flex-end",
   },
-  nextBtn: {
-    marginTop: 15,
-    marginLeft: 120,
-  },
+
 });
