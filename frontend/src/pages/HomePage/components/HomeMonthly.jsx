@@ -73,7 +73,7 @@ function HomeMonthly() {
             source={require("../../../../assets/HomeIcon/Discount.png")}
           />
           <View>
-            <Text style={styles.font}>총 할인 예상 금액</Text>
+            <Text style={styles.font}>{"   "} 총 할인 금액</Text>
             <Text style={styles.price}>{discount.toLocaleString()}원</Text>
           </View>
           <View></View>
@@ -84,7 +84,7 @@ function HomeMonthly() {
             source={require("../../../../assets/HomeIcon/CoinWallet.png")}
           />
           <View>
-            <Text style={styles.font}>총 결제 예상 금액</Text>
+            <Text style={styles.font}>{"      "} 총 소비 금액</Text>
             <Text style={styles.price}>{payAmount.toLocaleString()}원</Text>
           </View>
           <View></View>
@@ -149,5 +149,4 @@ const styles = StyleSheet.create({
     color: "#6797ff",
     alignSelf: "flex-end",
   },
-
 });

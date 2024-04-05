@@ -105,17 +105,25 @@ function PayCardPage() {
           </TouchableOpacity>
         )}
       />
-      <Pressable onPress={() => navigation.navigate("PayCardEnroll")}>
-        <View style={styles.btnContainer}>
-          <Image
-            source={require("../../../assets/HomeIcon/Plus.png")}
-            style={styles.img}
-          />
-          <Text style={{ fontSize: 20, color: "#0050FF" }}>
-            결제 카드 등록하기
-          </Text>
-        </View>
-      </Pressable>
+      <View
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
+          marginTop: -20,
+        }}
+      >
+        <Pressable onPress={() => navigation.navigate("PayCardEnroll")}>
+          <View style={styles.btnContainer}>
+            <Image
+              source={require("../../../assets/HomeIcon/Plus.png")}
+              style={styles.img}
+            />
+            <Text style={{ fontSize: 20, color: "#0050FF" }}>
+              결제 카드 등록하기
+            </Text>
+          </View>
+        </Pressable>
+      </View>
     </View>
   );
 }
@@ -132,7 +140,7 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   listStyle: {
-    height: 450,
+    maxHeight: "73%",
   },
   cardTitle: {
     fontSize: 16,
@@ -165,13 +173,13 @@ const styles = StyleSheet.create({
   btnContainer: {
     flexDirection: "row",
     alignItems: "center",
-    height: 150,
-    width: 300,
-    margin: 20,
+    justifyContent: "center",
+    marginHorizontal: "auto",
+    minHeight: "35%",
+    width: 260,
     backgroundColor: "#F3F3F3",
     marginBottom: 100,
     borderRadius: 20,
-    justifyContent: "center",
     elevation: 5,
   },
   img: {
