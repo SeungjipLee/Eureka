@@ -59,7 +59,7 @@ function PayCardPage() {
   }, [cardList.length]);
 
   return (
-    <View style={{ backgroundColor: "#ffffff" }}>
+    <View style={{ backgroundColor: "#ffffff", height: "100%" }}>
       <FlatList
         style={styles.listStyle}
         data={cardList}
@@ -109,7 +109,7 @@ function PayCardPage() {
         style={{
           alignItems: "center",
           justifyContent: "center",
-          marginTop: -20,
+          // marginTop: -20,
         }}
       >
         <Pressable onPress={() => navigation.navigate("PayCardEnroll")}>
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   listStyle: {
-    maxHeight: "73%",
+    // maxHeight: "73%",
   },
   cardTitle: {
     fontSize: 16,
@@ -174,13 +174,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginHorizontal: "auto",
-    minHeight: "35%",
+    // marginHorizontal: "auto",
+    minHeight: "25%",
     width: 260,
     backgroundColor: "#F3F3F3",
-    marginBottom: 100,
+    // marginBottom: 100,
     borderRadius: 20,
     elevation: 5,
+    paddingHorizontal: 5,
+    paddingVertical: 30,
   },
   img: {
     height: 40,

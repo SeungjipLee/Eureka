@@ -10,9 +10,10 @@ import {
 } from "react-native";
 import TokenUtils from "../../../stores/TokenUtils";
 import { useNavigation } from "@react-navigation/native";
-import { getMyTags } from "../../../apis/StatisticsApi";
+import { getMyTags, getMyConsumptionOfCategoryAmount } from "../../../apis/StatisticsApi";
 import { useDispatch } from "react-redux";
 import { tagList } from "../../../slices/staticSlice";
+import { TAG } from "../../../utils/ImagePath";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
@@ -43,10 +44,13 @@ function AkaOfYou() {
   const navigation = useNavigation();
   const [token, setToken] = useState("");
   const [akaList, setAkaList] = useState([]);
-  const currentMonth = new Date().getMonth() + 1;
+  // const currentMonth = new Date().getMonth() + 1;
   const [selectedTagIndex, setSelectedTagIndex] = useState("");
   const [selectedTagName, setSelectedTagName] = useState("");
   const dispatch = useDispatch();
+  const currentDate = new Date();
+  const currentMonth = ("0" + (currentDate.getMonth() + 1)).slice(-2);
+  const currentYear = currentDate.getFullYear().toString();
 
   useEffect(() => {
     const fetchToken = async () => {
@@ -58,12 +62,28 @@ function AkaOfYou() {
 
   useEffect(() => {
     if (token) {
+      getMyConsumptionOfCategoryAmount(
+        token,
+        currentYear + currentMonth,
+        (res) => {
+          setSelectedTagIndex(res.data.consumptionList[0]?.categoryId - 1)
+          setSelectedTagName(TAG[res.data.consumptionList[0]?.categoryId - 1].tagName)
+        },
+        (err) => {
+          console.log(err, "AkaOfYou err");
+        }
+      );
+    }
+  }, [token]);
+
+  useEffect(() => {
+    if (token) {
       getMyTags(
         token,
         (res) => {
           setAkaList(res.data.tagList);
           dispatch(tagList(res.data.tagList));
-          setSelectedTagName(res.data.tagList[3]?.tagName || "");
+          // setSelectedTagName(res.data.tagList[3]?.tagName || "");
         },
         (err) => {
           console.log(err, "AkaOfYou err");
@@ -75,7 +95,7 @@ function AkaOfYou() {
   return (
     <View style={styles.container}>
       <View style={styles.noticeContainer}>
-        <Text style={styles.AkaText}>{currentMonth}월달의 당신은</Text>
+        <Text style={styles.AkaText}>이번 달의 당신은</Text>
         {selectedTagName ? (
           <View style={styles.akaContainer}>
             <Text style={{ fontSize: 30, fontWeight: "bold" }}>
@@ -90,8 +110,8 @@ function AkaOfYou() {
         )}
       </View>
 
-      <View style={[styles.akaCard, { backgroundColor: akaData[3].color }]}>
-        <Image source={akaData[3].image} style={styles.image} />
+      <View style={[styles.akaCard, { backgroundColor: TAG[selectedTagIndex]?.color }]}>
+        <Image source={TAG[selectedTagIndex]?.imgUrl} style={styles.image} />
         <View style={styles.contentContainer}>
           {selectedTagName ? (
             <>
