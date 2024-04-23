@@ -42,3 +42,4 @@ push_to_gerrit.sh
 
 ### yml ###
 src/main/resources/application-prod.yml
+src/main/resources/application-dev.yml
