@@ -1,4 +1,4 @@
-# <img src="./document/app_icon.png" style="width:26px; margin-bottom:-3px"> Eureka
+# <img src="./document/app_icon.png" style="width:126px; margin-bottom:-3px" > Eureka
 
 <b>마이데이터를 활용한 카드 추천 서비스</b>
 
@@ -27,7 +27,7 @@
 
 | 1. 메인화면 | 2. 보유카드 등록 | 3. 결제카드 등록 |
 |:-----:|:-----:|:-----:|
-| <img src="./document/eureka/메인 화면.gif" style="height:300px; margin:10px;"> | <img src="./document/eureka/보유카드 등록.gif" style="height:300px; margin:10px;"> | <img src="./document/eureka/결제카드 등록.gif" style="height:300px; margin:10px;"> |
+| <img src="./document/eureka/메인 화면.gif" style="height:300px; width:145px; margin:10px;"> | <img src="./document/eureka/보유카드 등록.gif" style="height:300px; width:145px; margin:10px;"> | <img src="./document/eureka/결제카드 등록.gif" style="height:300px; width:145px; margin:10px;"> |
 
 <br />
 
@@ -37,7 +37,7 @@
 
 | 4. 간편 결제 | 5. 결제 내역 |
 |:-----:|:-----:|
-| <img src="./document/eureka/QR 결제.gif" style="height:300px; margin:10px;"> | <img src="./document/eureka/결제내역.gif" style="height:300px; margin:10px;"> |
+| <img src="./document/eureka/QR 결제.gif" style="height:300px; width:145px; margin:10px;"> | <img src="./document/eureka/결제내역.gif" style="height:300px; width:145px; margin:10px;"> |
 
 <br />
 
@@ -47,7 +47,7 @@
 
 | 6. 또래 소비 비교 | 7. 통계 페이지 |
 |:-----:|:-----:|
-| <img src="./document/eureka/또래 소비 비교.gif" style="height:300px; margin:10px;"> | <img src="./document/eureka/통계 페이지.gif" style="height:300px; margin:10px;"> |
+| <img src="./document/eureka/또래 소비 비교.gif" style="height:300px; width:145px; margin:10px;"> | <img src="./document/eureka/통계 페이지.gif" style="height:300px; width:145px; margin:10px;"> |
 
 <br />
 
@@ -57,7 +57,7 @@
 
 | 8. 카드 상품 추천 | 9. 카드 혜택 비교 |
 |:-----:|:-----:|
-| <img src="./document/eureka/카드 상품 페이지.gif" style="height:300px; margin:10px;"> | <img src="./document/eureka/카드 비교 페이지.gif" style="height:300px; margin:10px;"> |
+| <img src="./document/eureka/카드 상품 페이지.gif" style="height:300px; width:145px; margin:10px;"> | <img src="./document/eureka/카드 비교 페이지.gif" style="height:300px; width:145px; margin:10px;"> |
 
 <br />
 
@@ -67,7 +67,7 @@
 
 | 10. 카드사별 카드 조회 | 11. 카테고리별 카드 조회 |
 |:-----:|:-----:|
-| <img src="./document/eureka/카드사별 카드 상품.gif" style="height:300px; margin:10px;"> | <img src="./document/eureka/카테고리별 카드 상품.gif" style="height:300px; margin:10px;"> |
+| <img src="./document/eureka/카드사별 카드 상품.gif" style="height:300px; width:145px; margin:10px;"> | <img src="./document/eureka/카테고리별 카드 상품.gif" style="height:300px; width:145px; margin:10px;"> |
 
 <br />
 
