@@ -1,4 +1,4 @@
-# <img src="./document/app_icon.png" style="width:126px; margin-bottom:-3px" > Eureka
+# <img src="./document/app_icon.png" width="80"> Eureka
 
 <b>마이데이터를 활용한 카드 추천 서비스</b>
 
@@ -23,15 +23,16 @@
 
 
 ## 🎬 UCC
-[유레카 UCC 보러가기](https://youtu.be/snYqcLqAVjM)
+### [유레카 UCC 보러가기](https://youtu.be/snYqcLqAVjM)
 
+<br />
 
 ## 💻 서비스 화면
 
 
 | 1. 메인화면 | 2. 보유카드 등록 | 3. 결제카드 등록 |
 |:-----:|:-----:|:-----:|
-| <img src="./document/eureka/메인 화면.gif" style="height:300px; width:145px; margin:10px;"> | <img src="./document/eureka/보유카드 등록.gif" style="height:300px; width:145px; margin:10px;"> | <img src="./document/eureka/결제카드 등록.gif" style="height:300px; width:145px; margin:10px;"> |
+| <img src="./document/eureka/메인 화면.gif" width="200"> | <img src="./document/eureka/보유카드 등록.gif" width="200"> | <img src="./document/eureka/결제카드 등록.gif" width="200"> |
 
 <br />
 
@@ -41,7 +42,7 @@
 
 | 4. 간편 결제 | 5. 결제 내역 |
 |:-----:|:-----:|
-| <img src="./document/eureka/QR 결제.gif" style="height:300px; width:145px; margin:10px;"> | <img src="./document/eureka/결제내역.gif" style="height:300px; width:145px; margin:10px;"> |
+| <img src="./document/eureka/QR 결제.gif" width="200"> | <img src="./document/eureka/결제내역.gif" width="200"> |
 
 <br />
 
@@ -51,7 +52,7 @@
 
 | 6. 또래 소비 비교 | 7. 통계 페이지 |
 |:-----:|:-----:|
-| <img src="./document/eureka/또래 소비 비교.gif" style="height:300px; width:145px; margin:10px;"> | <img src="./document/eureka/통계 페이지.gif" style="height:300px; width:145px; margin:10px;"> |
+| <img src="./document/eureka/또래 소비 비교.gif" width="200"> | <img src="./document/eureka/통계 페이지.gif" width="200"> |
 
 <br />
 
@@ -61,7 +62,7 @@
 
 | 8. 카드 상품 추천 | 9. 카드 혜택 비교 |
 |:-----:|:-----:|
-| <img src="./document/eureka/카드 상품 페이지.gif" style="height:300px; width:145px; margin:10px;"> | <img src="./document/eureka/카드 비교 페이지.gif" style="height:300px; width:145px; margin:10px;"> |
+| <img src="./document/eureka/카드 상품 페이지.gif" width="200"> | <img src="./document/eureka/카드 비교 페이지.gif" width="200"> |
 
 <br />
 
@@ -71,7 +72,7 @@
 
 | 10. 카드사별 카드 조회 | 11. 카테고리별 카드 조회 |
 |:-----:|:-----:|
-| <img src="./document/eureka/카드사별 카드 상품.gif" style="height:300px; width:145px; margin:10px;"> | <img src="./document/eureka/카테고리별 카드 상품.gif" style="height:300px; width:145px; margin:10px;"> |
+| <img src="./document/eureka/카드사별 카드 상품.gif" width="200"> | <img src="./document/eureka/카테고리별 카드 상품.gif" width="200"> |
 
 <br />
 
@@ -87,7 +88,7 @@
 #### Frontend
 
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white) 
-![React](https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=white) 
+![React](https://img.shields.io/badge/reactnative-61DAFB?style=for-the-badge&logo=react&logoColor=white) 
 
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) 
 ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white) 
@@ -118,7 +119,7 @@
 
 ## 🏢 아키텍처
 
-<img src="./document/architecture.png">
+<img src="./document/architecture.png"  width="600">
 
 <br />
 
@@ -586,4 +587,4 @@
 |Name|김해인|김동우|김영대|옥세훈|이승집|최용훈|
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | **Position** | CI/CD <br/> Backend | Backend | Backend | Frontend | Frontend | Frontend |
-| **Git**      | [GitHub]() | [GitHub]() | [GitHub](https://github.com/0dyk) | [GitHub]() | [GitHub](https://github.com/SeungjipLee) | [GitHub]() |
+| **Git**      | [GitHub](https://github.com/pengisblue) | [GitHub]() | [GitHub](https://github.com/0dyk) | [GitHub]() | [GitHub](https://github.com/SeungjipLee) | [GitHub]() |
